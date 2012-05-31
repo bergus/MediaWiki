@@ -3,41 +3,40 @@
 ( function( $, mw, undefined ) {
 
 	/**
-	 * @var defaultOptions {Object}
-	 * We allow people to omit these default parameters from API requests
-	 * there is very customizable error handling here, on a per-call basis
-	 * wondering, would it be simpler to make it easy to clone the api object,
-	 * change error handling, and use that instead?
+	 * Constructor to create a settings object for a particular Api
+	 *
+	 * @constructor
+	 * @param options {Object} The settings to override. See prototype for defaults
 	 */
-	var defaultOptions = {
+	function Settings(options) {
+		$.extend(this, options);
+	}
+	
+	// the defaults are exposed to the public
+	Api.defaultSettings = Settings.prototype = {
+		
+		timeout: 30000, // 30 seconds
 
-			// Query parameters for API requests
-			parameters: {
-				action: 'query',
-				format: 'json'
-			},
-
-			// Ajax options for jQuery.ajax()
-			ajax: {
-				url: mw.util.wikiScript( 'api' ),
-
-				ok: function() {},
-
-				// caller can supply handlers for http transport error or api errors
-				err: function( code, result ) {
-					mw.log( 'mw.Api error: ' + code, 'debug' );
-				},
-
-				timeout: 30000, // 30 seconds
-
-				dataType: 'json'
-			}
-		};
+		format: "json", // default response format
+		
+		remote: { // settings for remote Apis that don't have CORS enabled
+			url: { format: "json" },
+			jsonp: "callback"
+		},
+		
+		// @todo: should be queried from the corresponding User object
+		highlimits: false, // whether the current user has the apihighlimits right
+		
+		maxURIlength: 2000, // maximum character length for serialized query parameters - when above they will get POSTed
+		/*	http://bots.wmflabs.org/~petrb/logs/%23wikimedia-operations/20120424.txt:
+			[21:29:37] <RoanKattouw>   Does anyone know at what URL length Squid will return ERR_TOO_BIG?
+			[21:29:49] <RoanKattouw>   Someone in -dev triggered it with a long API request and he's wondering what the limit is
+			[21:45:50] <binasher>      RoanKattouw: I think it's 8k but might only be 4k  */
+	};
 
 	/**
 	 * Constructor to create an object to interact with the API of a particular MediaWiki server.
 	 *
-	 * @todo Share API objects with exact same config.
 	 * @example
 	 * <code>
 	 * var api = new mw.Api();
@@ -50,24 +49,26 @@
 	 * </code>
 	 *
 	 * @constructor
-	 * @param options {Object} See defaultOptions documentation above. Ajax options can also be
-	 * overridden for each individual request to jQuery.ajax() later on.
+	 * @param url {String} The URL to the MediaWiki api entry point.
+	 * @param options {Object} See Settings documentation above. All options can also be
+	 * overridden for each individual request later on.
 	 */
-	mw.Api = function( options ) {
-
+	mw.Api = function( url, options ) {
+		if ( typeof url == "object" ) {
+			options = url;
+			url = options.url;
+			delete options.url;
+		}
 		if ( options === undefined ) {
 			options = {};
 		}
 
-		// Force toString if we got a mw.Uri object
-		if ( options.ajax && options.ajax.url !== undefined ) {
-			options.ajax.url = String( options.ajax.url );
+		// getter for the api's url
+		this.getURL = function() {
+			return String( url );
 		}
 
-		options.parameters = $.extend( {}, defaultOptions.parameters, options.parameters );
-		options.ajax = $.extend( {}, defaultOptions.ajax, options.ajax );
-
-		this.defaults = options;
+		this.settings = new Settings( options );
 	};
 
 	mw.Api.prototype = {
@@ -128,8 +129,17 @@
 		 * @return {jqXHR}
 		 */
 		ajax: function( parameters, ajaxOptions ) {
-			parameters = $.extend( {}, this.defaults.parameters, parameters );
-			ajaxOptions = $.extend( {}, this.defaults.ajax, ajaxOptions );
+		
+			if (! "format" in parameters )
+				parameters.format = ajaxOptions.dataType || this.settings.format;
+			if (! "action" in parameters )
+				parameters.action = "query"; // legacy: should be removed
+			
+			ajaxOptions.dataType = parameters.format;
+			ajaxOptions.url = this.getUrl();
+			if (! "timeout" in ajaxOptions)
+				ajaxOptions.timeout = this.settings.timeout;
+				
 
 			// Some deployed MediaWiki >= 1.17 forbid periods in URLs, due to an IE XSS bug
 			// So let's escape them here. See bug #28235
