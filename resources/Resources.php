@@ -524,6 +524,10 @@ return array(
 	'mediawiki.api' => array(
 		'scripts' => 'resources/mediawiki.api/mediawiki.api.js',
 	),
+	'mediawiki.api.query' => array(
+		'scripts' => 'resources/mediawiki.api/mediawiki.api.query.js',
+		'dependencies' => 'mediawiki.api',
+	),
 	'mediawiki.api.category' => array( 
 		'scripts' => 'resources/mediawiki.api/mediawiki.api.category.js',
 		'dependencies' => array( 
