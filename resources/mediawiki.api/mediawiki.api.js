@@ -167,7 +167,31 @@
 				}
 			};
 
-			return $.ajax( ajaxOptions );
+			return $.ajax( ajaxOptions ).pipe( function(result) {
+				if (! result) {
+					return (new $.Deferred).reject("ok-but-empty", 'OK response but empty result (check HTTP headers?)', result);
+				} else if (parameters.format == "json") {
+					if (result.error) {
+						return (new $.Deferred).reject(result.error.code || "unknown", result.error, result);
+					} else if( ! result[parameters.action] ) {
+						if (parameters.action == "query" && query.prop && query.prop.length > 0)) // Bug 31901
+							result["query"] = {pages:{}};
+						else
+							return (new $.Deferred).reject("missing_"+parameters.action+"-element", "no "+parameters.action+"-element found", result);
+					}
+				} else if (parameters.format == "xml") {
+					var dom = result.documentElement, e, a;
+					if ((e = dom.getElementsByTagName('error')).length > 0) {
+						return (new $.Deferred).reject(e[0].getAttribute('code'), e[0], result);
+					} else if ((a = dom.getElementsByTagName(parameters.action)).length == 0) {
+						if (parameters.action == "query" && query.prop && query.prop.length > 0)) // Bug 31901
+							dom.appendChild(result.createElement("query"));
+						else
+							return (new $.Deferred).reject("missing_"+parameters.action+"-element", "no "+parameters.action+"-element found", result);
+					}
+				}
+				return result; // This is now a safe return value: It exists, it has no errors, and it contains a result element matching the action
+			} );
 		}
 
 	};
