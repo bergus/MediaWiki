@@ -230,5 +230,24 @@
 		'duplicate',
 		'exists'
 	];
+	
+	/**
+	* @var mw.api {Api} The mw.Api for the current wiki
+	* Uses a getter to dynamically create the Api object only when needed
+	* and creates one when the gettere feature is not supported
+	*/
+	var staticApi;
+	function getDefaultApi() {
+		var url =  mw.config.get('wgScriptPath')+"/api"+mw.config.get('wgScriptExtension');
+		return staticApi || (staticApi = new Api(url));
+	}
+	if (Object.defineProperty)
+		Object.defineProperty(mw, "api", {
+			get: getDefaultApi,
+			enumerable: true,
+			configurable: true
+		});
+	else
+		mw.api = getDefaultApi();
 
 })( jQuery, mediaWiki );
