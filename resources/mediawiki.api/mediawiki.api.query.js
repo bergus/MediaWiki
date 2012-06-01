@@ -340,6 +340,11 @@ return: Array of branch objects */
 		}
 	});
 	
+	$.extend( mw.Api.defaultSettings, {
+		maxquerycontinue: 25,
+		querycache: 5*60, // 5 Minutes
+	});
+	
 	$.extend( mw.Api.prototype, {
 	})
 

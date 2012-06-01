@@ -122,10 +122,17 @@
 		},
 
 		/**
-		 * Perform the API call.
+		 * Perform an api call
 		 *
-		 * @param {Object} request parameters
-		 * @param {Object} ajax options
+		 * @param {Object}: request parameters as key-value-pairs. The values will be encoded appropriate to their type, different from $.param:
+				{Function}:      will be executed before
+				undefined, null: property is dropped
+				{Boolean}:       "1" for true, "0" for false
+				{Number}:        will be stringified
+				{String}:        will just get escaped
+				{Array}:         items are joined with "|", the usual value separator for query api parameters
+				{Object}:        will be converted to a string
+		 * @param {Object}: ajax options
 		 * @return {jqXHR}
 		 */
 		ajax: function( parameters, ajaxOptions ) {
@@ -136,15 +143,47 @@
 				parameters.action = "query"; // legacy: should be removed
 			
 			ajaxOptions.dataType = parameters.format;
-			ajaxOptions.url = this.getUrl();
 			if (! "timeout" in ajaxOptions)
 				ajaxOptions.timeout = this.settings.timeout;
-				
+			if (ajaxOptions.type != "POST")
+				ajaxOptions.type = "GET";
+			/**
+			* We don't trust $.param for a couple of reasons:
+			* IE XSS bug with dots
+			* prevent ERR_TOO_BIG for very large GET requests.
+			* different handling of Array values
+			* different handling of Boolean values
+			*/
+			var get = [], post = [], getChars = 1;
+			for (var key in parameters) {
+				var value = parameters[key];
+				if (typeof value == "function")
+					value = value();
+				if ($.isArray(value))
+					value = value.join("|");
+				var p = encodeURIComponent(key) + "=";
+				if (typeof value == "string" || typeof value == "object")
+					p += encodeURIComponent(value);
+				else if (typeof value == "boolean")
+					p += value ? "1" : "0";
+				else if (typeof value == "number")
+					p += value;
+				else
+					return;
+					
+				p = p.replace(/%20/g, "+").replace( /\./g, '%2E' ); // escape dots for IE, see bug #28235
+				if (ajaxOptions.type == "POST" && key != "action" || (getChars += p.length) > this.settings.maxURIlength)
+					post.push(p);
+				else
+					get.push(p);
+			}
 
-			// Some deployed MediaWiki >= 1.17 forbid periods in URLs, due to an IE XSS bug
-			// So let's escape them here. See bug #28235
-			// This works because jQuery accepts data as a query string or as an Object
-			ajaxOptions.data = $.param( parameters ).replace( /\./g, '%2E' );
+			if (post.length) {
+				ajaxOptions.type = "POST";
+				ajaxOptions.data = post.join("&");
+			} else
+				ajaxOptions.data = undefined;
+			ajaxOptions.url = this.getUrl()+"?"+get.join("&"); // will at least contain the action
 
 			ajaxOptions.error = function( xhr, textStatus, exception ) {
 				ajaxOptions.err( 'http', {
