@@ -4,7 +4,7 @@
  *
  * Created on May 13, 2007
  *
- * Copyright © 2006 Yuri Astrakhan <Firstname><Lastname>@gmail.com
+ * Copyright © 2006 Yuri Astrakhan "<Firstname><Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -156,6 +156,19 @@ class ApiQueryLangLinks extends ApiQueryBase {
 			'lang' => 'Language code',
 			'title' => "Link to search for. Must be used with {$this->getModulePrefix()}lang",
 			'dir' => 'The direction in which to list',
+		);
+	}
+
+	public function getResultProperties() {
+		return array(
+			'' => array(
+				'lang' => 'string',
+				'url' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'*' => 'string'
+			)
 		);
 	}
 

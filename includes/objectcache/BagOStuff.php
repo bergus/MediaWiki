@@ -61,20 +61,6 @@ abstract class BagOStuff {
 	abstract public function get( $key );
 
 	/**
-	 * Get an associative array containing the item for each of the given keys.
-	 * Each item will be false if it does not exist.
-	 * @param $keys Array List of strings
-	 * @return Array
-	 */
-	public function getMulti( array $keys ) {
-		$res = array();
-		foreach ( $keys as $key ) {
-			$res[$key] = $this->get( $key );
-		}
-		return $res;
-	}
-
-	/**
 	 * Set an item.
 	 * @param $key string
 	 * @param $value mixed
@@ -136,46 +122,63 @@ abstract class BagOStuff {
 	/* *** Emulated functions *** */
 
 	/**
+	 * Get an associative array containing the item for each of the keys that have items.
+	 * @param $keys Array List of strings
+	 * @return Array
+	 */
+	public function getMulti( array $keys ) {
+		$res = array();
+		foreach ( $keys as $key ) {
+			$val = $this->get( $key );
+			if ( $val !== false ) {
+				$res[$key] = $val;
+			}
+		}
+		return $res;
+	}
+
+	/**
 	 * @param $key string
 	 * @param $value mixed
 	 * @param $exptime integer
 	 * @return bool success
 	 */
 	public function add( $key, $value, $exptime = 0 ) {
-		if ( !$this->get( $key ) ) {
+		if ( $this->get( $key ) === false ) {
 			return $this->set( $key, $value, $exptime );
 		}
-		return true;
+		return false; // key already set
 	}
 
 	/**
 	 * @param $key string
 	 * @param $value mixed
+	 * @param $exptime int
 	 * @return bool success
 	 */
 	public function replace( $key, $value, $exptime = 0 ) {
 		if ( $this->get( $key ) !== false ) {
 			return $this->set( $key, $value, $exptime );
 		}
-		return true;
+		return false; // key not already set
 	}
 
 	/**
+	 * Increase stored value of $key by $value while preserving its TTL
 	 * @param $key String: Key to increase
 	 * @param $value Integer: Value to add to $key (Default 1)
-	 * @return null if lock is not possible else $key value increased by $value
-	 * @return success
+	 * @return integer|bool New value or false on failure
 	 */
 	public function incr( $key, $value = 1 ) {
 		if ( !$this->lock( $key ) ) {
-			return null;
+			return false;
 		}
-
-		$value = intval( $value );
-
-		if ( ( $n = $this->get( $key ) ) !== false ) {
-			$n += $value;
-			$this->set( $key, $n ); // exptime?
+		$n = $this->get( $key );
+		if ( $this->isInteger( $n ) ) { // key exists?
+			$n += intval( $value );
+			$this->set( $key, max( 0, $n ) ); // exptime?
+		} else {
+			$n = false;
 		}
 		$this->unlock( $key );
 
@@ -183,9 +186,10 @@ abstract class BagOStuff {
 	}
 
 	/**
+	 * Decrease stored value of $key by $value while preserving its TTL
 	 * @param $key String
 	 * @param $value Integer
-	 * @return bool success
+	 * @return integer
 	 */
 	public function decr( $key, $value = 1 ) {
 		return $this->incr( $key, - $value );
@@ -212,5 +216,34 @@ abstract class BagOStuff {
 		} else {
 			return $exptime;
 		}
+	}
+
+	/**
+	 * Convert an optionally absolute expiry time to a relative time. If an
+	 * absolute time is specified which is in the past, use a short expiry time.
+	 *
+	 * @param $exptime integer
+	 * @return integer
+	 */
+	protected function convertToRelative( $exptime ) {
+		if ( $exptime >= 86400 * 3650 /* 10 years */ ) {
+			$exptime -= time();
+			if ( $exptime <= 0 ) {
+				$exptime = 1;
+			}
+			return $exptime;
+		} else {
+			return $exptime;
+		}
+	}
+
+	/**
+	 * Check if a value is an integer
+	 *
+	 * @param $value mixed
+	 * @return bool
+	 */
+	protected function isInteger( $value ) {
+		return ( is_int( $value ) || ctype_digit( $value ) );
 	}
 }

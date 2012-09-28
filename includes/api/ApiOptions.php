@@ -107,11 +107,23 @@ class ApiOptions extends ApiBase {
 		);
 	}
 
+	public function getResultProperties() {
+		return array(
+			'' => array(
+				'*' => array(
+					ApiBase::PROP_TYPE => array(
+						'success'
+					)
+				)
+			)
+		);
+	}
+
 	public function getParamDescription() {
 		return array(
 			'token' => 'An options token previously obtained through the action=tokens',
 			'reset' => 'Resets all preferences to the site defaults',
-			'change' => 'Pipe-separated list of changes, formatted name=value (e.g. skin=vector), value cannot contain pipe characters',
+			'change' => 'List of changes, formatted name=value (e.g. skin=vector), value cannot contain pipe characters',
 			'optionname' => 'A name of a option which should have an optionvalue set',
 			'optionvalue' => 'A value of the option specified by the optionname, can contain pipe characters',
 		);
@@ -123,8 +135,8 @@ class ApiOptions extends ApiBase {
 
 	public function getPossibleErrors() {
 		return array_merge( parent::getPossibleErrors(), array(
-			array( 'notloggedin' ),
-			array( 'nochanges' ),
+			array( 'code' => 'notloggedin', 'info' => 'Anonymous users cannot change preferences' ),
+			array( 'code' => 'nochanges', 'info' => 'No changes were requested' ),
 		) );
 	}
 

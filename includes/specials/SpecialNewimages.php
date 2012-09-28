@@ -58,6 +58,9 @@ class NewFilesPager extends ReverseChronologicalPager {
 	function __construct( IContextSource $context, $par = null ) {
 		$this->like = $context->getRequest()->getText( 'like' );
 		$this->showbots = $context->getRequest()->getBool( 'showbots' , 0 );
+		if ( is_numeric( $par ) ) {
+			$this->setLimit( $par );
+		}
 
 		parent::__construct( $context );
 	}
@@ -68,15 +71,18 @@ class NewFilesPager extends ReverseChronologicalPager {
 		$tables = array( 'image' );
 
 		if( !$this->showbots ) {
-			$tables[] = 'user_groups';
-			$conds[] = 'ug_group IS NULL';
-			$jconds['user_groups'] = array(
-				'LEFT JOIN',
-				array(
-					'ug_group' => User::getGroupsWithPermission( 'bot' ),
-					'ug_user = img_user'
-				)
-			);
+			$groupsWithBotPermission = User::getGroupsWithPermission( 'bot' );
+			if( count( $groupsWithBotPermission ) ) {
+				$tables[] = 'user_groups';
+				$conds[] = 'ug_group IS NULL';
+				$jconds['user_groups'] = array(
+					'LEFT JOIN',
+					array(
+						'ug_group' => $groupsWithBotPermission,
+						'ug_user = img_user'
+					)
+				);
+			}
 		}
 
 		if( !$wgMiserMode && $this->like !== null ){
@@ -145,7 +151,7 @@ class NewFilesPager extends ReverseChronologicalPager {
 			),
 			'limit' => array(
 				'type' => 'hidden',
-				'default' => $this->getRequest()->getText( 'limit' ),
+				'default' => $this->mLimit,
 				'name' => 'limit',
 			),
 			'offset' => array(

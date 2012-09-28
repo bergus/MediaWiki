@@ -60,41 +60,87 @@ $specialPageAliases = array(
 	'Ancientpages'              => array( 'Tungkaran_lawas' ),
 	'Badtitle'                  => array( 'Judul_nang_buruk' ),
 	'Blankpage'                 => array( 'Tungkaran_kusung' ),
+	'Block'                     => array( 'Blukir_pamakai' ),
+	'Blockme'                   => array( 'Blukir_ulun' ),
 	'Booksources'               => array( 'Sumbar_buku' ),
+	'BrokenRedirects'           => array( 'Paugahan_rakai' ),
 	'Categories'                => array( 'Daptar_tumbung' ),
 	'ChangeEmail'               => array( 'Ganti_suril' ),
+	'ChangePassword'            => array( 'Ganti_katasunduk' ),
 	'ComparePages'              => array( 'Bandingakan_tungkaran' ),
 	'Confirmemail'              => array( 'Kunpirmasi_suril' ),
-	'Contributions'             => array( 'Kuntribusi_pamakai' ),
+	'Contributions'             => array( 'Sumbangan_pamakai' ),
 	'CreateAccount'             => array( 'Ulah_akun' ),
 	'Deadendpages'              => array( 'Tungkaran_buntu' ),
-	'DeletedContributions'      => array( 'Kuntribusi_nang_dihapus' ),
-	'EditWatchlist'             => array( 'Babak_daptan_pantauan' ),
-	'Fewestrevisions'           => array( 'Parubahan_tasadikit' ),
-	'Filepath'                  => array( 'Lukasi_barakas' ),
+	'DeletedContributions'      => array( 'Sumbangan_nang_dihapus' ),
+	'Disambiguations'           => array( 'Disambiguasi' ),
+	'EditWatchlist'             => array( 'Babak_daptar_pantauan' ),
+	'Fewestrevisions'           => array( 'Paubahan_tasadikit' ),
+	'FileDuplicateSearch'       => array( 'Panggagaian_barakas_kambar' ),
+	'Filepath'                  => array( 'Andakan_barakas' ),
+	'BlockList'                 => array( 'Daptar_pamblukiran' ),
+	'LinkSearch'                => array( 'Tautan_luar' ),
 	'Listadmins'                => array( 'Daptar_pambakal' ),
 	'Listbots'                  => array( 'Daptar_bot' ),
 	'Listfiles'                 => array( 'Daptar_barakas' ),
-	'Listgrouprights'           => array( 'Daptar_hak_kalumpuk' ),
-	'Listredirects'             => array( 'Daptar_paalihan' ),
+	'Listgrouprights'           => array( 'Daptar_hak_galambang' ),
+	'Listredirects'             => array( 'Daptar_paugahan' ),
 	'Listusers'                 => array( 'Daptar_pamakai' ),
 	'Log'                       => array( 'Catatan' ),
+	'Lonelypages'               => array( 'Tungkaran_yatim' ),
 	'Longpages'                 => array( 'Tungkaran_panjang' ),
-	'Mostcategories'            => array( 'Tumbung_tabanyak' ),
+	'MergeHistory'              => array( 'Sajarah_panggabungan' ),
+	'MIMEsearch'                => array( 'Panggagaian_MIME' ),
+	'Mostcategories'            => array( 'Tumbung_pambanyaknya' ),
+	'Mostimages'                => array( 'Barakas_paling_dipakai' ),
 	'Mostlinked'                => array( 'Tungkaran_paling_dipakai' ),
 	'Mostlinkedcategories'      => array( 'Tumbung_paling_dipakai' ),
 	'Mostlinkedtemplates'       => array( 'Citakan_paling_dipakai' ),
-	'Mostrevisions'             => array( 'Paubahan_tabanyak' ),
+	'Mostrevisions'             => array( 'Paubahan_pambanyaknya' ),
 	'Movepage'                  => array( 'Pindahakan_tungkaran' ),
-	'Mycontributions'           => array( 'Kuntribusi_ulun' ),
+	'Mycontributions'           => array( 'Sumbangan_ulun' ),
 	'Mypage'                    => array( 'Tungkaran_ulun' ),
 	'Mytalk'                    => array( 'Pamandiran_ulun' ),
+	'Myuploads'                 => array( 'Unggahan_ulun' ),
 	'Newimages'                 => array( 'Barakas_hanyar' ),
 	'Newpages'                  => array( 'Tungkaran_hanyar' ),
+	'PermanentLink'             => array( 'Tautan_tatap' ),
+	'Popularpages'              => array( 'Tungkaran_popular' ),
+	'Preferences'               => array( 'Kakatujuan' ),
 	'Protectedpages'            => array( 'Tungkaran_nang_dilindungi' ),
 	'Protectedtitles'           => array( 'Judul_nang_dilindungi' ),
 	'Randompage'                => array( 'Tungkaran_babarang' ),
-	'Recentchanges'             => array( 'Paubahan_tahanyar' ),
+	'Randomredirect'            => array( 'Paugahan_babarang' ),
+	'Recentchanges'             => array( 'Paubahan_pahanyarnya' ),
+	'Recentchangeslinked'       => array( 'Paubahan_tarait' ),
+	'Revisiondelete'            => array( 'Hapus_ralatan' ),
+	'RevisionMove'              => array( 'Ralatan_pamindahan' ),
+	'Search'                    => array( 'Panggagaian' ),
+	'Shortpages'                => array( 'Tungkaran_handap' ),
+	'Specialpages'              => array( 'Tungkaran_istimiwa' ),
+	'Statistics'                => array( 'Statistik' ),
+	'Tags'                      => array( 'Tag' ),
+	'Unblock'                   => array( 'Pawalangan_pamblukiran' ),
+	'Uncategorizedcategories'   => array( 'Tumbung_kada_batumbung' ),
+	'Uncategorizedimages'       => array( 'Barakas_kada_batumbung' ),
+	'Uncategorizedpages'        => array( 'Tungkaran_kada_batumbung' ),
+	'Uncategorizedtemplates'    => array( 'Citakan_kada_batumbung' ),
+	'Undelete'                  => array( 'Pawalangan_pahapusan' ),
+	'Unusedcategories'          => array( 'Tumbung_puang' ),
+	'Unusedimages'              => array( 'Barakas_kada_tapakai' ),
+	'Unusedtemplates'           => array( 'Citakan_kada_tapakai' ),
+	'Unwatchedpages'            => array( 'Tungkaran_kada_di-itihi' ),
+	'Upload'                    => array( 'Paunggahan' ),
+	'Userlogin'                 => array( 'Babuat_log' ),
+	'Userlogout'                => array( 'Kaluar_log' ),
+	'Userrights'                => array( 'Hak_pamakai' ),
+	'Wantedcategories'          => array( 'Tumbung_nang_dikahandaki' ),
+	'Wantedfiles'               => array( 'Barakas_nang_dikahandaki' ),
+	'Wantedpages'               => array( 'Tungkaran_nang_dikahandaki' ),
+	'Wantedtemplates'           => array( 'Citakan_nang_dikahandaki' ),
+	'Watchlist'                 => array( 'Daptar_itihan' ),
+	'Whatlinkshere'             => array( 'Tautan_balik' ),
+	'Withoutinterwiki'          => array( 'Kada_pakai_interwiki' ),
 );
 
 $messages = array(
@@ -1470,9 +1516,9 @@ Log pahapusan wan pamindahan hagan tungkarran ngini adalah sawagai barikut:",
 Gasan manampaiakan atawa manggagai barakas nang sabalumnya dimuat, puruk [[Special:FileList|daptar barakas]]. Pahunggahan (lagi) jua tacatat dalam [[Special:Log/upload|log pahunggahan]], samantara pahapusan tacatat dalam [[Special:Log/delete|log pahapusan]].
 
 Gasan manampaiakn atawa maumpatakan barakas di dalam suatu tungkaran, puruk tautan lawan salah asa purmat di bawah ngini:
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Barakas.jpg]]</nowiki></tt>''' hagan manampaiakan barakas dalam takaran aslinya
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Barakas.png|200px|thumb|left|naskah alternatip]]</nowiki></tt>''' hagan manampaiakan barakas lawan libar 200px dalam sabuah kutak di kiwa tungkaran lawan 'naskah alternatip' sawagai katarangan gambar
-* '''<tt><nowiki>[[</nowiki>{{ns:media}}<nowiki>:Barakas.ogg]]</nowiki></tt>''' sawagai tautan langsung ka barakas nang dimaksud kada batampaiakan barakas ngitu lung wiki",
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Barakas.jpg]]</nowiki></code>''' hagan manampaiakan barakas dalam takaran aslinya
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Barakas.png|200px|thumb|left|naskah alternatip]]</nowiki></code>''' hagan manampaiakan barakas lawan libar 200px dalam sabuah kutak di kiwa tungkaran lawan 'naskah alternatip' sawagai katarangan gambar
+* '''<code><nowiki>[[</nowiki>{{ns:media}}<nowiki>:Barakas.ogg]]</nowiki></code>''' sawagai tautan langsung ka barakas nang dimaksud kada batampaiakan barakas ngitu lung wiki",
 'upload-permitted' => 'Macam barakas nang diijinakan: $1.',
 'upload-preferred' => 'Macam barakas nang dikatujui: $1.',
 'upload-prohibited' => 'Macam barakas nang ditangati: $1.',
@@ -1520,21 +1566,21 @@ barakas ngini $2.',
 Ngini pinanya ada salah katik ngaran barakas.
 Muhun pariksa apa bubujuran Pian handak mahunggah barakas ngini.',
 'windows-nonascii-filename' => 'Wiki ngini kada manyukung ngaranbarakas awan karaktir isitimiwa.',
-'fileexists' => "Sabuah barakas bangaran ngin sudah ada, muhun pariksa '''<tt>[[:$1]]</tt>''' amun Pian kada musti amun Pian handak mangganti ngini.
-[[$1|thumb]]",
-'filepageexists' => "Tungkaran diskripsi gasan barakas ngini suda diulah di '''<tt>[[:$1]]</tt>''', tagal kadada barakas bangaran ngini tasadia.
+'fileexists' => 'Sabuah barakas bangaran ngin sudah ada, muhun pariksa <strong>[[:$1]]</strong> amun Pian kada musti amun Pian handak mangganti ngini.
+[[$1|thumb]]',
+'filepageexists' => 'Tungkaran diskripsi gasan barakas ngini suda diulah di <strong>[[:$1]]</strong>, tagal kadada barakas bangaran ngini tasadia.
 Kasimpulan nang Pian masukakan kada ham cungul pada tungkran diskripsi.
 Hagan maulah kasimpulan Pian cungul di sana, Pian musti mambabaknya manual.
-[[$1|thumb]]",
-'fileexists-extension' => "Sabuah barakas bangaran sama sudah tasadia: [[$2|thumb]]
-*Ngaran barakas hunggahan: '''<tt>[[:$1]]</tt>'''
-* Ngaran barakas sudah tasadia: '''<tt>[[:$2]]</tt>'''
-Muhun pilihi sabuah ngaran babida.",
+[[$1|thumb]]',
+'fileexists-extension' => 'Sabuah barakas bangaran sama sudah tasadia: [[$2|thumb]]
+*Ngaran barakas hunggahan: <strong>[[:$1]]</strong>
+* Ngaran barakas sudah tasadia: <strong>[[:$2]]</strong>
+Muhun pilihi sabuah ngaran babida.',
 'fileexists-thumbnail-yes' => "Barakas ngini kajanakannya sabuah pancitraan nang dihalusi takarannya ''(thumbnail)''.
 [[$1|thumb]]
-Muhun pariksa barakas '''<tt>[[:$1]]</tt>'''.
+Muhun pariksa barakas <strong>[[:$1]]</strong>.
 Amun barakas dipariksa sama awan pancitraan takaran aslinya kada parlu mahunggah sabuah tambahan thumbnail.",
-'file-thumbnail-no' => "Ngaran barakas bamula awan '''<tt>$1</tt>'''.
+'file-thumbnail-no' => "Ngaran barakas bamula awan <strong>$1</strong>.
 Ngini kajanakannya sabuah pancitraan nang dihalusi takaran ''(thumbnail)''.
 Amun Pian baisi pancitraan ngini barisulusi hibak hunggah nang ngini, amun kada muhun ubah ngaran barakas.",
 'fileexists-forbidden' => 'Sabuah barakas bangaran sama sudah tasadia, wan kada kawa ditindihtulis.
@@ -1774,7 +1820,7 @@ Diskripsi ngini [$2 tungkaran diskripsi barakas] ditampaiakan di bawah.',
 # MIME search
 'mimesearch' => 'Panggagaian MIME',
 'mimesearch-summary' => 'Tungkaran ngini kawa manyaring babarakas bamacam MIME.
-Buati: contenttype/subtype, misal <tt>image/jpeg</tt>.',
+Buati: contenttype/subtype, misal <code>image/jpeg</code>.',
 'mimetype' => 'Macam MIME',
 'download' => 'hunduh',
 
@@ -1974,7 +2020,7 @@ Janaki jua [[Special:WantedCategories|tutumbung nang dihandaki]].',
 'linksearch-ok' => 'Gagai',
 'linksearch-text' => 'Kartu liar nangkaya "*.wikipedia.org" hingkat diguna\'akan.
 Mamarlukan sadikitnya asa ranah tingkat atas, misalnya "*.org".<br />
-Protokol nang didukung: <tt>$1</tt> (jangan tambahakan dalam panggagaian Pian)',
+Protokol nang didukung: <code>$1</code> (jangan tambahakan dalam panggagaian Pian)',
 'linksearch-line' => '$1 ditautakan matan $2',
 'linksearch-error' => 'Kartu-liar mancungul pintang awalan matan ngaranhost.',
 
@@ -2798,15 +2844,10 @@ Ngini pinanya dikaranakan ulih sabuah tautan ka sabuah situs daptar-hirang luar.
 # Info page
 'pageinfo-title' => "Panjalasan gasan ''$1''",
 'pageinfo-header-edits' => 'Babakan',
-'pageinfo-header-watchlist' => 'Paitihan',
-'pageinfo-header-views' => 'Titiringan',
-'pageinfo-subjectpage' => 'Tungkaran',
-'pageinfo-talkpage' => 'Tungkaran pamandiran',
+'pageinfo-views' => 'Rikinan titiringan',
 'pageinfo-watchers' => 'Jumlah papaitih',
 'pageinfo-edits' => 'Rikinan babakan',
 'pageinfo-authors' => 'Rikinan panulis balain',
-'pageinfo-views' => 'Rikinan titiringan',
-'pageinfo-viewsperedit' => 'Titiringan par babakan',
 
 # Patrolling
 'markaspatrolleddiff' => 'Ciri-i sawagai ta-awasi',
@@ -3581,8 +3622,8 @@ Gambar ditampaiakan dalam risulusi hibak, janis barakas lain dimula lawan prugra
 Situs ngini mangalami kangalihan teknik.',
 'dberr-again' => 'Cuba hadangi babarapa manit wan muat-pulang.',
 'dberr-info' => '(Kada kawa tasambung ka server databasis: $1)',
-'dberr-usegoogle' => 'Pian kawa cuba manggagai lung Google wayah samantara ni.',
-'dberr-outofdate' => 'Catat nang sidin indiks matan isi kami pina kawa kadaluarsa.',
+'dberr-usegoogle' => 'Pian kawa mancuba manggagai lung Google wayah pahadangan ngini.',
+'dberr-outofdate' => 'Catat nang sidin indéks matan isi kami pinanya hudah kadaluarsa.',
 'dberr-cachederror' => 'Ngini adalah sabuah rekap timbuluk tungkaran nang dipinta, wan pinanya kada pahanyarnya.',
 
 # HTML forms

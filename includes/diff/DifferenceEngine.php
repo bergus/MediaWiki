@@ -179,6 +179,22 @@ class DifferenceEngine extends ContextSource {
 		}
 	}
 
+	private function showMissingRevision() {
+		$out = $this->getOutput();
+
+		$missing = array();
+		if ( $this->mOldRev === null ) {
+			$missing[] = $this->deletedIdMarker( $this->mOldid );
+		}
+		if ( $this->mNewRev === null ) {
+			$missing[] = $this->deletedIdMarker( $this->mNewid );
+		}
+
+		$out->setPageTitle( $this->msg( 'errorpagetitle' ) );
+		$out->addWikiMsg( 'difference-missing-revision',
+			$this->getLanguage()->listToText( $missing ), count( $missing ) );
+	}
+
 	function showDiffPage( $diffOnly = false ) {
 		wfProfileIn( __METHOD__ );
 
@@ -188,13 +204,7 @@ class DifferenceEngine extends ContextSource {
 		$out->setRobotPolicy( 'noindex,nofollow' );
 
 		if ( !$this->loadRevisionData() ) {
-			// Sounds like a deleted revision... Let's see what we can do.
-			$t = $this->getTitle()->getPrefixedText();
-			$d = $this->msg( 'missingarticle-diff',
-				$this->deletedIdMarker( $this->mOldid ),
-				$this->deletedIdMarker( $this->mNewid ) )->escaped();
-			$out->setPageTitle( $this->msg( 'errorpagetitle' ) );
-			$out->addWikiMsg( 'missing-article', "<nowiki>$t</nowiki>", "<span class='plainlinks'>$d</span>" );
+			$this->showMissingRevision();
 			wfProfileOut( __METHOD__ );
 			return;
 		}
@@ -278,7 +288,7 @@ class DifferenceEngine extends ContextSource {
 			if ( $samePage && $this->mNewPage->quickUserCan( 'edit', $user ) ) {
 				if ( $this->mNewRev->isCurrent() && $this->mNewPage->userCan( 'rollback', $user ) ) {
 					$out->preventClickjacking();
-					$rollback = '&#160;&#160;&#160;' . Linker::generateRollback( $this->mNewRev );
+					$rollback = '&#160;&#160;&#160;' . Linker::generateRollback( $this->mNewRev, $this->getContext() );
 				}
 				if ( !$this->mOldRev->isDeleted( Revision::DELETED_TEXT ) && !$this->mNewRev->isDeleted( Revision::DELETED_TEXT ) ) {
 					$undoLink = ' ' . $this->msg( 'parentheses' )->rawParams(
@@ -526,9 +536,7 @@ class DifferenceEngine extends ContextSource {
 					$wikiPage = WikiPage::factory( $this->mNewPage );
 				}
 
-				$parserOptions = ParserOptions::newFromContext( $this->getContext() );
-				$parserOptions->enableLimitReport();
-				$parserOptions->setTidy( true );
+				$parserOptions = $wikiPage->makeParserOptions( $this->getContext() );
 
 				if ( !$this->mNewRev->isCurrent() ) {
 					$parserOptions->setEditSection( false );
@@ -557,7 +565,7 @@ class DifferenceEngine extends ContextSource {
 	function showDiff( $otitle, $ntitle, $notice = '' ) {
 		$diff = $this->getDiff( $otitle, $ntitle, $notice );
 		if ( $diff === false ) {
-			$this->getOutput()->addWikiMsg( 'missing-article', "<nowiki>(fixme, bug)</nowiki>", '' );
+			$this->showMissingRevision();
 			return false;
 		} else {
 			$this->showDiffStyle();
@@ -612,7 +620,7 @@ class DifferenceEngine extends ContextSource {
 			return false;
 		}
 		// Short-circuit
-		// If mOldRev is false, it means that the 
+		// If mOldRev is false, it means that the
 		if ( $this->mOldRev === false || ( $this->mOldRev && $this->mNewRev
 			&& $this->mOldRev->getID() == $this->mNewRev->getID() ) )
 		{
@@ -720,9 +728,9 @@ class DifferenceEngine extends ContextSource {
 		}
 		if ( $wgExternalDiffEngine != 'wikidiff3' && $wgExternalDiffEngine !== false ) {
 			# Diff via the shell
-			global $wgTmpDirectory;
-			$tempName1 = tempnam( $wgTmpDirectory, 'diff_' );
-			$tempName2 = tempnam( $wgTmpDirectory, 'diff_' );
+			$tmpDir = wfTempDir();
+			$tempName1 = tempnam( $tmpDir, 'diff_' );
+			$tempName2 = tempnam( $tmpDir, 'diff_' );
 
 			$tempFile1 = fopen( $tempName1, "w" );
 			if ( !$tempFile1 ) {
@@ -882,7 +890,8 @@ class DifferenceEngine extends ContextSource {
 			}
 
 			$msg = $this->msg( $title->quickUserCan( 'edit', $user ) ? 'editold' : 'viewsourceold' )->escaped();
-			$header .= ' (' . Linker::linkKnown( $title, $msg, array(), $editQuery ) . ')';
+			$header .= ' ' . $this->msg( 'parentheses' )->rawParams(
+				Linker::linkKnown( $title, $msg, array(), $editQuery ) )->plain();
 			if ( $rev->isDeleted( Revision::DELETED_TEXT ) ) {
 				$header = Html::rawElement( 'span', array( 'class' => 'history-deleted' ), $header );
 			}
@@ -906,7 +915,7 @@ class DifferenceEngine extends ContextSource {
 
 		if ( !$diff && !$otitle ) {
 			$header .= "
-			<tr valign='top'>
+			<tr style='vertical-align: top;'>
 			<td class='diff-ntitle'>{$ntitle}</td>
 			</tr>";
 			$multiColspan = 1;
@@ -924,17 +933,17 @@ class DifferenceEngine extends ContextSource {
 				$multiColspan = 2;
 			}
 			$header .= "
-			<tr valign='top'>
+			<tr style='vertical-align: top;'>
 			<td colspan='$colspan' class='diff-otitle'>{$otitle}</td>
 			<td colspan='$colspan' class='diff-ntitle'>{$ntitle}</td>
 			</tr>";
 		}
 
 		if ( $multi != '' ) {
-			$header .= "<tr><td colspan='{$multiColspan}' align='center' class='diff-multi'>{$multi}</td></tr>";
+			$header .= "<tr><td colspan='{$multiColspan}' style='text-align: center;' class='diff-multi'>{$multi}</td></tr>";
 		}
 		if ( $notice != '' ) {
-			$header .= "<tr><td colspan='{$multiColspan}' align='center'>{$notice}</td></tr>";
+			$header .= "<tr><td colspan='{$multiColspan}' style='text-align: center;'>{$notice}</td></tr>";
 		}
 
 		return $header . $diff . "</table>";
@@ -1019,7 +1028,7 @@ class DifferenceEngine extends ContextSource {
 		// Load the new revision object
 		$this->mNewRev = $this->mNewid
 			? Revision::newFromId( $this->mNewid )
-			: Revision::newFromTitle( $this->getTitle() );
+			: Revision::newFromTitle( $this->getTitle(), false, Revision::READ_NORMAL );
 
 		if ( !$this->mNewRev instanceof Revision ) {
 			return false;

@@ -4,7 +4,7 @@
  *
  * Created on Sep 5, 2006
  *
- * Copyright © 2006, 2010 Yuri Astrakhan <Firstname><Lastname>@gmail.com
+ * Copyright © 2006, 2010 Yuri Astrakhan "<Firstname><Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,6 +55,11 @@ abstract class ApiBase extends ContextSource {
 	const PARAM_REQUIRED = 8; // Boolean, is the parameter required?
 	/// @since 1.17
 	const PARAM_RANGE_ENFORCE = 9; // Boolean, if MIN/MAX are set, enforce (die) these? Only applies if TYPE='integer' Use with extreme caution
+
+	const PROP_ROOT = 'ROOT'; // Name of property group that is on the root element of the result, i.e. not part of a list
+	const PROP_LIST = 'LIST'; // Boolean, is the result multiple items? Defaults to true for query modules, to false for other modules
+	const PROP_TYPE = 0; // Type of the property, uses same format as PARAM_TYPE
+	const PROP_NULLABLE = 1; // Boolean, can the property be not included in the result? Defaults to false
 
 	const LIMIT_BIG1 = 500; // Fast query, std user limit
 	const LIMIT_BIG2 = 5000; // Fast query, bot/sysop limit
@@ -129,7 +134,7 @@ abstract class ApiBase extends ContextSource {
 	/**
 	 * Get the name of the module as shown in the profiler log
 	 *
-	 * @param $db DatabaseBase
+	 * @param $db DatabaseBase|bool
 	 *
 	 * @return string
 	 */
@@ -396,7 +401,9 @@ abstract class ApiBase extends ContextSource {
 
 				$type = isset( $paramSettings[self::PARAM_TYPE] ) ? $paramSettings[self::PARAM_TYPE] : null;
 				if ( isset( $type ) ) {
-					if ( isset( $paramSettings[self::PARAM_ISMULTI] ) && $paramSettings[self::PARAM_ISMULTI] ) {
+					$hintPipeSeparated = true;
+					$multi = isset( $paramSettings[self::PARAM_ISMULTI] ) ? $paramSettings[self::PARAM_ISMULTI] : false;
+					if ( $multi ) {
 						$prompt = 'Values (separate with \'|\'): ';
 					} else {
 						$prompt = 'One value: ';
@@ -404,7 +411,7 @@ abstract class ApiBase extends ContextSource {
 
 					if ( is_array( $type ) ) {
 						$choices = array();
-						$nothingPrompt = false;
+						$nothingPrompt = '';
 						foreach ( $type as $t ) {
 							if ( $t === '' ) {
 								$nothingPrompt = 'Can be empty, or ';
@@ -415,6 +422,7 @@ abstract class ApiBase extends ContextSource {
 						$desc .= $paramPrefix . $nothingPrompt . $prompt;
 						$choicesstring = implode( ', ', $choices );
 						$desc .= wordwrap( $choicesstring, 100, $descWordwrap );
+						$hintPipeSeparated = false;
 					} else {
 						switch ( $type ) {
 							case 'namespace':
@@ -422,6 +430,7 @@ abstract class ApiBase extends ContextSource {
 								$desc .= $paramPrefix . $prompt;
 								$desc .= wordwrap( implode( ', ', MWNamespace::getValidNamespaces() ),
 									100, $descWordwrap );
+								$hintPipeSeparated = false;
 								break;
 							case 'limit':
 								$desc .= $paramPrefix . "No more than {$paramSettings[self :: PARAM_MAX]}";
@@ -431,15 +440,16 @@ abstract class ApiBase extends ContextSource {
 								$desc .= ' allowed';
 								break;
 							case 'integer':
+								$s = $multi ? 's' : '';
 								$hasMin = isset( $paramSettings[self::PARAM_MIN] );
 								$hasMax = isset( $paramSettings[self::PARAM_MAX] );
 								if ( $hasMin || $hasMax ) {
 									if ( !$hasMax ) {
-										$intRangeStr = "The value must be no less than {$paramSettings[self::PARAM_MIN]}";
+										$intRangeStr = "The value$s must be no less than {$paramSettings[self::PARAM_MIN]}";
 									} elseif ( !$hasMin ) {
-										$intRangeStr = "The value must be no more than {$paramSettings[self::PARAM_MAX]}";
+										$intRangeStr = "The value$s must be no more than {$paramSettings[self::PARAM_MAX]}";
 									} else {
-										$intRangeStr = "The value must be between {$paramSettings[self::PARAM_MIN]} and {$paramSettings[self::PARAM_MAX]}";
+										$intRangeStr = "The value$s must be between {$paramSettings[self::PARAM_MIN]} and {$paramSettings[self::PARAM_MAX]}";
 									}
 
 									$desc .= $paramPrefix . $intRangeStr;
@@ -448,9 +458,12 @@ abstract class ApiBase extends ContextSource {
 						}
 					}
 
-					if ( isset( $paramSettings[self::PARAM_ISMULTI] ) && $paramSettings[self::PARAM_ISMULTI] ) {
-						$isArray = is_array( $type );
+					if ( $multi ) {
+						if ( $hintPipeSeparated ) {
+							$desc .= $paramPrefix . "Separate values with '|'";
+						}
 
+						$isArray = is_array( $type );
 						if ( !$isArray
 								|| $isArray && count( $type ) > self::LIMIT_SML1 ) {
 							$desc .= $paramPrefix . "Maximum number of values " .
@@ -573,6 +586,51 @@ abstract class ApiBase extends ContextSource {
 	}
 
 	/**
+	 * Returns possible properties in the result, grouped by the value of the prop parameter
+	 * that shows them.
+	 *
+	 * Properties that are shown always are in a group with empty string as a key.
+	 * Properties that can be shown by several values of prop are included multiple times.
+	 * If some properties are part of a list and some are on the root object (see ApiQueryQueryPage),
+	 * those on the root object are under the key PROP_ROOT.
+	 * The array can also contain a boolean under the key PROP_LIST,
+	 * indicating whether the result is a list.
+	 *
+	 * Don't call this functon directly: use getFinalResultProperties() to
+	 * allow hooks to modify descriptions as needed.
+	 *
+	 * @return array|bool False on no properties
+	 */
+	protected function getResultProperties() {
+		return false;
+	}
+
+	/**
+	 * Get final possible result properties, after hooks have had a chance to tweak it as
+	 * needed.
+	 *
+	 * @return array
+	 */
+	public function getFinalResultProperties() {
+		$properties = $this->getResultProperties();
+		wfRunHooks( 'APIGetResultProperties', array( $this, &$properties ) );
+		return $properties;
+	}
+
+	/**
+	 * Add token properties to the array used by getResultProperties,
+	 * based on a token functions mapping.
+	 */
+	protected static function addTokenProperties( &$props, $tokenFunctions ) {
+		foreach ( array_keys( $tokenFunctions ) as $token ) {
+			$props[''][$token . 'token'] = array(
+				ApiBase::PROP_TYPE => 'string',
+				ApiBase::PROP_NULLABLE => true
+			);
+		}
+	}
+
+	/**
 	 * Get final module description, after hooks have had a chance to tweak it as
 	 * needed.
 	 *
@@ -639,14 +697,15 @@ abstract class ApiBase extends ContextSource {
 	public function requireOnlyOneParameter( $params ) {
 		$required = func_get_args();
 		array_shift( $required );
+		$p = $this->getModulePrefix();
 
 		$intersection = array_intersect( array_keys( array_filter( $params,
 			array( $this, "parameterNotEmpty" ) ) ), $required );
 
 		if ( count( $intersection ) > 1 ) {
-			$this->dieUsage( 'The parameters ' . implode( ', ', $intersection ) . ' can not be used together', 'invalidparammix' );
+			$this->dieUsage( "The parameters {$p}" . implode( ", {$p}",  $intersection ) . ' can not be used together', "{$p}invalidparammix" );
 		} elseif ( count( $intersection ) == 0 ) {
-			$this->dieUsage( 'One of the parameters ' . implode( ', ', $required ) . ' is required', 'missingparam' );
+			$this->dieUsage( "One of the parameters {$p}" . implode( ", {$p}", $required ) . ' is required', "{$p}missingparam" );
 		}
 	}
 
@@ -674,12 +733,13 @@ abstract class ApiBase extends ContextSource {
 	public function requireMaxOneParameter( $params ) {
 		$required = func_get_args();
 		array_shift( $required );
+		$p = $this->getModulePrefix();
 
 		$intersection = array_intersect( array_keys( array_filter( $params,
 			array( $this, "parameterNotEmpty" ) ) ), $required );
 
 		if ( count( $intersection ) > 1 ) {
-			$this->dieUsage( 'The parameters ' . implode( ', ', $intersection ) . ' can not be used together', 'invalidparammix' );
+			$this->dieUsage( "The parameters {$p}" . implode( ", {$p}", $intersection ) . ' can not be used together', "{$p}invalidparammix" );
 		}
 	}
 
@@ -775,7 +835,7 @@ abstract class ApiBase extends ContextSource {
 	 */
 	protected function getWatchlistValue ( $watchlist, $titleObj, $userOption = null ) {
 
-		$userWatching = $titleObj->userIsWatching();
+		$userWatching = $this->getUser()->isWatched( $titleObj );
 
 		switch ( $watchlist ) {
 			case 'watch':
@@ -869,9 +929,9 @@ abstract class ApiBase extends ContextSource {
 				ApiBase::dieDebug( __METHOD__, "Boolean param $encParamName's default is set to '$default'. Boolean parameters must default to false." );
 			}
 
-			$value = $this->getRequest()->getCheck( $encParamName );
+			$value = $this->getMain()->getCheck( $encParamName );
 		} else {
-			$value = $this->getRequest()->getVal( $encParamName, $default );
+			$value = $this->getMain()->getVal( $encParamName, $default );
 
 			if ( isset( $value ) && $type == 'namespace' ) {
 				$type = MWNamespace::getValidNamespaces();
@@ -1134,7 +1194,8 @@ abstract class ApiBase extends ContextSource {
 	 * @param $errorCode string Brief, arbitrary, stable string to allow easy
 	 *   automated identification of the error, e.g., 'unknown_action'
 	 * @param $httpRespCode int HTTP response code
-	 * @param $extradata array Data to add to the <error> element; array in ApiResult format
+	 * @param $extradata array Data to add to the "<error>" element; array in ApiResult format
+	 * @throws UsageException
 	 */
 	public function dieUsage( $description, $errorCode, $httpRespCode = 0, $extradata = null ) {
 		Profiler::instance()->close();
@@ -1211,6 +1272,8 @@ abstract class ApiBase extends ContextSource {
 		'nouserspecified' => array( 'code' => 'invaliduser', 'info' => "Invalid username \"\$1\"" ),
 		'noname' => array( 'code' => 'invaliduser', 'info' => "Invalid username \"\$1\"" ),
 		'summaryrequired' => array( 'code' => 'summaryrequired', 'info' => 'Summary required' ),
+		'import-rootpage-invalid' => array( 'code' => 'import-rootpage-invalid', 'info' => 'Root page is an invalid title' ),
+		'import-rootpage-nosubpage' => array( 'code' => 'import-rootpage-nosubpage', 'info' => 'Namespace "$1" of the root page does not allow subpages' ),
 
 		// API-specific messages
 		'readrequired' => array( 'code' => 'readapidenied', 'info' => "You need read permission to use this module" ),
@@ -1257,6 +1320,9 @@ abstract class ApiBase extends ContextSource {
 		'specialpage-cantexecute' => array( 'code' => 'specialpage-cantexecute', 'info' => "You don't have permission to view the results of this special page" ),
 		'invalidoldimage' => array( 'code' => 'invalidoldimage', 'info' => 'The oldimage parameter has invalid format' ),
 		'nodeleteablefile' => array( 'code' => 'nodeleteablefile', 'info' => 'No such old version of the file' ),
+		'fileexists-forbidden' => array( 'code' => 'fileexists-forbidden', 'info' => 'A file with name "$1" already exists, and cannot be overwritten.' ),
+		'fileexists-shared-forbidden' => array( 'code' => 'fileexists-shared-forbidden', 'info' => 'A file with name "$1" already exists in the shared file repository, and cannot be overwritten.' ),
+		'filerevert-badversion' => array( 'code' => 'filerevert-badversion', 'info' => 'There is no previous local version of this file with the provided timestamp.' ),
 
 		// ApiEditPage messages
 		'noimageredirect-anon' => array( 'code' => 'noimageredirect-anon', 'info' => "Anonymous users can't create image redirects" ),
@@ -1281,7 +1347,7 @@ abstract class ApiBase extends ContextSource {
 		'edit-already-exists' => array( 'code' => 'edit-already-exists', 'info' => "It seems the page you tried to create already exist" ),
 
 		// uploadMsgs
-		'invalid-session-key' => array( 'code' => 'invalid-session-key', 'info' => 'Not a valid session key' ),
+		'invalid-file-key' => array( 'code' => 'invalid-file-key', 'info' => 'Not a valid file key' ),
 		'nouploadmodule' => array( 'code' => 'nouploadmodule', 'info' => 'No upload module set' ),
 		'uploaddisabled' => array( 'code' => 'uploaddisabled', 'info' => 'Uploads are not enabled.  Make sure $wgEnableUploads is set to true in LocalSettings.php and the PHP ini setting file_uploads is true' ),
 		'copyuploaddisabled' => array( 'code' => 'copyuploaddisabled', 'info' => 'Uploads by URL is not enabled.  Make sure $wgAllowCopyUploads is set to true in LocalSettings.php.' ),
@@ -1335,10 +1401,9 @@ abstract class ApiBase extends ContextSource {
 		}
 
 		if ( isset( self::$messageMap[$key] ) ) {
-			return array( 'code' =>
-			wfMsgReplaceArgs( self::$messageMap[$key]['code'], $error ),
-				'info' =>
-				wfMsgReplaceArgs( self::$messageMap[$key]['info'], $error )
+			return array(
+				'code' => wfMsgReplaceArgs( self::$messageMap[$key]['code'], $error ),
+				'info' => wfMsgReplaceArgs( self::$messageMap[$key]['info'], $error )
 			);
 		}
 
@@ -1387,7 +1452,9 @@ abstract class ApiBase extends ContextSource {
 	}
 
 	/**
-	 * Returns whether this module requires a Token to execute
+	 * Returns whether this module requires a token to execute
+	 * It is used to show possible errors in action=paraminfo
+	 * see bug 25248
 	 * @return bool
 	 */
 	public function needsToken() {
@@ -1395,8 +1462,12 @@ abstract class ApiBase extends ContextSource {
 	}
 
 	/**
-	 * Returns the token salt if there is one, '' if the module doesn't require a salt, else false if the module doesn't need a token
-	 * @return bool|string
+	 * Returns the token salt if there is one,
+	 * '' if the module doesn't require a salt,
+	 * else false if the module doesn't need a token
+	 * You have also to override needsToken()
+	 * Value is passed to User::getEditToken
+	 * @return bool|string|array
 	 */
 	public function getTokenSalt() {
 		return false;

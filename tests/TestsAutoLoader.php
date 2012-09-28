@@ -1,7 +1,7 @@
 <?php
 
 global $wgAutoloadClasses;
-$testFolder = dirname( __FILE__ );
+$testFolder = __DIR__;
 
 $wgAutoloadClasses += array(
 
@@ -13,12 +13,11 @@ $wgAutoloadClasses += array(
 
 	//includes
 	'BlockTest' => "$testFolder/phpunit/includes/BlockTest.php",
-	'MockOutputPage' => "$testFolder/phpunit/includes/MockOutputPage.php",
 
 	//API
 	'ApiFormatTestBase' => "$testFolder/phpunit/includes/api/format/ApiFormatTestBase.php",
 	'ApiTestCase' => "$testFolder/phpunit/includes/api/ApiTestCase.php",
-	'ApiTestUser' => "$testFolder/phpunit/includes/api/ApiTestUser.php",
+	'TestUser' => "$testFolder/phpunit/includes/TestUser.php",
 	'MockApi' => "$testFolder/phpunit/includes/api/ApiTestCase.php",
 	'RandomImageGenerator' => "$testFolder/phpunit/includes/api/RandomImageGenerator.php",
 	'UserWrapper' => "$testFolder/phpunit/includes/api/ApiTestCase.php",
@@ -28,6 +27,7 @@ $wgAutoloadClasses += array(
 
 	//maintenance
 	'DumpTestCase' => "$testFolder/phpunit/maintenance/DumpTestCase.php",
+	'BackupDumper' => "$testFolder/../maintenance/backup.inc",
 
 	//Generic providers
 	'MediaWikiProvide' => "$testFolder/phpunit/includes/Providers.php",

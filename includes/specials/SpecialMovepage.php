@@ -258,7 +258,7 @@ class MovePageForm extends UnlistedSpecialPage {
 			 Xml::openElement( 'form', array( 'method' => 'post', 'action' => $this->getTitle()->getLocalURL( 'action=submit' ), 'id' => 'movepage' ) ) .
 			 Xml::openElement( 'fieldset' ) .
 			 Xml::element( 'legend', null, $this->msg( 'move-page-legend' )->text() ) .
-			 Xml::openElement( 'table', array( 'border' => '0', 'id' => 'mw-movepage-table' ) ) .
+			 Xml::openElement( 'table', array( 'id' => 'mw-movepage-table' ) ) .
 			 "<tr>
 				<td class='mw-label'>" .
 					$this->msg( 'movearticle' )->escaped() .
@@ -358,7 +358,7 @@ class MovePageForm extends UnlistedSpecialPage {
 		}
 
 		$watchChecked = $user->isLoggedIn() && ($this->watch || $user->getBoolOption( 'watchmoves' )
-			|| $this->oldTitle->userIsWatching());
+			|| $user->isWatched( $this->oldTitle ) );
 		# Don't allow watching if user is not logged in
 		if( $user->isLoggedIn() ) {
 			$out->addHTML( "
@@ -440,8 +440,9 @@ class MovePageForm extends UnlistedSpecialPage {
 
 			$error = ''; // passed by ref
 			$page = WikiPage::factory( $nt );
-			if ( !$page->doDeleteArticle( $reason, false, 0, true, $error, $user ) ) {
-				$this->showForm( array( array( 'cannotdelete', wfEscapeWikiText( $nt->getPrefixedText() ) ) ) );
+			$deleteStatus = $page->doDeleteArticleReal( $reason, false, 0, true, $error, $user );
+			if ( !$deleteStatus->isGood() ) {
+				$this->showForm( $deleteStatus->getErrorsArray() );
 				return;
 			}
 		}
@@ -628,8 +629,9 @@ class MovePageForm extends UnlistedSpecialPage {
 	}
 
 	function showLogFragment( $title ) {
+		$moveLogPage = new LogPage( 'move' );
 		$out = $this->getOutput();
-		$out->addHTML( Xml::element( 'h2', null, LogPage::logName( 'move' ) ) );
+		$out->addHTML( Xml::element( 'h2', null, $moveLogPage->getName()->text() ) );
 		LogEventsList::showLogExtract( $out, 'move', $title );
 	}
 

@@ -613,7 +613,7 @@ class Block {
 		$key = wfMemcKey( 'ipb', 'autoblock', 'whitelist' );
 		$lines = $wgMemc->get( $key );
 		if ( !$lines ) {
-			$lines = explode( "\n", wfMsgForContentNoTrans( 'autoblock_whitelist' ) );
+			$lines = explode( "\n", wfMessage( 'autoblock_whitelist' )->inContentLanguage()->plain() );
 			$wgMemc->set( $key, $lines, 3600 * 24 );
 		}
 
@@ -687,7 +687,7 @@ class Block {
 		wfDebug( "Autoblocking {$this->getTarget()}@" . $autoblockIP . "\n" );
 		$autoblock->setTarget( $autoblockIP );
 		$autoblock->setBlocker( $this->getBlocker() );
-		$autoblock->mReason = wfMsgForContent( 'autoblocker', $this->getTarget(), $this->mReason );
+		$autoblock->mReason = wfMessage( 'autoblocker', $this->getTarget(), $this->mReason )->inContentLanguage()->text();
 		$timestamp = wfTimestampNow();
 		$autoblock->mTimestamp = $timestamp;
 		$autoblock->mAuto = 1;
@@ -1000,41 +1000,6 @@ class Block {
 	public static function infinity() {
 		wfDeprecated( __METHOD__, '1.18' );
 		return wfGetDB( DB_SLAVE )->getInfinity();
-	}
-
-	/**
-	 * Convert a DB-encoded expiry into a real string that humans can read.
-	 *
-	 * @param $encoded_expiry String: Database encoded expiry time
-	 * @return Html-escaped String
-	 * @deprecated since 1.18; use $wgLang->formatExpiry() instead
-	 */
-	public static function formatExpiry( $encoded_expiry ) {
-		wfDeprecated( __METHOD__, '1.18' );
-
-		global $wgContLang;
-		static $msg = null;
-
-		if ( is_null( $msg ) ) {
-			$msg = array();
-			$keys = array( 'infiniteblock', 'expiringblock' );
-
-			foreach ( $keys as $key ) {
-				$msg[$key] = wfMsgHtml( $key );
-			}
-		}
-
-		$expiry = $wgContLang->formatExpiry( $encoded_expiry, TS_MW );
-		if ( $expiry == wfGetDB( DB_SLAVE )->getInfinity() ) {
-			$expirystr = $msg['infiniteblock'];
-		} else {
-			global $wgLang;
-			$expiredatestr = htmlspecialchars( $wgLang->date( $expiry, true ) );
-			$expiretimestr = htmlspecialchars( $wgLang->time( $expiry, true ) );
-			$expirystr = wfMsgReplaceArgs( $msg['expiringblock'], array( $expiredatestr, $expiretimestr ) );
-		}
-
-		return $expirystr;
 	}
 
 	/**

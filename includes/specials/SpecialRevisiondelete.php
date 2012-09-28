@@ -66,6 +66,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 			'success' 		=> 'revdelete-success',
 			'failure' 		=> 'revdelete-failure',
 			'list-class' 	=> 'RevDel_RevisionList',
+			'permission'	=> 'deleterevision',
 		),
 		'archive' => array(
 			'check-label' 	=> 'revdelete-hide-text',
@@ -73,6 +74,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 			'success' 		=> 'revdelete-success',
 			'failure' 		=> 'revdelete-failure',
 			'list-class' 	=> 'RevDel_ArchiveList',
+			'permission'	=> 'deleterevision',
 		),
 		'oldimage'=> array(
 			'check-label' 	=> 'revdelete-hide-image',
@@ -80,6 +82,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 			'success' 		=> 'revdelete-success',
 			'failure' 		=> 'revdelete-failure',
 			'list-class' 	=> 'RevDel_FileList',
+			'permission'	=> 'deleterevision',
 		),
 		'filearchive' => array(
 			'check-label' 	=> 'revdelete-hide-image',
@@ -87,6 +90,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 			'success' 		=> 'revdelete-success',
 			'failure' 		=> 'revdelete-failure',
 			'list-class' 	=> 'RevDel_ArchivedFileList',
+			'permission'	=> 'deleterevision',
 		),
 		'logging' => array(
 			'check-label'	=> 'revdelete-hide-name',
@@ -94,6 +98,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 			'success' 		=> 'logdelete-success',
 			'failure' 		=> 'logdelete-failure',
 			'list-class'	=> 'RevDel_LogList',
+			'permission'	=> 'deletelogentry',
 		),
 	);
 
@@ -117,7 +122,6 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 		$output = $this->getOutput();
 		$user = $this->getUser();
 
-		$this->mIsAllowed = $user->isAllowed('deleterevision'); // for changes
 		$this->setHeaders();
 		$this->outputHeader();
 		$request = $this->getRequest();
@@ -159,10 +163,10 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 
 		# No targets?
 		if( !isset( self::$allowedTypes[$this->typeName] ) || count( $this->ids ) == 0 ) {
-			$output->showErrorPage( 'revdelete-nooldid-title', 'revdelete-nooldid-text' );
-			return;
+			throw new ErrorPageError( 'revdelete-nooldid-title', 'revdelete-nooldid-text' );
 		}
 		$this->typeInfo = self::$allowedTypes[$this->typeName];
+		$this->mIsAllowed = $user->isAllowed( $this->typeInfo['permission'] );
 
 		# If we have revisions, get the title from the first one
 		# since they should all be from the same page. This allows
@@ -201,12 +205,14 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 
 		$qc = $this->getLogQueryCond();
 		# Show relevant lines from the deletion log
-		$output->addHTML( "<h2>" . htmlspecialchars( LogPage::logName( 'delete' ) ) . "</h2>\n" );
+		$deleteLogPage = new LogPage( 'delete' );
+		$output->addHTML( "<h2>" . $deleteLogPage->getName()->escaped() . "</h2>\n" );
 		LogEventsList::showLogExtract( $output, 'delete',
 			$this->targetObj, '', array( 'lim' => 25, 'conds' => $qc ) );
 		# Show relevant lines from the suppression log
 		if( $user->isAllowed( 'suppressionlog' ) ) {
-			$output->addHTML( "<h2>" . htmlspecialchars( LogPage::logName( 'suppress' ) ) . "</h2>\n" );
+			$suppressLogPage = new LogPage( 'suppress' );
+			$output->addHTML( "<h2>" . $suppressLogPage->getName()->escaped()  . "</h2>\n" );
 			LogEventsList::showLogExtract( $output, 'suppress',
 				$this->targetObj, '', array( 'lim' => 25, 'conds' => $qc ) );
 		}
@@ -279,11 +285,10 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 		$user = $this->getUser();
 		if( !$oimage->userCan( File::DELETED_FILE, $user ) ) {
 			if( $oimage->isDeleted( File::DELETED_RESTRICTED ) ) {
-				$this->getOutput()->permissionRequired( 'suppressrevision' );
+				throw new PermissionsError( 'suppressrevision' );
 			} else {
-				$this->getOutput()->permissionRequired( 'deletedtext' );
+				throw new PermissionsError( 'deletedtext' );
 			}
-			return;
 		}
 		if ( !$user->matchEditToken( $this->token, $archiveName ) ) {
 			$lang = $this->getLanguage();
@@ -353,8 +358,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 			$item = $list->current();
 			if ( !$item->canView() ) {
 				if( !$this->submitClicked ) {
-					$this->getOutput()->permissionRequired( 'suppressrevision' );
-					return;
+					throw new PermissionsError( 'suppressrevision' );
 				}
 				$UserAllowed = false;
 			}
@@ -363,8 +367,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 		}
 
 		if( !$numRevisions ) {
-			$this->getOutput()->showErrorPage( 'revdelete-nooldid-title', 'revdelete-nooldid-text' );
-			return;
+			throw new ErrorPageError( 'revdelete-nooldid-title', 'revdelete-nooldid-text' );
 		}
 
 		$this->getOutput()->addHTML( "</ul>" );
@@ -420,7 +423,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 			$out .= Xml::closeElement( 'form' ) . "\n";
 			// Show link to edit the dropdown reasons
 			if( $this->getUser()->isAllowed( 'editinterface' ) ) {
-				$title = Title::makeTitle( NS_MEDIAWIKI, 'revdelete-reason-dropdown' );
+				$title = Title::makeTitle( NS_MEDIAWIKI, 'Revdelete-reason-dropdown' );
 				$link = Linker::link(
 					$title,
 					$this->msg( 'revdelete-edit-reasonlist' )->escaped(),
@@ -521,8 +524,7 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 		}
 		# Can the user set this field?
 		if( $bitParams[Revision::DELETED_RESTRICTED]==1 && !$this->getUser()->isAllowed('suppressrevision') ) {
-			$this->getOutput()->permissionRequired( 'suppressrevision' );
-			return false;
+			throw new PermissionsError( 'suppressrevision' );
 		}
 		# If the save went through, go to success message...
 		$status = $this->save( $bitParams, $comment, $this->targetObj );
@@ -597,6 +599,9 @@ class SpecialRevisionDelete extends UnlistedSpecialPage {
 
 	/**
 	 * Do the write operations. Simple wrapper for RevDel_*List::setVisibility().
+	 * @param $bitfield
+	 * @param $reason
+	 * @param $title
 	 * @return
 	 */
 	protected function save( $bitfield, $reason, $title ) {

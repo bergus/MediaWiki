@@ -33,6 +33,9 @@ $namespaceNames = array(
 	NS_CATEGORY_TALK    => 'Samiyachiy_rimanakuy',
 );
 
+// Remove Spanish gender aliases (bug 37090)
+$namespaceGenderAliases = array();
+
 $messages = array(
 # User preference toggles
 'tog-underline' => 'Tinkikunana uraypi aspishpa rikuchina',

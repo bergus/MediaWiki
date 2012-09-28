@@ -41,8 +41,13 @@
  * @ingroup Maintenance ExternalStorage
  */
 
-require_once( dirname( __FILE__ ) . '/../Maintenance.php' );
+require_once( __DIR__ . '/../Maintenance.php' );
 
+/**
+ * Maintenance script that compress the text of a wiki.
+ *
+ * @ingroup Maintenance ExternalStorage
+ */
 class CompressOld extends Maintenance {
 	/**
 	 * @todo document

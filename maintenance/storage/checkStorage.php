@@ -22,7 +22,7 @@
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
-	require_once( dirname( __FILE__ ) . '/../commandLine.inc' );
+	require_once( __DIR__ . '/../commandLine.inc' );
 
 	$cs = new CheckStorage;
 	$fix = isset( $options['fix'] );
@@ -38,6 +38,8 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 // ----------------------------------------------------------------------------------
 
 /**
+ * Maintenance script to do various checks on external storage.
+ *
  * @ingroup Maintenance ExternalStorage
  */
 class CheckStorage {
@@ -388,7 +390,8 @@ class CheckStorage {
 	}
 
 	function restoreText( $revIds, $xml ) {
-		global $wgTmpDirectory, $wgDBname;
+		global $wgDBname;
+		$tmpDir = wfTempDir();
 
 		if ( !count( $revIds ) ) {
 			return;
@@ -396,8 +399,8 @@ class CheckStorage {
 
 		print "Restoring text from XML backup...\n";
 
-		$revFileName = "$wgTmpDirectory/broken-revlist-$wgDBname";
-		$filteredXmlFileName = "$wgTmpDirectory/filtered-$wgDBname.xml";
+		$revFileName = "$tmpDir/broken-revlist-$wgDBname";
+		$filteredXmlFileName = "$tmpDir/filtered-$wgDBname.xml";
 
 		// Write revision list
 		if ( !file_put_contents( $revFileName, implode( "\n", $revIds ) ) ) {
@@ -481,4 +484,3 @@ class CheckStorage {
 		$this->errors['fixed'][$id] = true;
 	}
 }
-

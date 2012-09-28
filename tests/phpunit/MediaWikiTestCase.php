@@ -6,6 +6,11 @@ abstract class MediaWikiTestCase extends PHPUnit_Framework_TestCase {
 	public $runDisabled = false;
 
 	/**
+	 * @var Array of TestUser
+	 */
+	public static $users;
+
+	/**
 	 * @var DatabaseBase
 	 */
 	protected $db;
@@ -115,12 +120,19 @@ abstract class MediaWikiTestCase extends PHPUnit_Framework_TestCase {
 	}
 
 	protected function tearDown() {
-		// Cleaning up temoporary files
+		// Cleaning up temporary files
 		foreach ( $this->tmpfiles as $fname ) {
 			if ( is_file( $fname ) || ( is_link( $fname ) ) ) {
 				unlink( $fname );
 			} elseif ( is_dir( $fname ) ) {
 				wfRecursiveRemoveDir( $fname );
+			}
+		}
+
+		// clean up open transactions
+		if( $this->needsDB() && $this->db ) {
+			while( $this->db->trxLevel() > 0 ) {
+				$this->db->rollback();
 			}
 		}
 
@@ -326,10 +338,6 @@ abstract class MediaWikiTestCase extends PHPUnit_Framework_TestCase {
 
 	}
 
-	public static function disableInterwikis( $prefix, &$data ) {
-		return false;
-	}
-
 	/**
 	 * Don't throw a warning if $function is deprecated and called later
 	 *
@@ -347,6 +355,8 @@ abstract class MediaWikiTestCase extends PHPUnit_Framework_TestCase {
 	 * The expected rows should be given as indexed (not associative) arrays, with
 	 * the values given in the order of the columns in the $fields parameter.
 	 * Note that the rows are sorted by the columns given in $fields.
+	 *
+	 * @since 1.20
 	 *
 	 * @param $table String|Array the table(s) to query
 	 * @param $fields String|Array the columns to include in the result (and to sort by)
@@ -366,7 +376,7 @@ abstract class MediaWikiTestCase extends PHPUnit_Framework_TestCase {
 
 		$db = wfGetDB( DB_SLAVE );
 
-		$res = $db->select( $table, $fields, $condition, array( 'ORDER BY' => $fields ) );
+		$res = $db->select( $table, $fields, $condition, wfGetCaller(), array( 'ORDER BY' => $fields ) );
 		$this->assertNotEmpty( $res, "query failed: " . $db->lastError() );
 
 		$i = 0;
@@ -388,18 +398,150 @@ abstract class MediaWikiTestCase extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Utility method taking an array of elements and wrapping
+	 * each element in it's own array. Useful for data providers
+	 * that only return a single argument.
+	 *
+	 * @since 1.20
+	 *
+	 * @param array $elements
+	 *
+	 * @return array
+	 */
+	protected function arrayWrap( array $elements ) {
+		return array_map(
+			function( $element ) {
+				return array( $element );
+			},
+			$elements
+		);
+	}
+
+	/**
+	 * Assert that two arrays are equal. By default this means that both arrays need to hold
+	 * the same set of values. Using additional arguments, order and associated key can also
+	 * be set as relevant.
+	 *
+	 * @since 1.20
+	 *
+	 * @param array $expected
+	 * @param array $actual
+	 * @param boolean $ordered If the order of the values should match
+	 * @param boolean $named If the keys should match
+	 */
+	protected function assertArrayEquals( array $expected, array $actual, $ordered = false, $named = false ) {
+		if ( !$ordered ) {
+			$this->objectAssociativeSort( $expected );
+			$this->objectAssociativeSort( $actual );
+		}
+
+		if ( !$named ) {
+			$expected = array_values( $expected );
+			$actual = array_values( $actual );
+		}
+
+		call_user_func_array(
+			array( $this, 'assertEquals' ),
+			array_merge( array( $expected, $actual ), array_slice( func_get_args(), 4 ) )
+		);
+	}
+
+	/**
+	 * Put each HTML element on its own line and then equals() the results
+	 *
+	 * Use for nicely formatting of PHPUnit diff output when comparing very
+	 * simple HTML
+	 *
+	 * @since 1.20
+	 *
+	 * @param String $expected HTML on oneline
+	 * @param String $actual HTML on oneline
+	 * @param String $msg Optional message
+	 */
+	protected function assertHTMLEquals( $expected, $actual, $msg='' ) {
+		$expected = str_replace( '>', ">\n", $expected );
+		$actual   = str_replace( '>', ">\n", $actual   );
+
+		$this->assertEquals( $expected, $actual, $msg );
+	}
+
+	/**
+	 * Does an associative sort that works for objects.
+	 *
+	 * @since 1.20
+	 *
+	 * @param array $array
+	 */
+	protected function objectAssociativeSort( array &$array ) {
+		uasort(
+			$array,
+			function( $a, $b ) {
+				return serialize( $a ) > serialize( $b ) ? 1 : -1;
+			}
+		);
+	}
+
+	/**
 	 * Utility function for eliminating all string keys from an array.
 	 * Useful to turn a database result row as returned by fetchRow() into
 	 * a pure indexed array.
 	 *
-	 * @static
+	 * @since 1.20
+	 *
 	 * @param $r mixed the array to remove string keys from.
 	 */
 	protected static function stripStringKeys( &$r ) {
-		if ( !is_array( $r ) ) return;
+		if ( !is_array( $r ) ) {
+			return;
+		}
 
 		foreach ( $r as $k => $v ) {
-			if ( is_string( $k ) ) unset( $r[$k] );
+			if ( is_string( $k ) ) {
+				unset( $r[$k] );
+			}
 		}
 	}
+
+	/**
+	 * Asserts that the provided variable is of the specified
+	 * internal type or equals the $value argument. This is useful
+	 * for testing return types of functions that return a certain
+	 * type or *value* when not set or on error.
+	 *
+	 * @since 1.20
+	 *
+	 * @param string $type
+	 * @param mixed $actual
+	 * @param mixed $value
+	 * @param string $message
+	 */
+	protected function assertTypeOrValue( $type, $actual, $value = false, $message = '' ) {
+		if ( $actual === $value ) {
+			$this->assertTrue( true, $message );
+		}
+		else {
+			$this->assertType( $type, $actual, $message );
+		}
+	}
+
+	/**
+	 * Asserts the type of the provided value. This can be either
+	 * in internal type such as boolean or integer, or a class or
+	 * interface the value extends or implements.
+	 *
+	 * @since 1.20
+	 *
+	 * @param string $type
+	 * @param mixed $actual
+	 * @param string $message
+	 */
+	protected function assertType( $type, $actual, $message = '' ) {
+		if ( class_exists( $type ) || interface_exists( $type ) ) {
+			$this->assertInstanceOf( $type, $actual, $message );
+		}
+		else {
+			$this->assertInternalType( $type, $actual, $message );
+		}
+	}
+
 }

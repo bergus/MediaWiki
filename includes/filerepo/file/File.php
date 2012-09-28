@@ -63,6 +63,14 @@ abstract class File {
 
 	const DELETE_SOURCE = 1;
 
+	// Audience options for File::getDescription()
+	const FOR_PUBLIC = 1;
+	const FOR_THIS_USER = 2;
+	const RAW = 3;
+
+	// Options for File::thumbName()
+	const THUMB_FULL_NAME = 1;
+
 	/**
 	 * Some member variables can be lazy-initialised using __get(). The
 	 * initialisation function for these variables is always a function named
@@ -238,6 +246,18 @@ abstract class File {
 		} else {
 			return array( $mime, 'unknown' );
 		}
+	}
+
+	/**
+	 * Callback for usort() to do file sorts by name
+	 *
+	 * @param $a File
+	 * @param $b File
+	 *
+	 * @return Integer: result of name comparison
+	 */
+	public static function compare( File $a, File $b ) {
+		return strcmp( $a->getName(), $b->getName() );
 	}
 
 	/**
@@ -444,6 +464,39 @@ abstract class File {
 			return $handler->isVectorized( $this );
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * Will the thumbnail be animated if one would expect it to be.
+	 *
+	 * Currently used to add a warning to the image description page
+	 *
+	 * @return bool false if the main image is both animated
+	 *   and the thumbnail is not. In all other cases must return
+	 *   true. If image is not renderable whatsoever, should
+	 *   return true.
+	 */
+	public function canAnimateThumbIfAppropriate() {
+		$handler = $this->getHandler();
+		if ( !$handler ) {
+			// We cannot handle image whatsoever, thus
+			// one would not expect it to be animated
+			// so true.
+			return true;
+		} else {
+			if ( $this->allowInlineDisplay()
+				&& $handler->isAnimatedImage( $this )
+				&& !$handler->canAnimateThumbnail( $this )
+			) {
+				// Image is animated, but thumbnail isn't.
+				// This is unexpected to the user.
+				return false;
+			} else {
+				// Image is not animated, so one would
+				// not expect thumb to be
+				return true;
+			}
 		}
 	}
 
@@ -709,15 +762,19 @@ abstract class File {
 	}
 
 	/**
-	 * Return the file name of a thumbnail with the specified parameters
+	 * Return the file name of a thumbnail with the specified parameters.
+	 * Use File::THUMB_FULL_NAME to always get a name like "<params>-<source>".
+	 * Otherwise, the format may be "<params>-<source>" or "<params>-thumbnail.<ext>".
 	 *
 	 * @param $params Array: handler-specific parameters
-	 * @private -ish
-	 *
+	 * @param $flags integer Bitfield that supports THUMB_* constants
 	 * @return string
 	 */
-	function thumbName( $params ) {
-		return $this->generateThumbName( $this->getName(), $params );
+	public function thumbName( $params, $flags = 0 ) {
+		$name = ( $this->repo && !( $flags & self::THUMB_FULL_NAME ) )
+			? $this->repo->nameForThumb( $this->getName() )
+			: $this->getName();
+		return $this->generateThumbName( $name, $params );
 	}
 
 	/**
@@ -728,7 +785,7 @@ abstract class File {
 	 *
 	 * @return string
 	 */
-	function generateThumbName( $name, $params ) {
+	public function generateThumbName( $name, $params ) {
 		if ( !$this->getHandler() ) {
 			return null;
 		}
@@ -787,7 +844,7 @@ abstract class File {
 			return $this->handler->getTransform( $this, $thumbPath, $thumbUrl, $params );
 		} else {
 			return new MediaTransformError( 'thumbnail_error',
-				$params['width'], 0, wfMsg( 'thumbnail-dest-create' ) );
+				$params['width'], 0, wfMessage( 'thumbnail-dest-create' )->text() );
 		}
 	}
 
@@ -877,7 +934,9 @@ abstract class File {
 			$tmpThumbPath = $tmpFile->getPath(); // path of 0-byte temp file
 
 			// Actually render the thumbnail...
+			wfProfileIn( __METHOD__ . '-doTransform' );
 			$thumb = $this->handler->doTransform( $this, $tmpThumbPath, $thumbUrl, $params );
+			wfProfileOut( __METHOD__ . '-doTransform' );
 			$tmpFile->bind( $thumb ); // keep alive with $thumb
 
 			if ( !$thumb ) { // bad params?
@@ -890,7 +949,8 @@ abstract class File {
 				}
 			} elseif ( $this->repo && $thumb->hasFile() && !$thumb->fileIsSource() ) {
 				// Copy the thumbnail from the file system into storage...
-				$status = $this->repo->quickImport( $tmpThumbPath, $thumbPath );
+				$disposition = $this->getThumbDisposition( $thumbName );
+				$status = $this->repo->quickImport( $tmpThumbPath, $thumbPath, $disposition );
 				if ( $status->isOK() ) {
 					$thumb->setStoragePath( $thumbPath );
 				} else {
@@ -912,6 +972,19 @@ abstract class File {
 
 		wfProfileOut( __METHOD__ );
 		return is_object( $thumb ) ? $thumb : false;
+	}
+
+	/**
+	 * @param $thumbName string Thumbnail name
+	 * @return string Content-Disposition header value
+	 */
+	function getThumbDisposition( $thumbName ) {
+		$fileName = $this->name; // file name to suggest
+		$thumbExt = FileBackend::extensionFromPath( $thumbName );
+		if ( $thumbExt != '' && $thumbExt !== $this->getExtension() ) {
+			$fileName .= ".$thumbExt";
+		}
+		return FileBackend::makeContentDisposition( 'inline', $fileName );
 	}
 
 	/**
@@ -946,7 +1019,8 @@ abstract class File {
 			$path = '/common/images/icons/' . $icon;
 			$filepath = $wgStyleDirectory . $path;
 			if ( file_exists( $filepath ) ) { // always FS
-				return new ThumbnailImage( $this, $wgStylePath . $path, 120, 120 );
+				$params = array( 'width' => 120, 'height' => 120 );
+				return new ThumbnailImage( $this, $wgStylePath . $path, false, $params );
 			}
 		}
 		return null;
@@ -1565,12 +1639,18 @@ abstract class File {
 	}
 
 	/**
-	 * Get discription of file revision
+	 * Get description of file revision
 	 * STUB
 	 *
+	 * @param $audience Integer: one of:
+	 *      File::FOR_PUBLIC       to be displayed to all users
+	 *      File::FOR_THIS_USER    to be displayed to the given user
+	 *      File::RAW              get the description regardless of permissions
+	 * @param $user User object to check for, only if FOR_THIS_USER is passed
+	 *              to the $audience parameter
 	 * @return string
 	 */
-	function getDescription() {
+	function getDescription( $audience = self::FOR_PUBLIC, User $user = null ) {
 		return null;
 	}
 
@@ -1595,7 +1675,7 @@ abstract class File {
 	}
 
 	/**
-	 * Get the deletion archive key, <sha1>.<ext>
+	 * Get the deletion archive key, "<sha1>.<ext>"
 	 *
 	 * @return string
 	 */

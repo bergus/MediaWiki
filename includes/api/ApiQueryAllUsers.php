@@ -4,7 +4,7 @@
  *
  * Created on July 7, 2007
  *
- * Copyright © 2007 Yuri Astrakhan <Firstname><Lastname>@gmail.com
+ * Copyright © 2007 Yuri Astrakhan "<Firstname><Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -152,7 +152,7 @@ class ApiQueryAllUsers extends ApiQueryBase {
 				'INNER JOIN', 'rc_user_text=user_name'
 			) ) );
 
-			$this->addFields( 'COUNT(*) AS recentedits' );
+			$this->addFields( array( 'recentedits' => 'COUNT(*)' ) );
 
 			$this->addWhere( 'rc_log_type IS NULL OR rc_log_type != ' . $db->addQuotes( 'newusers' ) );
 			$timestamp = $db->timestamp( wfTimestamp( TS_UNIX ) - $wgActiveUserDays*24*3600 );
@@ -252,7 +252,7 @@ class ApiQueryAllUsers extends ApiQueryBase {
 			if ( $fld_groups ) {
 				if ( !isset( $lastUserData['groups'] ) ) {
 					if ( $lastUserObj ) {
-						$lastUserData['groups'] = ApiQueryUsers::getAutoGroups( $lastUserObj );
+						$lastUserData['groups'] = $lastUserObj->getAutomaticGroups();
 					} else {
 						// This should not normally happen
 						$lastUserData['groups'] = array();
@@ -267,7 +267,7 @@ class ApiQueryAllUsers extends ApiQueryBase {
 			}
 
 			if ( $fld_implicitgroups && !isset( $lastUserData['implicitgroups'] ) && $lastUserObj ) {
-				$lastUserData['implicitgroups'] = ApiQueryUsers::getAutoGroups( $lastUserObj );
+				$lastUserData['implicitgroups'] = $lastUserObj->getAutomaticGroups();
 				$result->setIndexedTagName( $lastUserData['implicitgroups'], 'g' );
 			}
 			if ( $fld_rights ) {
@@ -374,6 +374,48 @@ class ApiQueryAllUsers extends ApiQueryBase {
 			'limit' => 'How many total user names to return',
 			'witheditsonly' => 'Only list users who have made edits',
 			'activeusers' => "Only list users active in the last {$wgActiveUserDays} days(s)"
+		);
+	}
+
+	public function getResultProperties() {
+		return array(
+			'' => array(
+				'userid' => 'integer',
+				'name' => 'string',
+				'recenteditcount' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				)
+			),
+			'blockinfo' => array(
+				'blockid' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'blockedby' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'blockedbyid' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'blockedreason' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'blockedexpiry' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'hidden' => 'boolean'
+			),
+			'editcount' => array(
+				'editcount' => 'integer'
+			),
+			'registration' => array(
+				'registration' => 'string'
+			)
 		);
 	}
 

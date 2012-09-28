@@ -35,6 +35,8 @@ class ChangeTags {
 	 *
 	 */
 	static function formatSummaryRow( $tags, $page ) {
+		global $wgLang;
+
 		if( !$tags )
 			return array( '', array() );
 
@@ -51,7 +53,7 @@ class ChangeTags {
 			);
 			$classes[] = Sanitizer::escapeClass( "mw-tag-$tag" );
 		}
-		$markers = '(' . implode( ', ', $displayTags ) . ')';
+		$markers = wfMessage( 'parentheses' )->rawParams( $wgLang->commaList( $displayTags ) )->text();
 		$markers = Xml::tags( 'span', array( 'class' => 'mw-tag-markers' ), $markers );
 
 		return array( $markers, $classes );
@@ -222,10 +224,11 @@ class ChangeTags {
 	public static function buildTagFilterSelector( $selected='', $fullForm = false, Title $title = null ) {
 		global $wgUseTagFilter;
 
-		if ( !$wgUseTagFilter || !count( self::listDefinedTags() ) )
+		if ( !$wgUseTagFilter || !count( self::listDefinedTags() ) ) {
 			return $fullForm ? '' : array();
+		}
 
-		$data = array( Html::rawElement( 'label', array( 'for' => 'tagfilter' ), wfMsgExt( 'tag-filter', 'parseinline' ) ),
+		$data = array( Html::rawElement( 'label', array( 'for' => 'tagfilter' ), wfMessage( 'tag-filter' )->parse() ),
 			Xml::input( 'tagfilter', 20, $selected, array( 'class' => 'mw-tagfilter-input' ) ) );
 
 		if ( !$fullForm ) {
@@ -233,7 +236,7 @@ class ChangeTags {
 		}
 
 		$html = implode( '&#160;', $data );
-		$html .= "\n" . Xml::element( 'input', array( 'type' => 'submit', 'value' => wfMsg( 'tag-filter-submit' ) ) );
+		$html .= "\n" . Xml::element( 'input', array( 'type' => 'submit', 'value' => wfMessage( 'tag-filter-submit' )->text() ) );
 		$html .= "\n" . Html::hidden( 'title', $title->getPrefixedText() );
 		$html = Xml::tags( 'form', array( 'action' => $title->getLocalURL(), 'class' => 'mw-tagfilter-form', 'method' => 'get' ), $html );
 

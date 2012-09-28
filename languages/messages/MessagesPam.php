@@ -76,35 +76,35 @@ Pabusten ing pamanaliling dake kapamilatan [alilan] ning suglung',
 'tue' => 'Mrt',
 'wed' => 'Mie',
 'thu' => 'Jue',
-'fri' => 'Vie',
+'fri' => 'Bie',
 'sat' => 'Sab',
 'january' => 'Eneru',
-'february' => 'Febreru',
-'march' => 'Marzu',
+'february' => 'Pebreru',
+'march' => 'Marsu',
 'april' => 'Abril',
 'may_long' => 'Mayu',
 'june' => 'Juniu',
 'july' => 'Juliu',
 'august' => 'Agostu',
-'september' => 'Setiembri',
+'september' => 'Septiembri',
 'october' => 'Octubri',
 'november' => 'Nobiembri',
-'december' => 'Diciembri',
+'december' => 'Disiembri',
 'january-gen' => 'Eneru',
-'february-gen' => 'Febreru',
-'march-gen' => 'Marzu',
+'february-gen' => 'Pebreru',
+'march-gen' => 'Marsu',
 'april-gen' => 'Abril',
 'may-gen' => 'Mayu',
 'june-gen' => 'Juniu',
 'july-gen' => 'Juliu',
 'august-gen' => 'Agostu',
-'september-gen' => 'Setiembri',
-'october-gen' => 'Octobri',
-'november-gen' => 'Noviembri',
-'december-gen' => 'Diciembri',
+'september-gen' => 'Septiembri',
+'october-gen' => 'Octubri',
+'november-gen' => 'Nobiembri',
+'december-gen' => 'Disiembri',
 'jan' => 'Ene',
 'feb' => 'Peb',
-'mar' => 'Mrz',
+'mar' => 'Mrs',
 'apr' => 'Abr',
 'may' => 'Myu',
 'jun' => 'Jnu',
@@ -154,10 +154,19 @@ Pabusten ing pamanaliling dake kapamilatan [alilan] ning suglung',
 'faqpage' => 'Project:MAK',
 
 # Vector skin
+'vector-action-addsection' => 'Dagdagan ing pisasabian',
+'vector-action-delete' => 'Buran',
 'vector-action-move' => 'Iyalis',
 'vector-action-protect' => 'Protectan/kambilan',
 'vector-action-undelete' => 'Isubli/iurung ya pangabura',
 'vector-action-unprotect' => 'Idayu ya panga-protecta',
+'vector-view-create' => 'Maglalang',
+'vector-view-edit' => 'Alilan',
+'vector-view-history' => 'Lawen ya ing amlat',
+'vector-view-view' => 'Basan',
+'vector-view-viewsource' => 'Lawen ya ing pikuanan',
+'namespaces' => 'Karinanlagiu',
+'variants' => 'Aliwapa',
 
 'errorpagetitle' => 'Mali',
 'returnto' => 'Magbalik king $1.',
@@ -173,6 +182,7 @@ Pabusten ing pamanaliling dake kapamilatan [alilan] ning suglung',
 'printableversion' => 'Kopiang malyaring i-print',
 'permalink' => 'Suglung a permanenti',
 'print' => 'I-print',
+'view' => 'Lawen',
 'edit' => 'Alilan',
 'create' => 'Maglalang',
 'editthispage' => 'I-edit ya ing bulung a ini',
@@ -275,7 +285,7 @@ Pabusten ing pamanaliling dake kapamilatan [alilan] ning suglung',
 'nstab-project' => 'Bulung ding proyektu',
 'nstab-image' => 'Simpan (File)',
 'nstab-mediawiki' => 'Mensahi',
-'nstab-template' => 'Modelu (template)',
+'nstab-template' => 'Ulma (template)',
 'nstab-help' => 'Saup bulung',
 'nstab-category' => 'Kategoriya',
 
@@ -644,6 +654,7 @@ Ini ing sangkan a binie nang $3: ''$2''",
 Kabaldugan: (ngeni)=pamiyaliwa king salukuyan a bersion (bersion ngeni),
 (tauli)=pamiyaliwa ketang sadyang (tauling) bersion, M = malating edit.',
 'history-fieldset-title' => 'Amlat da reng pamaglawe',
+'history-show-deleted' => 'Milako yamu',
 'histfirst' => 'Minunang dili',
 'histlast' => 'Pekabayu',
 'historysize' => '({{PLURAL:$1|1 a byte|byte}})',
@@ -748,7 +759,12 @@ Gamitan me ing radio button column bang bukud mung detang miyalilan aniang o bay
 'prevn' => 'minunang {{PLURAL:$1|$1}}',
 'nextn' => 'tutuking {{PLURAL:$1|$1}}',
 'viewprevnext' => 'Lon ($1 {{int:pipe-separator}} $2) ($3)',
+'searchmenu-exists' => "'''Atin bulung a mikilagiung \"[[:\$1]]\" keng wiking ini.'''",
 'searchhelp-url' => 'Help:Kalamnan',
+'searchprofile-everything' => 'Eganagana',
+'searchprofile-articles-tooltip' => 'Paintunan king$1',
+'searchprofile-images-tooltip' => 'Manintun makasimpan',
+'searchprofile-everything-tooltip' => 'Manintun karing eganaganang laman (kayabe no reng bulung pamisabi-sabi)',
 'search-result-size' => '$1 ({{PLURAL:$2|1 a kataya|$2 kataya}})',
 'search-result-score' => 'Kaugnayan (relevance): $1%',
 'search-redirect' => '(pamanalis direksiun $1)',
@@ -1020,19 +1036,19 @@ Ba yang iyabe ing simpan king metung a bulung gamitan me ing suglung (link) king
 Ing simpan a ini $2 ya.',
 'largefileserver' => 'Mas maragul ya ing simpan (file) a ini kesa ketang makapaintulut (configured) king server.',
 'emptyfile' => 'Balamu ala yang laman ing simpan (file) a linulan mu. Mapaliaring ing sangkan, pamagkamali (typo) ya king lagyung simpan (file name). Pakaisipan mu nung taganang buri meng ilulan ining simpan.',
-'fileexists' => "Atin nang simpan (file) a maki lagyung anti kaniti; pakilawe mu '''<tt>[[:$1]]</tt>''' nung e ka siguradu nung buri meng alilan.
-[[$1|thumb]]",
-'filepageexists' => "Melalang na ing bulung pamilarawan (description page) para king simpan (file) a ini king '''<tt>[[:$1]]</tt>''', oneng king salukuyan, ala pang simpan a maki lagyung anti kaniti.
+'fileexists' => 'Atin nang simpan (file) a maki lagyung anti kaniti; pakilawe mu <strong>[[:$1]]</strong> nung e ka siguradu nung buri meng alilan.
+[[$1|thumb]]',
+'filepageexists' => 'Melalang na ing bulung pamilarawan (description page) para king simpan (file) a ini king <strong>[[:$1]]</strong>, oneng king salukuyan, ala pang simpan a maki lagyung anti kaniti.
 E ya tambing lunto king bulung pamilarawan ing sampulung (summary) a isulat mu.
-Ba yang lunto karin ing kekang sampulung, kailangan me pamung i-edit",
-'fileexists-extension' => "Maki simpan (file) a makayawig lagyu kaniti: [[$2|thumb]]
-* Lagyu ning simpan a milululan: '''<tt>[[:$1]]</tt>'''
-* Lagyu ning salukuyan a simpan: '''<tt>[[:$2]]</tt>'''
-Mamili kang aliwang lagyu.",
+Ba yang lunto karin ing kekang sampulung, kailangan me pamung i-edit',
+'fileexists-extension' => 'Maki simpan (file) a makayawig lagyu kaniti: [[$2|thumb]]
+* Lagyu ning simpan a milululan: <strong>[[:$1]]</strong>
+* Lagyu ning salukuyan a simpan: <strong>[[:$2]]</strong>
+Mamili kang aliwang lagyu.',
 'fileexists-thumbnail-yes' => "Lupa yang larawan a pepalati ing simpan ''(thumbnail)''. [[$1|thumb]]
-Pakilawe me ing simpan '''<tt>[[:$1]]</tt>'''.
+Pakilawe me ing simpan <strong>[[:$1]]</strong>.
 Nung ya naman ketang minunang maki orihinal a dagul ing simpan a maka-check, e na kailangang maglulan karagdagan a thumbnail.",
-'file-thumbnail-no' => "Magumpisa ya ing lagyungsimpan (filename) king '''<tt>$1</tt>'''.
+'file-thumbnail-no' => "Magumpisa ya ing lagyungsimpan (filename) king <strong>$1</strong>.
 Lupa yang larawan a pepalati ''(thumbnail)''.
 Nung atyu keka ining larawan king bersion a pekamalino (full resolution), ilulan me ini; nung ali naman, pakiyalilan me ing lagyung simpan.",
 'fileexists-forbidden' => 'Atin nang simpan a maki lagyung anti kaniti;
@@ -1147,7 +1163,7 @@ Miyalilan ing pamanayus nung i-click ya ing pamagat ning kolum (column header).'
 # MIME search
 'mimesearch' => 'pamanintun MIME',
 'mimesearch-summary' => 'Papaliari ning bulung a ini ing pamanialak (filtering) kareng simpan (file) para king kayang MIME-type.
-Isulat (input): contenttype/subtype, alimbawa <tt>image/jpeg</tt>.',
+Isulat (input): contenttype/subtype, alimbawa <code>image/jpeg</code>.',
 'download' => 'ikuldas (download)',
 
 # Unwatched pages
@@ -1294,6 +1310,7 @@ Also see [[Special:WantedCategories|wanted categories]].',
 
 # Special:LinkSearch
 'linksearch' => 'Suglung palual',
+'linksearch-line' => '$1 makasuglung ibat $2',
 
 # Special:ListUsers
 'listusersfrom' => 'Ipakit la reng talagamit magumpisa king:',
@@ -1583,7 +1600,7 @@ $1',
 'nolinkshere-ns' => "Alang bulung a makatuglung king '''[[:$1]]''' ketang mepiling pirinan lagyu (namespace).",
 'isredirect' => 'Bulung ning pamanaliling direksiun',
 'istemplate' => 'misingit',
-'isimage' => 'suglung king larawan',
+'isimage' => 'Isuglung king larawan',
 'whatlinkshere-prev' => '{{PLURAL:$1|minunang|minunang $1}}',
 'whatlinkshere-next' => '{{PLURAL:$1|next|tutuking $1}}',
 'whatlinkshere-links' => '← suglung',
@@ -2080,6 +2097,14 @@ Detang aliwa tambing (by default) lang makasalikut.
 'exif-gpsareainformation' => 'Lagyu ning lugal king GPS',
 'exif-gpsdatestamp' => 'Petsa ning GPS',
 'exif-gpsdifferential' => 'Pamanulid king pamialiwa ning GPS (GPS differential correction)',
+'exif-worldregioncreated' => 'Labuad nung nu ya meyakua ing litratu',
+'exif-countrycreated' => 'Bangsa nung nokarin ya meyakua ing litratu',
+'exif-countrydest' => 'Bangsang makalto',
+'exif-provinceorstatedest' => 'Lalawigan o bangsang makalto',
+'exif-citydest' => 'Lakanbalen makalto',
+'exif-objectname' => 'Makuyad a bansag',
+'exif-source' => 'Pikuanan',
+'exif-cameraownername' => 'Mikibandi keng paglitratu',
 
 # EXIF attributes
 'exif-compression-1' => 'E makapitpit (uncompressed)',

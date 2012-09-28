@@ -1,6 +1,7 @@
-/* mw.Api objects represent the API of a particular MediaWiki server. */
-
-( function( $, mw, undefined ) {
+/**
+ * mw.Api objects represent the API of a particular MediaWiki server.
+ */
+( function ( mw, $ ) {
 
 	/**
 	 * Constructor to create a settings object for a particular Api
@@ -37,6 +38,7 @@
 	/**
 	 * Constructor to create an object to interact with the API of a particular MediaWiki server.
 	 *
+	 * @todo Share API objects with exact same config.
 	 * @example
 	 * <code>
 	 * var api = new mw.Api();
@@ -98,10 +100,10 @@
 		 * Perform API get request
 		 *
 		 * @param {Object} request parameters
-		 * @param {Object|Function} ajax options, or just a success function
-		 * @return {jqXHR}
+		 * @param {Object|Function} [optional] ajax options
+		 * @return {jQuery.Promise}
 		 */
-		get: function( parameters, ajaxOptions ) {
+		get: function ( parameters, ajaxOptions ) {
 			ajaxOptions = this.normalizeAjaxOptions( ajaxOptions );
 			ajaxOptions.type = 'GET';
 			return this.ajax( parameters, ajaxOptions );
@@ -112,10 +114,10 @@
 		 * @todo Post actions for nonlocal will need proxy
 		 *
 		 * @param {Object} request parameters
-		 * @param {Object|Function} ajax options, or just a success function
-		 * @return {jqXHR}
+		 * @param {Object|Function} [optional] ajax options
+		 * @return {jQuery.Promise}
 		 */
-		post: function( parameters, ajaxOptions ) {
+		post: function ( parameters, ajaxOptions ) {
 			ajaxOptions = this.normalizeAjaxOptions( ajaxOptions );
 			ajaxOptions.type = 'POST';
 			return this.ajax( parameters, ajaxOptions );
@@ -133,9 +135,14 @@
 				{Array}:         items are joined with "|", the usual value separator for query api parameters
 				{Object}:        will be converted to a string
 		 * @param {Object}: ajax options
-		 * @return {jqXHR}
+		 * @return {jQuery.Promise}
+		 * - done: API response data as first argument
+		 * - fail: errorcode as first arg, details (string or object) as second arg.
 		 */
-		ajax: function( parameters, ajaxOptions ) {
+		ajax: function ( parameters, ajaxOptions ) {
+			var token,
+				apiDeferred = $.Deferred();
+
 		
 			if (! "format" in parameters )
 				parameters.format = ajaxOptions.dataType || this.settings.format;
@@ -185,11 +192,6 @@
 				ajaxOptions.data = undefined;
 			ajaxOptions.url = this.getUrl()+"?"+get.join("&"); // will at least contain the action
 
-			ajaxOptions.error = function( xhr, textStatus, exception ) {
-				ajaxOptions.err( 'http', {
-					xhr: xhr,
-					textStatus: textStatus,
-					exception: exception
 				} );
 			};
 
@@ -270,6 +272,7 @@
 		'file-too-large',
 		'filetype-missing',
 		'filetype-banned',
+		'filetype-banned-type',
 		'filename-tooshort',
 		'illegal-filename',
 		'verification-error',
@@ -313,4 +316,4 @@
 	else
 		mw.api = getDefaultApi();
 
-})( jQuery, mediaWiki );
+}( mediaWiki, jQuery ) );

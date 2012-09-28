@@ -1,6 +1,9 @@
 <?php
 /**
- * Result of a ORMTable::select, which returns ORMRow objects.
+ * ORMIterator that takes a ResultWrapper object returned from
+ * a select operation returning IORMRow objects (ie IORMTable::select).
+ *
+ * Documentation inline and at https://www.mediawiki.org/wiki/Manual:ORMTable
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +23,13 @@
  * @since 1.20
  *
  * @file ORMResult.php
+ * @ingroup ORM
  *
  * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
-class ORMResult implements Iterator {
+class ORMResult implements ORMIterator {
 
 	/**
 	 * @var ResultWrapper
@@ -35,23 +39,23 @@ class ORMResult implements Iterator {
 	/**
 	 * @var integer
 	 */
-	protected  $key;
+	protected $key;
 
 	/**
-	 * @var ORMRow
+	 * @var IORMRow
 	 */
 	protected $current;
 
 	/**
-	 * @var ORMTable
+	 * @var IORMTable
 	 */
 	protected $table;
 
 	/**
-	 * @param ORMTable $table
+	 * @param IORMTable $table
 	 * @param ResultWrapper $res
 	 */
-	public function __construct( ORMTable $table, ResultWrapper $res ) {
+	public function __construct( IORMTable $table, ResultWrapper $res ) {
 		$this->table = $table;
 		$this->res = $res;
 		$this->key = 0;
@@ -65,7 +69,7 @@ class ORMResult implements Iterator {
 		if ( $row === false ) {
 			$this->current = false;
 		} else {
-			$this->current = $this->table->newFromDBResult( $row );
+			$this->current = $this->table->newRowFromDBResult( $row );
 		}
 	}
 
@@ -84,7 +88,7 @@ class ORMResult implements Iterator {
 	}
 
 	/**
-	 * @return ORMRow
+	 * @return IORMRow
 	 */
 	public function current() {
 		return $this->current;

@@ -29,6 +29,24 @@
  * @maintainers fdcn <fdcn64@gmail.com>, shinjiman <shinjiman@gmail.com>, PhiLiP <philip.npc@gmail.com>
  */
 class LanguageConverter {
+
+	/**
+	 * languages supporting variants
+	 * @since 1.20
+	 * @var array
+	 */
+	static public $languagesWithVariants = array(
+		'gan',
+		'iu',
+		'kk',
+		'ku',
+		'shi',
+		'sr',
+		'tg',
+		'uz',
+		'zh',
+	);
+
 	var $mMainLanguageCode;
 	var $mVariants, $mVariantFallbacks, $mVariantNames;
 	var $mTablesLoaded = false;
@@ -277,7 +295,7 @@ class LanguageConverter {
 			// We record these fallback variants, and process
 			// them later.
 			$fallbacks = $this->getVariantFallbacks( $language );
-			if ( is_string( $fallbacks ) ) {
+			if ( is_string( $fallbacks ) && $fallbacks !== $this->mMainLanguageCode ) {
 				$fallbackLanguages[] = $fallbacks;
 			} elseif ( is_array( $fallbacks ) ) {
 				$fallbackLanguages =
@@ -669,8 +687,8 @@ class LanguageConverter {
 						$inner .= '-{';
 						if ( !$warningDone ) {
 							$inner .= '<span class="error">' .
-								wfMsgForContent( 'language-converter-depth-warning',
-									$this->mMaxDepth ) .
+								wfMessage( 'language-converter-depth-warning' )
+									->numParams( $this->mMaxDepth )->inContentLanguage()->text() .
 								'</span>';
 							$warningDone = true;
 						}
@@ -1097,7 +1115,6 @@ class LanguageConverter {
 class ConverterRule {
 	var $mText; // original text in -{text}-
 	var $mConverter; // LanguageConverter object
-	var $mManualCodeError = '<strong class="error">code error!</strong>';
 	var $mRuleDisplay = '';
 	var $mRuleTitle = false;
 	var $mRules = '';// string : the text of the rules
@@ -1473,7 +1490,9 @@ class ConverterRule {
 			}
 		}
 		if ( $this->mRuleDisplay === false ) {
-			$this->mRuleDisplay = $this->mManualCodeError;
+			$this->mRuleDisplay = '<span class="error">'
+				. wfMessage( 'converter-manual-rule-error' )->inContentLanguage()->escaped()
+				. '</span>';
 		}
 
 		$this->generateConvTable();

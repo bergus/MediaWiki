@@ -27,7 +27,7 @@
  * @ingroup JobQueue
  */
 class DoubleRedirectJob extends Job {
-	var $reason, $redirTitle, $destTitleText;
+	var $reason, $redirTitle;
 
 	/**
 	 * @var User
@@ -36,7 +36,7 @@ class DoubleRedirectJob extends Job {
 
 	/**
 	 * Insert jobs into the job queue to fix redirects to the given title
-	 * @param $reason String: the reason for the fix, see message double-redirect-fixed-<reason>
+	 * @param $reason String: the reason for the fix, see message "double-redirect-fixed-<reason>"
 	 * @param $redirTitle Title: the title which has changed, redirects pointing to this title are fixed
 	 * @param $destTitle bool Not used
 	 */
@@ -77,7 +77,6 @@ class DoubleRedirectJob extends Job {
 		parent::__construct( 'fixDoubleRedirect', $title, $params, $id );
 		$this->reason = $params['reason'];
 		$this->redirTitle = Title::newFromText( $params['redirTitle'] );
-		$this->destTitleText = !empty( $params['destTitle'] ) ? $params['destTitle'] : '';
 	}
 
 	/**
@@ -89,7 +88,7 @@ class DoubleRedirectJob extends Job {
 			return false;
 		}
 
-		$targetRev = Revision::newFromTitle( $this->title );
+		$targetRev = Revision::newFromTitle( $this->title, false, Revision::READ_LATEST );
 		if ( !$targetRev ) {
 			wfDebug( __METHOD__.": target redirect already deleted, ignoring\n" );
 			return true;
@@ -122,7 +121,7 @@ class DoubleRedirectJob extends Job {
 
 		# Preserve fragment (bug 14904)
 		$newTitle = Title::makeTitle( $newTitle->getNamespace(), $newTitle->getDBkey(),
-			$currentDest->getFragment() );
+			$currentDest->getFragment(), $newTitle->getInterwiki() );
 
 		# Fix the text
 		# Remember that redirect pages can have categories, templates, etc.,
@@ -141,8 +140,9 @@ class DoubleRedirectJob extends Job {
 		$oldUser = $wgUser;
 		$wgUser = $this->getUser();
 		$article = WikiPage::factory( $this->title );
-		$reason = wfMsgForContent( 'double-redirect-fixed-' . $this->reason,
-			$this->redirTitle->getPrefixedText(), $newTitle->getPrefixedText() );
+		$reason = wfMessage( 'double-redirect-fixed-' . $this->reason,
+			$this->redirTitle->getPrefixedText(), $newTitle->getPrefixedText()
+		)->inContentLanguage()->text();
 		$article->doEdit( $newText, $reason, EDIT_UPDATE | EDIT_SUPPRESS_RC, false, $this->getUser() );
 		$wgUser = $oldUser;
 
@@ -170,9 +170,17 @@ class DoubleRedirectJob extends Job {
 			}
 			$seenTitles[$titleText] = true;
 
+			if ( $title->getInterwiki() ) {
+				// If the target is interwiki, we have to break early (bug 40352).
+				// Otherwise it will look up a row in the local page table
+				// with the namespace/page of the interwiki target which can cause
+				// unexpected results (e.g. X -> foo:Bar -> Bar -> .. )
+				break;
+			}
+
 			$row = $dbw->selectRow(
 				array( 'redirect', 'page' ),
-				array( 'rd_namespace', 'rd_title' ),
+				array( 'rd_namespace', 'rd_title', 'rd_interwiki' ),
 				array(
 					'rd_from=page_id',
 					'page_namespace' => $title->getNamespace(),
@@ -182,7 +190,7 @@ class DoubleRedirectJob extends Job {
 				# No redirect from here, chain terminates
 				break;
 			} else {
-				$dest = $title = Title::makeTitle( $row->rd_namespace, $row->rd_title );
+				$dest = $title = Title::makeTitle( $row->rd_namespace, $row->rd_title, '', $row->rd_interwiki );
 			}
 		}
 		return $dest;
@@ -194,7 +202,7 @@ class DoubleRedirectJob extends Job {
 	 */
 	function getUser() {
 		if ( !self::$user ) {
-			self::$user = User::newFromName( wfMsgForContent( 'double-redirect-fixer' ), false );
+			self::$user = User::newFromName( wfMessage( 'double-redirect-fixer' )->inContentLanguage()->text(), false );
 			# FIXME: newFromName could return false on a badly configured wiki.
 			if ( !self::$user->isLoggedIn() ) {
 				self::$user->addToDatabase();

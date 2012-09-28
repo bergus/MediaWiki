@@ -4,7 +4,7 @@
  *
  * Created on Sep 1, 2007
  *
- * Copyright © 2007 Roan Kattouw <Firstname>.<Lastname>@gmail.com
+ * Copyright © 2007 Roan Kattouw "<Firstname>.<Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -139,7 +139,10 @@ class ApiProtect extends ApiBase {
 			'pageid' => array(
 				ApiBase::PARAM_TYPE => 'integer',
 			),
-			'token' => null,
+			'token' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true
+			),
 			'protections' => array(
 				ApiBase::PARAM_ISMULTI => true,
 				ApiBase::PARAM_REQUIRED => true,
@@ -173,14 +176,24 @@ class ApiProtect extends ApiBase {
 			'title' => "Title of the page you want to (un)protect. Cannot be used together with {$p}pageid",
 			'pageid' => "ID of the page you want to (un)protect. Cannot be used together with {$p}title",
 			'token' => 'A protect token previously retrieved through prop=info',
-			'protections' => 'Pipe-separated list of protection levels, formatted action=group (e.g. edit=sysop)',
+			'protections' => 'List of protection levels, formatted action=group (e.g. edit=sysop)',
 			'expiry' => array( 'Expiry timestamps. If only one timestamp is set, it\'ll be used for all protections.',
 					'Use \'infinite\', \'indefinite\' or \'never\', for a neverexpiring protection.' ),
-			'reason' => 'Reason for (un)protecting (optional)',
+			'reason' => 'Reason for (un)protecting',
 			'cascade' => array( 'Enable cascading protection (i.e. protect pages included in this page)',
 					'Ignored if not all protection levels are \'sysop\' or \'protect\'' ),
 			'watch' => 'If set, add the page being (un)protected to your watchlist',
 			'watchlist' => 'Unconditionally add or remove the page from your watchlist, use preferences or do not change watch',
+		);
+	}
+
+	public function getResultProperties() {
+		return array(
+			'' => array(
+				'title' => 'string',
+				'reason' => 'string',
+				'cascade' => 'boolean'
+			)
 		);
 	}
 

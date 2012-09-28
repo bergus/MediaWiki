@@ -23,7 +23,7 @@
  */
 
 $optionsWithArgs = RecompressTracked::getOptionsWithArgs();
-require( dirname( __FILE__ ) . '/../commandLine.inc' );
+require( __DIR__ . '/../commandLine.inc' );
 
 if ( count( $args ) < 1 ) {
 	echo "Usage: php recompressTracked.php [options] <cluster> [... <cluster>...]
@@ -42,6 +42,12 @@ Options:
 $job = RecompressTracked::newFromCommandLine( $args, $options );
 $job->execute();
 
+/**
+ * Maintenance script that moves blobs indexed by trackBlobs.php to a specified
+ * list of destination clusters, and recompresses them in the process.
+ *
+ * @ingroup Maintenance ExternalStorage
+ */
 class RecompressTracked {
 	var $destClusters;
 	var $batchSize = 1000;

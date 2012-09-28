@@ -1,5 +1,3 @@
-/*jslint browser: true, continue: true, white: true, forin: true*/
-/*global jQuery*/
 /*
  * Core MediaWiki JavaScript Library
  */
@@ -9,7 +7,9 @@ var mw = ( function ( $, undefined ) {
 
 	/* Private Members */
 
-	var hasOwn = Object.prototype.hasOwnProperty;
+	var hasOwn = Object.prototype.hasOwnProperty,
+		slice = Array.prototype.slice;
+
 	/* Object constructors */
 
 	/**
@@ -45,7 +45,7 @@ var mw = ( function ( $, undefined ) {
 			var results, i;
 
 			if ( $.isArray( selection ) ) {
-				selection = $.makeArray( selection );
+				selection = slice.call( selection );
 				results = {};
 				for ( i = 0; i < selection.length; i += 1 ) {
 					results[selection[i]] = this.get( selection[i], fallback );
@@ -130,7 +130,7 @@ var mw = ( function ( $, undefined ) {
 		this.format = 'plain';
 		this.map = map;
 		this.key = key;
-		this.parameters = parameters === undefined ? [] : $.makeArray( parameters );
+		this.parameters = parameters === undefined ? [] : slice.call( parameters );
 		return this;
 	}
 
@@ -141,7 +141,7 @@ var mw = ( function ( $, undefined ) {
 		 *
 		 * This function will not be called for nonexistent messages.
 		 */
-		parser: function() {
+		parser: function () {
 			var parameters = this.parameters;
 			return this.map.get( this.key ).replace( /\$(\d+)/g, function ( str, match ) {
 				var index = parseInt( match, 10 ) - 1;
@@ -168,7 +168,7 @@ var mw = ( function ( $, undefined ) {
 		 *
 		 * @return string Message as a string in the current form or <key> if key does not exist.
 		 */
-		toString: function() {
+		toString: function () {
 			var text;
 
 			if ( !this.exists() ) {
@@ -205,7 +205,7 @@ var mw = ( function ( $, undefined ) {
 		 *
 		 * @return {string} String form of parsed message
 		 */
-		parse: function() {
+		parse: function () {
 			this.format = 'parse';
 			return this.toString();
 		},
@@ -215,7 +215,7 @@ var mw = ( function ( $, undefined ) {
 		 *
 		 * @return {string} String form of plain message
 		 */
-		plain: function() {
+		plain: function () {
 			this.format = 'plain';
 			return this.toString();
 		},
@@ -225,7 +225,7 @@ var mw = ( function ( $, undefined ) {
 		 *
 		 * @return {string} String form of html escaped message
 		 */
-		escaped: function() {
+		escaped: function () {
 			this.format = 'escaped';
 			return this.toString();
 		},
@@ -235,7 +235,7 @@ var mw = ( function ( $, undefined ) {
 		 *
 		 * @return {string} String form of parsed message
 		 */
-		exists: function() {
+		exists: function () {
 			return this.map.exists( this.key );
 		}
 	};
@@ -247,7 +247,7 @@ var mw = ( function ( $, undefined ) {
 		 * Dummy function which in debug mode can be replaced with a function that
 		 * emulates console.log in console-less environments.
 		 */
-		log: function() { },
+		log: function () { },
 
 		/**
 		 * @var constructor Make the Map constructor publicly available.
@@ -298,7 +298,7 @@ var mw = ( function ( $, undefined ) {
 			var parameters;
 			// Support variadic arguments
 			if ( parameter_1 !== undefined ) {
-				parameters = $.makeArray( arguments );
+				parameters = slice.call( arguments );
 				parameters.shift();
 			} else {
 				parameters = [];
@@ -307,7 +307,7 @@ var mw = ( function ( $, undefined ) {
 		},
 
 		/**
-		 * Gets a message string, similar to wfMsg()
+		 * Gets a message string, similar to wfMessage()
 		 *
 		 * @param key string Key of message to get
 		 * @param parameters mixed First argument in a list of variadic arguments,
@@ -341,7 +341,7 @@ var mw = ( function ( $, undefined ) {
 			 *	{
 			 *		'moduleName': {
 			 *			'version': ############## (unix timestamp),
-			 *			'dependencies': ['required.foo', 'bar.also', ...], (or) function() {}
+			 *			'dependencies': ['required.foo', 'bar.also', ...], (or) function () {}
 			 *			'group': 'somegroup', (or) null,
 			 *			'source': 'local', 'someforeignwiki', (or) null
 			 *			'state': 'registered', 'loading', 'loaded', 'ready', 'error' or 'missing'
@@ -351,7 +351,7 @@ var mw = ( function ( $, undefined ) {
 			 *		}
 			 *	}
 			 */
-			var	registry = {},
+			var registry = {},
 				/**
 				 * Mapping of sources, keyed by source-id, values are objects.
 				 * Format:
@@ -368,16 +368,8 @@ var mw = ( function ( $, undefined ) {
 				queue = [],
 				// List of callback functions waiting for modules to be ready to be called
 				jobs = [],
-				// Flag indicating that document ready has occured
-				ready = false,
 				// Selector cache for the marker element. Use getMarker() to get/use the marker!
 				$marker = null;
-
-			/* Cache document ready status */
-
-			$(document).ready( function () {
-				ready = true;
-			} );
 
 			/* Private methods */
 
@@ -626,17 +618,23 @@ var mw = ( function ( $, undefined ) {
 
 			/**
 			 * Log a message to window.console, if possible. Useful to force logging of some
-			 * errors that are otherwise hard to detect, even if mw.log is not available. (I.e.,
-			 * this logs also if not in debug mode.)
+			 * errors that are otherwise hard to detect (I.e., this logs also in production mode).
+			 * Gets console references in each invocation, so that delayed debugging tools work
+			 * fine. No need for optimization here, which would only result in losing logs.
 			 *
-			 * @param msg String text for the log entry
-			 * @param e   Error [optional] to also log.
+			 * @param msg String text for the log entry.
+			 * @param e Error [optional] to also log.
 			 */
 			function log( msg, e ) {
-				if ( window.console && typeof window.console.log === 'function' ) {
+				var console = window.console;
+				if ( console && console.log ) {
 					console.log( msg );
-					if ( e ) {
-						console.log( e );
+					// If we have an exception object, log it through .error() to trigger
+					// proper stacktraces in browsers that support it. There are no (known)
+					// browsers that don't support .error(), that do support .log() and
+					// have useful exception handling through .log().
+					if ( e && console.error ) {
+						console.error( e );
 					}
 				}
 			}
@@ -693,7 +691,7 @@ var mw = ( function ( $, undefined ) {
 								} catch ( ex ) {
 									// A user-defined operation raised an exception. Swallow to protect
 									// our state machine!
-									log( 'mw.loader::handlePending> Exception thrown by job.error()', ex );
+									log( 'Exception thrown by job.error()', ex );
 								}
 							}
 						}
@@ -719,8 +717,13 @@ var mw = ( function ( $, undefined ) {
 			 * @param callback Function: Optional callback which will be run when the script is done
 			 */
 			function addScript( src, callback, async ) {
-				var done = false, script, head;
-				if ( ready || async ) {
+				/*jshint evil:true */
+				var script, head,
+					done = false;
+
+				// Using isReady directly instead of storing it locally from
+				// a $.fn.ready callback (bug 31895).
+				if ( $.isReady || async ) {
 					// jQuery's getScript method is NOT better than doing this the old-fashioned way
 					// because jQuery will eval the script's code, and errors will not have sane
 					// line numbers.
@@ -729,7 +732,7 @@ var mw = ( function ( $, undefined ) {
 					script.setAttribute( 'type', 'text/javascript' );
 					if ( $.isFunction( callback ) ) {
 						// Attach handlers for all browsers (based on jQuery.ajax)
-						script.onload = script.onreadystatechange = function() {
+						script.onload = script.onreadystatechange = function () {
 
 							if (
 								!done
@@ -766,7 +769,7 @@ var mw = ( function ( $, undefined ) {
 						// scripts only start loading after  the document has been rendered,
 						// but so be it. Opera users don't deserve faster web pages if their
 						// browser makes it impossible
-						$( function() { document.body.appendChild( script ); } );
+						$( function () { document.body.appendChild( script ); } );
 					} else {
 						// IE-safe way of getting the <head> . document.documentElement.head doesn't
 						// work in scripts that run in the <head>
@@ -828,7 +831,7 @@ var mw = ( function ( $, undefined ) {
 				// Execute script
 				try {
 					script = registry[module].script;
-					markModuleReady = function() {
+					markModuleReady = function () {
 						registry[module].state = 'ready';
 						handlePending( module );
 					};
@@ -841,7 +844,7 @@ var mw = ( function ( $, undefined ) {
 							return;
 						}
 
-						addScript( arr[i], function() {
+						addScript( arr[i], function () {
 							nestedAddScript( arr, callback, async, i + 1 );
 						}, async );
 					};
@@ -850,8 +853,9 @@ var mw = ( function ( $, undefined ) {
 						registry[module].state = 'loading';
 						nestedAddScript( script, markModuleReady, registry[module].async, 0 );
 					} else if ( $.isFunction( script ) ) {
+						registry[module].state = 'ready';
 						script( $ );
-						markModuleReady();
+						handlePending( module );
 					}
 				} catch ( e ) {
 					// This needs to NOT use mw.log because these errors are common in production mode
@@ -878,15 +882,6 @@ var mw = ( function ( $, undefined ) {
 				// Allow calling by single module name
 				if ( typeof dependencies === 'string' ) {
 					dependencies = [dependencies];
-					if ( registry[dependencies[0]] !== undefined ) {
-						// Cache repetitively accessed deep level object member
-						regItemDeps = registry[dependencies[0]].dependencies;
-						// Cache to avoid looped access to length property
-						regItemDepLen = regItemDeps.length;
-						for ( n = 0; n < regItemDepLen; n += 1 ) {
-							dependencies[dependencies.length] = regItemDeps[n];
-						}
-					}
 				}
 
 				// Add ready and error callbacks if they were given
@@ -1332,7 +1327,7 @@ var mw = ( function ( $, undefined ) {
 						}
 					}
 
-					if (filtered.length === 0) {
+					if ( filtered.length === 0 ) {
 						return;
 					}
 					// Resolve entire dependency map

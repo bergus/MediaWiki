@@ -17,11 +17,18 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
+ * @file
  * @ingroup Maintenance
  */
 
-require_once( dirname( __FILE__ ) . '/Maintenance.php' );
+require_once( __DIR__ . '/Maintenance.php' );
 
+/**
+ * Maintenance script that syncs one file backend to another based on
+ * the journal of later.
+ *
+ * @ingroup Maintenance
+ */
 class SyncFileBackend extends Maintenance {
 	public function __construct() {
 		parent::__construct();
@@ -39,12 +46,11 @@ class SyncFileBackend extends Maintenance {
 		$src = FileBackendGroup::singleton()->get( $this->getOption( 'src' ) );
 		$dst = FileBackendGroup::singleton()->get( $this->getOption( 'dst' ) );
 
-		$posFile = $this->getOption( 'posdir' )
-			? $this->getOption( 'posdir' ) . '/' . wfWikiID()
-			: false;
+		$posDir = $this->getOption( 'posdir' );
+		$posFile = $posDir ? $posDir . '/' . wfWikiID() : false;
 
 		$start = $this->getOption( 'start', 0 );
-		if ( !$start && $posFile ) {
+		if ( !$start && $posFile && is_dir( $posDir ) ) {
 			$start = is_file( $posFile )
 				? (int)trim( file_get_contents( $posFile ) )
 				: 0;
@@ -66,8 +72,11 @@ class SyncFileBackend extends Maintenance {
 
 		// Update the sync position file
 		if ( $startFromPosFile && $lastOKPos >= $start ) { // successfully advanced
-			file_put_contents( $posFile, $lastOKPos, LOCK_EX );
-			$this->output( "Updated journal position file.\n" );
+			if ( file_put_contents( $posFile, $lastOKPos, LOCK_EX ) !== false ) {
+				$this->output( "Updated journal position file.\n" );
+			} else {
+				$this->output( "Could not update journal position file.\n" );
+			}
 		}
 
 		if ( $lastOKPos === false ) {
@@ -127,7 +136,7 @@ class SyncFileBackend extends Maintenance {
 			if ( $status->isOK() ) {
 				$lastOKPos = max( $lastOKPos, $lastPosInBatch );
 			} else {
-				$this->output( print_r( $status->getErrorsArray(), true ) );
+				$this->error( print_r( $status->getErrorsArray(), true ) );
 				break; // no gaps; everything up to $lastPos must be OK
 			}
 
@@ -183,7 +192,8 @@ class SyncFileBackend extends Maintenance {
 				}
 				$fsFiles[] = $fsFile; // keep TempFSFile objects alive as needed
 				// Note: prepare() is usually fast for key/value backends
-				$status->merge( $dst->prepare( array( 'dir' => dirname( $dPath ) ) ) );
+				$status->merge( $dst->prepare( array(
+					'dir' => dirname( $dPath ), 'bypassReadOnly' => 1 ) ) );
 				if ( !$status->isOK() ) {
 					return $status;
 				}
@@ -198,10 +208,16 @@ class SyncFileBackend extends Maintenance {
 			}
 		}
 
-		$status->merge( $dst->doOperations( $ops,
-			array( 'nonLocking' => 1, 'nonJournaled' => 1 ) ) );
+		$t_start = microtime( true );
+		$status = $dst->doQuickOperations( $ops, array( 'bypassReadOnly' => 1 ) );
+		if ( !$status->isOK() ) {
+			sleep( 10 ); // wait and retry copy again
+			$status = $dst->doQuickOperations( $ops, array( 'bypassReadOnly' => 1 ) );
+		}
+		$ellapsed_ms = floor( ( microtime( true ) - $t_start ) * 1000 );
 		if ( $status->isOK() && $this->getOption( 'verbose' ) ) {
-			$this->output( "Synchronized these file(s):\n" . implode( "\n", $dPaths ) . "\n" );
+			$this->output( "Synchronized these file(s) [{$ellapsed_ms}ms]:\n" .
+				implode( "\n", $dPaths ) . "\n" );
 		}
 
 		return $status;

@@ -25,8 +25,14 @@
  * @ingroup Maintenance
  */
 
-require_once( dirname( __FILE__ ) . '/Maintenance.php' );
+require_once( __DIR__ . '/Maintenance.php' );
 
+/**
+ * Maintenance script to remove old or broken uploads from temporary uploaded
+ * file storage and clean up associated database records.
+ *
+ * @ingroup Maintenance
+ */
 class UploadStashCleanup extends Maintenance {
 
 	public function __construct() {
@@ -35,18 +41,20 @@ class UploadStashCleanup extends Maintenance {
 	}
 
 	public function execute() {
+		global $wgUploadStashMaxAge;
+
 		$repo = RepoGroup::singleton()->getLocalRepo();
 
 		$dbr = $repo->getSlaveDb();
 
 		// how far back should this look for files to delete?
-		global $wgUploadStashMaxAge;
+		$cutoff = time() - $wgUploadStashMaxAge;
 
 		$this->output( "Getting list of files to clean up...\n" );
 		$res = $dbr->select(
 			'uploadstash',
 			'us_key',
-			'us_timestamp < ' . $dbr->addQuotes( $dbr->timestamp( time() - $wgUploadStashMaxAge ) ),
+			'us_timestamp < ' . $dbr->addQuotes( $dbr->timestamp( $cutoff ) ),
 			__METHOD__
 		);
 
@@ -76,6 +84,24 @@ class UploadStashCleanup extends Maintenance {
 				$stash->removeFileNoAuth( $key );
 			} catch ( UploadStashBadPathException $ex ) {
 				$this->output( "Failed removing stashed upload with key: $key\n"  );
+			} catch ( UploadStashZeroLengthFileException $ex ) {
+				$this->output( "Failed removing stashed upload with key: $key\n"  );
+			}
+			if ( $i % 100 == 0 ) {
+				$this->output( "$i\n" );
+			}
+		}
+		$this->output( "$i done\n" );
+
+		$tempRepo = $repo->getTempRepo();
+		$dir      = $tempRepo->getZonePath( 'thumb' );
+		$iterator = $tempRepo->getBackend()->getFileList( array( 'dir' => $dir ) );
+
+		$this->output( "Deleting old thumbnails...\n" );
+		$i = 0;
+		foreach ( $iterator as $file ) {
+			if ( wfTimestamp( TS_UNIX, $tempRepo->getFileTimestamp( "$dir/$file" ) ) < $cutoff ) {
+				$tempRepo->quickPurge( "$dir/$file" );
 			}
 			if ( $i % 100 == 0 ) {
 				$this->output( "$i\n" );

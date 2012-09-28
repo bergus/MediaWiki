@@ -1,23 +1,28 @@
 /**
  * Plugin that automatically truncates the plain text contents of an element and adds an ellipsis
  */
-( function( $ ) {
+( function ( $ ) {
 
-// Cache ellipsed substrings for every string-width-position combination
-var cache = { };
-// Use a separate cache when match highlighting is enabled
-var matchTextCache = { };
+var
+	// Cache ellipsed substrings for every string-width-position combination
+	cache = { },
 
-$.fn.autoEllipsis = function( options ) {
+	// Use a separate cache when match highlighting is enabled
+	matchTextCache = { };
+
+$.fn.autoEllipsis = function ( options ) {
 	options = $.extend( {
-		'position': 'center',
-		'tooltip': false,
-		'restoreText': false,
-		'hasSpan': false,
-		'matchText': null
+		position: 'center',
+		tooltip: false,
+		restoreText: false,
+		hasSpan: false,
+		matchText: null
 	}, options );
-	$(this).each( function() {
-		var $el = $(this);
+	$(this).each( function () {
+		var $container, $trimmableText,
+			text, trimmableText, w, pw,
+			l, r, i, side, m,
+			$el = $(this);
 		if ( options.restoreText ) {
 			if ( !$el.data( 'autoEllipsis.originalText' ) ) {
 				$el.data( 'autoEllipsis.originalText', $el.text() );
@@ -27,16 +32,13 @@ $.fn.autoEllipsis = function( options ) {
 		}
 
 		// container element - used for measuring against
-		var $container = $el;
-		// trimmable text element - only the text within this element will be trimmed
-		var $trimmableText = null;
-		// protected text element - the width of this element is counted, but next is never trimmed from it
-		var $protectedText = null;
+		$container = $el;
 
+		// trimmable text element - only the text within this element will be trimmed
 		if ( options.hasSpan ) {
 			$trimmableText = $el.children( options.selector );
 		} else {
-			$trimmableText = $( '<span />' )
+			$trimmableText = $( '<span>' )
 				.css( 'whiteSpace', 'nowrap' )
 				.text( $el.text() );
 			$el
@@ -44,10 +46,11 @@ $.fn.autoEllipsis = function( options ) {
 				.append( $trimmableText );
 		}
 
-		var text = $container.text();
-		var trimmableText = $trimmableText.text();
-		var w = $container.width();
-		var pw = $protectedText ? $protectedText.width() : 0;
+		text = $container.text();
+		trimmableText = $trimmableText.text();
+		w = $container.width();
+		pw = 0;
+
 		// Try cache
 		if ( options.matchText ) {
 			if ( !( text in matchTextCache ) ) {
@@ -86,9 +89,10 @@ $.fn.autoEllipsis = function( options ) {
 			switch ( options.position ) {
 				case 'right':
 					// Use binary search-like technique for efficiency
-					var l = 0, r = trimmableText.length;
+					l = 0;
+					r = trimmableText.length;
 					do {
-						var m = Math.ceil( ( l + r ) / 2 );
+						m = Math.ceil( ( l + r ) / 2 );
 						$trimmableText.text( trimmableText.substr( 0, m ) + '...' );
 						if ( $trimmableText.width() + pw > w ) {
 							// Text is too long
@@ -101,9 +105,10 @@ $.fn.autoEllipsis = function( options ) {
 					break;
 				case 'center':
 					// TODO: Use binary search like for 'right'
-					var i = [Math.round( trimmableText.length / 2 ), Math.round( trimmableText.length / 2 )];
-					var side = 1; // Begin with making the end shorter
-					while ( $trimmableText.outerWidth() + pw > w  && i[0] > 0 ) {
+					i = [Math.round( trimmableText.length / 2 ), Math.round( trimmableText.length / 2 )];
+					// Begin with making the end shorter
+					side = 1;
+					while ( $trimmableText.outerWidth() + pw > w && i[0] > 0 ) {
 						$trimmableText.text( trimmableText.substr( 0, i[0] ) + '...' + trimmableText.substr( i[1] ) );
 						// Alternate between trimming the end and begining
 						if ( side === 0 ) {
@@ -119,7 +124,7 @@ $.fn.autoEllipsis = function( options ) {
 					break;
 				case 'left':
 					// TODO: Use binary search like for 'right'
-					var r = 0;
+					r = 0;
 					while ( $trimmableText.outerWidth() + pw > w && r < trimmableText.length ) {
 						$trimmableText.text( '...' + trimmableText.substr( r ) );
 						r++;
@@ -140,4 +145,4 @@ $.fn.autoEllipsis = function( options ) {
 	} );
 };
 
-} )( jQuery );
+}( jQuery ) );

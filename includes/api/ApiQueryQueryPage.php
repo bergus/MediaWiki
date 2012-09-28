@@ -4,7 +4,7 @@
  *
  * Created on Dec 22, 2010
  *
- * Copyright © 2010 Roan Kattouw <Firstname>.<Lastname>@gmail.com
+ * Copyright © 2010 Roan Kattouw "<Firstname>.<Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -170,6 +170,38 @@ class ApiQueryQueryPage extends ApiQueryGeneratorBase {
 			'page' => 'The name of the special page. Note, this is case sensitive',
 			'offset' => 'When more results are available, use this to continue',
 			'limit' => 'Number of results to return',
+		);
+	}
+
+	public function getResultProperties() {
+		return array(
+			ApiBase::PROP_ROOT => array(
+				'name' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => false
+				),
+				'disabled' => array(
+					ApiBase::PROP_TYPE => 'boolean',
+					ApiBase::PROP_NULLABLE => false
+				),
+				'cached' => array(
+					ApiBase::PROP_TYPE => 'boolean',
+					ApiBase::PROP_NULLABLE => false
+				),
+				'cachedtimestamp' => array(
+					ApiBase::PROP_TYPE => 'timestamp',
+					ApiBase::PROP_NULLABLE => true
+				)
+			),
+			'' => array(
+				'value' => 'string',
+				'timestamp' => array(
+					ApiBase::PROP_TYPE => 'timestamp',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'ns' => 'namespace',
+				'title' => 'string'
+			)
 		);
 	}
 

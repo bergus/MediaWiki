@@ -52,7 +52,7 @@ class Licenses extends HTMLFormField {
 	public function __construct( $params ) {
 		parent::__construct( $params );
 
-		$this->msg = empty( $params['licenses'] ) ? wfMsgForContent( 'licenses' ) : $params['licenses'];
+		$this->msg = empty( $params['licenses'] ) ? wfMessage( 'licenses' )->inContentLanguage()->plain() : $params['licenses'];
 		$this->selected = null;
 
 		$this->makeLicenses();
@@ -117,10 +117,10 @@ class Licenses extends HTMLFormField {
 	 * @param $depth int
 	 */
 	protected function makeHtml( $tagset, $depth = 0 ) {
-		foreach ( $tagset as $key => $val )
+		foreach ( $tagset as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$this->html .= $this->outputOption(
-					$this->msg( $key ), '',
+					$key, '',
 					array(
 						'disabled' => 'disabled',
 						'style' => 'color: GrayText', // for MSIE
@@ -130,35 +130,31 @@ class Licenses extends HTMLFormField {
 				$this->makeHtml( $val, $depth + 1 );
 			} else {
 				$this->html .= $this->outputOption(
-					$this->msg( $val->text ), $val->template,
+					$val->text, $val->template,
 					array( 'title' => '{{' . $val->template . '}}' ),
 					$depth
 				);
 			}
+		}
 	}
 
 	/**
-	 * @param $text
+	 * @param $message
 	 * @param $value
 	 * @param $attribs null
 	 * @param $depth int
 	 * @return string
 	 */
-	protected function outputOption( $text, $value, $attribs = null, $depth = 0 ) {
+	protected function outputOption( $message, $value, $attribs = null, $depth = 0 ) {
+		$msgObj = $this->msg( $message );
+		$text = $msgObj->exists() ? $msgObj->text() : $message;
 		$attribs['value'] = $value;
-		if ( $value === $this->selected )
+		if ( $value === $this->selected ) {
 			$attribs['selected'] = 'selected';
+		}
+
 		$val = str_repeat( /* &nbsp */ "\xc2\xa0", $depth * 2 ) . $text;
 		return str_repeat( "\t", $depth ) . Xml::element( 'option', $attribs, $val ) . "\n";
-	}
-
-	/**
-	 * @param $str string
-	 * @return String
-	 */
-	protected function msg( $str ) {
-		$msg = wfMessage( $str );
-		return $msg->exists() ? $msg->text() : $str;
 	}
 
 	/**#@-*/
@@ -182,7 +178,7 @@ class Licenses extends HTMLFormField {
 	public function getInputHTML( $value ) {
 		$this->selected = $value;
 
-		$this->html = $this->outputOption( wfMsg( 'nolicense' ), '',
+		$this->html = $this->outputOption( wfMessage( 'nolicense' )->text(), '',
 			(bool)$this->selected ? null : array( 'selected' => 'selected' ) );
 		$this->makeHtml( $this->getLicenses() );
 

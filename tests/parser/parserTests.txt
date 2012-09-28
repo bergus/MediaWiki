@@ -36,13 +36,13 @@ Main Page
 blah blah
 !! endarticle
 
-!!article 
+!!article
 Template:Foo
 !!text
 FOO
 !!endarticle
 
-!! article 
+!! article
 Template:Blank
 !! text
 !! endarticle
@@ -81,6 +81,29 @@ Simple paragraph
 This is a simple paragraph.
 !! result
 <p>This is a simple paragraph.
+</p>
+!! end
+
+!! test
+Paragraphs with extra newline spacing
+!! input
+foo
+
+bar
+
+
+baz
+
+
+
+booz
+!! result
+<p>foo
+</p><p>bar
+</p><p><br />
+baz
+</p><p><br />
+</p><p>booz
 </p>
 !! end
 
@@ -133,6 +156,285 @@ Italics and bold
 </li></ul>
 
 !! end
+
+###
+### 2-quote opening sequence tests
+###
+!! test
+Italics and bold: 2-quote opening sequence: (2,2)
+!! input
+''foo''
+!! result
+<p><i>foo</i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 2-quote opening sequence: (2,3)
+!! input
+''foo'''
+!! result
+<p><i>foo'</i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 2-quote opening sequence: (2,4)
+!! input
+''foo''''
+!! result
+<p><i>foo''</i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 2-quote opening sequence: (2,5)
+!! input
+''foo'''''
+!! result
+<p><i>foo</i>
+</p>
+!!end
+
+
+###
+### 3-quote opening sequence tests
+###
+
+!! test
+Italics and bold: 3-quote opening sequence: (3,2)
+!! input
+'''foo''
+!! result
+<p>'<i>foo</i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 3-quote opening sequence: (3,3)
+!! input
+'''foo'''
+!! result
+<p><b>foo</b>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 3-quote opening sequence: (3,4)
+!! input
+'''foo''''
+!! result
+<p><b>foo'</b>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 3-quote opening sequence: (3,5)
+!! input
+'''foo'''''
+!! result
+<p><b>foo</b>
+</p>
+!!end
+
+
+###
+### 4-quote opening sequence tests
+###
+
+!! test
+Italics and bold: 4-quote opening sequence: (4,2)
+!! input
+''''foo''
+!! result
+<p>''<i>foo</i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 4-quote opening sequence: (4,3)
+!! input
+''''foo'''
+!! result
+<p>'<b>foo</b>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 4-quote opening sequence: (4,4)
+!! input
+''''foo''''
+!! result
+<p>'<b>foo'</b>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 4-quote opening sequence: (4,5)
+!! input
+''''foo'''''
+!! result
+<p>'<b>foo</b>
+</p>
+!!end
+
+
+###
+### 5-quote opening sequence tests
+###
+
+!! test
+Italics and bold: 5-quote opening sequence: (5,2)
+!! input
+'''''foo''
+!! result
+<p><b><i>foo</i></b>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 5-quote opening sequence: (5,3)
+!! input
+'''''foo'''
+!! result
+<p><i><b>foo</b></i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 5-quote opening sequence: (5,4)
+!! input
+'''''foo''''
+!! result
+<p><i><b>foo'</b></i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: 5-quote opening sequence: (5,5)
+!! input
+'''''foo'''''
+!! result
+<p><i><b>foo</b></i>
+</p>
+!!end
+
+###
+### multiple quote sequences in a line
+###
+!! test
+Italics and bold: multiple quote sequences: (2,4,2)
+!! input
+''foo''''bar''
+!! result
+<p><i>foo'<b>bar</b></i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: multiple quote sequences: (2,4,3)
+!! input
+''foo''''bar'''
+!! result
+<p><i>foo'<b>bar</b></i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: multiple quote sequences: (2,4,4)
+!! input
+''foo''''bar''''
+!! result
+<p><i>foo'<b>bar'</b></i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: multiple quote sequences: (3,4,2)
+!! input
+'''foo''''bar''
+!! result
+<p><b>foo'</b>bar
+</p>
+!!end
+
+
+!! test
+Italics and bold: multiple quote sequences: (3,4,3)
+!! input
+'''foo''''bar'''
+!! result
+<p><b>foo'</b>bar
+</p>
+!!end
+
+###
+### other quote tests
+###
+!! test
+Italics and bold: other quote tests: (2,3,5)
+!! input
+''this is about '''foo's family'''''
+!! result
+<p><i>this is about <b>foo's family</b></i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: other quote tests: (2,(3,3),2)
+!! input
+''this is about '''foo's''' family''
+!! result
+<p><i>this is about <b>foo's</b> family</i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: other quote tests: (3,2,3,2)
+!! input
+'''this is about ''foo'''s family''
+!! result
+<p><b>this is about <i>foo</i></b><i>s family</i>
+</p>
+!!end
+
+
+!! test
+Italics and bold: other quote tests: (3,2,3,3)
+!! input
+'''this is about ''foo'''s family'''
+!! result
+<p>'<i>this is about </i>foo<b>s family</b>
+</p>
+!!end
+
+
+
+!! test
+Italics and bold: other quote tests: (3,(2,2),3)
+!! input
+'''this is about ''foo's'' family'''
+!! result
+<p><b>this is about <i>foo's</i> family</b>
+</p>
+!!end
 
 ###
 ### <nowiki> test cases
@@ -208,7 +510,7 @@ Comment test 1
 !! end
 
 !! test
-Comment test 2
+Comment test 2a
 !! input
 asdf
 <!-- comment 1 -->
@@ -216,6 +518,19 @@ jkl
 !! result
 <p>asdf
 jkl
+</p>
+!! end
+
+!! test
+Comment test 2b
+!! input
+asdf
+<!-- comment 1 -->
+
+jkl
+!! result
+<p>asdf
+</p><p>jkl
 </p>
 !! end
 
@@ -329,6 +644,74 @@ b
 <p>a
 </p><p>b
 </p>
+!! end
+
+!! test
+Comment on its own line post-expand with non-significant whitespace
+!! input
+a
+ {{blank}} <!----> 
+b
+!! result
+<p>a
+</p><p>b
+</p>
+!! end
+
+###
+### paragraph wraping tests
+###
+!! test
+No block tags
+!! input
+a
+
+b
+!! result
+<p>a
+</p><p>b
+</p>
+!! end
+!! test
+Block tag on one line
+!! input
+a <div>foo</div>
+
+b
+!! result
+a <div>foo</div>
+<p>b
+</p>
+!! end
+
+!! test
+Block tag on both lines
+!! input
+a <div>foo</div>
+
+b <div>foo</div>
+!! result
+a <div>foo</div>
+b <div>foo</div>
+
+!! end
+
+!! test
+Multiple lines without block tags
+!! input
+<div>foo</div> a
+b
+c
+d<!--foo--> e
+x <div>foo</div> z
+!! result
+<div>foo</div> a
+<p>b
+c
+d e
+</p>
+x <div>foo</div> z
+
 !! end
 
 ###
@@ -652,6 +1035,377 @@ Paragraph text
 </p>
 !! end
 
+!! test
+Definition Lists: No nesting: Multiple dd's
+!! input
+;x
+:a
+:b
+!! result
+<dl><dt>x
+</dt><dd>a
+</dd><dd>b
+</dd></dl>
+
+!! end
+
+!! test
+Definition Lists: Indentation: Regular
+!! input
+:i1
+::i2
+:::i3
+!! result
+<dl><dd>i1
+<dl><dd>i2
+<dl><dd>i3
+</dd></dl>
+</dd></dl>
+</dd></dl>
+
+!! end
+
+!! test
+Definition Lists: Indentation: Missing 1st level
+!! input
+::i2
+:::i3
+!! result
+<dl><dd><dl><dd>i2
+<dl><dd>i3
+</dd></dl>
+</dd></dl>
+</dd></dl>
+
+!! end
+
+!! test
+Definition Lists: Indentation: Multi-level indent
+!! input
+:::i3
+!! result
+<dl><dd><dl><dd><dl><dd>i3
+</dd></dl>
+</dd></dl>
+</dd></dl>
+
+!! end
+
+## The PHP parser treats : items (dd) without a corresponding ; item (dt)
+## as an empty dt item.  It also ignores all but the last ";" when followed
+## by ":" later on.  So, ";" are not ignored in ";;;t3" but are ignored  in
+## ";;;t3 :d1".  So, PHP parser behavior is a little inconsistent wrt multiple
+## ";"s.
+##
+## Ex: ";;t2 ::d2" is transformed into:
+##
+## <dl>
+##   <dt>t2 </dt>
+##   <dd>
+##     <dl>
+##       <dt></dt>
+##       <dd>d2</dd>
+##     </dl>
+##   </dd>
+## </dl>
+##
+## But, Parsoid treats "; :" as a tight atomic unit and excess ":" as plain text
+## So, the same wikitext above (;;t2 ::d2) is transformed into:
+##
+## <dl>
+##   <dt>
+##     <dl>
+##       <dt>t2 </dt>
+##       <dd>:d2</dd>
+##     </dl>
+##    </dt>
+## </dl>
+##
+## All Parsoid only definition list tests have this difference.
+##
+## See also: https://bugzilla.wikimedia.org/show_bug.cgi?id=6569
+## and http://lists.wikimedia.org/pipermail/wikitext-l/2011-November/000483.html
+
+!! test
+Definition Lists: Nesting: Multi-level (Parsoid only)
+!! options
+disabled
+!! input
+;t1 :d1
+;;t2 ::d2
+;;;t3 :::d3
+!! result
+<dl>
+  <dt>t1 </dt>
+  <dd>d1</dd>
+  <dt>
+    <dl>
+      <dt>t2 </dt>
+      <dd>:d2</dd>
+      <dt>
+        <dl>
+          <dt>t3 </dt>
+          <dd>::d3</dd>
+        </dl>
+      </dt>
+    </dl>
+  </dt>
+</dl>
+
+
+!! end
+
+
+!! test
+Definition Lists: Nesting: Test 2 (Parsoid only)
+!! options
+disabled
+!! input
+;t1
+::d2
+!! result
+<dl>
+  <dt>t1</dt>
+  <dd>
+    <dl>
+      <dd>d2</dd>
+    </dl>
+  </dd>
+</dl>
+
+!! end
+
+
+!! test
+Definition Lists: Nesting: Test 3 (Parsoid only)
+!! options
+disabled
+!! input
+:;t1
+::::d2
+!! result
+<dl>
+  <dd>
+    <dl>
+      <dt>t1</dt>
+      <dd>
+        <dl>
+          <dd>
+            <dl>
+              <dd>d2</dd>
+            </dl>
+          </dd>
+        </dl>
+      </dd>
+    </dl>
+  </dd>
+</dl>
+
+!! end
+
+
+!! test
+Definition Lists: Nesting: Test 4
+!! input
+::;t3
+:::d3
+!! result
+<dl><dd><dl><dd><dl><dt>t3
+</dt><dd>d3
+</dd></dl>
+</dd></dl>
+</dd></dl>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 1
+!! input
+:;* foo
+::* bar
+:; baz
+!! result
+<dl><dd><dl><dt><ul><li> foo
+</li><li> bar
+</li></ul>
+</dt></dl>
+<dl><dt> baz
+</dt></dl>
+</dd></dl>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 2
+!! input
+*: d1
+*: d2
+!! result
+<ul><li><dl><dd> d1
+</dd><dd> d2
+</dd></dl>
+</li></ul>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 3
+!! input
+*::: d1
+*::: d2
+!! result
+<ul><li><dl><dd><dl><dd><dl><dd> d1
+</dd><dd> d2
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</li></ul>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 4
+!! input
+*;d1 :d2
+*;d3 :d4
+!! result
+<ul><li><dl><dt>d1&#160;</dt><dd>d2
+</dd><dt>d3&#160;</dt><dd>d4
+</dd></dl>
+</li></ul>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 5
+!! input
+*:d1
+*:: d2
+!! result
+<ul><li><dl><dd>d1
+<dl><dd> d2
+</dd></dl>
+</dd></dl>
+</li></ul>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 6
+!! input
+#*:d1
+#*::: d3
+!! result
+<ol><li><ul><li><dl><dd>d1
+<dl><dd><dl><dd> d3
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</li></ul>
+</li></ol>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 7
+!! input
+:* d1
+:* d2
+!! result
+<dl><dd><ul><li> d1
+</li><li> d2
+</li></ul>
+</dd></dl>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 8
+!! input
+:* d1
+::* d2
+!! result
+<dl><dd><ul><li> d1
+</li></ul>
+<dl><dd><ul><li> d2
+</li></ul>
+</dd></dl>
+</dd></dl>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 9
+!! input
+*;foo :bar
+!! result
+<ul><li><dl><dt>foo&#160;</dt><dd>bar
+</dd></dl>
+</li></ul>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 10
+!! input
+*#;foo :bar
+!! result
+<ul><li><ol><li><dl><dt>foo&#160;</dt><dd>bar
+</dd></dl>
+</li></ol>
+</li></ul>
+
+!! end
+
+
+!! test
+Definition Lists: Mixed Lists: Test 11
+!! input
+*#*#;*;;foo :bar
+*#*#;boo :baz
+!! result
+<ul><li><ol><li><ul><li><ol><li><dl><dt>foo&#160;</dt><dd><ul><li><dl><dt><dl><dt>bar
+</dt></dl>
+</dd></dl>
+</li></ul>
+</dd></dl>
+<dl><dt>boo&#160;</dt><dd>baz
+</dd></dl>
+</li></ol>
+</li></ul>
+</li></ol>
+</li></ul>
+
+!! end
+
+
+!! test
+Definition Lists: Weird Ones: Test 1
+!! input
+*#;*::;; foo : bar (who uses this?)
+!! result
+<ul><li><ol><li><dl><dt> foo&#160;</dt><dd><ul><li><dl><dd><dl><dd><dl><dt><dl><dt> bar (who uses this?)
+</dt></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</li></ul>
+</dd></dl>
+</li></ol>
+</li></ul>
+
+!! end
+
 ###
 ### External links
 ###
@@ -931,6 +1685,23 @@ External links: [IDN ignored character reference in hostname; strip it right off
 </p>
 !! end
 
+# FIXME: This test (the IDN characters in the text of a link) is an inconsistency.
+# Where an external link could easily circumvent the sanitization of the text of
+# a link like this (where an IDN-ignore character is in the URL somewhere), this
+# test demands a higher standard. That's a bit strange.
+#
+# Example:
+#
+# http://e‌xample.com -> [http://example.com|http://example.com]
+# [http://example.com|http://e‌xample.com] -> [http://example.com|http://e‌xample.com]
+#
+# The first example is sanitized, but the second is not. Any security benefits
+# from this production are trivial to circumvent. Either remove this test and
+# let the parser(s) do their thing unaccosted, or fix the inconsistency and change
+# the test accordingly.
+#
+# All our love,
+# The Parsoid team.
 !! test
 External links: IDN ignored character reference in hostname; strip it right off
 !! input
@@ -1269,6 +2040,8 @@ Normal text.
 '''This year''''s election ''should'' beat '''last year''''s.
 
 ''Tom'''s car is bigger than ''Susan'''s.
+
+Plain ''italic'''s plain
 !! result
 <p><i><b>Bold italic text </b>with bold deactivated<b> in between.</b></i>
 </p><p><b><i>Bold italic text </i>with italic deactivated<i> in between.</i></b>
@@ -1279,6 +2052,7 @@ Normal text.
 </p><p>Normal text.
 </p><p><b>This year'</b>s election <i>should</i> beat <b>last year'</b>s.
 </p><p><i>Tom<b>s car is bigger than </b></i><b>Susan</b>s.
+</p><p>Plain <i>italic'</i>s plain
 </p>
 !! end
 
@@ -1302,7 +2076,7 @@ A table with no data.
 # this as <p>caption</p>
 !! test
 A table with nothing but a caption
-!! input 
+!! input
 {|
 |+ caption
 |}
@@ -1750,6 +2524,21 @@ Link with double quotes in title part (literal) and alternate part (interpreted)
 !! end
 
 !! test
+Broken image links with HTML captions (bug 39700)
+!! input
+[[File:Nonexistent|<script></script>]]
+[[File:Nonexistent|100px|<script></script>]]
+[[File:Nonexistent|&lt;]]
+[[File:Nonexistent|a<i>b</i>c]]
+!! result
+<p><a href="/index.php?title=Special:Upload&amp;wpDestFile=Nonexistent" class="new" title="File:Nonexistent">&lt;script&gt;&lt;/script&gt;</a>
+<a href="/index.php?title=Special:Upload&amp;wpDestFile=Nonexistent" class="new" title="File:Nonexistent">&lt;script&gt;&lt;/script&gt;</a>
+<a href="/index.php?title=Special:Upload&amp;wpDestFile=Nonexistent" class="new" title="File:Nonexistent">&lt;</a>
+<a href="/index.php?title=Special:Upload&amp;wpDestFile=Nonexistent" class="new" title="File:Nonexistent">abc</a>
+</p>
+!! end
+
+!! test
 Plain link to URL
 !! input
 [[http://www.example.com]]
@@ -2050,7 +2839,7 @@ Incorrecly removing closing slashes from correctly formed XHTML
 </p>
 !! end
 
-!! test 
+!! test
 Failing to transform badly formed HTML into correct XHTML
 !! input
 <br style="clear: left;">
@@ -2063,18 +2852,97 @@ Failing to transform badly formed HTML into correct XHTML
 </p>
 !!end
 
-!! test 
+!! test
+Handling html with a div self-closing tag
+!! input
+<div title />
+<div title/>
+<div title/ >
+<div title=bar />
+<div title=bar/>
+<div title=bar/ >
+!! result
+<p>&lt;div title /&gt;
+&lt;div title/&gt;
+</p>
+<div>
+<p>&lt;div title=bar /&gt;
+&lt;div title=bar/&gt;
+</p>
+<div title="bar/"></div>
+</div>
+
+!! end
+
+!! test
+Handling html with a br self-closing tag
+!! input
+<br title />
+<br title/>
+<br title/ >
+<br title=bar />
+<br title=bar/>
+<br title=bar/ >
+!! result
+<p><br title="title" />
+<br title="title" />
+<br />
+<br title="bar" />
+<br title="bar" />
+<br title="bar/" />
+</p>
+!! end
+
+!! test
 Horizontal ruler (should it add that extra space?)
-!! input 
+!! input
 <hr>
 <hr >
 foo <hr
 > bar
-!! result 
+!! result
 <hr />
 <hr />
 foo <hr /> bar
 
+!! end
+
+!! test
+Horizontal ruler -- 4+ dashes render hr
+!! input
+----
+!! result
+<hr />
+
+!! end
+
+!! test
+Horizontal ruler -- eats additional dashes on the same line
+!! input
+---------
+!! result
+<hr />
+
+!! end
+
+!! test
+Horizontal ruler -- does not collaps dashes on consecutive lines
+!! input
+----
+----
+!! result
+<hr />
+<hr />
+
+!! end
+
+!! test
+Horizontal ruler -- <4 dashes render as plain text
+!! input
+---
+!! result
+<p>---
+</p>
 !! end
 
 ###
@@ -2124,6 +2992,8 @@ Mixed list
 **#Number on level 3
 *#number level 2
 *Level 1
+*** Level 3
+#** Level 3, but ordered
 !! result
 <ul><li>Mixed list
 <ol><li> with numbers
@@ -2146,9 +3016,125 @@ Mixed list
 <ol><li>number level 2
 </li></ol>
 </li><li>Level 1
+<ul><li><ul><li> Level 3
+</li></ul>
+</li></ul>
+</li></ul>
+<ol><li><ul><li><ul><li> Level 3, but ordered
+</li></ul>
+</li></ul>
+</li></ol>
+
+!! end
+
+!! test
+Nested lists 1
+!! input
+*foo
+**bar
+!! result
+<ul><li>foo
+<ul><li>bar
+</li></ul>
 </li></ul>
 
 !! end
+
+!! test
+Nested lists 2
+!! input
+**foo
+*bar
+!! result
+<ul><li><ul><li>foo
+</li></ul>
+</li><li>bar
+</li></ul>
+
+!! end
+
+!! test
+Nested lists 3 (first element empty)
+!! input
+*
+**bar
+!! result
+<ul><li>
+<ul><li>bar
+</li></ul>
+</li></ul>
+
+!! end
+
+!! test
+Nested lists 4 (first element empty)
+!! input
+**
+*bar
+!! result
+<ul><li><ul><li>
+</li></ul>
+</li><li>bar
+</li></ul>
+
+!! end
+
+!! test
+Nested lists 5 (both elements empty)
+!! input
+**
+*
+!! result
+<ul><li><ul><li>
+</li></ul>
+</li><li>
+</li></ul>
+
+!! end
+
+!! test
+Nested lists 6 (both elements empty)
+!! input
+*
+**
+!! result
+<ul><li>
+<ul><li>
+</li></ul>
+</li></ul>
+
+!! end
+
+!! test
+Nested lists 7 (skip initial nesting levels)
+!! input
+*** foo
+!! result
+<ul><li><ul><li><ul><li> foo
+</li></ul>
+</li></ul>
+</li></ul>
+
+!! end
+
+!! test
+Nested lists 8 (multiple nesting transitions)
+!! input
+* foo
+*** bar
+** baz
+* boo
+!! result
+<ul><li> foo
+<ul><li><ul><li> bar
+</li></ul>
+</li><li> baz
+</li></ul>
+</li><li> boo
+</li></ul>
+
+!! end
+
 
 !! test
 List items are not parsed correctly following a <pre> block (bug 785)
@@ -2193,6 +3179,27 @@ List items from template
 </li></ul>
 
 !! end
+
+!! test
+List interrupted by empty line or heading
+!! input
+* foo
+
+** bar
+== A heading ==
+* Another list item
+!! result
+<ul><li> foo
+</li></ul>
+<ul><li><ul><li> bar
+</li></ul>
+</li></ul>
+<h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=1" title="Edit section: A heading">edit</a>]</span> <span class="mw-headline" id="A_heading"> A heading </span></h2>
+<ul><li> Another list item
+</li></ul>
+
+!!end
+
 
 ###
 ### Magic Words
@@ -3154,6 +4161,378 @@ section=1
 !! end
 
 ###
+### Testing parsing of templates where a template arg
+### has the same name as the template itself.
+###
+
+!! article
+Template:quote
+!! text
+{{{quote|{{{1}}} }}}
+!! endarticle
+
+!!test
+Templates: Template Name/Arg clash: 1. Use of positional param
+!!input
+{{quote|foo}}
+!!result
+<p>foo 
+</p>
+!!end
+
+!!test
+Templates: Template Name/Arg clash: 2. Use of named param
+!!input
+{{quote|quote=foo}}
+!!result
+<p>foo
+</p>
+!!end
+
+!!test
+Templates: Template Name/Arg clash: 3. Use of named param with empty input
+!!input
+{{quote|quote}}
+!!result
+<p>quote 
+</p>
+!!end
+
+###
+### Parsoid-centric tests to stress Parsoid's ability to RT them unchanged
+###
+!! article
+Template:echo
+!! text
+{{{1}}}
+!! endarticle
+
+!!test
+Templates: 1. Simple use
+!!input
+{{echo|Foo}}
+!!result
+<p>Foo
+</p>
+!!end
+
+!!test
+Templates: 2. Inside a block tag
+!!input
+<div>{{echo|Foo}}</div>
+!!result
+<div>Foo</div>
+
+!!end
+
+!!test
+Templates: P-wrapping: 1a. Templates on consecutive lines
+!!input
+{{echo|Foo}}
+{{echo|bar}}
+!!result
+<p>Foo
+bar
+</p>
+!!end
+
+!!test
+Templates: P-wrapping: 1b. Templates on consecutive lines
+!!input
+Foo
+
+{{echo|bar}}
+{{echo|baz}}
+!!result
+<p>Foo
+</p><p>bar
+baz
+</p>
+!!end
+
+!!test
+Templates: P-wrapping: 1c. Templates on consecutive lines
+!!input
+{{echo|Foo}}
+{{echo|bar}} <div>baz</div>
+!!result
+<p>Foo
+</p>
+bar <div>baz</div>
+
+!!end
+
+!!test
+Templates: Inline Text: 1. Multiple tmeplate uses
+!!input
+{{echo|Foo}}bar{{echo|baz}}
+!!result
+<p>Foobarbaz
+</p>
+!!end
+
+!!test
+Templates: Inline Text: 2. Back-to-back template uses
+!!input
+{{echo|Foo}}{{echo|bar}}
+!!result
+<p>Foobar
+</p>
+!!end
+
+!!test
+Templates: Block Tags: 1. Multiple template uses
+!!input
+{{echo|<div>Foo</div>}}<div>bar</div>{{echo|<div>baz</div>}}
+!!result
+<div>Foo</div><div>bar</div><div>baz</div>
+
+!!end
+
+!!test
+Templates: Block Tags: 2. Back-to-back template uses
+!!input
+{{echo|<div>Foo</div>}}{{echo|<div>bar</div>}}
+!!result
+<div>Foo</div><div>bar</div>
+
+!!end
+
+!!test
+Templates: Links: 1. Simple example
+!!input
+{{echo|[[Foo|bar]]}}
+!!result
+<p><a href="/index.php?title=Foo&amp;action=edit&amp;redlink=1" class="new" title="Foo (page does not exist)">bar</a>
+</p>
+!!end
+
+!!test
+Templates: Links: 2. Generation of link href
+!!input
+[[{{echo|Foo}}|bar]]
+!!result
+<p><a href="/index.php?title=Foo&amp;action=edit&amp;redlink=1" class="new" title="Foo (page does not exist)">bar</a>
+</p>
+!!end
+
+!!test
+Templates: Links: 3. Generation of part of a link href
+!!input
+[[Fo{{echo|o}}|bar]]
+!!result
+<p><a href="/index.php?title=Foo&amp;action=edit&amp;redlink=1" class="new" title="Foo (page does not exist)">bar</a>
+</p>
+!!end
+
+!!test
+Templates: Links: 4. Multiple templates generating link href
+!!input
+[[{{echo|F}}{{echo|o}}ob{{echo|ar}}]]
+!!result
+<p><a href="/index.php?title=Foobar&amp;action=edit&amp;redlink=1" class="new" title="Foobar (page does not exist)">Foobar</a>
+</p>
+!!end
+
+!!test
+Templates: Links: 5. Generation of link text
+!!input
+[[Foo|{{echo|bar}}]]
+!!result
+<p><a href="/index.php?title=Foo&amp;action=edit&amp;redlink=1" class="new" title="Foo (page does not exist)">bar</a>
+</p>
+!!end
+
+!!test
+Templates: Links: 5. Nested templates (only outermost template should be marked)
+!!input
+{{echo|[[{{echo|Foo}}|bar]]}}
+!!result
+<p><a href="/index.php?title=Foo&amp;action=edit&amp;redlink=1" class="new" title="Foo (page does not exist)">bar</a>
+</p>
+!!end
+
+!!test
+Templates: HTML Tag: 1. Generation of HTML attr. key
+!!input
+<div {{echo|style}}="color:red;">foo</div>
+!!result
+<div style="color:red;">foo</div>
+
+!!end
+
+!!test
+Templates: HTML Tag: 2. Generation of HTML attr. value
+!!input
+<div style={{echo|'color:red;'}}>foo</div>
+!!result
+<div style="color:red;">foo</div>
+
+!!end
+
+!!test
+Templates: HTML Tag: 3. Generation of HTML attr key and value
+!!input
+<div {{echo|style}}={{echo|'color:red;'}}>foo</div>
+!!result
+<div style="color:red;">foo</div>
+
+!!end
+
+!!test
+Templates: HTML Tag: 4. Generation of starting piece of HTML attr value
+!!input
+<div title="{{echo|This is a long title}} with just one piece templated">foo</div>
+!!result
+<div title="This is a long title with just one piece templated">foo</div>
+
+!!end
+
+!!test
+Templates: HTML Tag: 5. Generation of middle piece of HTML attr value
+!!input
+<div title="This is a long title with just {{echo|one piece}} templated">foo</div>
+!!result
+<div title="This is a long title with just one piece templated">foo</div>
+
+!!end
+
+!!test
+Templates: HTML Tag: 6. Generation of end piece of HTML attr value
+!!input
+<div title="This is a long title with just one piece {{echo|templated}}">foo</div>
+!!result
+<div title="This is a long title with just one piece templated">foo</div>
+
+!!end
+
+!!test
+Templates: Tables: 1. Generating start of a HTML table
+!!input
+{{echo|<table><tr><td>foo</td>}}</tr></table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 2a. Generating middle of a HTML table
+!!input
+<table><tr>{{echo|<td>foo</td>}}</tr></table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 2b. Generating middle of a HTML table
+!!input
+<table>{{echo|<tr><td>foo</td></tr>}}</table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 3. Generating end of a HTML table
+!!input
+<table><tr>{{echo|<td>foo</td></tr></table>}}
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 4a. Generating a single tag of a HTML table
+!!input
+{{echo|<table>}}<tr><td>foo</td></tr></table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 4b. Generating a single tag of a HTML table
+!!input
+<table>{{echo|<tr>}}<td>foo</td></tr></table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 4c. Generating a single tag of a HTML table
+!!input
+<table><tr>{{echo|<td>}}foo</td></tr></table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 4d. Generating a single tag of a HTML table
+!!input
+<table><tr><td>foo{{echo|</td>}}</tr></table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 4e. Generating a single tag of a HTML table
+!!input
+<table><tr><td>foo</td>{{echo|</tr>}}</table>
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Tables: 4f. Generating a single tag of a HTML table
+!!input
+<table><tr><td>foo</td></tr>{{echo|</table>}}
+!!result
+<table><tr><td>foo</td></tr></table>
+
+!!end
+
+!!test
+Templates: Pre: 1a. Templates that break a line should suppress <pre>
+!!input
+ {{echo|}}
+!!result
+
+!!end
+
+!!test
+Templates: Pre: 1b. Templates that break a line should suppress <pre>
+!!input
+ {{echo|
+foo}}
+!!result
+<p>foo
+</p>
+!!end
+
+!!test
+Parser Functions: 1. Simple example
+!!input
+{{uc:foo}}
+!!result
+<p>FOO
+</p>
+!!end
+
+!!test
+Parser Functions: 2. Nested use (only outermost should be marked up)
+!!input
+{{uc:{{lc:FOO}}}}
+!!result
+<p>FOO
+</p>
+!!end
+
+###
 ### Pre-save transform tests
 ###
 !! test
@@ -3525,15 +4904,15 @@ pst
 [[Bar:Article（context）|]]
 [[:Bar:Article（context）|]]
 [[|Article（context）]]
-[[Bar:X （Y） Z|]]
-[[:Bar:X （Y） Z|]]
+[[Bar:X（Y）Z|]]
+[[:Bar:X（Y）Z|]]
 !! result
 [[Article（context）|Article]]
 [[Bar:Article（context）|Article]]
 [[:Bar:Article（context）|Article]]
 [[Article（context）]]
-[[Bar:X （Y） Z|X （Y） Z]]
-[[:Bar:X （Y） Z|X （Y） Z]]
+[[Bar:X（Y）Z|X（Y）Z]]
+[[:Bar:X（Y）Z|X（Y）Z]]
 !! end
 
 !! test
@@ -3574,6 +4953,26 @@ pst
 [[Article(context)]]
 [[Bar:X(Y)Z|X(Y)Z]]
 [[:Bar:X(Y)Z|X(Y)Z]]
+!! end
+
+!! test
+pre-save transform: context links ("pipe trick") with commas (bug 21660)
+!! options
+pst
+!! input
+[[Article (context), context|]]
+[[Article (context)，context|]]
+[[Bar:Article (context), context|]]
+[[Bar:Article (context)，context|]]
+[[:Bar:Article (context), context|]]
+[[:Bar:Article (context)，context|]]
+!! result
+[[Article (context), context|Article]]
+[[Article (context)，context|Article]]
+[[Bar:Article (context), context|Article]]
+[[Bar:Article (context)，context|Article]]
+[[:Bar:Article (context), context|Article]]
+[[:Bar:Article (context)，context|Article]]
 !! end
 
 !! test
@@ -3807,7 +5206,7 @@ Image with link parameter, URL target
 !! input
 [[Image:foobar.jpg|link=http://example.com/]]
 !! result
-<p><a href="http://example.com/"><img alt="Foobar.jpg" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
+<p><a href="http://example.com/" rel="nofollow"><img alt="Foobar.jpg" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
 </p>
 !! end
 
@@ -3818,7 +5217,29 @@ Image with link parameter, wgExternalLinkTarget
 !! config
 wgExternalLinkTarget='foobar'
 !! result
-<p><a href="http://example.com/" target="foobar"><img alt="Foobar.jpg" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
+<p><a href="http://example.com/" target="foobar" rel="nofollow"><img alt="Foobar.jpg" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
+</p>
+!! end
+
+!! test
+Image with link parameter, wgNoFollowLinks set to false
+!! input
+[[Image:foobar.jpg|link=http://example.com/]]
+!! config
+wgNoFollowLinks=false
+!! result
+<p><a href="http://example.com/"><img alt="Foobar.jpg" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
+</p>
+!! end
+
+!! test
+Image with link parameter, wgNoFollowDomainExceptions
+!! input
+[[Image:foobar.jpg|link=http://example.com/]]
+!! config
+wgNoFollowDomainExceptions='example.com'
+!! result
+<p><a href="http://example.com/"><img alt="Foobar.jpg" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
 </p>
 !! end
 
@@ -3829,7 +5250,7 @@ Image with link parameter, wgExternalLinkTarget, unnamed parameter
 !! config
 wgExternalLinkTarget='foobar'
 !! result
-<p><a href="http://example.com/" title="Title" target="foobar"><img alt="Title" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
+<p><a href="http://example.com/" title="Title" target="foobar" rel="nofollow"><img alt="Title" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
 </p>
 !! end
 
@@ -3856,7 +5277,7 @@ Image with link parameter (URL target) and unnamed parameter
 !! input
 [[Image:foobar.jpg|link=http://example.com/|Title]]
 !! result
-<p><a href="http://example.com/" title="Title"><img alt="Title" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
+<p><a href="http://example.com/" title="Title" rel="nofollow"><img alt="Title" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" /></a>
 </p>
 !! end
 
@@ -4072,7 +5493,16 @@ Bug 3090: External links other than http: in image captions
 
 !! end
 
-!! article 
+!! test
+Custom class
+!! input
+[[Image:foobar.jpg|a|class=b]]
+!! result
+<p><a href="/wiki/File:Foobar.jpg" class="image" title="a"><img alt="a" src="http://example.com/images/3/3a/Foobar.jpg" width="1941" height="220" class="b" /></a>
+</p>
+!! end
+
+!! article
 File:Barfoo.jpg
 !! text
 #REDIRECT [[File:Barfoo.jpg]]
@@ -4187,6 +5617,48 @@ PAGESINCATEGORY invalid title fatal (r33546 fix)
 </p>
 !! end
 
+!! test
+Category with different sort key
+!! options
+cat
+!! input
+[[Category:MediaWiki User's Guide|Foo]]
+!! result
+<a href="/wiki/Category:MediaWiki_User%27s_Guide" title="Category:MediaWiki User's Guide">MediaWiki User's Guide</a>
+!! end
+
+!! test
+Category with identical sort key
+!! options
+cat
+!! input
+[[Category:MediaWiki User's Guide|MediaWiki User's Guide]]
+!! result
+<a href="/wiki/Category:MediaWiki_User%27s_Guide" title="Category:MediaWiki User's Guide">MediaWiki User's Guide</a>
+!! end
+
+!! test
+Category with empty sort key
+!! options
+cat
+pst
+!! input
+[[Category:MediaWiki User's Guide|]]
+!! result
+[[Category:MediaWiki User's Guide|MediaWiki User's Guide]]
+!! end
+
+!! test
+Category with empty sort key and parentheses
+!! options
+cat
+pst
+!! input
+[[Category:Foo (bar)|]]
+!! result
+[[Category:Foo (bar)|Foo]]
+!! end
+
 ###
 ### Inter-language links
 ###
@@ -4275,7 +5747,7 @@ Some text
 # perl -e 'print "="x$_," Level $_ heading","="x$_,"\n" for 1..10'
 !! test
 Handling of sections up to level 6 and beyond
-!! input 
+!! input
 = Level 1 Heading=
 == Level 2 Heading==
 === Level 3 Heading===
@@ -4594,6 +6066,30 @@ section 5
 <h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=5" title="Edit section: text &quot; text">edit</a>]</span> <span class="mw-headline" id="text_.22_text"> text " text </span></h2>
 <p>section 5
 </p>
+!! end
+
+!! test
+Headers with excess '=' characters
+(Are similar tests necessary beyond the 1st level?)
+!! input
+=foo==
+==foo=
+=''italic'' heading==
+==''italic'' heading=
+!! result
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#foo.3D"><span class="tocnumber">1</span> <span class="toctext">foo=</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.3Dfoo"><span class="tocnumber">2</span> <span class="toctext">=foo</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#italic_heading.3D"><span class="tocnumber">3</span> <span class="toctext"><i>italic</i> heading=</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.3Ditalic_heading"><span class="tocnumber">4</span> <span class="toctext">=<i>italic</i> heading</span></a></li>
+</ul>
+</td></tr></table>
+<h1><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=1" title="Edit section: foo=">edit</a>]</span> <span class="mw-headline" id="foo.3D">foo=</span></h1>
+<h1><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=2" title="Edit section: =foo">edit</a>]</span> <span class="mw-headline" id=".3Dfoo">=foo</span></h1>
+<h1><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=3" title="Edit section: italic heading=">edit</a>]</span> <span class="mw-headline" id="italic_heading.3D"><i>italic</i> heading=</span></h1>
+<h1><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=4" title="Edit section: =italic heading">edit</a>]</span> <span class="mw-headline" id=".3Ditalic_heading">=<i>italic</i> heading</span></h1>
+
 !! end
 
 !! test
@@ -6075,7 +7571,7 @@ Special page transclusion
 !! input
 {{Special:Prefixindex/Xyzzyx}}
 !! result
-<table border="0" id="mw-prefixindex-list-table"><tr><td><a href="/wiki/Xyzzyx" title="Xyzzyx">Xyzzyx</a></td></tr></table>
+<table id="mw-prefixindex-list-table"><tr><td><a href="/wiki/Xyzzyx" title="Xyzzyx">Xyzzyx</a></td></tr></table>
 
 !! end
 
@@ -6086,8 +7582,8 @@ Special page transclusion twice (bug 5021)
 {{Special:Prefixindex/Xyzzyx}}
 {{Special:Prefixindex/Xyzzyx}}
 !! result
-<table border="0" id="mw-prefixindex-list-table"><tr><td><a href="/wiki/Xyzzyx" title="Xyzzyx">Xyzzyx</a></td></tr></table>
-<table border="0" id="mw-prefixindex-list-table"><tr><td><a href="/wiki/Xyzzyx" title="Xyzzyx">Xyzzyx</a></td></tr></table>
+<table id="mw-prefixindex-list-table"><tr><td><a href="/wiki/Xyzzyx" title="Xyzzyx">Xyzzyx</a></td></tr></table>
+<table id="mw-prefixindex-list-table"><tr><td><a href="/wiki/Xyzzyx" title="Xyzzyx">Xyzzyx</a></td></tr></table>
 
 !! end
 
@@ -6460,7 +7956,7 @@ section=2
 !! end
 
 
-# Formerly testing for bug 2587, now resolved by the use of unmarked sections 
+# Formerly testing for bug 2587, now resolved by the use of unmarked sections
 # instead of respecting commented sections
 !! test
 Section extraction prefixed by comment (section 1)
@@ -6485,7 +7981,7 @@ section=2
 !!end
 
 
-# Formerly testing for bug 2607, now resolved by the use of unmarked sections 
+# Formerly testing for bug 2607, now resolved by the use of unmarked sections
 # instead of respecting HTML-style headings
 !! test
 Section extraction, mixed wiki and html (section 1)
@@ -7268,7 +8764,7 @@ HTML Hex character encoding mixed case
 
 !! test
 __FORCETOC__ override
-!! input 
+!! input
 __NEWSECTIONLINK__
 __FORCETOC__
 !! result
@@ -7322,7 +8818,7 @@ RFC RFC 1234
 !! end
 
 !! test
-Double RFC with a wiki link 
+Double RFC with a wiki link
 !! input
 RFC [[RFC 1234]]
 !! result
@@ -8042,7 +9538,7 @@ Fridrih IV je car.
 
 !! test
 Unclosed language converter markup "-{"
-!! options 
+!! options
 language=sr
 !! input
 -{T|hello
@@ -8057,12 +9553,12 @@ Don't convert raw rule "-{R|=&gt;}-" to "=>"
 language=sr
 !! input
 -{R|=&gt;}-
-!! result 
+!! result
 <p>=&gt;
 </p>
 !!end
 
-!!article 
+!!article
 Template:Bullet
 !!text
 * Bar
@@ -8516,6 +10012,17 @@ wgUseDynamicDates=true
 </p>
 !! end
 
+!! test
+formatdate parser function, with default format and on a page of which the content language is always English and different from the wiki content language
+!! options
+language=nl title=[[MediaWiki:Common.css]]
+!! input
+{{#formatdate:2009-03-24|dmy}}
+!! result
+<p><span class="mw-formatted-date" title="2009-03-24">24 March 2009</span>
+</p>
+!! end
+
 #
 #
 #
@@ -8801,7 +10308,7 @@ Screen
 <p>this is not the the title
 </p>
 !! end
- 
+
 !! test
 preload: check <noinclude> and <includeonly>
 !! options
@@ -8811,7 +10318,7 @@ Hello <noinclude>cruel</noinclude><includeonly>kind</includeonly> world.
 !! result
 Hello kind world.
 !! end
- 
+
 !! test
 preload: check <onlyinclude>
 !! options
@@ -8843,7 +10350,7 @@ preload
 !! end
 
 !! test
-Play a bit with r67090 and bug 3158 
+Play a bit with r67090 and bug 3158
 !! options
 disabled
 !! input
@@ -9052,7 +10559,7 @@ __TOC__
 !! end
 
 !! test
-Bug 26375: TOC with bold 
+Bug 26375: TOC with bold
 !! options
 title=[[Main Page]]
 !! input
@@ -9158,6 +10665,37 @@ __TOC__
 </td></tr></table>
 <h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=1" title="Edit section: Hello">edit</a>]</span> <span class="mw-headline" id="Hello"> <sup class="in-h2">Hello</sup> </span></h2>
 <h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=2" title="Edit section: b&quot;>Evilbye">edit</a>]</span> <span class="mw-headline" id="b.22.3EEvilbye"> <sup> b"&gt;Evilbye</sup> </span></h2>
+
+!! end
+
+!! test
+span tags with directionality in TOC
+!! input
+__TOC__
+== <span dir="ltr">C++</span> ==
+
+== <span dir="rtl">זבנג!</span> ==
+
+== <span style="font-style: italic">The attributes on these span tags must be deleted from the TOC</span> ==
+
+== <span style="font-style: italic" dir="ltr">All attributes on these span tags must be deleted from the TOC</span> ==
+
+== <span dir="ltr" style="font-style: italic">Attributes after dir on these span tags must be deleted from the TOC</span> ==
+!! result
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#C.2B.2B"><span class="tocnumber">1</span> <span class="toctext"><span dir="ltr">C++</span></span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.D7.96.D7.91.D7.A0.D7.92.21"><span class="tocnumber">2</span> <span class="toctext"><span dir="rtl">זבנג!</span></span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#The_attributes_on_these_span_tags_must_be_deleted_from_the_TOC"><span class="tocnumber">3</span> <span class="toctext"><span>The attributes on these span tags must be deleted from the TOC</span></span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#All_attributes_on_these_span_tags_must_be_deleted_from_the_TOC"><span class="tocnumber">4</span> <span class="toctext"><span>All attributes on these span tags must be deleted from the TOC</span></span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Attributes_after_dir_on_these_span_tags_must_be_deleted_from_the_TOC"><span class="tocnumber">5</span> <span class="toctext"><span dir="ltr">Attributes after dir on these span tags must be deleted from the TOC</span></span></a></li>
+</ul>
+</td></tr></table>
+<h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=1" title="Edit section: C++">edit</a>]</span> <span class="mw-headline" id="C.2B.2B"> <span dir="ltr">C++</span> </span></h2>
+<h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=2" title="Edit section: זבנג!">edit</a>]</span> <span class="mw-headline" id=".D7.96.D7.91.D7.A0.D7.92.21"> <span dir="rtl">זבנג!</span> </span></h2>
+<h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=3" title="Edit section: The attributes on these span tags must be deleted from the TOC">edit</a>]</span> <span class="mw-headline" id="The_attributes_on_these_span_tags_must_be_deleted_from_the_TOC"> <span style="font-style: italic">The attributes on these span tags must be deleted from the TOC</span> </span></h2>
+<h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=4" title="Edit section: All attributes on these span tags must be deleted from the TOC">edit</a>]</span> <span class="mw-headline" id="All_attributes_on_these_span_tags_must_be_deleted_from_the_TOC"> <span style="font-style: italic" dir="ltr">All attributes on these span tags must be deleted from the TOC</span> </span></h2>
+<h2><span class="editsection">[<a href="/index.php?title=Parser_test&amp;action=edit&amp;section=5" title="Edit section: Attributes after dir on these span tags must be deleted from the TOC">edit</a>]</span> <span class="mw-headline" id="Attributes_after_dir_on_these_span_tags_must_be_deleted_from_the_TOC"> <span dir="ltr" style="font-style: italic">Attributes after dir on these span tags must be deleted from the TOC</span> </span></h2>
 
 !! end
 
@@ -9361,10 +10899,48 @@ Language parser function
 </p>
 !! end
 
+!!test
+Padleft and padright as substr
+!! input
+{{padleft:|3|abcde}}
+{{padright:|3|abcde}}
+!! result
+<p>abc
+abc
+</p>
+!! end
+
+!!test
+Bug 34939 - Case insensitive link parsing ([HttP://])
+!! input
+[HttP://MediaWiki.Org/]
+!! result
+<p><a rel="nofollow" class="external autonumber" href="HttP://MediaWiki.Org/">[1]</a>
+</p>
+!! end
+
+!!test
+Bug 34939 - Case insensitive link parsing ([HttP:// title])
+!! input
+[HttP://MediaWiki.Org/ MediaWiki]
+!! result
+<p><a rel="nofollow" class="external text" href="HttP://MediaWiki.Org/">MediaWiki</a>
+</p>
+!! end
+
+!!test
+Bug 34939 - Case insensitive link parsing (HttP://)
+!! input
+HttP://MediaWiki.Org/
+!! result
+<p><a rel="nofollow" class="external free" href="HttP://MediaWiki.Org/">HttP://MediaWiki.Org/</a>
+</p>
+!! end
+
+
 TODO:
 more images
 more tables
-math
 character entities
 and much more
 Try for 100% code coverage

@@ -4,7 +4,7 @@
  *
  * Created on June 14, 2007
  *
- * Copyright © 2006 Yuri Astrakhan <Firstname><Lastname>@gmail.com
+ * Copyright © 2006 Yuri Astrakhan "<Firstname><Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -362,6 +362,36 @@ class ApiQueryCategoryMembers extends ApiQueryGeneratorBase {
 			);
 		}
 		return $desc;
+	}
+
+	public function getResultProperties() {
+		return array(
+			'ids' => array(
+				'pageid' => 'integer'
+			),
+			'title' => array(
+				'ns' => 'namespace',
+				'title' => 'string'
+			),
+			'sortkey' => array(
+				'sortkey' => 'string'
+			),
+			'sortkeyprefix' => array(
+				'sortkeyprefix' => 'string'
+			),
+			'type' => array(
+				'type' => array(
+					ApiBase::PROP_TYPE => array(
+						'page',
+						'subcat',
+						'file'
+					)
+				)
+			),
+			'timestamp' => array(
+				'timestamp' => 'timestamp'
+			)
+		);
 	}
 
 	public function getDescription() {

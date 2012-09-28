@@ -7,10 +7,12 @@
  * @ingroup Language
  * @file
  *
+ * @author Bulaisen
  * @author Kalani
  * @author Kolonahe
  * @author Node ue
  * @author Singularity
+ * @author Xqt
  */
 
 $namespaceNames = array(
@@ -61,27 +63,27 @@ $specialPageAliases = array(
 );
 
 $magicWords = array(
-	'currentmonth'            => array( '1', 'KĒIAMAHINA', 'KEIAMAHINA', 'CURRENTMONTH', 'CURRENTMONTH2' ),
-	'currentmonthname'        => array( '1', 'KĒIAINOAMAHINA', 'KEIAINOAMAHINA', 'CURRENTMONTHNAME' ),
-	'currentday'              => array( '1', 'KĒIALĀ', 'KEIALA', 'CURRENTDAY' ),
-	'currentday2'             => array( '1', 'KĒIALĀ2', 'KEIALA2', 'CURRENTDAY2' ),
-	'currentdayname'          => array( '1', 'KĒIAINOALĀ', 'KEIAINOALA', 'CURRENTDAYNAME' ),
-	'currentyear'             => array( '1', 'KĒIAMAKAHIKI', 'KEIAMAKAHIKI', 'CURRENTYEAR' ),
-	'currenttime'             => array( '1', 'KĒIAMANAWA', 'KEIAMANAWA', 'CURRENTTIME' ),
-	'currenthour'             => array( '1', 'KĒIAHOLA', 'KEIAHOLA', 'CURRENTHOUR' ),
-	'numberofpages'           => array( '1', 'HELUʻAOʻAO', 'HELUAOAO', 'NUMBEROFPAGES' ),
-	'numberofarticles'        => array( '1', 'HELUMEA', 'NUMBEROFARTICLES' ),
-	'numberoffiles'           => array( '1', 'HELUWAIHONA', 'NUMBEROFFILES' ),
-	'numberofusers'           => array( '1', 'HELUMEAHOʻOHANA', 'HELUMEAHOOHANA', 'NUMBEROFUSERS' ),
-	'numberofedits'           => array( '1', 'HELULOLI', 'NUMBEROFEDITS' ),
-	'pagename'                => array( '1', 'INOAʻAOʻAO', 'INOAAOAO', 'PAGENAME' ),
-	'img_right'               => array( '1', 'ʻākau', 'ākau', 'akau', 'right' ),
-	'img_left'                => array( '1', 'hema', 'left' ),
-	'img_none'                => array( '1', 'ʻaʻohe', 'aohe', 'none' ),
-	'img_link'                => array( '1', 'loulou=$1', 'link=$1' ),
-	'currentweek'             => array( '1', 'KĒIAPULE', 'KEIAPULE', 'CURRENTWEEK' ),
-	'language'                => array( '0', '#ʻŌLELO', '#ŌLELO', '#OLELO', '#LANGUAGE:' ),
-	'numberofadmins'          => array( '1', 'HELUKAHU', 'NUMBEROFADMINS' ),
+	'currentmonth'              => array( '1', 'KĒIAMAHINA', 'KEIAMAHINA', 'CURRENTMONTH', 'CURRENTMONTH2' ),
+	'currentmonthname'          => array( '1', 'KĒIAINOAMAHINA', 'KEIAINOAMAHINA', 'CURRENTMONTHNAME' ),
+	'currentday'                => array( '1', 'KĒIALĀ', 'KEIALA', 'CURRENTDAY' ),
+	'currentday2'               => array( '1', 'KĒIALĀ2', 'KEIALA2', 'CURRENTDAY2' ),
+	'currentdayname'            => array( '1', 'KĒIAINOALĀ', 'KEIAINOALA', 'CURRENTDAYNAME' ),
+	'currentyear'               => array( '1', 'KĒIAMAKAHIKI', 'KEIAMAKAHIKI', 'CURRENTYEAR' ),
+	'currenttime'               => array( '1', 'KĒIAMANAWA', 'KEIAMANAWA', 'CURRENTTIME' ),
+	'currenthour'               => array( '1', 'KĒIAHOLA', 'KEIAHOLA', 'CURRENTHOUR' ),
+	'numberofpages'             => array( '1', 'HELUʻAOʻAO', 'HELUAOAO', 'NUMBEROFPAGES' ),
+	'numberofarticles'          => array( '1', 'HELUMEA', 'NUMBEROFARTICLES' ),
+	'numberoffiles'             => array( '1', 'HELUWAIHONA', 'NUMBEROFFILES' ),
+	'numberofusers'             => array( '1', 'HELUMEAHOʻOHANA', 'HELUMEAHOOHANA', 'NUMBEROFUSERS' ),
+	'numberofedits'             => array( '1', 'HELULOLI', 'NUMBEROFEDITS' ),
+	'pagename'                  => array( '1', 'INOAʻAOʻAO', 'INOAAOAO', 'PAGENAME' ),
+	'img_right'                 => array( '1', 'ʻākau', 'ākau', 'akau', 'right' ),
+	'img_left'                  => array( '1', 'hema', 'left' ),
+	'img_none'                  => array( '1', 'ʻaʻohe', 'aohe', 'none' ),
+	'img_link'                  => array( '1', 'loulou=$1', 'link=$1' ),
+	'currentweek'               => array( '1', 'KĒIAPULE', 'KEIAPULE', 'CURRENTWEEK' ),
+	'language'                  => array( '0', '#ʻŌLELO', '#ŌLELO', '#OLELO', '#LANGUAGE:' ),
+	'numberofadmins'            => array( '1', 'HELUKAHU', 'NUMBEROFADMINS' ),
 );
 
 $messages = array(
@@ -253,7 +255,7 @@ $messages = array(
 'jumptosearch' => 'huli',
 
 # All link text and link target definitions of links into project namespace that get used by other message strings, with the exception of user group pages (see grouppage) and the disambiguation template definition (see disambiguations).
-'aboutsite' => 'No {{SITENAME}}',
+'aboutsite' => 'E pili ana iā {{SITENAME}}',
 'aboutpage' => 'Project:E pili ana',
 'copyrightpage' => '{{ns:project}}:Palapala ho‘okuleana',
 'currentevents' => 'Ka nū hou',
@@ -263,7 +265,7 @@ $messages = array(
 'edithelp' => 'Kōkua me ka ho‘ololi ‘ana',
 'edithelppage' => 'Help:Ho‘ololi',
 'helppage' => 'Help:Papa kuhikuhi',
-'mainpage' => 'Papa kinohi',
+'mainpage' => "Kahua pa'a",
 'mainpage-description' => 'Ka papa kinohi',
 'policy-url' => 'Project:Palapala',
 'portal' => 'Ka hui kaiaulu',
@@ -298,7 +300,7 @@ $messages = array(
 'red-link-title' => '$1 (ʻaʻole i kākau ʻia)',
 
 # Short words for each namespace, by default used in the namespace tab in monobook
-'nstab-main' => 'ʻaoʻao',
+'nstab-main' => 'ʻAoʻao',
 'nstab-user' => 'Inoa mea ho‘ohana',
 'nstab-media' => 'Pāpaho',
 'nstab-special' => 'Papa nui',
@@ -587,6 +589,8 @@ E ʻoluʻolu, e hōʻoia i ka hoʻokūkū ʻana i lalo, a laila, e mālama i nā
 
 # Statistics
 'statistics' => 'Papa helu',
+
+'disambiguationspage' => 'Template:Huaʻōlelo puana like',
 
 'brokenredirects-edit' => 'e ho‘ololi',
 'brokenredirects-delete' => 'e kāpae',

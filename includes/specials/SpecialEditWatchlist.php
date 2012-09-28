@@ -103,7 +103,7 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 				$form = $this->getRawForm();
 				if( $form->show() ){
 					$out->addHTML( $this->successMessage );
-					$out->returnToMain();
+					$out->addReturnTo( SpecialPage::getTitleFor( 'Watchlist' ) );
 				}
 				break;
 
@@ -113,7 +113,7 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 				$form = $this->getNormalForm();
 				if( $form->show() ){
 					$out->addHTML( $this->successMessage );
-					$out->returnToMain();
+					$out->addReturnTo( SpecialPage::getTitleFor( 'Watchlist' ) );
 				} elseif ( $this->toc !== false ) {
 					$out->prependHTML( $this->toc );
 				}
@@ -129,21 +129,28 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 	 * @return array
 	 */
 	private function extractTitles( $list ) {
-		$titles = array();
 		$list = explode( "\n", trim( $list ) );
 		if( !is_array( $list ) ) {
 			return array();
 		}
+		$titles = array();
 		foreach( $list as $text ) {
 			$text = trim( $text );
 			if( strlen( $text ) > 0 ) {
 				$title = Title::newFromText( $text );
 				if( $title instanceof Title && $title->isWatchable() ) {
-					$titles[] = $title->getPrefixedText();
+					$titles[] = $title;
 				}
 			}
 		}
-		return array_unique( $titles );
+
+		GenderCache::singleton()->doTitlesArray( $titles );
+
+		$list = array();
+		foreach( $titles as $title ) {
+			$list[] = $title->getPrefixedText();
+		}
+		return array_unique( $list );
 	}
 
 	public function submitRaw( $data ){
@@ -241,22 +248,30 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 		$dbr = wfGetDB( DB_MASTER );
 		$res = $dbr->select(
 			'watchlist',
-			'*',
 			array(
+				'wl_namespace', 'wl_title'
+			), array(
 				'wl_user' => $this->getUser()->getId(),
 			),
 			__METHOD__
 		);
 		if( $res->numRows() > 0 ) {
+			$titles = array();
 			foreach ( $res as $row ) {
 				$title = Title::makeTitleSafe( $row->wl_namespace, $row->wl_title );
 				if ( $this->checkTitle( $title, $row->wl_namespace, $row->wl_title )
 					&& !$title->isTalkPage()
 				) {
-					$list[] = $title->getPrefixedText();
+					$titles[] = $title;
 				}
 			}
 			$res->free();
+
+			GenderCache::singleton()->doTitlesArray( $titles );
+
+			foreach( $titles as $title ) {
+				$list[] = $title->getPrefixedText();
+			}
 		}
 		$this->cleanupWatchlist();
 		return $list;
@@ -321,16 +336,20 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 	 * Attempts to clean up broken items
 	 */
 	private function cleanupWatchlist() {
+		if( !count( $this->badItems ) ) {
+			return; //nothing to do
+		}
 		$dbw = wfGetDB( DB_MASTER );
+		$user = $this->getUser();
 		foreach ( $this->badItems as $row ) {
 			list( $title, $namespace, $dbKey ) = $row;
-			wfDebug( "User {$this->getUser()} has broken watchlist item ns($namespace):$dbKey, "
+			wfDebug( "User {$user->getName()} has broken watchlist item ns($namespace):$dbKey, "
 				. ( $title ? 'cleaning up' : 'deleting' ) . ".\n"
 			);
 
 			$dbw->delete( 'watchlist',
 				array(
-					'wl_user' => $this->getUser()->getId(),
+					'wl_user' => $user->getId(),
 					'wl_namespace' => $namespace,
 					'wl_title' => $dbKey,
 				),
@@ -339,7 +358,7 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 
 			// Can't just do an UPDATE instead of DELETE/INSERT due to unique index
 			if ( $title ) {
-				$this->getUser()->addWatch( $title );
+				$user->addWatch( $title );
 			}
 		}
 	}
@@ -470,7 +489,7 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 				$title = Title::makeTitleSafe( $namespace, $dbkey );
 				if ( $this->checkTitle( $title, $namespace, $dbkey ) ) {
 					$text = $this->buildRemoveLine( $title );
-					$fields['TitlesNs'.$namespace]['options'][$text] = $title->getEscapedText();
+					$fields['TitlesNs'.$namespace]['options'][$text] = htmlspecialchars( $title->getPrefixedText() );
 					$count++;
 				}
 			}
@@ -480,7 +499,7 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 		if ( count( $fields ) > 1 && $count > 30 ) {
 			$this->toc = Linker::tocIndent();
 			$tocLength = 0;
-			foreach( $fields as $key => $data ) {
+			foreach( $fields as $data ) {
 
 				# strip out the 'ns' prefix from the section name:
 				$ns = substr( $data['section'], 2 );
@@ -613,12 +632,12 @@ class SpecialEditWatchlist extends UnlistedSpecialPage {
 			// can use messages 'watchlisttools-view', 'watchlisttools-edit', 'watchlisttools-raw'
 			$tools[] = Linker::linkKnown(
 				SpecialPage::getTitleFor( $arr[0], $arr[1] ),
-				wfMsgHtml( "watchlisttools-{$mode}" )
+				wfMessage( "watchlisttools-{$mode}" )->escaped()
 			);
 		}
 		return Html::rawElement( 'span',
 					array( 'class' => 'mw-watchlist-toollinks' ),
-					wfMsg( 'parentheses', $wgLang->pipeList( $tools ) ) );
+					wfMessage( 'parentheses', $wgLang->pipeList( $tools ) )->text() );
 	}
 }
 

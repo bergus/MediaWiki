@@ -226,8 +226,9 @@ class SpecialMergeHistory extends SpecialPage {
 			$out->addWikiMsg( 'mergehistory-empty' );
 		}
 
-		# Show relevant lines from the deletion log:
-		$out->addHTML( '<h2>' . htmlspecialchars( LogPage::logName( 'merge' ) ) . "</h2>\n" );
+		# Show relevant lines from the merge log:
+		$mergeLogPage = new LogPage( 'merge' );
+		$out->addHTML( '<h2>' . $mergeLogPage->getName()->escaped() . "</h2>\n" );
 		LogEventsList::showLogExtract( $out, 'merge', $this->mTargetObj );
 
 		# When we submit, go by page ID to avoid some nasty but unlikely collisions.
@@ -252,9 +253,11 @@ class SpecialMergeHistory extends SpecialPage {
 		$ts = wfTimestamp( TS_MW, $row->rev_timestamp );
 		$checkBox = Xml::radio( 'mergepoint', $ts, false );
 
+		$user = $this->getUser();
+
 		$pageLink = Linker::linkKnown(
 			$rev->getTitle(),
-			htmlspecialchars( $this->getLanguage()->timeanddate( $ts ) ),
+			htmlspecialchars( $this->getLanguage()->userTimeAndDate( $ts, $user ) ),
 			array(),
 			array( 'oldid' => $rev->getId() )
 		);
@@ -263,7 +266,7 @@ class SpecialMergeHistory extends SpecialPage {
 		}
 
 		# Last link
-		if( !$rev->userCan( Revision::DELETED_TEXT, $this->getUser() ) ) {
+		if( !$rev->userCan( Revision::DELETED_TEXT, $user ) ) {
 			$last = $this->message['last'];
 		} elseif( isset( $this->prevId[$row->rev_id] ) ) {
 			$last = Linker::linkKnown(
@@ -285,7 +288,8 @@ class SpecialMergeHistory extends SpecialPage {
 		}
 		$comment = Linker::revComment( $rev );
 
-		return "<li>$checkBox ($last) $pageLink . . $userLink $stxt $comment</li>";
+		return Html::rawElement( 'li', array(),
+			$this->msg( 'mergehistory-revisionrow' )->rawParams( $checkBox, $last, $pageLink, $userLink, $stxt, $comment )->escaped() );
 	}
 
 	function merge() {

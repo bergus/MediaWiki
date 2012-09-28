@@ -17,13 +17,25 @@
  * computations here. This function should returns the HTML to be cached.
  * It should not add anything to the PageOutput object!
  *
- * @since 1.20
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
  *
- * @file SpecialCachedPage.php
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
+ *
+ * @file
  * @ingroup SpecialPage
- *
- * @licence GNU GPL v2 or later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @since 1.20
  */
 abstract class SpecialCachedPage extends SpecialPage implements ICacheHelper {
 
@@ -45,6 +57,19 @@ abstract class SpecialCachedPage extends SpecialPage implements ICacheHelper {
 	protected $cacheEnabled = true;
 
 	/**
+	 * Gets called after @see SpecialPage::execute.
+	 *
+	 * @since 1.20
+	 *
+	 * @param $subPage string|null
+	 */
+	protected function afterExecute( $subPage ) {
+		$this->saveCache();
+
+		parent::afterExecute( $subPage );
+	}
+
+	/**
 	 * Sets if the cache should be enabled or not.
 	 *
 	 * @since 1.20
@@ -64,21 +89,23 @@ abstract class SpecialCachedPage extends SpecialPage implements ICacheHelper {
 	 * @param boolean|null $cacheEnabled Sets if the cache should be enabled or not.
 	 */
 	public function startCache( $cacheExpiry = null, $cacheEnabled = null ) {
-		$this->cacheHelper = new CacheHelper();
+		if ( !isset( $this->cacheHelper ) ) {
+			$this->cacheHelper = new CacheHelper();
 
-		$this->cacheHelper->setCacheEnabled( $this->cacheEnabled );
-		$this->cacheHelper->setOnInitializedHandler( array( $this, 'onCacheInitialized' ) );
+			$this->cacheHelper->setCacheEnabled( $this->cacheEnabled );
+			$this->cacheHelper->setOnInitializedHandler( array( $this, 'onCacheInitialized' ) );
 
-		$keyArgs = $this->getCacheKey();
+			$keyArgs = $this->getCacheKey();
 
-		if ( array_key_exists( 'action', $keyArgs ) && $keyArgs['action'] === 'purge' ) {
-			unset( $keyArgs['action'] );
-		}
+			if ( array_key_exists( 'action', $keyArgs ) && $keyArgs['action'] === 'purge' ) {
+				unset( $keyArgs['action'] );
+			}
 
-		$this->cacheHelper->setCacheKey( $keyArgs );
+			$this->cacheHelper->setCacheKey( $keyArgs );
 
-		if ( $this->getRequest()->getText( 'action' ) === 'purge' ) {
-			$this->cacheHelper->rebuildOnDemand();
+			if ( $this->getRequest()->getText( 'action' ) === 'purge' ) {
+				$this->cacheHelper->rebuildOnDemand();
+			}
 		}
 
 		$this->cacheHelper->startCache( $cacheExpiry, $cacheEnabled );
@@ -125,7 +152,9 @@ abstract class SpecialCachedPage extends SpecialPage implements ICacheHelper {
 	 * @since 1.20
 	 */
 	public function saveCache() {
-		$this->cacheHelper->saveCache();
+		if ( isset( $this->cacheHelper ) ) {
+			$this->cacheHelper->saveCache();
+		}
 	}
 
 	/**

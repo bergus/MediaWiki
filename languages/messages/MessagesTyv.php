@@ -1,5 +1,5 @@
 <?php
-/** Tuvinian (Тыва дыл)
+/** Tuvinian (тыва дыл)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -60,22 +60,24 @@ $fallback8bitEncoding = "windows-1251";
 $messages = array(
 # User preference toggles
 'tog-underline' => 'Холбааны шыяры:',
-'tog-justify' => 'Арынның дооразынга сөзүглелди дескилээри',
+'tog-justify' => 'Арынның дооразының аайы-биле сөзүглелди дескилээри',
 'tog-hideminor' => 'Сөөлгү өскерлиишкиннер арында бичии өскерлиишкиннерни чажырар',
 'tog-hidepatrolled' => 'Амгы өскерлиишкиннер арында истээн өскерлиишкиннерни чажырары',
 'tog-newpageshidepatrolled' => 'Чаа арыннарның даңзындан истээн арыннарны чажырары',
-'tog-usenewrc' => 'Use enhanced recent changes (JavaScript херек)',
+'tog-usenewrc' => 'Чаа өскерлиишкиннерниң өөделеттинген даңзызын ажыглаар (JavaScript херек)',
+'tog-numberheadings' => 'Эгелерин авто-санаар',
 'tog-showtoolbar' => 'Өскертир херекселдерни көргүзер (JavaScript)',
 'tog-editondblclick' => 'Арынны өскертирде ийи катап базар (JavaScript)',
 'tog-editsection' => '[өскертири] деп холбаалар-биле section editing enable.',
-'tog-rememberpassword' => 'Мени бо компьютерде сактып алыры ($1 {{PLURAL:$1|хүн|хүн}}ге чедир)',
-'tog-watchcreations' => 'Мээң чогааткан арыннарымны хайгаарал даңзымга немерелээри.',
-'tog-watchdefault' => 'Мээң өскерткен арыннарымны хайгаарал даңзымга немерелээри.',
-'tog-watchmoves' => 'Мээң шимчеткен арыннарымны хайгаарал даңзымга немерелээри.',
+'tog-rememberpassword' => 'Мени бо компьютерге сактыры ($1 {{PLURAL:$1|хүн|хүн}} ишти)',
+'tog-watchcreations' => 'Мээң чаяан арыннарымны хайгаарал даңзымче немээри.',
+'tog-watchdefault' => 'Мээң өскерткен арыннарымны хайгаарал даңзымче немээри.',
+'tog-watchmoves' => 'Мээң катап адаан арыннарымны хайгаарал даңзымче немээри.',
+'tog-watchdeletion' => 'Мээң казаан арыннарымны хайгаарал даңзымче немээри.',
 'tog-oldsig' => 'Амгы хол үжүү:',
-'tog-watchlisthideown' => 'Хайгаарал даңзындан мээң өскерлиишкиннерымны чажырары',
-'tog-watchlisthidebots' => 'Хайгаарал даңзындан роботтарның өскерлиишкиннерын чажырары',
-'tog-watchlisthideminor' => 'Хайгаарал даңзындан бичии өскерлиишкиннерны чажырары',
+'tog-watchlisthideown' => 'Хайгаарал даңзызындан эдиглеримни чажыр',
+'tog-watchlisthidebots' => 'Хайгаарал даңзызындан роботтарның эдиглерин чажыр',
+'tog-watchlisthideminor' => 'Хайгаарал даңзызындан бичии эдиглерни чажыр',
 'tog-watchlisthidepatrolled' => 'Хайгаарал даңзындан истээн өскерлиишкиннерны чажырары',
 'tog-showhiddencats' => 'Чажыт бөлүктерни көргүзери',
 
@@ -113,42 +115,43 @@ $messages = array(
 'october' => 'Он ай',
 'november' => 'Он бир ай',
 'december' => 'Он ийи ай',
-'january-gen' => 'Бир ай',
-'february-gen' => 'Ийи ай',
-'march-gen' => 'Үш ай',
-'april-gen' => 'Дөрт ай',
-'may-gen' => 'Беш ай',
-'june-gen' => 'Алды ай',
-'july-gen' => 'Чеди ай',
-'august-gen' => 'Сес ай',
-'september-gen' => 'Тос ай',
-'october-gen' => 'Он ай',
-'november-gen' => 'Он бир ай',
-'december-gen' => 'Он ийи ай',
-'jan' => '1.ай',
-'feb' => '2.ай',
-'mar' => '3.ай',
-'apr' => '4.ай',
-'may' => '5.ай',
-'jun' => '6.ай',
-'jul' => '7.ай',
-'aug' => '8.ай',
-'sep' => '9.ай',
-'oct' => '10.ай',
-'nov' => '11.ай',
-'dec' => '12.ай',
+'january-gen' => 'Бир айның',
+'february-gen' => 'Ийи айның',
+'march-gen' => 'Үш айның',
+'april-gen' => 'Дөрт айның',
+'may-gen' => 'Беш айның',
+'june-gen' => 'Алды айның',
+'july-gen' => 'Чеди айның',
+'august-gen' => 'Сес айның',
+'september-gen' => 'Тос айның',
+'october-gen' => 'Он айның',
+'november-gen' => 'Он бир айның',
+'december-gen' => 'Он ийи айның',
+'jan' => '1 ай',
+'feb' => '2 ай',
+'mar' => '3 ай',
+'apr' => '4 ай',
+'may' => '5 ай',
+'jun' => '6 ай',
+'jul' => '7 ай',
+'aug' => '8 ай',
+'sep' => '9 ай',
+'oct' => '10 ай',
+'nov' => '11 ай',
+'dec' => '12 ай',
 
 # Categories related messages
 'pagecategories' => '{{PLURAL:$1|Бөлүк|Бөлүктер}}',
 'category_header' => '«$1» деп бөлүктүң арыннары',
-'subcategories' => 'Бичии бөлүктер',
-'category-media-header' => '«$1» деп бөлүкте медиа',
+'subcategories' => 'Адаккы бөлүктер',
+'category-media-header' => '«$1» деп бөлүкте файлдар',
 'category-empty' => "''Амгы бо бөлүкте медиа база арыннар чок.''",
 'hidden-categories' => '{{PLURAL:$1|Чажыт бөлүк|Чажыт бөлүктер}}',
 'hidden-category-category' => 'Чажыт бөлүктер',
-'category-subcat-count-limited' => 'Бо бөлүк {{PLURAL:$1|бир|$1}} бичии бөлүктүү.',
+'category-subcat-count-limited' => 'Бо бөлүк {{PLURAL:$1|бир|$1}} адаккы бөлүктүү.',
 'listingcontinuesabbrev' => '(уланчы)',
 'noindex-category' => 'Индекстелбес арынар',
+'broken-file-category' => 'Ажылдавайн турар файл-шөлүлгелиг арыннар',
 
 'about' => 'Дугайында',
 'article' => 'Допчу арын',
@@ -166,6 +169,7 @@ $messages = array(
 'qbbrowse' => 'Каралаары',
 'qbedit' => 'Өскертири',
 'qbpageoptions' => 'Бо арын',
+'qbpageinfo' => 'Арын дугайында медээ',
 'qbmyoptions' => 'Мээң арыннарым',
 'qbspecialpages' => 'Тускай арыннар',
 'faq' => 'Бо-ла салыр айтырыглар (БлСА)',
@@ -176,9 +180,10 @@ $messages = array(
 'vector-action-delete' => 'Ырадыры',
 'vector-action-move' => 'Шимчээри',
 'vector-action-protect' => 'Камгалаары',
+'vector-action-undelete' => 'Эгидер',
 'vector-action-unprotect' => 'Камгалалды өскертири',
-'vector-view-create' => 'Чогаадыры',
-'vector-view-edit' => 'Өскертири',
+'vector-view-create' => 'Чаяары',
+'vector-view-edit' => 'Эдери',
 'vector-view-history' => 'Төөгүнү көөрү',
 'vector-view-view' => 'Номчууру',
 'vector-view-viewsource' => 'Дөзү бижиин көөрү',
@@ -194,18 +199,19 @@ $messages = array(
 'searchbutton' => 'Дилээри',
 'go' => 'Баары',
 'searcharticle' => 'Күүcедири',
-'history' => 'Арынның Төөгүзү',
+'history' => 'Арынның төөгүзү',
 'history_short' => 'Төөгү',
 'printableversion' => 'Саазынга үндүрерин көөрү',
 'permalink' => 'Турум холбаа',
 'print' => 'Саазынга үндүрер',
 'view' => 'Көөрү',
-'edit' => 'Өскертири',
+'edit' => 'Эдери',
 'create' => 'Чогаадыры',
 'editthispage' => 'Бо арынны өскертири',
 'create-this-page' => 'Бо арынны чогаадыры',
 'delete' => 'Ырадыры',
 'deletethispage' => 'Бо арынны ырадыры',
+'undelete_short' => '$1 {{PLURAL:$1|эдигни|эдиглерни}} катап үндүрери',
 'viewdeleted_short' => '{{PLURAL:$1|Бир ыраткан өскерлиишкинни|$1 ыраткан өскерлиишкиннерни}} көөрү',
 'protect' => 'Камгалаары',
 'protect_change' => 'өскертири',
@@ -231,7 +237,9 @@ $messages = array(
 'categorypage' => 'Бөлүктүң арынын көөрү',
 'viewtalkpage' => 'Чугааны көөрү',
 'otherlanguages' => 'Өске дылдарга',
-'lastmodifiedat' => 'Бо арын сөөлгү каттап $2, $1 өскерилген.',
+'redirectedfrom' => '($1 шигленген)',
+'redirectpagesub' => 'шигледир арын',
+'lastmodifiedat' => 'Бо арын сөөлгү катап $1, $2 өскерилген.',
 'protectedpage' => 'Камгалаган арын',
 'jumpto' => 'Шилчиир:',
 'jumptonavigation' => 'навигация',
@@ -246,16 +254,18 @@ $messages = array(
 'currentevents-url' => 'Project:Амгы үеде болуушкуннар',
 'disclaimers' => 'Ажыглаар харысаалгазын чөрчүүрү (ойталаары)',
 'disclaimerpage' => 'Project:Ажыглаар харысаалгазын ойталаары',
-'edithelp' => 'Өскертиринге дуза',
-'edithelppage' => 'Help:Өскертири',
+'edithelp' => 'Эдеринге дуза',
+'edithelppage' => 'Help:Эдери',
 'helppage' => 'Help:Допчузу',
 'mainpage' => 'Кол Арын',
 'mainpage-description' => 'Кол Арын',
-'policy-url' => 'Project:Политика',
+'policy-url' => 'Project:Чурум',
 'portal' => 'Ниитилелдиң хаалгазы',
 'portal-url' => 'Project:Ниитилелдиң хаалгазы',
-'privacy' => 'Актыг бүзүрел дугуржулга',
+'privacy' => 'Актыг бүзүрел дугуржулгазы',
 'privacypage' => 'Project:Актыг бүзүрел дугуржулгазы',
+
+'badaccess' => 'Алдаг:Эргеңер чок.',
 
 'versionrequired' => 'МедиаВикиниң $1 үндүреризи херек',
 
@@ -265,12 +275,12 @@ $messages = array(
 'newmessageslink' => 'чаа чагаалар',
 'newmessagesdifflink' => 'эрткен өскерлиишкин',
 'youhavenewmessagesmulti' => '«$1» деп арында силерге чаа чагаалар бар.',
-'editsection' => 'өскертири',
-'editold' => 'өскертири',
+'editsection' => 'эдер',
+'editold' => 'эдер',
 'viewsourceold' => 'дөзү кодун көөрү',
-'editlink' => 'өскертири',
+'editlink' => 'эдер',
 'viewsourcelink' => 'дөзү кодун көөрү',
-'editsectionhint' => '«$1» деп салбырны өскертири',
+'editsectionhint' => '«$1» деп салбырны эдер',
 'toc' => 'Допчузу',
 'showtoc' => 'көргүзери',
 'hidetoc' => 'чажырары',
@@ -279,7 +289,7 @@ $messages = array(
 'viewdeleted' => '{{grammar:accusative|$1}} көөр?',
 'restorelink' => '{{PLURAL:$1|$1 балаттынган өскерилгелер}}',
 'feedlinks' => 'Агым:',
-'feed-invalid' => 'Бижидилгениң агым янзы багай-дыр.',
+'feed-invalid' => 'Бижидилгениң агым хевири багай-дыр.',
 'site-rss-feed' => '$1 RSS Медээ Агымы',
 'site-atom-feed' => '$1 Atom Медээ Агымы',
 'page-rss-feed' => '«$1» RSS Медээ Агымы',
@@ -318,24 +328,26 @@ Please report this to an [[Special:ListUsers/sysop|administrator]], making note 
 'internalerror' => 'Иштики алдаг',
 'internalerror_info' => 'Иштики алдаг: $1',
 'badtitle' => 'Багай ат',
-'viewsource' => 'Бажы көөрү',
+'viewsource' => 'Дөзүн көөрү',
 'actionthrottled' => 'Шеглээн дүрген',
+'sqlhidden' => '(SQL айтырыгны чажырган)',
 
 # Login and logout pages
 'welcomecreation' => '== Кирип моорлаңар, $1! ==
-Your account has been created.
+Силер бүрүткел бижик has been created.
 Do not forget to change your [[Special:Preferences|{{SITENAME}} preferences]].',
 'yourname' => 'Aжыглакчының ады',
 'yourpassword' => 'Чажыт сөс',
 'yourpasswordagain' => 'Чажыт сөзүңерни катап бижиңер:',
 'remembermypassword' => 'Мени бо компьютерде сактып алыры ($1 {{PLURAL:$1|хүн|хүн}}ге чедир)',
 'login' => 'Кирери',
-'nav-login-createaccount' => 'Кирери / бүрүткел бижикти бүдүрери',
-'userlogin' => 'Кирери / бүрүткел бижикти бүдүрери',
+'nav-login-createaccount' => 'Кирери / бүрүткел бижикти чогаадыры',
+'userlogin' => 'Кирери / бүрүткел бижикти чогаадыры',
 'userloginnocreate' => 'Кирери',
 'logout' => 'Үнери',
 'userlogout' => 'Үнери',
 'notloggedin' => 'Кирбес',
+'nologin' => 'Силерде бүрүткел бижик чок? $1',
 'nologinlink' => 'Бүрүткел бижикти бүдүрери',
 'createaccount' => 'Бүрүткел бижикти бүдүрери',
 'gotaccount' => "Силер бүрүтекнип алдыңар де? '''$1'''.",
@@ -352,6 +364,7 @@ Do not forget to change your [[Special:Preferences|{{SITENAME}} preferences]].',
 'mailmypassword' => 'Меңээ чаа чажыт сөсту чорудаары',
 'accountcreated' => 'Бүрүткел бижикти бүдүрген',
 'accountcreatedtext' => '«$1» деп ажыглакчының бүрүткел бижиини бүдүрген.',
+'login-abort-generic' => 'Системаже таптыг эвес кирип тур силер',
 'loginlanguagelabel' => 'Дыл: $1',
 
 # E-mail sending
@@ -371,6 +384,7 @@ Do not forget to change your [[Special:Preferences|{{SITENAME}} preferences]].',
 'resetpass-temp-password' => 'Түр чажыт сөс:',
 
 # Special:PasswordReset
+'passwordreset-legend' => 'Чажыт атты дүжүр',
 'passwordreset-username' => 'Aжыглакчының ады:',
 'passwordreset-domain' => 'Домен:',
 'passwordreset-email' => 'Э-чагааның адреси:',
@@ -379,6 +393,7 @@ Do not forget to change your [[Special:Preferences|{{SITENAME}} preferences]].',
 
 # Special:ChangeEmail
 'changeemail' => 'Э-чагааның адресин өскертири',
+'changeemail-header' => 'Бүрүткел бижиктиң э-чагааның адресин өскертири',
 'changeemail-oldemail' => 'Амгы э-чагааның адреси:',
 'changeemail-newemail' => 'Чаа э-чагааның адреси:',
 'changeemail-none' => '(чок)',
@@ -402,11 +417,12 @@ Do not forget to change your [[Special:Preferences|{{SITENAME}} preferences]].',
 'image_tip' => 'Киир туткан файл',
 'media_sample' => 'Чижек.ogg',
 'media_tip' => 'Файлдың холбаазы',
+'hr_tip' => 'Доора шугум (use sparingly)',
 
 # Edit pages
 'summary' => 'Түңнел:',
 'subject' => 'Кол сөс:',
-'minoredit' => 'Бо өскерлиишкин бичии-дир',
+'minoredit' => 'Бо эдилге бичии-дир',
 'watchthis' => 'Бо арынны хайгаараары',
 'savearticle' => 'Арынны шыгжаары',
 'preview' => 'Чижеглей көөрү',
@@ -423,11 +439,14 @@ Do not forget to change your [[Special:Preferences|{{SITENAME}} preferences]].',
 
 The password for this new account can be changed on the ''[[Special:ChangePassword|change password]]'' page upon logging in.",
 'newarticle' => '(Чаа)',
+'userpage-userdoesnotexist' => '«<nowiki>$1</nowiki>» деп ажыглакчы is not registered.
+Please check if you want to create/edit this page.',
+'userpage-userdoesnotexist-view' => '«$1» деп ажыглакчы not registered.',
 'note' => "'''Тайылбыр:'''",
 'previewnote' => "'''Бо чүгле шенеп көөрү-дүр.'''
  Бижик ам-даа шыгжатынмаан!",
-'editing' => '«$1» деп арынны өскертип турар',
-'editingsection' => '«$1» деп арынның салбырын өскертип турар',
+'editing' => '«$1» деп арынны эдери',
+'editingsection' => '«$1» деп арынның салбырын эдери',
 'editingcomment' => '«$1» деп арынны өскертип турар (чаа салбыр)',
 'yourtext' => 'Силерниң сөзүглелиңер',
 'yourdiff' => 'Ылгалдар',
@@ -501,23 +520,25 @@ The password for this new account can be changed on the ''[[Special:ChangePasswo
 'searchresults-title' => '«$1» диле',
 'prevn' => 'эрткен {{PLURAL:$1|$1}}',
 'nextn' => 'дараазында {{PLURAL:$1|$1}}',
-'prevn-title' => 'Эрткен $1 {{PLURAL:$1|түңнел|түңнел}}',
-'nextn-title' => 'Дараазында $1 {{PLURAL:$1|түңнел|түңнел}}',
+'prevn-title' => 'Эрткен $1 {{PLURAL:$1|бижик|бижик}}',
+'nextn-title' => 'Дараазында $1 {{PLURAL:$1|бижик|бижик}}',
 'shown-title' => 'Арынга $1 {{PLURAL:$1|түңнелди|түңнелди}} көргүзери',
 'viewprevnext' => '($1 {{int:pipe-separator}} $2) ($3) көөрү',
-'searchmenu-new' => "'''Бо вики-проектиге «[[:$1]]» арынны чогаадыры'''",
+'searchmenu-exists' => "'''Бо викиде \"[[:\$1]]\" деп арын бар.'''",
+'searchmenu-new' => "'''Бо викиде «[[:$1]]» арынны чогаадыры'''",
 'searchhelp-url' => 'Help:Допчузу',
 'searchprofile-articles' => 'үндезин арыннар',
 'searchprofile-project' => 'Төлевилел биле дуза арыннары',
 'searchprofile-images' => 'Мультимедиа',
 'searchprofile-everything' => 'Бүгүде',
-'searchprofile-advanced' => 'делгем',
+'searchprofile-advanced' => 'Калбартыры',
 'searchprofile-articles-tooltip' => '$1 иштинден дилээри',
 'searchprofile-project-tooltip' => '$1 иштинде дилээри',
 'searchprofile-images-tooltip' => 'Файлдар дилээри',
 'searchprofile-everything-tooltip' => 'Шупту арыннардан дилээри (сумележиишкиннерден база)',
 'searchprofile-advanced-tooltip' => 'Айыткан аттар делгемнеринден дилээри',
 'search-result-size' => '$1 ({{PLURAL:$2|$2 сөс}})',
+'search-redirect' => '(шигледир $1)',
 'search-section' => '(«$1» деп салбыр)',
 'search-suggest' => 'Силер «$1» деп бодадыңар чадавас',
 'search-interwiki-more' => '(артык)',
@@ -633,7 +654,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 
 # Associated actions - in the sentence "You do not have permission to X"
 'action-read' => 'бо арынны номчууру',
-'action-edit' => 'бо арынны өскертири',
+'action-edit' => 'бо арынны эдери',
 'action-createpage' => 'арыннарны чогаадыры',
 'action-createtalk' => 'чугаалажырга арыннарны чогаадыры',
 'action-createaccount' => 'бо бүрүткел бижиктерин бүдүрери',
@@ -649,14 +670,16 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'recentchanges-feed-description' => 'Бо агымда викиниң сөөлгү өскерлиишкиннерин көөрү.',
 'recentchanges-label-newpage' => 'Бо өскерлиишкин чаа арынны чогааткан.',
 'recentchanges-label-minor' => 'Бо өскерлиишкин бичии-дир',
+'recentchanges-label-bot' => 'Бо эдилгени робот күүсетти.',
 'recentchanges-label-unpatrolled' => 'Бо өскерлиишкин истенмейн каан',
+'rclistfrom' => 'Starting from $1 чаа өскерлиишкиннерни көргүзери',
 'rcshowhideminor' => 'Бичии өскерлиишкиннерни $1',
 'rcshowhidebots' => 'Роботтарну $1',
 'rcshowhideliu' => 'Кирер ажыглакчыларны $1',
 'rcshowhideanons' => 'Ат эвес ажыглакчыларны $1',
 'rcshowhidepatr' => 'истээн өскерлиишкиннерни $1',
 'rcshowhidemine' => 'Мээң өскерлиишкинимни $1',
-'rclinks' => ' $2 буруңу хүнде $1 өскерлиишкиннерни көргүзери<br />$3',
+'rclinks' => '$2 хүнде эрткен $1 өскерлиишкиннерни көргүзери<br />$3',
 'diff' => 'ылгал',
 'hist' => 'төөгү',
 'hide' => 'чажырары',
@@ -672,6 +695,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 # Recent changes linked
 'recentchangeslinked' => 'Хамааржыр өскерлиишкиннер',
 'recentchangeslinked-toolbox' => 'Хамааржыр өскерлиишкиннер',
+'recentchangeslinked-title' => '«$1» деп арынга хамаарыштырган өскерлиишкиннер',
 'recentchangeslinked-page' => 'Арынның ады:',
 
 # Upload
@@ -716,7 +740,8 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'filehist-revert' => 'эгидип тургузары',
 'filehist-current' => 'амгы',
 'filehist-datetime' => 'Ай, Хүн/Шак',
-'filehist-thumb' => 'Бичии чурук',
+'filehist-thumb' => 'Бичии чурумал',
+'filehist-thumbtext' => 'Бичии чурумал for version as of $1',
 'filehist-user' => 'Ажыглакчы',
 'filehist-dimensions' => 'Хемчээлдери',
 'filehist-filesize' => 'Файл хемчээли',
@@ -738,6 +763,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'filedelete-reason-otherlist' => 'Өске чылдагаан',
 
 # MIME search
+'mimetype' => 'MIME хевири:',
 'download' => 'алыры',
 
 # Unwatched pages
@@ -792,6 +818,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'longpages' => 'Узун арыннар',
 'protectedpages' => 'Камгалаган арыннар',
 'listusers' => 'Ажыглакчылар даңзызы',
+'usereditcount' => '$1 {{PLURAL:$1|эдилге}}',
 'newpages' => 'Чаа арыннар',
 'newpages-username' => 'Ажыглакчының ады:',
 'ancientpages' => 'Эң эрги арыннар',
@@ -806,7 +833,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'booksources-go' => 'Күүcедири',
 
 # Special:Log
-'specialloguserlabel' => 'Ажыглакчы:',
+'specialloguserlabel' => 'Күүседикчи:',
 'speciallogtitlelabel' => 'Target (aтка азы ажыглакчыга):',
 'log' => 'Журналдар',
 
@@ -822,6 +849,9 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 
 # Special:Categories
 'categories' => 'Бөлүктер',
+
+# Special:DeletedContributions
+'sp-deletedcontributions-contribs' => 'салыышкыннар',
 
 # Special:LinkSearch
 'linksearch' => 'Даштыкы холбааларга дилээри',
@@ -863,6 +893,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'watchthispage' => 'Бо арынны хайгаараары',
 'unwatch' => 'Хайгааравас',
 'unwatchthispage' => 'Бо арынны хайгаарабас',
+'watchlist-details' => 'Not counting talk pages, хайгаарал даңзыңарда {{PLURAL:$1|$1 арын}} бар.',
 'wlshowlast' => 'Сөөлү $1 шак болгаш $2 хүн иштинде $3 көргүзери',
 'watchlist-options' => 'Хайгаарал даңзының эдиглери',
 
@@ -872,6 +903,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 
 'enotif_newpagetext' => 'Бо чаа арын-дыр.',
 'enotif_impersonal_salutation' => '{{grammar:genitive|{{SITENAME}}}} ажыглакчызы',
+'changed' => 'өскертти',
 'enotif_anon_editor' => 'ат эвес ажыглакчы $1',
 
 # Delete
@@ -918,26 +950,28 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'blanknamespace' => '(Кол)',
 
 # Contributions
-'contributions' => 'Ажыглакчыниң немелделери',
-'contributions-title' => '«$1» деп ажыглакчының немелделери',
-'mycontris' => 'Мээң немелделерим',
+'contributions' => 'Ажыглакчыниң салыышкыннары',
+'contributions-title' => '«$1» деп ажыглакчының салыышкыннары',
+'mycontris' => 'Мээң салыышкыннарым',
 'contribsub2' => '$1 ($2)',
 'uctop' => '(баш)',
 'month' => 'Айдан:',
 'year' => 'Чылдан:',
 
-'sp-contributions-newbies' => 'Чүгле чаа кирерилерниң немелделерин көргүзерн',
+'sp-contributions-newbies' => 'Чүгле чаа кежигүннерниң салыышкыннарын көргүзери',
 'sp-contributions-blocklog' => 'кызыгаарлаашкынның журналы',
 'sp-contributions-uploads' => 'киирген чүүлдер',
 'sp-contributions-logs' => 'журналдар',
 'sp-contributions-talk' => 'чугаалажыры',
-'sp-contributions-search' => 'Немелделерин дилээри',
+'sp-contributions-search' => 'Салыышкыннарын дилээри',
 'sp-contributions-username' => 'ИП-адрес азы ажыглачының ады:',
 'sp-contributions-submit' => 'Дилээри',
 
 # What links here
 'whatlinkshere' => 'Шөлүлгелерни бээр',
+'whatlinkshere-title' => '«$1» деп арынга шөлүтген арыннар',
 'whatlinkshere-page' => 'Арын:',
+'nolinkshere' => "'''[[:$1]]''' деп арынга шөлүтген арыннар чок.",
 'isredirect' => 'шиглидер арын',
 'istemplate' => 'киирткен арыннар',
 'isimage' => 'файлдың холбаазы',
@@ -951,10 +985,14 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'whatlinkshere-filters' => 'Шүүрлер',
 
 # Block/unblock
+'block' => 'Ажыглакчыны кызыгаарлаары',
 'blockip' => 'Ажыглакчыны кызыгаарлаары',
+'blockip-title' => 'Ажыглакчыны кызыгаарлаары',
+'blockip-legend' => 'Ажыглакчыны кызыгаарлаары',
 'ipadressorusername' => 'ИП-адрес азы aжыглaкчының aды',
 'ipbreason' => 'Чылдагаан:',
 'ipbreasonotherlist' => 'Өске чылдагаан',
+'ipbsubmit' => 'Бо ажыглакчыны кызыгаарлаары',
 'ipbother' => 'Өске шак:',
 'ipboptions' => '2 шак:2 hours,1 хүн:1 day,3 хүн:3 days,1 чеди-хонук:1 week,2 чеди-хонук:2 weeks,1 ай:1 month,3 ай:3 months,6 ай:6 months,1 чыл:1 year,төнмес-батпас:infinite',
 'ipbotheroption' => 'өске',
@@ -967,7 +1005,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'blocklink' => 'кызыгаарлаары',
 'unblocklink' => 'ажыдып хостаар',
 'change-blocklink' => 'кызыгаарлаашкынны өскертири',
-'contribslink' => 'немелделер',
+'contribslink' => 'салыышкыннар',
 'blocklogpage' => 'Кызыгаарлаашкынның журналы',
 'blocklogentry' => ', [[$1]] $2 дургузунда кызыгаарлаттынган: $3',
 'block-log-flags-anononly' => 'чүгле ат эвес ажыглакчылар',
@@ -1006,6 +1044,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 
 # Thumbnails
 'thumbnail-more' => 'Улгаттыр',
+'thumbnail_error' => 'Error creating бичии чурумал: $1',
 
 # Special:Import
 'import-comment' => 'Тайылбыр:',
@@ -1017,11 +1056,11 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'tooltip-pt-userpage' => 'Силерниң ажыглакчы арыныңнар',
 'tooltip-pt-mytalk' => 'Силерниң чугаалажыр арыныңар',
 'tooltip-pt-preferences' => 'Силерниң шилилгеңер',
-'tooltip-pt-mycontris' => 'Силерниң немелделериңерның даңзызы',
+'tooltip-pt-mycontris' => 'Силерниң салыышкыннарыңарның даңзызы',
 'tooltip-pt-login' => 'Маңаа системаже киир бүрүткенип болур, ынчалза-даа ол албан эвес.',
 'tooltip-pt-logout' => 'Үнери',
 'tooltip-ca-talk' => 'Бо арын дугайында чыгаалажыры',
-'tooltip-ca-edit' => 'Силер бо арынны өскертип болур. Шыгжаар мурунда чижеглеп көрем.',
+'tooltip-ca-edit' => 'Силер бо арынны эдип болур. Шыгжаар мурунда чижеглеп көрем.',
 'tooltip-ca-addsection' => 'Чаа салбыр чаяар',
 'tooltip-ca-viewsource' => 'Бо арын камгалаттырган.
 Дөзү кодун көрүп болур силер.',
@@ -1041,10 +1080,11 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'tooltip-n-recentchanges' => 'Викиниң энир өскерлиишкиннери',
 'tooltip-n-randompage' => 'Душ арынны көөрү',
 'tooltip-n-help' => 'Төлевилелдиң тайылбыры «{{SITENAME}}»',
+'tooltip-t-whatlinkshere' => 'Бүгү маңаа шөлүтген вики арыннарның даңзызы',
 'tooltip-t-recentchangeslinked' => 'Бо арындан шөлүткен өске арыннарның сөөлгү өскерлиишкиннери',
 'tooltip-feed-rss' => 'Бо арының РСС медээ агымы',
 'tooltip-feed-atom' => 'Бо арының Атом медээ агымы',
-'tooltip-t-contributions' => 'Бо ажыглакчының немелделериниң даңзазын көөрү.',
+'tooltip-t-contributions' => 'Бо ажыглакчының салыышкыннарының даңзазын көөрү.',
 'tooltip-t-emailuser' => 'Бо ажыглакчыга э-чагааны чорудаары',
 'tooltip-t-upload' => 'Файлдарны киирери',
 'tooltip-t-specialpages' => 'Шупту тускай арыннар даңзызы',
@@ -1086,11 +1126,14 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'nextdiff' => 'Артык чаа үндүрери →',
 
 # Media information
+'thumbsize' => 'Бичии чурумалдың хемчээли:',
 'widthheightpage' => '$1x$2, $3 {{PLURAL:$3|арын}}',
-'file-info-size' => '$1 × $2 пиксел, Файл хемчээли: $3, MIME янзызы: $4',
+'file-info' => 'файлдың хемчээли: $1, MIME хевири: $2',
+'file-info-size' => '$1 × $2 пиксел, Файл хемчээли: $3, MIME хевири: $4',
+'file-info-size-pages' => '$1 × $2 пикcелдер, файл хемчээли: $3, MIME хевири: $4, $5 {{PLURAL:$5|арын|арын}}',
 'file-nohires' => 'Оон улуг хевири чок',
 'svg-long-desc' => 'SVG файл, $1 x $2 пиксел, файл хемчээли: $3',
-'show-big-image' => 'Улуг чурук',
+'show-big-image' => 'Улуг чурумал',
 'show-big-image-size' => '$1 × $2 пиксел',
 
 # Special:NewFiles
@@ -1098,6 +1141,31 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'showhidebots' => '(роботтарны $1)',
 'noimages' => 'Nothing to see.',
 'ilsubmit' => 'Дилээр',
+
+# Video information, used by Language::formatTimePeriod() to format lengths in the above messages
+'seconds' => '{{PLURAL: $1|$1 секунда|$1 секунда}}',
+'minutes' => '{{PLURAL: $1|$1 минут|$1 минут}}',
+'hours' => '{{PLURAL:$1|$1 шак|$1 шак}}',
+'days' => '{{PLURAL:$1|$1 хүн|$1 хүн}}',
+'ago' => '$1 бурунгаар',
+
+# Metadata
+'metadata' => 'Чурумал дугайында медээлер',
+'metadata-fields' => 'Чурумал дугайында медээлер listed in this message will be included on image page display when the metadata table is collapsed.
+Others will be hidden by default.
+* make
+* model
+* datetimeoriginal
+* exposuretime
+* fnumber
+* isospeedratings
+* focallength
+* artist
+* copyright
+* imagedescription
+* gpslatitude
+* gpslongitude
+* gpsaltitude',
 
 # EXIF tags
 'exif-imagewidth' => 'Калбаа',
@@ -1107,11 +1175,21 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'exif-usercomment' => 'Ажыглакчының тайылбырлары',
 'exif-jpegfilecomment' => 'JPEG фалй тайылбыры',
 'exif-headline' => 'Баш ат',
+'exif-languagecode' => 'Дыл',
 'exif-pngfilecomment' => 'PNG фалй тайылбыры',
 'exif-giffilecomment' => 'GIF фалй тайылбыры',
 
 'exif-subjectdistancerange-2' => 'Чоок көрүш',
 'exif-subjectdistancerange-3' => 'ырак көрүш',
+
+'exif-dc-type' => 'Медиа хевири',
+
+'exif-iimcategory-sci' => 'Эртем база техника',
+'exif-iimcategory-spo' => 'Спорт',
+'exif-iimcategory-wea' => 'Агаар',
+
+# External editor support
+'edit-externally' => 'Бо файлды даштыки application-биле эдер',
 
 # 'all' in various places, this might be different for inflected languages
 'watchlistall2' => 'шупту',
@@ -1119,8 +1197,15 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'monthsall' => 'шупту',
 'limitall' => 'шупту',
 
+# Delete conflict
+'recreate' => 'Катап чогаадыры',
+
 # action=purge
 'confirm_purge_button' => 'Чөп',
+
+# action=watch/unwatch
+'confirm-watch-button' => 'Чөп',
+'confirm-unwatch-button' => 'Чөп',
 
 # Multipage image navigation
 'imgmultipageprev' => '← эрткен арын',
@@ -1147,7 +1232,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 
 # Watchlist editing tools
 'watchlisttools-view' => 'Даңзы арыннарының өскерлиишкиннери',
-'watchlisttools-edit' => 'Хайгаарал даңзыны көөрү болгаш өскертири',
+'watchlisttools-edit' => 'Хайгаарал даңзыны көөрү/эдери',
 'watchlisttools-raw' => 'Чиг хайгаарал даңзыны өскертири',
 
 # Special:Version
@@ -1163,11 +1248,12 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 # Special:FileDuplicateSearch
 'fileduplicatesearch-filename' => 'Файлдың ады:',
 'fileduplicatesearch-submit' => 'Дилээри',
-'fileduplicatesearch-info' => '$1 × $2 пиксел<br />Файл хемчээли: $3<br />MIME янзызы: $4',
+'fileduplicatesearch-info' => '$1 × $2 пиксел<br />Файл хемчээли: $3<br />MIME хевири: $4',
 
 # Special:SpecialPages
 'specialpages' => 'Тускай арыннар',
 'specialpages-group-other' => 'Өске тускай арыннар',
+'specialpages-group-pages' => 'Арыннарның даңзызы',
 'specialpages-group-pagetools' => 'Арын херекселдери',
 
 # Special:BlankPage
@@ -1178,6 +1264,7 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'tag-filter-submit' => 'Шүүрү',
 'tags-title' => 'Демдеглелдер',
 'tags-edit' => 'өскертири',
+'tags-hitcount' => '$1 {{PLURAL:$1|өскерлиишкин}}',
 
 # Special:ComparePages
 'comparepages' => 'Арыннарны дөмейлеп көөрү',
@@ -1194,5 +1281,15 @@ It must not be more than $1 {{PLURAL:$1|character|characters}} long.',
 'feedback-subject' => 'Кол сөс:',
 'feedback-message' => 'Чагаа:',
 'feedback-cancel' => 'Соксаары',
+
+# Durations
+'duration-seconds' => '$1 {{PLURAL: $1|секунда|секунда}}',
+'duration-minutes' => '$1 {{PLURAL: $1|минут|минут}}',
+'duration-hours' => '$1 {{PLURAL: $1|шак|шак}}',
+'duration-days' => '$1 {{PLURAL:$1|хүн|хүн}}',
+'duration-weeks' => '$1 {{PLURAL: $1|чеди-хонук|чеди-хонук}}',
+'duration-years' => '$1 {{PLURAL: $1|чыл|чыл}}',
+'duration-decades' => '$1 {{PLURAL:$1|он хонук|он хонук}}',
+'duration-centuries' => '$1 {{PLURAL:$1|чүс чыл|чүс чыл}}',
 
 );

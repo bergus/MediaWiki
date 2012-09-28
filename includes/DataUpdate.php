@@ -24,6 +24,10 @@
 /**
  * Abstract base class for update jobs that do something with some secondary
  * data extracted from article.
+ *
+ * @note: subclasses should NOT start or commit transactions in their doUpdate() method,
+ *        a transaction will automatically be wrapped around the update. If need be,
+ *        subclasses can override the beginTransaction() and commitTransaction() methods.
  */
 abstract class DataUpdate implements DeferrableUpdate {
 
@@ -80,8 +84,8 @@ abstract class DataUpdate implements DeferrableUpdate {
 		$exception = null;
 
 		/**
-		 * @var $update StorageUpdate
-		 * @var $trans StorageUpdate
+		 * @var $update DataUpdate
+		 * @var $trans DataUpdate
 		 */
 
 		try {

@@ -245,7 +245,8 @@ class Article extends Page {
 					$text = '';
 				}
 			} else {
-				$text = wfMsgExt( $this->getContext()->getUser()->isLoggedIn() ? 'noarticletext' : 'noarticletextanon', 'parsemag' );
+				$message = $this->getContext()->getUser()->isLoggedIn() ? 'noarticletext' : 'noarticletextanon';
+				$text = wfMessage( $message )->text();
 			}
 			wfProfileOut( __METHOD__ );
 
@@ -350,9 +351,7 @@ class Article extends Page {
 
 		# Pre-fill content with error message so that if something
 		# fails we'll have something telling us what we intended.
-		$t = $this->getTitle()->getPrefixedText();
-		$d = $oldid ? wfMsgExt( 'missingarticle-rev', array( 'escape' ), $oldid ) : '';
-		$this->mContent = wfMsgNoTrans( 'missing-article', $t, $d ) ;
+		$this->mContent = wfMessage( 'missing-revision', $oldid )->plain();
 
 		if ( $oldid ) {
 			# $this->mRevision might already be fetched by getOldIDFromRequest()
@@ -496,7 +495,7 @@ class Article extends Page {
 		if ( $outputPage->isPrintable() ) {
 			$parserOptions->setIsPrintable( true );
 			$parserOptions->setEditSection( false );
-		} elseif ( !$this->isCurrent() || !$this->getTitle()->quickUserCan( 'edit' ) ) {
+		} elseif ( !$this->isCurrent() || !$this->getTitle()->quickUserCan( 'edit', $user ) ) {
 			$parserOptions->setEditSection( false );
 		}
 
@@ -956,29 +955,27 @@ class Article extends Page {
 		$user = $this->getContext()->getUser();
 		$rcid = $request->getVal( 'rcid' );
 
-		if ( !$rcid || !$this->getTitle()->quickUserCan( 'patrol' ) ) {
+		if ( !$rcid || !$this->getTitle()->quickUserCan( 'patrol', $user ) ) {
 			return;
 		}
 
 		$token = $user->getEditToken( $rcid );
 		$outputPage->preventClickjacking();
 
+		$link = Linker::linkKnown(
+			$this->getTitle(),
+			wfMessage( 'markaspatrolledtext' )->escaped(),
+			array(),
+			array(
+				'action' => 'markpatrolled',
+				'rcid' => $rcid,
+				'token' => $token,
+			)
+		);
+
 		$outputPage->addHTML(
 			"<div class='patrollink'>" .
-				wfMsgHtml(
-					'markaspatrolledlink',
-					Linker::link(
-						$this->getTitle(),
-						wfMsgHtml( 'markaspatrolledtext' ),
-						array(),
-						array(
-							'action' => 'markpatrolled',
-							'rcid' => $rcid,
-							'token' => $token,
-						),
-						array( 'known', 'noclasses' )
-					)
-				) .
+				wfMessage( 'markaspatrolledlink' )->rawParams( $link )->escaped() .
 			'</div>'
 		);
 	}
@@ -1005,7 +1002,7 @@ class Article extends Page {
 				LogEventsList::showLogExtract(
 					$outputPage,
 					'block',
-					$user->getUserPage()->getPrefixedText(),
+					$user->getUserPage(),
 					'',
 					array(
 						'lim' => 1,
@@ -1022,7 +1019,7 @@ class Article extends Page {
 		wfRunHooks( 'ShowMissingArticle', array( $this ) );
 
 		# Show delete and move logs
-		LogEventsList::showLogExtract( $outputPage, array( 'delete', 'move' ), $this->getTitle()->getPrefixedText(), '',
+		LogEventsList::showLogExtract( $outputPage, array( 'delete', 'move' ), $this->getTitle(), '',
 			array(  'lim' => 10,
 				'conds' => array( "log_action != 'revision'" ),
 				'showIfEmpty' => false,
@@ -1044,22 +1041,16 @@ class Article extends Page {
 		# Show error message
 		$oldid = $this->getOldID();
 		if ( $oldid ) {
-			$text = wfMsgNoTrans( 'missing-article',
-				$this->getTitle()->getPrefixedText(),
-				wfMsgNoTrans( 'missingarticle-rev', $oldid ) );
+			$text = wfMessage( 'missing-revision', $oldid )->plain();
 		} elseif ( $this->getTitle()->getNamespace() === NS_MEDIAWIKI ) {
 			// Use the default message text
 			$text = $this->getTitle()->getDefaultMessageText();
+		} elseif ( $this->getTitle()->quickUserCan( 'create', $this->getContext()->getUser() )
+			&& $this->getTitle()->quickUserCan( 'edit', $this->getContext()->getUser() )
+		) {
+			$text = wfMessage( 'noarticletext' )->plain();
 		} else {
-			$createErrors = $this->getTitle()->getUserPermissionsErrors( 'create', $this->getContext()->getUser() );
-			$editErrors = $this->getTitle()->getUserPermissionsErrors( 'edit', $this->getContext()->getUser() );
-			$errors = array_merge( $createErrors, $editErrors );
-
-			if ( !count( $errors ) ) {
-				$text = wfMsgNoTrans( 'noarticletext' );
-			} else {
-				$text = wfMsgNoTrans( 'noarticletext-nopermission' );
-			}
+			$text = wfMessage( 'noarticletext-nopermission' )->plain();
 		}
 		$text = "<div class='noarticletext'>\n$text\n</div>";
 
@@ -1079,8 +1070,9 @@ class Article extends Page {
 		}
 
 		$outputPage = $this->getContext()->getOutput();
+		$user = $this->getContext()->getUser();
 		// If the user is not allowed to see it...
-		if ( !$this->mRevision->userCan( Revision::DELETED_TEXT ) ) {
+		if ( !$this->mRevision->userCan( Revision::DELETED_TEXT, $user ) ) {
 			$outputPage->wrapWikiMsg( "<div class='mw-warning plainlinks'>\n$1\n</div>\n",
 				'rev-deleted-text-permission' );
 
@@ -1137,9 +1129,11 @@ class Article extends Page {
 
 		$current = ( $oldid == $this->mPage->getLatest() );
 		$language = $this->getContext()->getLanguage();
-		$td = $language->timeanddate( $timestamp, true );
-		$tddate = $language->date( $timestamp, true );
-		$tdtime = $language->time( $timestamp, true );
+		$user = $this->getContext()->getUser();
+
+		$td = $language->userTimeAndDate( $timestamp, $user );
+		$tddate = $language->userDate( $timestamp, $user );
+		$tdtime = $language->userTime( $timestamp, $user );
 
 		# Show user links if allowed to see them. If hidden, then show them only if requested...
 		$userlinks = Linker::revUserTools( $revision, !$unhide );
@@ -1154,84 +1148,79 @@ class Article extends Page {
 			$tdtime, $revision->getUser() )->parse() . "</div>" );
 
 		$lnk = $current
-			? wfMsgHtml( 'currentrevisionlink' )
-			: Linker::link(
+			? wfMessage( 'currentrevisionlink' )->escaped()
+			: Linker::linkKnown(
 				$this->getTitle(),
-				wfMsgHtml( 'currentrevisionlink' ),
+				wfMessage( 'currentrevisionlink' )->escaped(),
 				array(),
-				$extraParams,
-				array( 'known', 'noclasses' )
+				$extraParams
 			);
 		$curdiff = $current
-			? wfMsgHtml( 'diff' )
-			: Linker::link(
+			? wfMessage( 'diff' )->escaped()
+			: Linker::linkKnown(
 				$this->getTitle(),
-				wfMsgHtml( 'diff' ),
+				wfMessage( 'diff' )->escaped(),
 				array(),
 				array(
 					'diff' => 'cur',
 					'oldid' => $oldid
-				) + $extraParams,
-				array( 'known', 'noclasses' )
+				) + $extraParams
 			);
 		$prev = $this->getTitle()->getPreviousRevisionID( $oldid ) ;
 		$prevlink = $prev
-			? Linker::link(
+			? Linker::linkKnown(
 				$this->getTitle(),
-				wfMsgHtml( 'previousrevision' ),
+				wfMessage( 'previousrevision' )->escaped(),
 				array(),
 				array(
 					'direction' => 'prev',
 					'oldid' => $oldid
-				) + $extraParams,
-				array( 'known', 'noclasses' )
+				) + $extraParams
 			)
-			: wfMsgHtml( 'previousrevision' );
+			: wfMessage( 'previousrevision' )->escaped();
 		$prevdiff = $prev
-			? Linker::link(
+			? Linker::linkKnown(
 				$this->getTitle(),
-				wfMsgHtml( 'diff' ),
+				wfMessage( 'diff' )->escaped(),
 				array(),
 				array(
 					'diff' => 'prev',
 					'oldid' => $oldid
-				) + $extraParams,
-				array( 'known', 'noclasses' )
+				) + $extraParams
 			)
-			: wfMsgHtml( 'diff' );
+			: wfMessage( 'diff' )->escaped();
 		$nextlink = $current
-			? wfMsgHtml( 'nextrevision' )
-			: Linker::link(
+			? wfMessage( 'nextrevision' )->escaped()
+			: Linker::linkKnown(
 				$this->getTitle(),
-				wfMsgHtml( 'nextrevision' ),
+				wfMessage( 'nextrevision' )->escaped(),
 				array(),
 				array(
 					'direction' => 'next',
 					'oldid' => $oldid
-				) + $extraParams,
-				array( 'known', 'noclasses' )
+				) + $extraParams
 			);
 		$nextdiff = $current
-			? wfMsgHtml( 'diff' )
-			: Linker::link(
+			? wfMessage( 'diff' )->escaped()
+			: Linker::linkKnown(
 				$this->getTitle(),
-				wfMsgHtml( 'diff' ),
+				wfMessage( 'diff' )->escaped(),
 				array(),
 				array(
 					'diff' => 'next',
 					'oldid' => $oldid
-				) + $extraParams,
-				array( 'known', 'noclasses' )
+				) + $extraParams
 			);
 
-		$cdel = Linker::getRevDeleteLink( $this->getContext()->getUser(), $revision, $this->getTitle() );
+		$cdel = Linker::getRevDeleteLink( $user, $revision, $this->getTitle() );
 		if ( $cdel !== '' ) {
 			$cdel .= ' ';
 		}
 
 		$outputPage->addSubtitle( "<div id=\"mw-revision-nav\">" . $cdel .
-			wfMsgExt( 'revision-nav', array( 'escapenoentities', 'parsemag', 'replaceafter' ),
-			$prevdiff, $prevlink, $lnk, $curdiff, $nextlink, $nextdiff ) . "</div>" );
+			wfMessage( 'revision-nav' )->rawParams(
+				$prevdiff, $prevlink, $lnk, $curdiff, $nextlink, $nextdiff
+			)->escaped() . "</div>" );
 	}
 
 	/**
@@ -1253,7 +1242,8 @@ class Article extends Page {
 		$imageDir = $lang->getDir();
 
 		if ( $appendSubtitle ) {
-			$this->getContext()->getOutput()->appendSubtitle( wfMsgHtml( 'redirectpagesub' ) );
+			$out = $this->getContext()->getOutput();
+			$out->addSubtitle( wfMessage( 'redirectpagesub' )->escaped() );
 		}
 
 		// the loop prepends the arrow image before the link, so the first case needs to be outside
@@ -1331,20 +1321,21 @@ class Article extends Page {
 		}
 
 		# Better double-check that it hasn't been deleted yet!
-		$dbw = wfGetDB( DB_MASTER );
-		$conds = $title->pageCond();
-		$latest = $dbw->selectField( 'page', 'page_latest', $conds, __METHOD__ );
-		if ( $latest === false ) {
+		$this->mPage->loadPageData( 'fromdbmaster' );
+		if ( !$this->mPage->exists() ) {
+			$deleteLogPage = new LogPage( 'delete' );
 			$outputPage = $this->getContext()->getOutput();
 			$outputPage->setPageTitle( wfMessage( 'cannotdelete-title', $title->getPrefixedText() ) );
 			$outputPage->wrapWikiMsg( "<div class=\"error mw-error-cannotdelete\">\n$1\n</div>",
 					array( 'cannotdelete', wfEscapeWikiText( $title->getPrefixedText() ) )
 				);
-			$outputPage->addHTML( Xml::element( 'h2', null, LogPage::logName( 'delete' ) ) );
+			$outputPage->addHTML(
+				Xml::element( 'h2', null, $deleteLogPage->getName()->text() )
+			);
 			LogEventsList::showLogExtract(
 				$outputPage,
 				'delete',
-				$title->getPrefixedText()
+				$title
 			);
 
 			return;
@@ -1358,7 +1349,8 @@ class Article extends Page {
 			$reason = $deleteReason;
 		} elseif ( $deleteReason != '' ) {
 			// Entry from drop down menu + additional comment
-			$reason = $deleteReasonList . wfMsgForContent( 'colon-separator' ) . $deleteReason;
+			$colonseparator = wfMessage( 'colon-separator' )->inContentLanguage()->text();
+			$reason = $deleteReasonList . $colonseparator . $deleteReason;
 		} else {
 			$reason = $deleteReasonList;
 		}
@@ -1371,10 +1363,12 @@ class Article extends Page {
 
 			$this->doDelete( $reason, $suppress );
 
-			if ( $request->getCheck( 'wpWatch' ) && $user->isLoggedIn() ) {
-				$this->doWatch();
-			} elseif ( $title->userIsWatching() ) {
-				$this->doUnwatch();
+			if ( $user->isLoggedIn() && $request->getCheck( 'wpWatch' ) != $user->isWatched( $title ) ) {
+				if ( $request->getCheck( 'wpWatch' ) ) {
+					WatchAction::doWatch( $title, $user );
+				} else {
+					WatchAction::doUnwatch( $title, $user );
+				}
 			}
 
 			return;
@@ -1391,9 +1385,9 @@ class Article extends Page {
 			$revisions = $this->mTitle->estimateRevisionCount();
 			// @todo FIXME: i18n issue/patchwork message
 			$this->getContext()->getOutput()->addHTML( '<strong class="mw-delete-warning-revisions">' .
-				wfMsgExt( 'historywarning', array( 'parseinline' ), $this->getContext()->getLanguage()->formatNum( $revisions ) ) .
-				wfMsgHtml( 'word-separator' ) . Linker::link( $title,
-					wfMsgHtml( 'history' ),
+				wfMessage( 'historywarning' )->numParams( $revisions )->parse() .
+				wfMessage( 'word-separator' )->plain() . Linker::linkKnown( $title,
+					wfMessage( 'history' )->escaped(),
 					array( 'rel' => 'archives' ),
 					array( 'action' => 'history' ) ) .
 				'</strong>'
@@ -1406,7 +1400,7 @@ class Article extends Page {
 			}
 		}
 
-		return $this->confirmDelete( $reason );
+		$this->confirmDelete( $reason );
 	}
 
 	/**
@@ -1431,33 +1425,33 @@ class Article extends Page {
 			$suppress = "<tr id=\"wpDeleteSuppressRow\">
 					<td></td>
 					<td class='mw-input'><strong>" .
-						Xml::checkLabel( wfMsg( 'revdelete-suppress' ),
+						Xml::checkLabel( wfMessage( 'revdelete-suppress' )->text(),
 							'wpSuppress', 'wpSuppress', false, array( 'tabindex' => '4' ) ) .
 					"</strong></td>
 				</tr>";
 		} else {
 			$suppress = '';
 		}
-		$checkWatch = $user->getBoolOption( 'watchdeletion' ) || $this->getTitle()->userIsWatching();
+		$checkWatch = $user->getBoolOption( 'watchdeletion' ) || $user->isWatched( $this->getTitle() );
 
 		$form = Xml::openElement( 'form', array( 'method' => 'post',
 			'action' => $this->getTitle()->getLocalURL( 'action=delete' ), 'id' => 'deleteconfirm' ) ) .
 			Xml::openElement( 'fieldset', array( 'id' => 'mw-delete-table' ) ) .
-			Xml::tags( 'legend', null, wfMsgExt( 'delete-legend', array( 'parsemag', 'escapenoentities' ) ) ) .
+			Xml::tags( 'legend', null, wfMessage( 'delete-legend' )->escaped() ) .
 			Xml::openElement( 'table', array( 'id' => 'mw-deleteconfirm-table' ) ) .
 			"<tr id=\"wpDeleteReasonListRow\">
 				<td class='mw-label'>" .
-					Xml::label( wfMsg( 'deletecomment' ), 'wpDeleteReasonList' ) .
+					Xml::label( wfMessage( 'deletecomment' )->text(), 'wpDeleteReasonList' ) .
 				"</td>
 				<td class='mw-input'>" .
 					Xml::listDropDown( 'wpDeleteReasonList',
-						wfMsgForContent( 'deletereason-dropdown' ),
-						wfMsgForContent( 'deletereasonotherlist' ), '', 'wpReasonDropDown', 1 ) .
+						wfMessage( 'deletereason-dropdown' )->inContentLanguage()->text(),
+						wfMessage( 'deletereasonotherlist' )->inContentLanguage()->text(), '', 'wpReasonDropDown', 1 ) .
 				"</td>
 			</tr>
 			<tr id=\"wpDeleteReasonRow\">
 				<td class='mw-label'>" .
-					Xml::label( wfMsg( 'deleteotherreason' ), 'wpReason' ) .
+					Xml::label( wfMessage( 'deleteotherreason' )->text(), 'wpReason' ) .
 				"</td>
 				<td class='mw-input'>" .
 				Html::input( 'wpReason', $reason, 'text', array(
@@ -1476,7 +1470,7 @@ class Article extends Page {
 			<tr>
 				<td></td>
 				<td class='mw-input'>" .
-					Xml::checkLabel( wfMsg( 'watchthis' ),
+					Xml::checkLabel( wfMessage( 'watchthis' )->text(),
 						'wpWatch', 'wpWatch', $checkWatch, array( 'tabindex' => '3' ) ) .
 				"</td>
 			</tr>";
@@ -1487,7 +1481,7 @@ class Article extends Page {
 			<tr>
 				<td></td>
 				<td class='mw-submit'>" .
-					Xml::submitButton( wfMsg( 'deletepage' ),
+					Xml::submitButton( wfMessage( 'deletepage' )->text(),
 						array( 'name' => 'wpConfirmB', 'id' => 'wpConfirmB', 'tabindex' => '5' ) ) .
 				"</td>
 			</tr>" .
@@ -1500,7 +1494,7 @@ class Article extends Page {
 				$title = Title::makeTitle( NS_MEDIAWIKI, 'Deletereason-dropdown' );
 				$link = Linker::link(
 					$title,
-					wfMsgHtml( 'delete-edit-reasonlist' ),
+					wfMessage( 'delete-edit-reasonlist' )->escaped(),
 					array(),
 					array( 'action' => 'edit' )
 				);
@@ -1508,9 +1502,11 @@ class Article extends Page {
 			}
 
 		$outputPage->addHTML( $form );
-		$outputPage->addHTML( Xml::element( 'h2', null, LogPage::logName( 'delete' ) ) );
+
+		$deleteLogPage = new LogPage( 'delete' );
+		$outputPage->addHTML( Xml::element( 'h2', null, $deleteLogPage->getName()->text() ) );
 		LogEventsList::showLogExtract( $outputPage, 'delete',
-			$this->getTitle()->getPrefixedText()
+			$this->getTitle()
 		);
 	}
 
@@ -1522,28 +1518,30 @@ class Article extends Page {
 	public function doDelete( $reason, $suppress = false ) {
 		$error = '';
 		$outputPage = $this->getContext()->getOutput();
-		if ( $this->mPage->doDeleteArticle( $reason, $suppress, 0, true, $error ) ) {
+		$status = $this->mPage->doDeleteArticleReal( $reason, $suppress, 0, true, $error );
+		if ( $status->isGood() ) {
 			$deleted = $this->getTitle()->getPrefixedText();
 
 			$outputPage->setPageTitle( wfMessage( 'actioncomplete' ) );
 			$outputPage->setRobotPolicy( 'noindex,nofollow' );
 
-			$loglink = '[[Special:Log/delete|' . wfMsgNoTrans( 'deletionlog' ) . ']]';
+			$loglink = '[[Special:Log/delete|' . wfMessage( 'deletionlog' )->text() . ']]';
 
 			$outputPage->addWikiMsg( 'deletedtext', wfEscapeWikiText( $deleted ), $loglink );
 			$outputPage->returnToMain( false );
 		} else {
 			$outputPage->setPageTitle( wfMessage( 'cannotdelete-title', $this->getTitle()->getPrefixedText() ) );
 			if ( $error == '' ) {
-				$outputPage->wrapWikiMsg( "<div class=\"error mw-error-cannotdelete\">\n$1\n</div>",
-					array( 'cannotdelete', wfEscapeWikiText( $this->getTitle()->getPrefixedText() ) )
+				$outputPage->addWikiText(
+					"<div class=\"error mw-error-cannotdelete\">\n" . $status->getWikiText() . "\n</div>"
 				);
-				$outputPage->addHTML( Xml::element( 'h2', null, LogPage::logName( 'delete' ) ) );
+				$deleteLogPage = new LogPage( 'delete' );
+				$outputPage->addHTML( Xml::element( 'h2', null, $deleteLogPage->getName()->text() ) );
 
 				LogEventsList::showLogExtract(
 					$outputPage,
 					'delete',
-					$this->getTitle()->getPrefixedText()
+					$this->getTitle()
 				);
 			} else {
 				$outputPage->addHTML( $error );
@@ -1619,8 +1617,11 @@ class Article extends Page {
 	 * @return ParserOutput or false if the given revsion ID is not found
 	 */
 	public function getParserOutput( $oldid = null, User $user = null ) {
-		$user = is_null( $user ) ? $this->getContext()->getUser() : $user;
-		$parserOptions = $this->mPage->makeParserOptions( $user );
+		if ( $user === null ) {
+			$parserOptions = $this->getParserOptions();
+		} else {
+			$parserOptions = $this->mPage->makeParserOptions( $user );
+		}
 
 		return $this->mPage->getParserOutput( $parserOptions, $oldid );
 	}
@@ -1631,7 +1632,7 @@ class Article extends Page {
 	 */
 	public function getParserOptions() {
 		if ( !$this->mParserOptions ) {
-			$this->mParserOptions = $this->mPage->makeParserOptions( $this->getContext()->getUser() );
+			$this->mParserOptions = $this->mPage->makeParserOptions( $this->getContext() );
 		}
 		// Clone to allow modifications of the return value without affecting cache
 		return clone $this->mParserOptions;
@@ -1763,8 +1764,9 @@ class Article extends Page {
 		wfDeprecated( __METHOD__, '1.18' );
 		if ( $noRedir ) {
 			$query = 'redirect=no';
-			if ( $extraQuery )
+			if ( $extraQuery ) {
 				$query .= "&$extraQuery";
+			}
 		} else {
 			$query = $extraQuery;
 		}

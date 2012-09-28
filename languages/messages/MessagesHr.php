@@ -1,5 +1,5 @@
 <?php
-/** Croatian (Hrvatski)
+/** Croatian (hrvatski)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -15,6 +15,7 @@
  * @author Dnik
  * @author Ex13
  * @author Excaliboor
+ * @author FriedrickMILBarbarossa
  * @author Herr Mlinka
  * @author Kaganer
  * @author Luka Krstulovic
@@ -150,132 +151,132 @@ $specialPageAliases = array(
 );
 
 $magicWords = array(
-	'redirect'                => array( '0', '#PREUSMJERI', '#REDIRECT' ),
-	'notoc'                   => array( '0', '__BEZSADRŽAJA__', '__NOTOC__' ),
-	'nogallery'               => array( '0', '__BEZGALERIJE__', '__NOGALLERY__' ),
-	'forcetoc'                => array( '0', '__UKLJUČISADRŽAJ__', '__FORCETOC__' ),
-	'toc'                     => array( '0', '__SADRŽAJ__', '__TOC__' ),
-	'noeditsection'           => array( '0', '__BEZUREĐIVANJAODLOMAKA__', '__NOEDITSECTION__' ),
-	'noheader'                => array( '0', '__BEZZAGLAVLJA__', '__NOHEADER__' ),
-	'currentmonth'            => array( '1', 'TRENUTAČNIMJESEC', 'CURRENTMONTH', 'CURRENTMONTH2' ),
-	'currentmonth1'           => array( '1', 'TRENUTAČNIMJESEC1', 'CURRENTMONTH1' ),
-	'currentmonthname'        => array( '1', 'TRENUTAČNIMJESECIME', 'CURRENTMONTHNAME' ),
-	'currentmonthnamegen'     => array( '1', 'TRENUTAČNIMJESECIMEGEN', 'CURRENTMONTHNAMEGEN' ),
-	'currentmonthabbrev'      => array( '1', 'TRENUTAČNIMJESECKRAT', 'CURRENTMONTHABBREV' ),
-	'currentday'              => array( '1', 'TRENUTAČNIDAN', 'CURRENTDAY' ),
-	'currentday2'             => array( '1', 'TRENUTAČNIDAN2', 'CURRENTDAY2' ),
-	'currentdayname'          => array( '1', 'TRENUTAČNIDANIME', 'CURRENTDAYNAME' ),
-	'currentyear'             => array( '1', 'TRENUTAČNAGODINA', 'CURRENTYEAR' ),
-	'currenttime'             => array( '1', 'TRENUTAČNOVRIJEME', 'CURRENTTIME' ),
-	'currenthour'             => array( '1', 'TRENUTAČNISAT', 'CURRENTHOUR' ),
-	'localmonth'              => array( '1', 'MJESNIMJESEC', 'LOCALMONTH', 'LOCALMONTH2' ),
-	'localmonth1'             => array( '1', 'MJESNIMJESEC1', 'LOCALMONTH1' ),
-	'localmonthname'          => array( '1', 'MJESNIMJESECIME', 'LOCALMONTHNAME' ),
-	'localmonthnamegen'       => array( '1', 'MJESNIMJESECIMEGEN', 'LOCALMONTHNAMEGEN' ),
-	'localmonthabbrev'        => array( '1', 'MJESNIMJESECKRAT', 'LOCALMONTHABBREV' ),
-	'localday'                => array( '1', 'MJESNIDAN', 'LOCALDAY' ),
-	'localday2'               => array( '1', 'MJESNIDAN2', 'LOCALDAY2' ),
-	'localdayname'            => array( '1', 'MJESNIDANIME', 'LOCALDAYNAME' ),
-	'localyear'               => array( '1', 'MJESNAGODINA', 'LOCALYEAR' ),
-	'localtime'               => array( '1', 'MJESNOVRIJEME', 'LOCALTIME' ),
-	'localhour'               => array( '1', 'MJESNISAT', 'LOCALHOUR' ),
-	'numberofpages'           => array( '1', 'BROJSTRANICA', 'NUMBEROFPAGES' ),
-	'numberofarticles'        => array( '1', 'BROJČLANAKA', 'NUMBEROFARTICLES' ),
-	'numberoffiles'           => array( '1', 'BROJDATOTEKA', 'NUMBEROFFILES' ),
-	'numberofusers'           => array( '1', 'BROJSURADNIKA', 'NUMBEROFUSERS' ),
-	'numberofactiveusers'     => array( '1', 'BROJAKTIVNIHSURADNIKA', 'NUMBEROFACTIVEUSERS' ),
-	'numberofedits'           => array( '1', 'BROJUREĐIVANJA', 'NUMBEROFEDITS' ),
-	'numberofviews'           => array( '1', 'BROJPREGLEDA', 'NUMBEROFVIEWS' ),
-	'pagename'                => array( '1', 'IMESTRANICE', 'PAGENAME' ),
-	'pagenamee'               => array( '1', 'IMESTRANICEE', 'PAGENAMEE' ),
-	'namespace'               => array( '1', 'IMENSKIPROSTOR', 'NAMESPACE' ),
-	'namespacee'              => array( '1', 'IMENSKIPROSTORE', 'NAMESPACEE' ),
-	'talkspace'               => array( '1', 'RAZGOVOR', 'TALKSPACE' ),
-	'talkspacee'              => array( '1', 'RAZGOVORE', 'TALKSPACEE' ),
-	'subjectspace'            => array( '1', 'PROSTORSTRANICE', 'IMPSTRANICE', 'SUBJECTSPACE', 'ARTICLESPACE' ),
-	'subjectspacee'           => array( '1', 'PROSTORSTRANICEE', 'IMPSTRANICEE', 'SUBJECTSPACEE', 'ARTICLESPACEE' ),
-	'fullpagename'            => array( '1', 'PUNOIMESTRANICE', 'FULLPAGENAME' ),
-	'fullpagenamee'           => array( '1', 'PUNOIMESTRANICEE', 'FULLPAGENAMEE' ),
-	'subpagename'             => array( '1', 'IMEPODSTRANICE', 'SUBPAGENAME' ),
-	'subpagenamee'            => array( '1', 'IMEPODSTRANICEE', 'SUBPAGENAMEE' ),
-	'basepagename'            => array( '1', 'IMEOSNOVNESTRANICE', 'BASEPAGENAME' ),
-	'basepagenamee'           => array( '1', 'IMEOSNOVNESTRANICEE', 'BASEPAGENAMEE' ),
-	'talkpagename'            => array( '1', 'IMERAZGOVORASTRANICE', 'TALKPAGENAME' ),
-	'talkpagenamee'           => array( '1', 'IMERAZGOVORASTRANICEE', 'TALKPAGENAMEE' ),
-	'subjectpagename'         => array( '1', 'IMEGLAVNESTRANICE', 'SUBJECTPAGENAME', 'ARTICLEPAGENAME' ),
-	'subjectpagenamee'        => array( '1', 'IMEGLAVNESTRANICEE', 'SUBJECTPAGENAMEE', 'ARTICLEPAGENAMEE' ),
-	'subst'                   => array( '0', 'ZAMJENA:', 'SUBST:' ),
-	'img_thumbnail'           => array( '1', 'minijatura', 'mini', 'thumbnail', 'thumb' ),
-	'img_manualthumb'         => array( '1', 'minijatura=$1', 'thumbnail=$1', 'thumb=$1' ),
-	'img_right'               => array( '1', 'desno', 'right' ),
-	'img_left'                => array( '1', 'lijevo', 'left' ),
-	'img_none'                => array( '1', 'ništa', 'none' ),
-	'img_center'              => array( '1', 'središte', 'center', 'centre' ),
-	'img_framed'              => array( '1', 'okvir', 'framed', 'enframed', 'frame' ),
-	'img_frameless'           => array( '1', 'bezokvira', 'frameless' ),
-	'img_page'                => array( '1', 'stranica=$1', 'stranica $1', 'page=$1', 'page $1' ),
-	'img_upright'             => array( '1', 'uspravno=$1', 'uspravno $1', 'upright', 'upright=$1', 'upright $1' ),
-	'img_border'              => array( '1', 'obrub', 'border' ),
-	'img_baseline'            => array( '1', 'osnovnacrta', 'baseline' ),
-	'img_sub'                 => array( '1', 'potpis', 'ind', 'sub' ),
-	'img_super'               => array( '1', 'natpis', 'eks', 'super', 'sup' ),
-	'img_top'                 => array( '1', 'vrh', 'top' ),
-	'img_text_top'            => array( '1', 'tekst-vrh', 'text-top' ),
-	'img_middle'              => array( '1', 'pola', 'middle' ),
-	'img_bottom'              => array( '1', 'dno', 'bottom' ),
-	'img_text_bottom'         => array( '1', 'tekst-dno', 'text-bottom' ),
-	'sitename'                => array( '1', 'IMEPROJEKTA', 'SITENAME' ),
-	'ns'                      => array( '0', 'IMP:', 'NS:' ),
-	'localurl'                => array( '0', 'MJESNIURL:', 'LOCALURL:' ),
-	'localurle'               => array( '0', 'MJESNIURLE:', 'LOCALURLE:' ),
-	'servername'              => array( '0', 'IMESERVERA', 'SERVERNAME' ),
-	'scriptpath'              => array( '0', 'PUTANJASKRIPTE', 'SCRIPTPATH' ),
-	'grammar'                 => array( '0', 'GRAMATIKA:', 'GRAMMAR:' ),
-	'notitleconvert'          => array( '0', '__BEZPRETVARANJANASLOVA__', '__BPN__', '__NOTITLECONVERT__', '__NOTC__' ),
-	'nocontentconvert'        => array( '0', '__BEZPRETVARANJASADRŽAJA__', '__BPS__', '__NOCONTENTCONVERT__', '__NOCC__' ),
-	'currentweek'             => array( '1', 'TRENUTAČNITJEDAN', 'CURRENTWEEK' ),
-	'currentdow'              => array( '1', 'TRENUTAČNIDANTJEDNA', 'CURRENTDOW' ),
-	'localweek'               => array( '1', 'MJESNITJEDAN', 'LOCALWEEK' ),
-	'localdow'                => array( '1', 'MJESNIDANTJEDNA', 'LOCALDOW' ),
-	'revisionid'              => array( '1', 'IDIZMJENE', 'REVISIONID' ),
-	'revisionday'             => array( '1', 'DANIZMJENE', 'REVISIONDAY' ),
-	'revisionday2'            => array( '1', 'DANIZMJENE2', 'REVISIONDAY2' ),
-	'revisionmonth'           => array( '1', 'MJESECIZMJENE', 'REVISIONMONTH' ),
-	'revisionyear'            => array( '1', 'GODINAIZMJENE', 'REVISIONYEAR' ),
-	'revisiontimestamp'       => array( '1', 'VREMENSKAOZNAKAIZMJENE', 'REVISIONTIMESTAMP' ),
-	'plural'                  => array( '0', 'MNOŽINA:', 'PLURAL:' ),
-	'fullurl'                 => array( '0', 'PUNIURL:', 'FULLURL:' ),
-	'fullurle'                => array( '0', 'PUNIURLE:', 'FULLURLE:' ),
-	'lcfirst'                 => array( '0', 'MSPRVO:', 'LCFIRST:' ),
-	'ucfirst'                 => array( '0', 'VSPRVO:', 'UCFIRST:' ),
-	'lc'                      => array( '0', 'MS:', 'LC:' ),
-	'uc'                      => array( '0', 'VS:', 'UC:' ),
-	'raw'                     => array( '0', 'NEOBRAĐENO:', 'RAW:' ),
-	'displaytitle'            => array( '1', 'POKAŽINASLOV', 'DISPLAYTITLE' ),
-	'rawsuffix'               => array( '1', 'NEO', 'R' ),
-	'newsectionlink'          => array( '1', '__NOVIODLOMAKPOVEZNICA__', '__NEWSECTIONLINK__' ),
-	'currentversion'          => array( '1', 'TRENUTAČNAIZMJENA', 'CURRENTVERSION' ),
-	'urlencode'               => array( '0', 'URLKODIRANJE:', 'URLENCODE:' ),
-	'anchorencode'            => array( '0', 'SIDROKODIRANJE', 'ANCHORENCODE' ),
-	'currenttimestamp'        => array( '1', 'TRENUTAČNAOZNAKAVREMENA', 'CURRENTTIMESTAMP' ),
-	'localtimestamp'          => array( '1', 'MJESNAOZNAKAVREMENA', 'LOCALTIMESTAMP' ),
-	'language'                => array( '0', '#JEZIK:', '#LANGUAGE:' ),
-	'contentlanguage'         => array( '1', 'JEZIKPROJEKTA', 'CONTENTLANGUAGE', 'CONTENTLANG' ),
-	'pagesinnamespace'        => array( '1', 'STRANICEPOPROSTORU:', 'STRANICEUIMP', 'PAGESINNAMESPACE:', 'PAGESINNS:' ),
-	'numberofadmins'          => array( '1', 'BROJADMINA', 'NUMBEROFADMINS' ),
-	'formatnum'               => array( '0', 'OBLIKBROJA', 'FORMATNUM' ),
-	'padleft'                 => array( '0', 'POSTAVALIJEVO', 'PADLEFT' ),
-	'padright'                => array( '0', 'POSTAVADESNO', 'PADRIGHT' ),
-	'special'                 => array( '0', 'posebno', 'special' ),
-	'defaultsort'             => array( '1', 'GLAVNIRASPORED:', 'DEFAULTSORT:', 'DEFAULTSORTKEY:', 'DEFAULTCATEGORYSORT:' ),
-	'filepath'                => array( '0', 'PUTANJADATOTEKE:', 'FILEPATH:' ),
-	'tag'                     => array( '0', 'oznaka', 'tag' ),
-	'hiddencat'               => array( '1', '__SKRIVENAKAT__', '__HIDDENCAT__' ),
-	'pagesincategory'         => array( '1', 'STRANICEPOKATEGORIJI', 'STRANICEUKAT', 'PAGESINCATEGORY', 'PAGESINCAT' ),
-	'pagesize'                => array( '1', 'VELIČINASTRANICE', 'PAGESIZE' ),
-	'index'                   => array( '1', '__KAZALO__', '__INDEX__' ),
-	'noindex'                 => array( '1', '__BEZKAZALA__', '__NOINDEX__' ),
-	'staticredirect'          => array( '1', '__NEPOMIČNOPREUSMJERAVANJE__', '__STATICREDIRECT__' ),
+	'redirect'                  => array( '0', '#PREUSMJERI', '#REDIRECT' ),
+	'notoc'                     => array( '0', '__BEZSADRŽAJA__', '__NOTOC__' ),
+	'nogallery'                 => array( '0', '__BEZGALERIJE__', '__NOGALLERY__' ),
+	'forcetoc'                  => array( '0', '__UKLJUČISADRŽAJ__', '__FORCETOC__' ),
+	'toc'                       => array( '0', '__SADRŽAJ__', '__TOC__' ),
+	'noeditsection'             => array( '0', '__BEZUREĐIVANJAODLOMAKA__', '__NOEDITSECTION__' ),
+	'noheader'                  => array( '0', '__BEZZAGLAVLJA__', '__NOHEADER__' ),
+	'currentmonth'              => array( '1', 'TRENUTAČNIMJESEC', 'CURRENTMONTH', 'CURRENTMONTH2' ),
+	'currentmonth1'             => array( '1', 'TRENUTAČNIMJESEC1', 'CURRENTMONTH1' ),
+	'currentmonthname'          => array( '1', 'TRENUTAČNIMJESECIME', 'CURRENTMONTHNAME' ),
+	'currentmonthnamegen'       => array( '1', 'TRENUTAČNIMJESECIMEGEN', 'CURRENTMONTHNAMEGEN' ),
+	'currentmonthabbrev'        => array( '1', 'TRENUTAČNIMJESECKRAT', 'CURRENTMONTHABBREV' ),
+	'currentday'                => array( '1', 'TRENUTAČNIDAN', 'CURRENTDAY' ),
+	'currentday2'               => array( '1', 'TRENUTAČNIDAN2', 'CURRENTDAY2' ),
+	'currentdayname'            => array( '1', 'TRENUTAČNIDANIME', 'CURRENTDAYNAME' ),
+	'currentyear'               => array( '1', 'TRENUTAČNAGODINA', 'CURRENTYEAR' ),
+	'currenttime'               => array( '1', 'TRENUTAČNOVRIJEME', 'CURRENTTIME' ),
+	'currenthour'               => array( '1', 'TRENUTAČNISAT', 'CURRENTHOUR' ),
+	'localmonth'                => array( '1', 'MJESNIMJESEC', 'LOCALMONTH', 'LOCALMONTH2' ),
+	'localmonth1'               => array( '1', 'MJESNIMJESEC1', 'LOCALMONTH1' ),
+	'localmonthname'            => array( '1', 'MJESNIMJESECIME', 'LOCALMONTHNAME' ),
+	'localmonthnamegen'         => array( '1', 'MJESNIMJESECIMEGEN', 'LOCALMONTHNAMEGEN' ),
+	'localmonthabbrev'          => array( '1', 'MJESNIMJESECKRAT', 'LOCALMONTHABBREV' ),
+	'localday'                  => array( '1', 'MJESNIDAN', 'LOCALDAY' ),
+	'localday2'                 => array( '1', 'MJESNIDAN2', 'LOCALDAY2' ),
+	'localdayname'              => array( '1', 'MJESNIDANIME', 'LOCALDAYNAME' ),
+	'localyear'                 => array( '1', 'MJESNAGODINA', 'LOCALYEAR' ),
+	'localtime'                 => array( '1', 'MJESNOVRIJEME', 'LOCALTIME' ),
+	'localhour'                 => array( '1', 'MJESNISAT', 'LOCALHOUR' ),
+	'numberofpages'             => array( '1', 'BROJSTRANICA', 'NUMBEROFPAGES' ),
+	'numberofarticles'          => array( '1', 'BROJČLANAKA', 'NUMBEROFARTICLES' ),
+	'numberoffiles'             => array( '1', 'BROJDATOTEKA', 'NUMBEROFFILES' ),
+	'numberofusers'             => array( '1', 'BROJSURADNIKA', 'NUMBEROFUSERS' ),
+	'numberofactiveusers'       => array( '1', 'BROJAKTIVNIHSURADNIKA', 'NUMBEROFACTIVEUSERS' ),
+	'numberofedits'             => array( '1', 'BROJUREĐIVANJA', 'NUMBEROFEDITS' ),
+	'numberofviews'             => array( '1', 'BROJPREGLEDA', 'NUMBEROFVIEWS' ),
+	'pagename'                  => array( '1', 'IMESTRANICE', 'PAGENAME' ),
+	'pagenamee'                 => array( '1', 'IMESTRANICEE', 'PAGENAMEE' ),
+	'namespace'                 => array( '1', 'IMENSKIPROSTOR', 'NAMESPACE' ),
+	'namespacee'                => array( '1', 'IMENSKIPROSTORE', 'NAMESPACEE' ),
+	'talkspace'                 => array( '1', 'RAZGOVOR', 'TALKSPACE' ),
+	'talkspacee'                => array( '1', 'RAZGOVORE', 'TALKSPACEE' ),
+	'subjectspace'              => array( '1', 'PROSTORSTRANICE', 'IMPSTRANICE', 'SUBJECTSPACE', 'ARTICLESPACE' ),
+	'subjectspacee'             => array( '1', 'PROSTORSTRANICEE', 'IMPSTRANICEE', 'SUBJECTSPACEE', 'ARTICLESPACEE' ),
+	'fullpagename'              => array( '1', 'PUNOIMESTRANICE', 'FULLPAGENAME' ),
+	'fullpagenamee'             => array( '1', 'PUNOIMESTRANICEE', 'FULLPAGENAMEE' ),
+	'subpagename'               => array( '1', 'IMEPODSTRANICE', 'SUBPAGENAME' ),
+	'subpagenamee'              => array( '1', 'IMEPODSTRANICEE', 'SUBPAGENAMEE' ),
+	'basepagename'              => array( '1', 'IMEOSNOVNESTRANICE', 'BASEPAGENAME' ),
+	'basepagenamee'             => array( '1', 'IMEOSNOVNESTRANICEE', 'BASEPAGENAMEE' ),
+	'talkpagename'              => array( '1', 'IMERAZGOVORASTRANICE', 'TALKPAGENAME' ),
+	'talkpagenamee'             => array( '1', 'IMERAZGOVORASTRANICEE', 'TALKPAGENAMEE' ),
+	'subjectpagename'           => array( '1', 'IMEGLAVNESTRANICE', 'SUBJECTPAGENAME', 'ARTICLEPAGENAME' ),
+	'subjectpagenamee'          => array( '1', 'IMEGLAVNESTRANICEE', 'SUBJECTPAGENAMEE', 'ARTICLEPAGENAMEE' ),
+	'subst'                     => array( '0', 'ZAMJENA:', 'SUBST:' ),
+	'img_thumbnail'             => array( '1', 'minijatura', 'mini', 'thumbnail', 'thumb' ),
+	'img_manualthumb'           => array( '1', 'minijatura=$1', 'thumbnail=$1', 'thumb=$1' ),
+	'img_right'                 => array( '1', 'desno', 'right' ),
+	'img_left'                  => array( '1', 'lijevo', 'left' ),
+	'img_none'                  => array( '1', 'ništa', 'none' ),
+	'img_center'                => array( '1', 'središte', 'center', 'centre' ),
+	'img_framed'                => array( '1', 'okvir', 'framed', 'enframed', 'frame' ),
+	'img_frameless'             => array( '1', 'bezokvira', 'frameless' ),
+	'img_page'                  => array( '1', 'stranica=$1', 'stranica $1', 'page=$1', 'page $1' ),
+	'img_upright'               => array( '1', 'uspravno=$1', 'uspravno $1', 'upright', 'upright=$1', 'upright $1' ),
+	'img_border'                => array( '1', 'obrub', 'border' ),
+	'img_baseline'              => array( '1', 'osnovnacrta', 'baseline' ),
+	'img_sub'                   => array( '1', 'potpis', 'ind', 'sub' ),
+	'img_super'                 => array( '1', 'natpis', 'eks', 'super', 'sup' ),
+	'img_top'                   => array( '1', 'vrh', 'top' ),
+	'img_text_top'              => array( '1', 'tekst-vrh', 'text-top' ),
+	'img_middle'                => array( '1', 'pola', 'middle' ),
+	'img_bottom'                => array( '1', 'dno', 'bottom' ),
+	'img_text_bottom'           => array( '1', 'tekst-dno', 'text-bottom' ),
+	'sitename'                  => array( '1', 'IMEPROJEKTA', 'SITENAME' ),
+	'ns'                        => array( '0', 'IMP:', 'NS:' ),
+	'localurl'                  => array( '0', 'MJESNIURL:', 'LOCALURL:' ),
+	'localurle'                 => array( '0', 'MJESNIURLE:', 'LOCALURLE:' ),
+	'servername'                => array( '0', 'IMESERVERA', 'SERVERNAME' ),
+	'scriptpath'                => array( '0', 'PUTANJASKRIPTE', 'SCRIPTPATH' ),
+	'grammar'                   => array( '0', 'GRAMATIKA:', 'GRAMMAR:' ),
+	'notitleconvert'            => array( '0', '__BEZPRETVARANJANASLOVA__', '__BPN__', '__NOTITLECONVERT__', '__NOTC__' ),
+	'nocontentconvert'          => array( '0', '__BEZPRETVARANJASADRŽAJA__', '__BPS__', '__NOCONTENTCONVERT__', '__NOCC__' ),
+	'currentweek'               => array( '1', 'TRENUTAČNITJEDAN', 'CURRENTWEEK' ),
+	'currentdow'                => array( '1', 'TRENUTAČNIDANTJEDNA', 'CURRENTDOW' ),
+	'localweek'                 => array( '1', 'MJESNITJEDAN', 'LOCALWEEK' ),
+	'localdow'                  => array( '1', 'MJESNIDANTJEDNA', 'LOCALDOW' ),
+	'revisionid'                => array( '1', 'IDIZMJENE', 'REVISIONID' ),
+	'revisionday'               => array( '1', 'DANIZMJENE', 'REVISIONDAY' ),
+	'revisionday2'              => array( '1', 'DANIZMJENE2', 'REVISIONDAY2' ),
+	'revisionmonth'             => array( '1', 'MJESECIZMJENE', 'REVISIONMONTH' ),
+	'revisionyear'              => array( '1', 'GODINAIZMJENE', 'REVISIONYEAR' ),
+	'revisiontimestamp'         => array( '1', 'VREMENSKAOZNAKAIZMJENE', 'REVISIONTIMESTAMP' ),
+	'plural'                    => array( '0', 'MNOŽINA:', 'PLURAL:' ),
+	'fullurl'                   => array( '0', 'PUNIURL:', 'FULLURL:' ),
+	'fullurle'                  => array( '0', 'PUNIURLE:', 'FULLURLE:' ),
+	'lcfirst'                   => array( '0', 'MSPRVO:', 'LCFIRST:' ),
+	'ucfirst'                   => array( '0', 'VSPRVO:', 'UCFIRST:' ),
+	'lc'                        => array( '0', 'MS:', 'LC:' ),
+	'uc'                        => array( '0', 'VS:', 'UC:' ),
+	'raw'                       => array( '0', 'NEOBRAĐENO:', 'RAW:' ),
+	'displaytitle'              => array( '1', 'POKAŽINASLOV', 'DISPLAYTITLE' ),
+	'rawsuffix'                 => array( '1', 'NEO', 'R' ),
+	'newsectionlink'            => array( '1', '__NOVIODLOMAKPOVEZNICA__', '__NEWSECTIONLINK__' ),
+	'currentversion'            => array( '1', 'TRENUTAČNAIZMJENA', 'CURRENTVERSION' ),
+	'urlencode'                 => array( '0', 'URLKODIRANJE:', 'URLENCODE:' ),
+	'anchorencode'              => array( '0', 'SIDROKODIRANJE', 'ANCHORENCODE' ),
+	'currenttimestamp'          => array( '1', 'TRENUTAČNAOZNAKAVREMENA', 'CURRENTTIMESTAMP' ),
+	'localtimestamp'            => array( '1', 'MJESNAOZNAKAVREMENA', 'LOCALTIMESTAMP' ),
+	'language'                  => array( '0', '#JEZIK:', '#LANGUAGE:' ),
+	'contentlanguage'           => array( '1', 'JEZIKPROJEKTA', 'CONTENTLANGUAGE', 'CONTENTLANG' ),
+	'pagesinnamespace'          => array( '1', 'STRANICEPOPROSTORU:', 'STRANICEUIMP', 'PAGESINNAMESPACE:', 'PAGESINNS:' ),
+	'numberofadmins'            => array( '1', 'BROJADMINA', 'NUMBEROFADMINS' ),
+	'formatnum'                 => array( '0', 'OBLIKBROJA', 'FORMATNUM' ),
+	'padleft'                   => array( '0', 'POSTAVALIJEVO', 'PADLEFT' ),
+	'padright'                  => array( '0', 'POSTAVADESNO', 'PADRIGHT' ),
+	'special'                   => array( '0', 'posebno', 'special' ),
+	'defaultsort'               => array( '1', 'GLAVNIRASPORED:', 'DEFAULTSORT:', 'DEFAULTSORTKEY:', 'DEFAULTCATEGORYSORT:' ),
+	'filepath'                  => array( '0', 'PUTANJADATOTEKE:', 'FILEPATH:' ),
+	'tag'                       => array( '0', 'oznaka', 'tag' ),
+	'hiddencat'                 => array( '1', '__SKRIVENAKAT__', '__HIDDENCAT__' ),
+	'pagesincategory'           => array( '1', 'STRANICEPOKATEGORIJI', 'STRANICEUKAT', 'PAGESINCATEGORY', 'PAGESINCAT' ),
+	'pagesize'                  => array( '1', 'VELIČINASTRANICE', 'PAGESIZE' ),
+	'index'                     => array( '1', '__KAZALO__', '__INDEX__' ),
+	'noindex'                   => array( '1', '__BEZKAZALA__', '__NOINDEX__' ),
+	'staticredirect'            => array( '1', '__NEPOMIČNOPREUSMJERAVANJE__', '__STATICREDIRECT__' ),
 );
 
 $datePreferences = array(
@@ -320,7 +321,7 @@ $messages = array(
 'tog-hidepatrolled' => 'Sakrij pregledane izmjene u nedavnim promjenama',
 'tog-newpageshidepatrolled' => 'Sakrij pregledane stranice iz popisa novih stranica',
 'tog-extendwatchlist' => 'Proširi popis praćenih stranica tako da prikaže sve promjene, ne samo najnovije',
-'tog-usenewrc' => 'Koristi poboljšan izgled nedavnih promjena (zahtjeva JavaScripte)',
+'tog-usenewrc' => 'Rabi poboljšan izgled nedavnih promjena (zahtijeva JavaScript)',
 'tog-numberheadings' => 'Automatski označi naslove brojevima',
 'tog-showtoolbar' => 'Prikaži traku s alatima za uređivanje',
 'tog-editondblclick' => 'Dvoklik otvara uređivanje stranice (JavaScript)',
@@ -329,16 +330,16 @@ $messages = array(
 'tog-showtoc' => 'U člancima s više od tri odlomka prikaži tablicu sadržaja.',
 'tog-rememberpassword' => 'Zapamti moju lozinku u ovom pregledniku (najduže $1 {{PLURAL:$1|dan|dana|dana}})',
 'tog-watchcreations' => 'Dodaj članke koje kreiram na moj popis praćenja',
-'tog-watchdefault' => 'Dodaj sve nove i izmijenjene stranice u popis praćenja',
-'tog-watchmoves' => 'Dodaj sve stranice koje premjestim na popis praćenja',
-'tog-watchdeletion' => 'Dodaj sve stranice koje izbrišem na popis praćenja',
+'tog-watchdefault' => 'Dodaj svaku stranicu koju uredim na moj popis praćenja',
+'tog-watchmoves' => 'Dodaj stranice i datoteke koje premjestim na moj popis praćenja',
+'tog-watchdeletion' => 'Dodaj stranice i datoteke koje izbrišem na popis praćenja',
 'tog-minordefault' => 'Normalno označavaj sve moje izmjene kao manje',
 'tog-previewontop' => 'Prikaži kako će stranica izgledati iznad okvira za uređivanje',
 'tog-previewonfirst' => 'Prikaži kako će stranica izgledati čim otvorim uređivanje',
 'tog-nocache' => 'Isključi međuspremnik (cache) stranica u pregledniku',
 'tog-enotifwatchlistpages' => 'Pošalji mi e-mail kod izmjene stranice u popisu praćenja',
 'tog-enotifusertalkpages' => 'Pošalji mi e-mail kod izmjene moje stranice za razgovor',
-'tog-enotifminoredits' => 'Pošalji mi e-mail i kod manjih izmjena',
+'tog-enotifminoredits' => 'Pošalji mi e-mail i kod manjih izmjena stranice',
 'tog-enotifrevealaddr' => 'Prikaži moju e-mail adresu u obavijestima o izmjeni',
 'tog-shownumberswatching' => 'Prikaži broj suradnika koji prate stranicu (u nedavnim izmjenama, popisu praćenja i samim člancima)',
 'tog-oldsig' => 'Pregled postojećeg potpisa:',
@@ -354,7 +355,6 @@ $messages = array(
 'tog-watchlisthideliu' => 'Sakrij uređivanja prijavljenih s popisa praćenja',
 'tog-watchlisthideanons' => 'Sakrij uređivanja neprijavljenih s popisa praćenja',
 'tog-watchlisthidepatrolled' => 'Sakrij pregledane izmjene u popisu praćenja',
-'tog-nolangconversion' => 'Isključi pretvaranje pisma (latinica-ćirilica, kineske varijante itd.) ako to wiki podržava',
 'tog-ccmeonemails' => 'Pošalji mi kopiju e-maila kojeg pošaljem drugim suradnicima',
 'tog-diffonly' => 'Ne prikazuj sadržaj stranice prilikom usporedbe inačica',
 'tog-showhiddencats' => 'Prikaži skrivene kategorije',
@@ -481,7 +481,7 @@ $messages = array(
 'namespaces' => 'Imenski prostori',
 'variants' => 'Inačice',
 
-'errorpagetitle' => 'Pogreška',
+'errorpagetitle' => 'Pogrješka',
 'returnto' => 'Vrati se na $1.',
 'tagline' => 'Izvor: {{SITENAME}}',
 'help' => 'Pomoć',
@@ -577,6 +577,10 @@ $1',
 'youhavenewmessages' => 'Imate $1 ($2).',
 'newmessageslink' => 'nove poruke',
 'newmessagesdifflink' => 'zadnja promjena na stranici za razgovor',
+'youhavenewmessagesfromusers' => 'Imate $1 {{PLURAL:$3||od $3 suradnika|od $3 suradnika}} ($2).',
+'youhavenewmessagesmanyusers' => 'Imate $1 od više suradnika ($2).',
+'newmessageslinkplural' => '{{PLURAL:$1|novu poruku|$1 nove poruke|$1 novih poruka}}',
+'newmessagesdifflinkplural' => '{{PLURAL:$1|posljednje uređivanje|$ posljednja uređivanja|$ posljednjih uređivanja}}',
 'youhavenewmessagesmulti' => 'Imate nove poruke na $1',
 'editsection' => 'uredi',
 'editold' => 'uredi',
@@ -628,12 +632,12 @@ Za popis svih posebnih stranica posjetite [[Special:SpecialPages|ovdje]].',
 # General errors
 'error' => 'Pogreška',
 'databaseerror' => 'Pogreška baze podataka',
-'dberrortext' => 'Došlo je do sintaksne pogreške u upitu bazi.
-Možda se radi o grešci u softveru.
-Posljednji pokušaj upita je glasio:
+'dberrortext' => 'Došlo je do sintaksne pogrješke u upitu bazi.
+Možda se radi o pogrješci u softveru.
+Posljednji je pokušaj upita glasio:
 <blockquote><tt>$1</tt></blockquote>
 iz funkcije "<tt>$2</tt>".
-Baza je vratila pogrešku "<tt>$3: $4</tt>".',
+Baza je vratila pogrješku "<tt>$3: $4</tt>".',
 'dberrortextcl' => 'Došlo je do sintaksne pogreške s upitom bazi.
 Posljednji pokušaj upita je glasio:
 "$1"
@@ -669,6 +673,8 @@ Ako to nije slučaj, možda se radi o softverskoj grešci. Molimo da u tom sluč
 'cannotdelete' => 'Ne može se obrisati stranica ili datoteka "$1".
 Moguće je da ju je netko drugi već obrisao.',
 'cannotdelete-title' => 'Brisanje stranice "$1" nije moguće',
+'delete-hook-aborted' => 'Brisanje prekinuto softverskim priključkom (hook).
+Nema obrazloženja ili poruke o pogrješci.',
 'badtitle' => 'Loš naslov',
 'badtitletext' => 'Navedeni naslov stranice nepravilan ili loše formirana interwiki poveznica.',
 'perfcached' => 'Sljedeći podaci su iz međuspremnika i možda nisu najsvježiji. A maximum of {{PLURAL:$1|one result is|$1 results are}} available in the cache.',
@@ -694,6 +700,8 @@ $2',
 'customjsprotected' => 'Ne možete uređivati ovu JavaScript stranicu zato što ona sadrži osobne postavke drugog suradnika.',
 'ns-specialprotected' => "Stranice u imenskom prostoru ''{{ns:special}}'' ne mogu se uređivati.",
 'titleprotected' => "Ovaj naslov je od kreiranja zaštitio suradnik [[User:$1|$1]], uz razlog: ''$2''.",
+'exception-nologin' => 'Niste prijavljeni',
+'exception-nologin-text' => 'Ova stranica ili aktivnost zahtijeva da budete prijavljeni na ovom wikiju.',
 
 # Virus scanner
 'virus-badscanner' => "Loša konfiguracija: nepoznati skener za viruse: ''$1''",
@@ -773,7 +781,7 @@ koristiti staru lozinku.',
 Prije nego što pošaljemo daljnje poruke, molimo Vas da otvorite e-mail i slijedite u njemu sadržana uputstva kako biste potvrdili da je e-mail adresa zaista Vaša.',
 'throttled-mailpassword' => 'Već Vam je poslan e-mail za promjenu lozinke, u {{PLURAL:$1|zadnjih sat vremena|zadnja $1 sata|zadnjih $1 sati}}.
 Da bi spriječili zloupotrebu, moguće je poslati samo jedan e-mail za promjenu lozinke {{PLURAL:$1|svakih sat vremena|svaka $1 sata|svakih $1 sati}}.',
-'mailerror' => 'Pogreška pri slanju e-maila: $1',
+'mailerror' => 'Pogrješka pri slanju e-pošte: $1',
 'acct_creation_throttle_hit' => 'Posjetitelji ovog wikija koji rabe Vašu IP adresu napravili su {{PLURAL:$1|1 račun|$1 računa}} u posljednjem danu, što je najveći dopušteni broj u tom vremenskom razdoblju.
 Zbog toga posjetitelji s ove IP adrese trenutačno ne mogu otvoriti nove suradničke račune.',
 'emailauthenticated' => 'Vaša e-mail adresa je ovjerena $2 u $3.',
@@ -784,6 +792,7 @@ Ne možemo poslati e-mail ni u jednoj od sljedećih naredbi.',
 'invalidemailaddress' => 'Ne mogu prihvatiti e-mail adresu jer nije valjano oblikovana.
 Molim unesite ispravno oblikovanu adresu ili ostavite polje praznim.',
 'cannotchangeemail' => 'Na ovom wikiju ne možete promijeniti adresu e-pošte.',
+'emaildisabled' => 'Slanje e-pošte na ovom projektu nije moguće.',
 'accountcreated' => 'Suradnički račun otvoren',
 'accountcreatedtext' => 'Suradnički račun za $1 je otvoren.',
 'createaccount-title' => 'Otvaranje suradničkog računa za {{SITENAME}}',
@@ -960,10 +969,9 @@ ili [{{fullurl:{{FULLPAGENAME}}|action=edit}} urediti ovu stranicu]</span>.',
 'blocked-notice-logextract' => 'Ovaj suradnik je trenutačno blokiran.
 Posljednja stavka evidencije blokiranja navedena je niže kao napomena:',
 'clearyourcache' => "'''Napomena:''' Nakon snimanja možda ćete trebate očistiti međuspremnik svog preglednika kako biste vidjeli promjene.
-* '''Firefox / Safari:''' držite ''Shift'' i kliknite ''Reload'', ili pritisnite bilo ''Ctrl-F5'' ili ''Ctrl-R'' (''Command-R'' na Macu)
+* '''Firefox / Safari:''' držite ''Shift'' i pritisnite ''Reload'', ili pritisnite bilo ''Ctrl-F5'' ili ''Ctrl-R'' (''Command-R'' na Macu)
 * '''Google Chrome:''' pritisnite ''Ctrl-Shift-R'' (''Command-Shift-R'' na Macu)
 * '''Internet Explorer:''' držite ''Ctrl'' i kliknite ''Refresh'', ili pritisnite ''Ctrl-F5''
-* '''Konqueror:''' kliknite ''Reload'' ili pritisnite ''F5''
 * '''Opera:''' očistite međuspremnik u ''Tools → Preferences''",
 'usercssyoucanpreview' => "'''Savjet:''' Rabite dugme \"{{int:showpreview}}\" za testiranje svog CSS prije snimanja.",
 'userjsyoucanpreview' => "'''Savjet:''' Rabite dugme \"{{int:showpreview}}\" za testiranje svog novog JavaScripta prije snimanja.",
@@ -976,7 +984,7 @@ Posljednja stavka evidencije blokiranja navedena je niže kao napomena:',
 'userinvalidcssjstitle' => "'''Upozorenje:''' Nema sučelja pod imenom \"\$1\". Ne zaboravite da imena stranica s .css and .js kodom počinju malim slovom, npr. {{ns:user}}:Mate/vector.css, a ne {{ns:user}}:Mate/Vector.css.",
 'updated' => '(Ažurirano)',
 'note' => "'''Napomena:'''",
-'previewnote' => "'''Ne zaboravite da je ovo samo pregled kako će stranica izgledati i da stranica još nije snimljena!'''",
+'previewnote' => "'''Ne zaboravite da je ovo samo pregled kako će stranica izgledati. Vaše uređivanje još nije snimljeno!'''",
 'continue-editing' => 'Nastavi uređivati',
 'previewconflict' => 'Ovaj pregled odražava stanje u gornjem polju za unos koje će biti sačuvano
 ako pritisnete "Sačuvaj stranicu".',
@@ -1011,7 +1019,8 @@ ove stranice. Ako je sačuvate, sve će promjene učinjene nakon ove inačice bi
 Također nam obećavate da ste ovo sami napisali, ili da ste to prepisali iz nečeg što je u javnom vlasništvu ili pod sličnom slobodnom licencijom.
 '''NE POSTAVLJAJTE RADOVE ZAŠTIĆENE AUTORSKIM PRAVIMA BEZ DOPUŠTENJA!'''",
 'copyrightwarning2' => "Molimo uočite da svi suradnici mogu mijenjati sve doprinose na {{SITENAME}}. Ako ne želite da se Vaše pisanje nemilosrdno uređuje, nemojte ga slati ovdje.<br /> Također nam obećavate da ste ovo sami napisali, ili da ste to prepisali iz nečeg što je u javnom vlasništvu ili pod sličnom slobodnom licencijom (vidi $1 za detalje). '''NE POSTAVLJAJTE RADOVE ZAŠTIĆENE AUTORSKIM PRAVIMA BEZ DOPUŠTENJA!'''",
-'longpageerror' => "'''GREŠKA: Tekst koji ste unijeli dug je $1 kilobajta, što je više od maksimalnih $2 kilobajta. Nije ga moguće snimiti.'''",
+'longpageerror' => "'''Pogrješka: Tekst koji ste unijeli dug je {{PLURAL:$1|jedan kilobajt|$1 kilobajta}}, što je više od maksimalno {{PLURAL:$2|jednog kilobajta|$2 kilobajta}}.'''
+Nije ga moguće snimiti.",
 'readonlywarning' => "'''UPOZORENJE: Baza podataka je zaključana zbog održavanja, pa trenutačno ne možete sačuvati svoje
 promjene. Najbolje je da kopirate i zaljepite tekst u tekstualnu datoteku te je snimite za kasnije.'''
 
@@ -1053,6 +1062,7 @@ Razlog nije ponuđen.',
 'edit-no-change' => 'Vaše uređivanje je zanemareno, jer nikakva promjena sadržaja nije napravljena.',
 'edit-already-exists' => 'Neuspješno stvaranje nove stranice.
 Stranica već postoji.',
+'defaultmessagetext' => 'Prvotni tekst poruke',
 
 # Parser/template warnings
 'expensive-parserfunction-warning' => 'Upozorenje: Ova stranica sadrži previše opterećujućih poziva parserskih funkcija
@@ -1067,6 +1077,13 @@ Neki predlošci neće biti uključeni.',
 'parser-template-loop-warning' => 'Otkrivena petlja predloška: [[$1]]',
 'parser-template-recursion-depth-warning' => 'Dubina rekurzije predloška je izvan granice ($1)',
 'language-converter-depth-warning' => 'Prekoračena granica dubine jezičnog pretvarača ($1)',
+'node-count-exceeded-category' => 'Stranice s previše čvorova',
+'node-count-exceeded-warning' => 'Ova stranica ima previše čvorova',
+'expansion-depth-exceeded-category' => 'Stranice s prevelikom dubinom proširenja',
+'expansion-depth-exceeded-warning' => 'Na ovoj stranici dubina proširenja je prevelika',
+'parser-unstrip-loop-warning' => 'Nedopuštena petlja',
+'parser-unstrip-recursion-limit' => 'Dosegnuto je ograničenje rekurzije ($1)',
+'converter-manual-rule-error' => 'Pronađena je pogrješka u pravilu ručnog prijevoda',
 
 # "Undo" feature
 'undo-success' => 'Izmjena je uklonjena (tekst u okviru ispod ne sadrži zadnju izmjenu). Molim sačuvajte stranicu (provjerite sažetak).',
@@ -1187,16 +1204,16 @@ $1",
 'revdel-restore-visible' => 'vidljive izmjene',
 'pagehist' => 'Povijest stranice',
 'deletedhist' => 'Obrisana povijest',
-'revdelete-hide-current' => 'Greška u skrivanju stavke datirane $2, $1: ovo je trenutačna inačica. Ne može biti skrivena.',
-'revdelete-show-no-access' => 'Greška u prikazivanju stavke od $2, $1: ova stavka je označena kao "ograničeno".
+'revdelete-hide-current' => 'Pogrješka u skrivanju stavke datirane $2, $1: ovo je trenutačna inačica. Ne može biti skrivena.',
+'revdelete-show-no-access' => 'Pogrješka u prikazivanju stavke od $2, $1: ova stavka označena je kao "ograničeno".
 Nemate pristup do nje.',
-'revdelete-modify-no-access' => 'Greška pri izmjeni stavke od $2, $1: ova stavka je označena kao "ograničeno".
+'revdelete-modify-no-access' => 'Pogrješka pri izmjeni stavke od $2, $1: ova je stavka označena kao "ograničeno".
 Nemate pristup do nje.',
-'revdelete-modify-missing' => 'Greška pri izmjeni izmjene broj $1: nedostaje u bazi!',
+'revdelete-modify-missing' => 'Pogrješka pri izmjeni izmjene broj $1: nedostaje u bazi!',
 'revdelete-no-change' => "'''Upozorenje:''' stavka od $2, $1 već ima tražene postavke vidljivosti.",
-'revdelete-concurrent-change' => 'Greška pri izmjeni stavke od $2, $1: izgleda da je njen status promijenio netko drugi dok ste ju pokušavali mijenjati.
+'revdelete-concurrent-change' => 'Pogrješka pri izmjeni stavke od $2, $1: izgleda da je njen status promijenio netko drugi dok ste ju pokušavali mijenjati.
 Provjerite evidencije.',
-'revdelete-only-restricted' => 'Greška pri skrivanju stavke od dana $2, $1: ne možete ukloniti stavke od pregledavanja administratora bez da odaberete neku od drugih mogućnosti vidljivosti.',
+'revdelete-only-restricted' => 'Pogrješka pri skrivanju stavke od dana $2, $1: ne možete ukloniti stavke od pregledavanja administratora bez da odaberete neku od drugih mogućnosti vidljivosti.',
 'revdelete-reason-dropdown' => '*Uobičajeni razlozi brisanja
 ** Kršenje autorskih prava
 ** Neprimjereni osobni podaci',
@@ -1208,7 +1225,7 @@ Provjerite evidencije.',
 # Suppression log
 'suppressionlog' => 'Evidencije sakrivanja',
 'suppressionlogtext' => 'Slijedi popis brisanja i blokiranja koji uključuje sadržaj skriven za administratore.
-Vidi [[Special:BlockList|Popis blokiranih IP adresa]] za popis trenutačno aktivnih blokiranih adresa.',
+Vidi [[Special:BlockList|Popis blokiranja]] za popis trenutačno aktivnih blokiranih adresa.',
 
 # History merging
 'mergehistory' => 'Spoji povijesti starih izmjena stranice',
@@ -1243,7 +1260,7 @@ Primijetite da uporaba navigacijskih poveznica resetira Vaše izbore u stupcu.',
 
 # Diffs
 'history-title' => 'Povijest izmjena stranice "$1"',
-'difference-title' => '$1: Razlika između inačica',
+'difference-title' => 'Razlika između inačica stranice $1',
 'difference-multipage' => '(Razlika između stranica)',
 'lineno' => 'Redak $1:',
 'compareselectedversions' => 'Usporedi odabrane inačice',
@@ -1653,9 +1670,9 @@ Evidencije brisanja i premještanja prikazane su ovdje:",
 Za pregledavanje i pretraživanje već postavljenih datoteka vidi [[Special:FileList|popis postavljenih datoteka]], (ponovljena) postavljanja su također u [[Special:Log/upload|popisu postavljanja]], a brisanja u [[Special:Log/delete|popisu brisanja]].
 
 Da biste na stranicu stavili datoteku, koristite poveznice tipa
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Datoteka.jpg]]</nowiki></tt>''' za punu verziju datoteke
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Datoteka.png|200px|mini|left|popratni tekst]]</nowiki></tt>''' za datoteku širine 200 px u okviru s 'popratnim tekstom' kao opisom
-* '''<tt><nowiki>[[</nowiki>{{ns:media}}<nowiki>:Datoteka.ogg]]</nowiki></tt>''' za direktno povezivanje na datoteku bez njenog prikazivanja",
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Datoteka.jpg]]</nowiki></code>''' za punu verziju datoteke
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Datoteka.png|200px|mini|left|popratni tekst]]</nowiki></code>''' za datoteku širine 200 px u okviru s 'popratnim tekstom' kao opisom
+* '''<code><nowiki>[[</nowiki>{{ns:media}}<nowiki>:Datoteka.ogg]]</nowiki></code>''' za direktno povezivanje na datoteku bez njenog prikazivanja",
 'upload-permitted' => 'Dopušteni tipovi datoteka: $1.',
 'upload-preferred' => 'Poželjni tipovi datoteka: $1.',
 'upload-prohibited' => 'Zabranjeni tipovi datoteka: $1.',
@@ -1697,20 +1714,20 @@ Dopušteni {{PLURAL:$3|tip datoteke je|tipovi datoteke su}} $2.',
 'largefileserver' => 'Veličina ove datoteke veća je od one dopuštene postavkama poslužitelja.',
 'emptyfile' => 'Datoteka koju ste postavili je prazna. Možda se radi o krivo utipkanom imenu datoteke. Provjerite želite li zaista postaviti ovu datoteku.',
 'windows-nonascii-filename' => 'Ovaj wiki ne podržava imena datoteka s posebnim znakovima.',
-'fileexists' => "Datoteka s ovim imenom već postoji, pogledajte '''<tt>[[:$1]]</tt>''' ako niste sigurni želite li je uistinu promijeniti.
-[[$1|thumb]]",
-'filepageexists' => "Opis stranice za ovu datoteku je već napravljen ovdje '''<tt>[[:$1]]</tt>''', ali datoteka sa ovim nazivom trenutno ne postoji.
+'fileexists' => 'Datoteka s ovim imenom već postoji, pogledajte <strong>[[:$1]]</strong> ako niste sigurni želite li je uistinu promijeniti.
+[[$1|thumb]]',
+'filepageexists' => 'Opis stranice za ovu datoteku je već napravljen ovdje <strong>[[:$1]]</strong>, ali datoteka sa ovim nazivom trenutno ne postoji.
 Sažetak koji ste naveli neće se pojaviti na stranici opisa.
 Da bi se Vaš opis ovdje našao, potrebno je da ga ručno uredite.
-[[$1|thumb]]",
-'fileexists-extension' => "Već postoji datoteka sa sličnim imenom: [[$2|thumb]]
-* Ime datoteke koju postavljate: '''<tt>[[:$1]]</tt>'''
-* Ime postojeće datoteke: '''<tt>[[:$2]]</tt>'''
-Molimo da izaberete drugo ime.",
+[[$1|thumb]]',
+'fileexists-extension' => 'Već postoji datoteka sa sličnim imenom: [[$2|thumb]]
+* Ime datoteke koju postavljate: <strong>[[:$1]]</strong>
+* Ime postojeće datoteke: <strong>[[:$2]]</strong>
+Molimo da izaberete drugo ime.',
 'fileexists-thumbnail-yes' => "Datoteka je najvjerojatnije slika u smanjenoj veličini ''(thumbnail)''. [[$1|thumb]]
-Molimo provjerite datoteku '''<tt>[[:$1]]</tt>'''.
+Molimo provjerite datoteku <strong>[[:$1]]</strong>.
 Ukoliko je ta datoteka ista kao i ova koju ste upravo pokušali snimiti, samo u višoj rezoluciji, nije nužno snimanje smanjenje slike ''(thumbnaila)'', prikazivanje smanjene slike iz izvornika radi se softverski.",
-'file-thumbnail-no' => "Ime datoteke počinje s '''<tt>$1</tt>'''.
+'file-thumbnail-no' => "Ime datoteke počinje s <strong>$1</strong>.
 Čini se da je to slika smanjene veličine ''(minijatura)''.
 Ukoliko imate ovu sliku u punoj razlučljivosti (rezoluciji) postavite tu sliku, u protivnom, molimo promijenite ime datoteke.",
 'fileexists-forbidden' => 'Datoteka s ovim imenom već postoji i nemože biti presnimljena.
@@ -1763,6 +1780,19 @@ Ako se problem ponovi, javite to [[Special:ListUsers/sysop|administratoru]].',
 'upload-too-many-redirects' => 'URL je sadržavao previše preusmjeravanja',
 'upload-unknown-size' => 'Nepoznata veličina',
 'upload-http-error' => 'HTTP pogreška: $1',
+'upload-copy-upload-invalid-domain' => 'Kopije postavljenih datoteka nisu dostupne s ove domene.',
+
+# File backend
+'backend-fail-stream' => 'Ne mogu prikazati datoteku $1.',
+'backend-fail-backup' => 'Izrada sigurnosne kopije datoteke "$1" nije uspjela.',
+'backend-fail-notexists' => 'Datoteka $1 ne postoji.',
+'backend-fail-hashes' => '"Hash" indeksi datoteka za usporedbu nisu nađeni.',
+'backend-fail-notsame' => 'Na lokaciji $1 već postoji datoteka koja se razlikuje.',
+'backend-fail-invalidpath' => "$1 nije valjana pričuvna putanja (''path'').",
+'backend-fail-delete' => 'Ne mogu obrisati datoteku $1.',
+'backend-fail-opentemp' => 'Ne mogu otvoriti privremenu datoteku.',
+'backend-fail-writetemp' => 'Ne mogu pisati u privremenu datoteku.',
+'backend-fail-closetemp' => 'Ne mogu zatvoriti privremenu datoteku.',
 
 # ZipDirectoryReader
 'zip-file-open-error' => 'Došlo je do pogreške pri otvaranju datoteke za ZIP provjeru.',
@@ -1805,9 +1835,9 @@ Za optimalnu sigurnost, img_auth.php je onemogućena.',
 'http-invalid-url' => 'Nevaljan URL: $1',
 'http-invalid-scheme' => 'URL-ovi s prefiksom "$1" nisu podržani.',
 'http-request-error' => 'HTTP zahtjev nije uspio zbog nepoznate pogreške.',
-'http-read-error' => 'Greška pri čitanju HTTP.',
+'http-read-error' => 'Pogrješka pri čitanju HTTP.',
 'http-timed-out' => 'HTTP zahtjev je istekao.',
-'http-curl-error' => 'Greška pri otvaranju URL-a: $1',
+'http-curl-error' => 'Pogrješka pri otvaranju URL-a: $1',
 'http-host-unreachable' => 'URL nije dostupan.',
 'http-bad-status' => 'Došlo je do problema tijekom HTTP zahtjeva: $1 $2',
 
@@ -1858,7 +1888,7 @@ Kad je filtriran po korisniku, popis prikazuje samo one datoteke čiju posljednj
 'imagelinks' => 'Upotreba datoteke',
 'linkstoimage' => '{{PLURAL:$1|Sljedeća stranica povezuje|$1 sljedećih stranice povezuju}} na ovu datoteku:',
 'linkstoimage-more' => 'Više od $1 {{PLURAL:$1|stranice povezuje|stranica povezuje}} na ovu datoteku.
-Slijedeći popis prikazuje {{PLURAL:$1|stranice koje|prvih $1 stranica koje}} vode na ovu datoteku.
+Sljedeći popis prikazuje {{PLURAL:$1|stranice koje|prvih $1 stranica koje}} vode na ovu datoteku.
 [[Special:WhatLinksHere/$2|Ovdje se nalazi]] potpuni popis.',
 'nolinkstoimage' => 'Nijedna stranica ne povezuje na ovu sliku.',
 'morelinkstoimage' => 'Pogledaj [[Special:WhatLinksHere/$1|više poveznica]] za ovu datoteku.',
@@ -1906,7 +1936,7 @@ Slijedeći popis prikazuje {{PLURAL:$1|stranice koje|prvih $1 stranica koje}} vo
 
 # MIME search
 'mimesearch' => 'MIME tražilica',
-'mimesearch-summary' => 'Ova stranica omogućuje pretraživanje datoteka prema njihovim MIME zaglavljima. Ulazni parametar: tip_datoteke/podtip, npr. <tt>image/jpeg</tt>.',
+'mimesearch-summary' => 'Ova stranica omogućuje pretraživanje datoteka prema njihovim MIME zaglavljima. Ulazni parametar: tip_datoteke/podtip, npr. <code>image/jpeg</code>.',
 'mimetype' => 'MIME tip datoteke:',
 'download' => 'skidanje',
 
@@ -1954,7 +1984,7 @@ Slijedeći popis prikazuje {{PLURAL:$1|stranice koje|prvih $1 stranica koje}} vo
 'disambiguationspage' => 'Template:Razdvojba',
 'disambiguations-text' => "Sljedeće stranice povezuju na '''razdvojbenu stranicu'''.
 Umjesto toga bi trebale povezivati na prikladnu temu.<br />
-Stranica se tretira kao razdvojbena stranica ako koristi predložak na kojega vodi [[MediaWiki:Disambiguationspage]]",
+Stranica se tretira kao razdvojbena stranica ako rabi predložak na kojega vodi [[MediaWiki:Disambiguationspage]]",
 
 'doubleredirects' => 'Dvostruka preusmjeravanja',
 'doubleredirectstext' => 'Ova stranica sadrži popis stranica koje preusmjeravju na druge stranice za preusmjeravanje.
@@ -1980,6 +2010,7 @@ koja obično ukazuje na "pravu" odredišnu stranicu, na koju bi trebalo pokaziva
 # Miscellaneous special pages
 'nbytes' => '$1 {{PLURAL:$1|bajt|bajta|bajtova}}',
 'ncategories' => '$1 {{PLURAL:$1|kategorija|kategorije|kategorija}}',
+'ninterwikis' => '$1 međuwiki {{PLURAL:$1|poveznica|poveznice|poveznica}}',
 'nlinks' => '$1 {{PLURAL:$1|poveznica|poveznice|poveznica}}',
 'nmembers' => '$1 {{PLURAL:$1|član|članova}}',
 'nrevisions' => '$1 {{PLURAL:$1|inačica|inačice|inačica}}',
@@ -2006,12 +2037,13 @@ koja obično ukazuje na "pravu" odredišnu stranicu, na koju bi trebalo pokaziva
 'mostlinkedtemplates' => 'Predlošci na koje vodi najviše poveznica',
 'mostcategories' => 'Popis članaka po broju kategorija',
 'mostimages' => 'Slike na koje vodi najviše poveznica',
+'mostinterwikis' => 'Stranice s najviše međuwiki poveznica',
 'mostrevisions' => 'Popis članaka po broju uređivanja',
 'prefixindex' => 'Sve stranice prema početku naslova',
 'shortpages' => 'Kratke stranice',
 'longpages' => 'Duge stranice',
 'deadendpages' => 'Slijepe ulice',
-'deadendpagestext' => 'Slijedeće stranice nemaju poveznice na druge stranice na ovom wikiju ({{SITENAME}}).',
+'deadendpagestext' => 'Sljedeće stranice nemaju poveznice na druge stranice na ovom wikiju ({{SITENAME}}).',
 'protectedpages' => 'Zaštićene stranice',
 'protectedpages-indef' => 'Samo neograničene zaštite',
 'protectedpages-cascade' => 'Samo prenosiva zaštita',
@@ -2058,6 +2090,7 @@ Molimo obratite pozornost da druge web stranice mogu povezivati sliku izravnim U
 Možete suziti prikaz odabirući tip evidencije, suradničko ime ili stranicu u upitu.',
 'logempty' => 'Nema pronađenih stavki.',
 'log-title-wildcard' => 'Traži stranice koje počinju s navedenim izrazom',
+'showhideselectedlogentries' => 'Otkrij/sakrij odabrane evidencije',
 
 # Special:AllPages
 'allpages' => 'Sve stranice',
@@ -2075,6 +2108,12 @@ Možete suziti prikaz odabirući tip evidencije, suradničko ime ili stranicu u 
 'allpagesprefix' => 'Stranice čiji naslov počinje s:',
 'allpagesbadtitle' => 'Zadana stranica nije valjana, ili je imala međuwiki predmetak. Možda sadrži jedan ili više znakova koji ne mogu biti uporabljeni u nazivu stranice.',
 'allpages-bad-ns' => '{{SITENAME}} nema imenski prostor "$1".',
+'allpages-hide-redirects' => 'Sakrij preusmjeravanja',
+
+# SpecialCachedPage
+'cachedspecial-viewing-cached-ttl' => 'Gledate inačicu ove stranice iz privremene memorije, koja može biti stara i do $1.',
+'cachedspecial-viewing-cached-ts' => 'Gledate inačicu ove stranice iz privremene memorije, koja možda nije potpuno aktualna.',
+'cachedspecial-refresh-now' => 'Pogledaj najnoviju.',
 
 # Special:Categories
 'categories' => 'Kategorije',
@@ -2097,7 +2136,7 @@ Također pogledajte [[Special:WantedCategories|tražene kategorije]].',
 'linksearch-ok' => 'Traži',
 'linksearch-text' => 'Možete koristiti džoker znakove poput "*.wikipedia.org".
 Potrebno je navesti osnovnu domenu (TLD), npr. "*.org".<br />
-Podržani su protokoli: <tt>$1</tt> (ne stavljajte ih u vaše pretraživanje).',
+Podržani su protokoli: <code>$1</code> (ne stavljajte ih u vaše pretraživanje).',
 'linksearch-line' => '$1 poveznica s članka $2',
 'linksearch-error' => 'Džoker znakovi se mogu rabiti samo na početku imena poslužitelja.',
 
@@ -2145,6 +2184,7 @@ Dodatne informacije o pojedinim pravim se mogu pronaći [[{{MediaWiki:Listgroupr
 i imati valjanu adresu e-pošte u svojim [[Special:Preferences|postavkama]]
 da bi mogli slati poštu drugim suradnicima.',
 'emailuser' => 'Pošalji e-poštu ovom suradniku',
+'emailuser-title-notarget' => 'Pošalji e-poštu suradniku',
 'emailpage' => 'Pošalji e-poštu suradniku',
 'emailpagetext' => 'Možete koristiti ovaj obrazac za slanje elektroničke pošte ovom suradniku.
 E-mail adresa iz Vaših [[Special:Preferences|postavki]] nalazit će se u "From" polju poruke i primatelj će Vam moći izravno odgovoriti.',
@@ -2266,7 +2306,7 @@ Molim potvrdite svoju namjeru, da razumijete posljedice i da ovo radite u skladu
 'actionfailed' => 'Radnja nije uspjela',
 'deletedtext' => '"$1" je izbrisana.
 Vidi $2 za evidenciju nedavnih brisanja.',
-'dellogpage' => 'Evidencija_brisanja',
+'dellogpage' => 'Evidencija brisanja',
 'dellogpagetext' => 'Dolje je popis nedavnih brisanja.
 Sva vremena su prema poslužiteljevom vremenu.',
 'deletionlog' => 'evidencija brisanja',
@@ -2286,6 +2326,8 @@ Sva vremena su prema poslužiteljevom vremenu.',
 'rollback' => 'Ukloni posljednju promjenu',
 'rollback_short' => 'Ukloni',
 'rollbacklink' => 'ukloni',
+'rollbacklinkcount' => 'ukloni $1 {{PLURAL:$1|uređivanje|uređivanja}}',
+'rollbacklinkcount-morethan' => 'ukloni više od $1 {{PLURAL:$1|uređivanje|uređivanja}}',
 'rollbackfailed' => 'Uklanjanje neuspješno',
 'cantrollback' => 'Ne mogu ukloniti posljednju promjenu, postoji samo jedna promjena.',
 'alreadyrolled' => 'Ne mogu ukloniti posljednju promjenu članka [[:$1]] koju je napravio  [[User:$2|$2]] ([[User talk:$2|Razgovor]]{{int:pipe-separator}}[[Special:Contributions/$2|{{int:contribslink}}]]); netko je već promijenio stranicu ili uklonio promjenu.
@@ -2464,7 +2506,7 @@ Posljednja stavka evidencije blokiranja navedena je niže kao napomena:',
 'istemplate' => 'kao predložak',
 'isimage' => 'poveznica na datoteku',
 'whatlinkshere-prev' => '{{PLURAL:$1|prethodna|prethodne|prethodnih}} $1',
-'whatlinkshere-next' => '{{PLURAL:$1|slijedeća|slijedeće|slijedećih}} $1',
+'whatlinkshere-next' => '{{PLURAL:$1|sljedeća|sljedeće|sljedećih}} $1',
 'whatlinkshere-links' => '← poveznice',
 'whatlinkshere-hideredirs' => '$1 preusmjeravanja',
 'whatlinkshere-hidetrans' => '$1 transkluzije',
@@ -2512,8 +2554,8 @@ vandalizirane).',
 'ipb-confirm' => 'Potvrdi blokiranje',
 'badipaddress' => 'Nevaljana IP adresa.',
 'blockipsuccesssub' => 'Uspješno blokirano',
-'blockipsuccesstext' => 'Suradnik [[Special:Contributions/$1|$1]] je blokiran.<br />
-Pogledaj [[Special:BlockList|popis blokiranih IP adresa]] za pregled.',
+'blockipsuccesstext' => '{{GENDER:$1|Suradnik|Suradnica}} [[Special:Contributions/$1|$1]] je {{GENDER:$1|blokiran|blokirana}}.<br />
+Pogledajte [[Special:BlockList|popis blokiranja]] za pregled blokiranih suradnika.',
 'ipb-blockingself' => 'Blokirat ćete se! Jeste li sigurni da to želite?',
 'ipb-confirmhideuser' => 'Upravo ćete blokirati suradnika koji ima mogućnost "sakrij suradnika" omogućenu. To će sakriti suradničko ime na svim popisima i evidencijama. Jeste li sigurni da želite to učiniti?',
 'ipb-edit-dropdown' => 'Uredi razloge blokiranja',
@@ -2565,7 +2607,9 @@ Evidencija blokiranja je prikazan ispod kao napomena:',
 Zapisnik skrivanja je prikazan ispod kao napomena:',
 'blocklogentry' => 'Blokiran je "[[$1]]" na rok $2 $3',
 'reblock-logentry' => 'promijenjene postavke blokiranja za [[$1]] na rok od $2 $3',
-'blocklogtext' => 'Ovo je evidencija blokiranja i deblokiranja. Na popisu nema automatski blokiranih IP adresa. Za popis trenutačnih zabrana i blokiranja vidi [[Special:BlockList|popis IP blokiranja]].',
+'blocklogtext' => 'Ovo je evidencija blokiranja i deblokiranja.
+Na popisu nema automatski blokiranih IP adresa.
+Za popis trenutačnih zabrana i blokiranja vidi [[Special:BlockList|popis blokiranja]].',
 'unblocklogentry' => 'Deblokiran "$1"',
 'block-log-flags-anononly' => 'samo za neprijavljene suradnike',
 'block-log-flags-nocreate' => 'otvaranje novih suradničkih imena nije moguće',
@@ -2582,7 +2626,7 @@ Zapisnik skrivanja je prikazan ispod kao napomena:',
 'ipb-needreblock' => '$1 je već blokiran. Želite promijeniti postavke blokiranja?',
 'ipb-otherblocks-header' => '{{PLURAL:$1|Ostalo blokiranje|Ostala blokiranja}}',
 'unblock-hideuser' => 'Ne možete deblokirati ovog suradnika, jer je njegovo suradničko ime skriveno.',
-'ipb_cant_unblock' => 'Pogreška: blok ID $1 nije nađen. Moguće je da je suradnik već odblokiran.',
+'ipb_cant_unblock' => 'Pogrješka: blok ID $1 nije nađen. Moguće je da je suradnik već odblokiran.',
 'ipb_blocked_as_range' => 'Pogreška: IP adresa $1 nije blokirana direktno te stoga ne može biti odblokirana. Blokirana je kao dio opsega $2, koji može biti odblokiran.',
 'ip_range_invalid' => 'Raspon IP adresa nije valjan.',
 'ip_range_toolarge' => 'Opsezi blokiranja veći od /$1 nisu dozvoljeni.',
@@ -2719,6 +2763,7 @@ Molimo odaberite drugo ime.',
 Za izvoz stranica unesite njihove naslove u polje ispod, jedan naslov po retku, i označite želite li trenutačnu inačicu zajedno sa svim prijašnjima, ili samo trenutačnu inačicu s informacijom o zadnjoj promjeni.
 
 U potonjem slučaju možete koristiti i poveznicu, npr. [[{{#Special:Export}}/{{MediaWiki:Mainpage}}]] za članak [[{{MediaWiki:Mainpage}}]].',
+'exportall' => 'Izvezi sve stranice',
 'exportcuronly' => 'Uključi samo trenutačnu inačicu, ne i sve prijašnje',
 'exportnohistory' => "----
 '''Napomena:''' izvoz cjelokupne stranice sa svim prethodnim izmjenama onemogućen je zbog opterećenja poslužitelja.",
@@ -2773,6 +2818,7 @@ Transwiki uvoz stranica je zabilježen u [[Special:Log/import|evidenciji uvoza s
 'import-interwiki-templates' => 'Uključi sve predloške',
 'import-interwiki-submit' => 'Uvezi',
 'import-interwiki-namespace' => 'Odredišni imenski prostor:',
+'import-interwiki-rootpage' => 'Odredišna početna stranica (parametar nije nužan):',
 'import-upload-filename' => 'Ime datoteke:',
 'import-comment' => 'Komentar:',
 'importtext' => 'Molimo izvezite datoteku iz izvorišnog wikija koristeći [[Special:Export|izvozno pomagalo]]. 
@@ -2810,6 +2856,10 @@ Snimite je na svoje računalo i postavite je ovdje.',
 'import-logentry-upload-detail' => '$1 {{PLURAL:$1|izmjena|izmjene|izmjena}}',
 'import-logentry-interwiki' => 'transwiki uvezeno $1',
 'import-logentry-interwiki-detail' => '$1 {{PLURAL:$1|promjena|promjene|promjena}} od $2',
+
+# JavaScriptTest
+'javascripttest' => 'Testiranje JavaScripta',
+'javascripttest-disabled' => 'Ova funkcija nije omogućena na ovom wikiprojektu.',
 
 # Tooltip help for the actions
 'tooltip-pt-userpage' => 'Moja suradnička stranica',
@@ -2871,6 +2921,8 @@ Snimite je na svoje računalo i postavite je ovdje.',
 'tooltip-diff' => 'Prikaži promjene učinjene u tekstu.',
 'tooltip-compareselectedversions' => 'Prikaži usporedbu izabranih inačica ove stranice.',
 'tooltip-watch' => 'Dodaj na popis praćenja',
+'tooltip-watchlistedit-normal-submit' => 'Ukloni naslove',
+'tooltip-watchlistedit-raw-submit' => 'Osvježi popis praćenja',
 'tooltip-recreate' => 'Vrati stranicu unatoč tome što je obrisana',
 'tooltip-upload' => "Pokreni snimanje (''upload'')",
 'tooltip-rollback' => '"Ukloni" uklanja uređivanja zadnjeg suradnika na ovoj stranici.',
@@ -2909,19 +2961,28 @@ Razlog je vjerojatno vanjska poveznica koja se nalazi na crnom popisu.',
 'spambot_username' => 'MediaWiki zaštita od spama',
 'spam_reverting' => 'Vraćam na zadnju inačicu koja ne sadrži poveznice na $1',
 'spam_blanking' => 'Sve inačice sadrže poveznice na $1, brišem cjelokupni sadržaj',
+'spam_deleting' => 'Sve inačice sadržale su poveznice na $1, brišem cjelokupni sadržaj',
 
 # Info page
 'pageinfo-title' => 'Podatci o "$1"',
+'pageinfo-header-basic' => 'Osnovni podaci',
 'pageinfo-header-edits' => 'Uređivanja',
-'pageinfo-header-watchlist' => 'Praćene stranice',
-'pageinfo-header-views' => 'Pregleda',
-'pageinfo-subjectpage' => 'Stranica',
-'pageinfo-talkpage' => 'Stranica za razgovor',
+'pageinfo-header-restrictions' => 'Zaštita stranice',
+'pageinfo-header-properties' => 'Svojstva stranice',
+'pageinfo-display-title' => 'Prikaži naslov',
+'pageinfo-default-sort' => 'Podrazumijevano sortiranje',
+'pageinfo-length' => 'Dužina stranice (u bajtovima)',
+'pageinfo-article-id' => 'ID stranice',
+'pageinfo-robot-policy' => 'Status tražilice',
+'pageinfo-robot-index' => 'Stranicu je moguće indeksirati',
+'pageinfo-views' => 'Broj pregleda',
 'pageinfo-watchers' => 'Broj pratitelja stranice',
+'pageinfo-firstuser' => 'Suradnik koji je stvorio stranicu',
+'pageinfo-firsttime' => 'Datum stvaranja stranice',
+'pageinfo-lastuser' => 'Posljednji urednik stranice',
+'pageinfo-lasttime' => 'Datum zadnjeg uređivanja',
 'pageinfo-edits' => 'Broj uređivanja',
 'pageinfo-authors' => 'Broj različitih autora',
-'pageinfo-views' => 'Broj pregleda',
-'pageinfo-viewsperedit' => 'Pregleda po uređivanju',
 
 # Skin names
 'skinname-standard' => 'Standardna',
@@ -3522,7 +3583,7 @@ Potvrdite namjeru vraćanja ovog članka.",
 
 # Multipage image navigation
 'imgmultipageprev' => '← prethodna slika',
-'imgmultipagenext' => 'slijedeća slika →',
+'imgmultipagenext' => 'sljedeća slika →',
 'imgmultigo' => 'Kreni!',
 'imgmultigoto' => 'Idi na stranicu $1',
 
@@ -3673,6 +3734,9 @@ Trebali ste primiti [{{SERVER}}{{SCRIPTPATH}}/COPYING kopiju GNU opće javne lic
 'version-software' => 'Instalirani softver',
 'version-software-product' => 'Proizvod',
 'version-software-version' => 'Verzija',
+'version-entrypoints' => 'URL adresa instalacije',
+'version-entrypoints-header-entrypoint' => 'Početna adresa',
+'version-entrypoints-header-url' => 'URL',
 
 # Special:FilePath
 'filepath' => 'Putanja datoteke',
@@ -3765,7 +3829,7 @@ Slike se na taj način prikazuju u punoj rezoluciji, a drugi tipovi datoteka se 
 'htmlform-float-invalid' => 'Vrijednost koju ste naveli nije broj.',
 'htmlform-int-toolow' => 'Vrijednost koju ste naveli je ispod minimuma od $1',
 'htmlform-int-toohigh' => 'Vrijednost koju ste naveli je iznad maksimuma od $1',
-'htmlform-required' => 'Ova vrijednost je potrebna',
+'htmlform-required' => 'Ova je vrijednost potrebna',
 'htmlform-submit' => 'Pošalji',
 'htmlform-reset' => 'Poništi izmjene',
 'htmlform-selectorother-other' => 'Drugi',
@@ -3824,14 +3888,15 @@ Inače, možete ispuniti jednostavan obrazac u nastavku. Vaš komentar biti će 
 
 # API errors
 'api-error-badaccess-groups' => 'Nemate ovlasti za postavljanje datoteka na ovu wiki.',
-'api-error-badtoken' => "''Token'' koji smo koristili za vašu identifikaciju na ovaj poslužitelj nije bio ispravan.",
-'api-error-copyuploaddisabled' => 'Postavljanja datoteka kopiranjem su onemogućena.',
-'api-error-duplicate' => 'Već postoji jedna datoteka na ovoj wiki s istim sadržajem',
+'api-error-badtoken' => 'Interna pogrješka: Token nije ispravan.',
+'api-error-copyuploaddisabled' => 'Postavljanje datoteka putem URL-a nije omogućeno na ovom projektu.',
+'api-error-duplicate' => '{{PLURAL:$1|Postoji [$2 druga datoteka]|Postoje $1 [$2 druge datoteke]|Postoji $1 [$2 drugih datoteka]}} istog sadržaja.',
 'api-error-empty-file' => 'Datoteka koju ste poslali je prazna.',
 'api-error-fetchfileerror' => 'Pojavio se neki problem pri dobivanju podataka o datoteci.',
 'api-error-file-too-large' => 'Datoteka koju ste poslali bila je prevelika.',
 'api-error-filename-tooshort' => 'Ime datoteke je prekratko.',
 'api-error-filetype-banned' => 'Ova vrsta datoteke je zabranjena.',
+'api-error-filetype-banned-type' => '$1 {{PLURAL:$4|je nedopušteni tip datoteke|su nedopušteni tipovi datoteke}}. Dopušteni {{PLURAL:$3|tip datoteke je|tipovi datoteke su}} $2.',
 'api-error-filetype-missing' => 'Datoteci nedostaje nastavak.',
 'api-error-hookaborted' => 'Izmjena koji ste pokušali načiniti je otkazana preko "kuke" proširenja mediawiki softvera.',
 'api-error-http' => 'Interna pogreška: Ne može se povezati na poslužitelj.',
@@ -3853,5 +3918,8 @@ Inače, možete ispuniti jednostavan obrazac u nastavku. Vaš komentar biti će 
 'api-error-unknownerror' => 'Nepoznata pogrješka: "$1"',
 'api-error-uploaddisabled' => 'Postavljanje datoteka je onemogućeno na ovom wikiprojektu.',
 'api-error-verification-error' => 'Ova datoteka je možda oštećena ili ima pogrešan nastavak.',
+
+# Durations
+'duration-seconds' => '$1 {{PLURAL:$1|sekunda|sekunde|sekundi}}',
 
 );

@@ -132,7 +132,7 @@ class CliInstaller extends Installer {
 	 * @param $path String Full path to write LocalSettings.php to
 	 */
 	public function writeConfigurationFile( $path ) {
-		$ls = new LocalSettingsGenerator( $this );
+		$ls = InstallerOverrides::getLocalSettingsGenerator( $this );
 		$ls->writeFile( "$path/LocalSettings.php" );
 	}
 
@@ -163,7 +163,7 @@ class CliInstaller extends Installer {
 	protected function getMessageText( $params ) {
 		$msg = array_shift( $params );
 
-		$text = wfMsgExt( $msg, array( 'parseinline' ), $params );
+		$text = wfMessage( $msg, $params )->parse();
 
 		$text = preg_replace( '/<a href="(.*?)".*?>(.*?)<\/a>/', '$2 &lt;$1&gt;', $text );
 		return html_entity_decode( strip_tags( $text ), ENT_QUOTES );
@@ -187,7 +187,7 @@ class CliInstaller extends Installer {
 
 		if ( !$status->isOk() ) {
 			echo "\n";
-			exit;
+			exit( 1 );
 		}
 	}
 

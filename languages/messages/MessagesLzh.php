@@ -8,8 +8,10 @@
  * @file
  *
  * @author Itsmine
+ * @author Justincheng12345
  * @author Omnipaedista
  * @author Shinjiman
+ * @author Super Wang
  */
 
 $specialPageAliases = array(
@@ -161,6 +163,8 @@ $messages = array(
 'tog-rememberpassword' => '符節通越（達至$1日）',
 'tog-watchcreations' => '哨己撰',
 'tog-watchdefault' => '哨己纂',
+'tog-watchmoves' => '派哨予吾遷之頁',
+'tog-watchdeletion' => '派哨予吾除之頁',
 'tog-minordefault' => '慣為校',
 'tog-previewontop' => '頂草覽',
 'tog-previewonfirst' => '覽首修',
@@ -183,7 +187,6 @@ $messages = array(
 'tog-watchlisthideliu' => '不哨有簿',
 'tog-watchlisthideanons' => '不哨無簿',
 'tog-watchlisthidepatrolled' => '不哨已巡',
-'tog-nolangconversion' => '非轉',
 'tog-ccmeonemails' => '凡所遺書，請存副本。',
 'tog-diffonly' => '異下無示頁',
 'tog-showhiddencats' => '示隱類',
@@ -270,6 +273,7 @@ $messages = array(
 'listingcontinuesabbrev' => '續',
 'index-category' => '已索之頁',
 'noindex-category' => '未索之頁',
+'broken-file-category' => '帶壞檔之頁',
 
 'about' => '述',
 'article' => '文',
@@ -406,6 +410,8 @@ $1',
 'youhavenewmessages' => '子有$1（$2）',
 'newmessageslink' => '新訊',
 'newmessagesdifflink' => '變更',
+'youhavenewmessagesfromusers' => '子有 $1 自 {{PLURAL:$3|another user|$3 簿戶也}} ($2)。',
+'youhavenewmessagesmanyusers' => '子有 $1 自多簿戶 ( $2 )',
 'youhavenewmessagesmulti' => '新訊於$1',
 'editsection' => '纂',
 'editold' => '纂',
@@ -504,6 +510,8 @@ $2',
 'namespaceprotected' => "子權未逮，莫能纂'''$1'''。",
 'ns-specialprotected' => '奇頁禁纂也。',
 'titleprotected' => "緘焉自[[User:$1|$1]]防建也。因''$2''也。",
+'invalidtitle-knownnamespace' => '無效卷題，含名域"$2"與文本"$3"',
+'exception-nologin' => '尚未登簿',
 
 # Virus scanner
 'virus-badscanner' => "壞設：不明之病掃：''$1''",
@@ -536,6 +544,7 @@ $2',
 'createaccount' => '增簿',
 'gotaccount' => '有簿矣哉？往$1。',
 'gotaccountlink' => '登簿',
+'userlogin-resetlink' => '君忘登簿所需爾？',
 'createaccountmail' => '同郵',
 'createaccountreason' => '因：',
 'badretype' => '符節不合也。',
@@ -577,6 +586,7 @@ $2',
 'noemailprefs' => '郵驛設而用之。',
 'emailconfirmlink' => '惠考郵驛',
 'invalidemailaddress' => '驛址不格，惠正略之。',
+'cannotchangeemail' => '電郵地址不可改于此wiki',
 'accountcreated' => '簿增矣',
 'accountcreatedtext' => '$1簿增矣',
 'createaccount-title' => '於{{SITENAME}}增簿',
@@ -610,6 +620,10 @@ $2',
 'resetpass-wrong-oldpass' => '無效之臨符或現符。
 爾或改符，或求新臨符。',
 'resetpass-temp-password' => '臨符節:',
+
+# Special:PasswordReset
+'passwordreset' => '重設符節',
+'passwordreset-legend' => '重設符節',
 
 # Edit page toolbar
 'bold_sample' => '粗體',
@@ -702,6 +716,7 @@ $2',
 'updated' => '（新）',
 'note' => "'''註'''",
 'previewnote' => "'''此乃預覽，尚未儲焉。'''",
+'continue-editing' => '續纂',
 'session_fail_preview' => "'''歉哉有變，子纂未存焉，惠再之。如復不成，[[Special:UserLogout|重登]]再試也。'''",
 'session_fail_preview_html' => "'''歉哉有變，子纂未存焉'''
 
@@ -709,6 +724,7 @@ $2',
 '''纂文若合，惠再之。如復不成，簿[[Special:UserLogout|重登]]焉。'''",
 'token_suffix_mismatch' => "'''君修見拒，蓋因代理之故，亂事見兮。'''",
 'editing' => '纂$1',
+'creating' => '撰$1',
 'editingsection' => '纂節$1',
 'editingcomment' => '贊$1',
 'editconflict' => '纂沖$1',
@@ -890,7 +906,9 @@ $1",
 'revdelete-only-restricted' => '藏期於 $1 $2 之項：爾無廢有秩見之項，而無選另廢項也。',
 'revdelete-reason-dropdown' => '*常因
 ** 侵權
-** 無合之人料',
+** 無合之人料
+** 無合之簿
+** 隱謗譏',
 'revdelete-otherreason' => '它附因：',
 'revdelete-reasonotherlist' => '它因',
 'revdelete-edit-reasonlist' => '纂刪因',
@@ -1325,9 +1343,9 @@ $1",
 此頁之誌刪與移於此示之以參詳也：",
 'uploadtext' => "下表以獻，[[Special:FileList|載獻]]覽之。或見[[Special:Log/upload|誌獻]]與[[Special:Log/delete|誌刪]]。
 欲嵌頁中，是格鏈之其一：
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}:File.jpg]]</tt>'''用此整獻
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}:File.png||200px|thumb|left|名]]</tt>'''以二百像素置左框置『名』
-* '''<tt><nowiki>[[</nowiki>{{ns:media}}:File.ogg]]</tt>'''直連獻，無示獻",
+* '''<code><nowiki>[[</nowiki>{{ns:file}}:File.jpg]]</code>'''用此整獻
+* '''<code><nowiki>[[</nowiki>{{ns:file}}:File.png||200px|thumb|left|名]]</code>'''以二百像素置左框置『名』
+* '''<code><nowiki>[[</nowiki>{{ns:media}}:File.ogg]]</code>'''直連獻，無示獻",
 'upload-permitted' => '可之物類：$1。',
 'upload-preferred' => '議之物類：$1。',
 'upload-prohibited' => '禁之物類：$1。',
@@ -1368,8 +1386,8 @@ $1",
 'tmp-write-error' => '臨檔案寫錯也。',
 'large-file' => '檔長$2仟位元組，不逾$1為佳。',
 'emptyfile' => '無以獻，疑謬名也，惠核之。',
-'fileexists' => "'''<tt>[[:$1]]</tt>'''存矣，欲蓋之則再也。 [[$1|thumb]]",
-'filepageexists' => "此檔之述於'''<tt>[[:$1]]</tt>'''存矣，檔未存也。爾入述無存也。要現之，爾需纂之。",
+'fileexists' => '<strong>[[:$1]]</strong>存矣，欲蓋之則再也。 [[$1|thumb]]',
+'filepageexists' => '此檔之述於<strong>[[:$1]]</strong>存矣，檔未存也。爾入述無存也。要現之，爾需纂之。',
 'file-exists-duplicate' => '此檔乃重檔{{PLURAL:$1|一|數}}：',
 'file-deleted-duplicate' => '此檔（[[:$1]]）前刪。爾需查刪錄再貢之。',
 'uploadwarning' => '慎焉！',
@@ -1537,7 +1555,7 @@ $1',
 
 # MIME search
 'mimesearch' => '篩檔',
-'mimesearch-summary' => '此頁可以MIME篩檔．格仿「文類/次類」，如<tt>image/jpeg</tt>。',
+'mimesearch-summary' => '此頁可以MIME篩檔．格仿「文類/次類」，如<code>image/jpeg</code>。',
 'mimetype' => 'MIME類有：',
 'download' => '載下',
 
@@ -1713,7 +1731,7 @@ $1',
 'linksearch-ns' => '名集：',
 'linksearch-ok' => '尋',
 'linksearch-text' => '用似"*.wikipedia.org"之萬字。<br />
-援之議：<tt>$1</tt>',
+援之議：<code>$1</code>',
 'linksearch-line' => '$1連$2',
 'linksearch-error' => '萬字僅用於機之始也。',
 

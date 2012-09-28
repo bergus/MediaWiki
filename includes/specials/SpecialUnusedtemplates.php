@@ -35,16 +35,24 @@ class UnusedtemplatesPage extends QueryPage {
 		parent::__construct( $name );
 	}
 
-	function isExpensive() { return true; }
-	function isSyndicated() { return false; }
-	function sortDescending() { return false; }
+	function isExpensive() {
+		return true;
+	}
+
+	function isSyndicated() {
+		return false;
+	}
+
+	function sortDescending() {
+		return false;
+	}
 
 	function getQueryInfo() {
 		return array (
 			'tables' => array ( 'page', 'templatelinks' ),
-			'fields' => array ( 'page_namespace AS namespace',
-					'page_title AS title',
-					'page_title AS value' ),
+			'fields' => array ( 'namespace' => 'page_namespace',
+					'title' => 'page_title',
+					'value' => 'page_title' ),
 			'conds' => array ( 'page_namespace' => NS_TEMPLATE,
 					'tl_from IS NULL',
 					'page_is_redirect' => 0 ),

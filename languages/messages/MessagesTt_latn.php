@@ -1,5 +1,5 @@
 <?php
-/** Tatar (Latin script) (Tatarça)
+/** Tatar (Latin script) (tatarça)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -61,30 +61,30 @@ $dateFormats = array(
 );
 
 $magicWords = array(
-	'redirect'                => array( '0', '#YÜNÄLTÜ', '#REDIRECT' ),
-	'notoc'                   => array( '0', '__ETYUQ__', '__NOTOC__' ),
-	'forcetoc'                => array( '0', '__ETTIQ__', '__FORCETOC__' ),
-	'toc'                     => array( '0', '__ET__', '__TOC__' ),
-	'noeditsection'           => array( '0', '__BÜLEMTÖZÄTÜYUQ__', '__NOEDITSECTION__' ),
-	'currentmonth'            => array( '1', 'AĞIMDAĞI_AY', 'CURRENTMONTH', 'CURRENTMONTH2' ),
-	'currentmonthname'        => array( '1', 'AĞIMDAĞI_AY_İSEME', 'CURRENTMONTHNAME' ),
-	'currentmonthnamegen'     => array( '1', 'AĞIMDAĞI_AY_İSEME_GEN', 'CURRENTMONTHNAMEGEN' ),
-	'currentday'              => array( '1', 'AĞIMDAĞI_KÖN', 'CURRENTDAY' ),
-	'currentdayname'          => array( '1', 'AĞIMDAĞI_KÖN_İSEME', 'CURRENTDAYNAME' ),
-	'currentyear'             => array( '1', 'AĞIMDAĞI_YIL', 'CURRENTYEAR' ),
-	'currenttime'             => array( '1', 'AĞIMDAĞI_WAQIT', 'CURRENTTIME' ),
-	'numberofarticles'        => array( '1', 'MÄQÄLÄ_SANI', 'NUMBEROFARTICLES' ),
-	'pagename'                => array( '1', 'BİTİSEME', 'PAGENAME' ),
-	'namespace'               => array( '1', 'İSEMARA', 'NAMESPACE' ),
-	'subst'                   => array( '0', 'TÖPÇEK:', 'SUBST:' ),
-	'img_right'               => array( '1', 'uñda', 'right' ),
-	'img_left'                => array( '1', 'sulda', 'left' ),
-	'img_none'                => array( '1', 'yuq', 'none' ),
-	'int'                     => array( '0', 'EÇKE:', 'INT:' ),
-	'sitename'                => array( '1', 'SÄXİFÄİSEME', 'SITENAME' ),
-	'ns'                      => array( '0', 'İA:', 'NS:' ),
-	'localurl'                => array( '0', 'URINLIURL:', 'LOCALURL:' ),
-	'localurle'               => array( '0', 'URINLIURLE:', 'LOCALURLE:' ),
+	'redirect'                  => array( '0', '#YÜNÄLTÜ', '#REDIRECT' ),
+	'notoc'                     => array( '0', '__ETYUQ__', '__NOTOC__' ),
+	'forcetoc'                  => array( '0', '__ETTIQ__', '__FORCETOC__' ),
+	'toc'                       => array( '0', '__ET__', '__TOC__' ),
+	'noeditsection'             => array( '0', '__BÜLEMTÖZÄTÜYUQ__', '__NOEDITSECTION__' ),
+	'currentmonth'              => array( '1', 'AĞIMDAĞI_AY', 'CURRENTMONTH', 'CURRENTMONTH2' ),
+	'currentmonthname'          => array( '1', 'AĞIMDAĞI_AY_İSEME', 'CURRENTMONTHNAME' ),
+	'currentmonthnamegen'       => array( '1', 'AĞIMDAĞI_AY_İSEME_GEN', 'CURRENTMONTHNAMEGEN' ),
+	'currentday'                => array( '1', 'AĞIMDAĞI_KÖN', 'CURRENTDAY' ),
+	'currentdayname'            => array( '1', 'AĞIMDAĞI_KÖN_İSEME', 'CURRENTDAYNAME' ),
+	'currentyear'               => array( '1', 'AĞIMDAĞI_YIL', 'CURRENTYEAR' ),
+	'currenttime'               => array( '1', 'AĞIMDAĞI_WAQIT', 'CURRENTTIME' ),
+	'numberofarticles'          => array( '1', 'MÄQÄLÄ_SANI', 'NUMBEROFARTICLES' ),
+	'pagename'                  => array( '1', 'BİTİSEME', 'PAGENAME' ),
+	'namespace'                 => array( '1', 'İSEMARA', 'NAMESPACE' ),
+	'subst'                     => array( '0', 'TÖPÇEK:', 'SUBST:' ),
+	'img_right'                 => array( '1', 'uñda', 'right' ),
+	'img_left'                  => array( '1', 'sulda', 'left' ),
+	'img_none'                  => array( '1', 'yuq', 'none' ),
+	'int'                       => array( '0', 'EÇKE:', 'INT:' ),
+	'sitename'                  => array( '1', 'SÄXİFÄİSEME', 'SITENAME' ),
+	'ns'                        => array( '0', 'İA:', 'NS:' ),
+	'localurl'                  => array( '0', 'URINLIURL:', 'LOCALURL:' ),
+	'localurle'                 => array( '0', 'URINLIURLE:', 'LOCALURLE:' ),
 );
 
 $fallback8bitEncoding = "windows-1254";
@@ -133,7 +133,6 @@ $messages = array(
 'tog-watchlisthideliu' => 'Avtorizatsiäne uzğan qullanuçılarnıñ üzgärtüläre küzätü isemlegennän yäşerelsen',
 'tog-watchlisthideanons' => 'Anonim qullanuçılarnıñ üzgärtüläre küzätü isemlegennän yäşerelsen',
 'tog-watchlisthidepatrolled' => 'Tikşerelgän üzgärtülär küzätü isemlegennän yäşerelsen',
-'tog-nolangconversion' => 'Yazu sistemalarınıñ üzgärtüen sünderü',
 'tog-ccmeonemails' => 'Başqa qullanuçılarğa cibärgän xatlarımnıñ kopiäläre miña da cibärelsen',
 'tog-diffonly' => 'Yurama çağıştıru astında bit eçtälege kürsätelmäsen',
 'tog-showhiddencats' => 'Yäşeren törkemnär kürsätelsen',
@@ -1189,9 +1188,9 @@ Ul $1 {{PLURAL:$1|xäreftän}} kübräk bulırğa tieş tügel.',
 'uploadtext' => "Bu formanı qullanıp serverğa fayllar yökli alasız. Elegräk yöklänelgän fayllarnı qaraw öçen [[Special:FileList|Yöklänelgän fayllar isemlegenä]] märäcäğät itegez. Şulay uq ul [[Special:Log/upload|yöklänmälär isemlegenä]] häm [[Special:Log/delete|beterelgän fayllar]] isemlegenä dä yazıla.
 
 Faylnı mäqälägä yökläw öçen Sez menä bu ürnäklärne qullana alasız:
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Räsem.jpg]]</nowiki></tt>''' faylnıñ tulı yuramasın quyu öçen;
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Räsem.png|200px|thumb|left|taswirlaması]]</nowiki></tt>'''  200 pikselğa qädär kiñlektäge  häm tekstnıñ sul yağında, taswirlaması belän;
-* '''<tt><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></tt>'''bittä faylnı sürätlämiçä, barı tik sıltamasın ğına quyu.",
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Räsem.jpg]]</nowiki></code>''' faylnıñ tulı yuramasın quyu öçen;
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Räsem.png|200px|thumb|left|taswirlaması]]</nowiki></code>'''  200 pikselğa qädär kiñlektäge  häm tekstnıñ sul yağında, taswirlaması belän;
+* '''<code><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></code>'''bittä faylnı sürätlämiçä, barı tik sıltamasın ğına quyu.",
 'upload-permitted' => 'Röxsät itelgän fayl törläre:$1',
 'upload-preferred' => 'Mömkin bulğan fayl törläre:$1',
 'upload-prohibited' => 'Tıyılğan fayl törläre:$1',

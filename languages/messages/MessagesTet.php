@@ -1,5 +1,5 @@
 <?php
-/** Tetum (Tetun)
+/** Tetum (tetun)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -8,6 +8,7 @@
  * @file
  *
  * @author MF-Warburg
+ * @author Nemo bis
  * @author Reedy
  */
 
@@ -75,9 +76,9 @@ $messages = array(
 'tog-underline' => 'Subliña ligasaun sira:',
 'tog-justify' => 'Justifika parágrafu sira',
 'tog-hideminor' => "Lá'os hatudu muda ki-ki'ik iha mudansa foufoun sira",
-'tog-usenewrc' => 'Uza lista "Mudansa foufoun sira" di\'ak liu (JavaScript)',
+'tog-usenewrc' => 'Iha lista "mudansa foufoun sira" no "lista hateke": Hatudu mudansa iha grupu sira - grupu ida ba pájina ida (presiza JavaScript)',
 'tog-showtoolbar' => 'Hatudu kaixa edita (presiza JavaScript)',
-'tog-watchcreations' => "Hateke pájina sira-ne'ebé ha'u kria",
+'tog-watchcreations' => "Hateke pájina no imajen sira-ne'ebé ha'u kria/tau iha arkivu laran",
 'tog-watchdefault' => "Hateke pájina sira-ne'ebé ha'u edita",
 'tog-watchmoves' => "Hateke pájina sira-ne'ebé ha'u book",
 'tog-watchdeletion' => "Hateke pájina sira-ne'ebé ha'u halakon",
@@ -170,9 +171,11 @@ $messages = array(
 'faqpage' => 'Project:FAQ',
 
 # Vector skin
+'vector-action-protect' => 'Proteje',
 'vector-view-create' => 'Kria',
 'vector-view-edit' => 'Edita',
 'vector-view-history' => 'Haree istória',
+'vector-view-view' => 'Lee',
 'actions' => 'Aksaun sira',
 
 'errorpagetitle' => 'Sala',
@@ -395,11 +398,16 @@ Ita-nia mudansa la armazenadu seidauk!",
 'lineno' => 'Liña $1:',
 
 # Search results
+'searchresults' => 'Rezultadu sira',
+'searchresults-title' => 'Rezultadu sira ba buka "$1"',
 'searchsubtitleinvalid' => "Ita buka tiha ona '''$1'''",
 'prevn' => 'molok {{PLURAL:$1|$1}}',
 'nextn' => 'oinmai {{PLURAL:$1|$1}}',
+'shown-title' => 'Hatudu {{PLURAL:$1|rezultadu|rezultadu}} $1 kada pájina',
 'viewprevnext' => 'Haree ($1 {{int:pipe-separator}} $2) ($3)',
 'searchmenu-new' => "'''Kria pájina \"[[:\$1]]\" iha wiki ne'e!'''",
+'searchprofile-everything' => 'Hotu',
+'searchprofile-articles-tooltip' => 'Buka iha $1',
 'searchprofile-project-tooltip' => 'Buka iha $1',
 'search-result-size' => '$1 ({{PLURAL:$2|liafuan ida|liafuan $2}})',
 'search-section' => '(seksaun $1)',
@@ -426,7 +434,7 @@ Ita-nia mudansa la armazenadu seidauk!",
 'timezoneregion-europe' => 'Europa',
 'youremail' => 'Korreiu eletróniku:',
 'username' => "Naran uza-na'in:",
-'uid' => "Uza-na'in ID:",
+'uid' => "Númeru uza-na'in:",
 'yourlanguage' => 'Lian:',
 'gender-male' => 'Mane',
 'gender-female' => 'Feto',
@@ -499,6 +507,9 @@ Ita-nia mudansa la armazenadu seidauk!",
 # Recent changes
 'nchanges' => '$1 {{PLURAL:$1|diferensa|diferensa}}',
 'recentchanges' => 'Mudansa foufoun sira',
+'recentchanges-label-newpage' => 'Pájina foun',
+'recentchanges-label-minor' => "Ne'e mudansa ki'ik",
+'recentchanges-label-bot' => 'Edita husi prosesu automátiku ("bot")',
 'rcshowhideminor' => "$1 muda ki-ki'ik",
 'rcshowhidebots' => '$1 bot sira',
 'rcshowhideliu' => '$1 ema rejista',
@@ -544,6 +555,7 @@ Ita-nia mudansa la armazenadu seidauk!",
 'filehist-user' => "Uza-na'in",
 'filehist-comment' => 'Komentáriu',
 'imagelinks' => "Pájina iha ne'ebá fixeiru ne'e",
+'uploadnewversion-linktext' => 'Tau versaun foun imajen nian',
 
 # File reversion
 'filerevert-comment' => 'Razaun:',
@@ -752,6 +764,7 @@ Ita-nia mudansa la armazenadu seidauk!",
 'contribslink' => 'kontribuisaun',
 'block-log-flags-nocreate' => 'la bele kria konta foun',
 'block-log-flags-noemail' => 'korreiu eletróniku blokeiu',
+'block-log-flags-nousertalk' => 'la bele edita pájina diskusaun rasik',
 'ipb_already_blocked' => 'Ema ruma blokeiu "$1" tiha ona',
 
 # Move page
@@ -808,6 +821,7 @@ Ita-nia mudansa la armazenadu seidauk!",
 'tooltip-ca-unwatch' => 'Hasai pájina ne\'e husi Ita-nia "lista hateke"',
 'tooltip-search' => 'Buka iha {{SITENAME}}',
 'tooltip-search-go' => "Bá pájina ho naran ne'e (se iha)",
+'tooltip-search-fulltext' => "Buka pájina sira-ne'ebé iha testu ne'e iha laran",
 'tooltip-p-logo' => 'Pájina Mahuluk',
 'tooltip-n-mainpage' => 'Vizita Pájina Mahuluk',
 'tooltip-n-mainpage-description' => 'Vizita Pájina Mahuluk',
@@ -850,6 +864,13 @@ Ita-nia mudansa la armazenadu seidauk!",
 # Special:NewFiles
 'showhidebots' => '($1 bot sira)',
 'ilsubmit' => 'Buka',
+
+# Bad image list
+'bad_image_list' => "Formatu:
+
+Liña hotu tenke komesa ho *
+Ligasaun uluk iha liña tenke ligasaun bá imajen aat.
+Ligasaun seluk iha liña - ne'e pájina sira iha ne'ebé bele inklui imajen aat.",
 
 # EXIF tags
 'exif-make' => 'Fabrikante kámara nian',

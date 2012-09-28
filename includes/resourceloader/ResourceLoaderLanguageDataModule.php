@@ -27,26 +27,65 @@
  */
 class ResourceLoaderLanguageDataModule extends ResourceLoaderModule {
 
+	protected $language;
 	/**
-	 * Get the grammer forms for the site content language.
+	 * Get the grammar forms for the site content language.
 	 *
 	 * @return array
 	 */
 	protected function getSiteLangGrammarForms() {
-		global $wgContLang;
-		return $wgContLang->getGrammarForms();
+		return $this->language->getGrammarForms();
+	}
+
+	/**
+	 * Get the plural forms for the site content language.
+	 *
+	 * @return array
+	 */
+	protected function getPluralRules() {
+		return $this->language->getPluralRules();
+	}
+
+	/**
+	 * Get the digit transform table for the content language
+	 * Seperator transform table also required here to convert
+	 * the . and , sign to appropriate forms in content language.
+	 *
+	 * @return array
+	 */
+	protected function getDigitTransformTable() {
+		$digitTransformTable = $this->language->digitTransformTable();
+		$separatorTransformTable = $this->language->separatorTransformTable();
+		if ( $digitTransformTable ) {
+			array_merge( $digitTransformTable, (array)$separatorTransformTable );
+		} else {
+			return $separatorTransformTable;
+		}
+		return $digitTransformTable;
+	}
+
+	/**
+	 * Get all the dynamic data for the content language to an array
+	 *
+	 * @return array
+	 */
+	protected function getData() {
+		return array(
+			'digitTransformTable' => $this->getDigitTransformTable(),
+			'grammarForms' => $this->getSiteLangGrammarForms(),
+			'pluralRules' => $this->getPluralRules(),
+		);
 	}
 
 	/**
 	 * @param $context ResourceLoaderContext
-	 * @return string Javascript code
+	 * @return string: JavaScript code
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
-		global $wgContLang;
-
+		$this->language = Language::factory( $context->getLanguage() );
 		return Xml::encodeJsCall( 'mw.language.setData', array(
-			$wgContLang->getCode(),
-			array( 'grammarForms' => $this->getSiteLangGrammarForms() )
+			$this->language->getCode(),
+			$this->getData()
 		) );
 	}
 
@@ -55,20 +94,22 @@ class ResourceLoaderLanguageDataModule extends ResourceLoaderModule {
 	 * @return array|int|Mixed
 	 */
 	public function getModifiedTime( ResourceLoaderContext $context ) {
+		$this->language = Language::factory( $context ->getLanguage() );
 		$cache = wfGetCache( CACHE_ANYTHING );
 		$key = wfMemcKey( 'resourceloader', 'langdatamodule', 'changeinfo' );
 
-		$forms = $this->getSiteLangGrammarForms();
-		$hash = md5( serialize( $forms ) );
+		$data = $this->getData();
+		$hash = md5( serialize( $data ) );
 
 		$result = $cache->get( $key );
-		if ( is_array( $result ) ) {
-			if ( $result['hash'] === $hash ) {
-				return $result['timestamp'];
-			}
+		if ( is_array( $result ) && $result['hash'] === $hash ) {
+			return $result['timestamp'];
 		}
 		$timestamp = wfTimestamp();
-		$cache->set( $key, array( 'hash' => $hash, 'timestamp' => $timestamp ) );
+		$cache->set( $key, array(
+			'hash' => $hash,
+			'timestamp' => $timestamp,
+		) );
 		return $timestamp;
 	}
 
@@ -76,6 +117,6 @@ class ResourceLoaderLanguageDataModule extends ResourceLoaderModule {
 	 * @return array
 	 */
 	public function getDependencies() {
-		return array( 'mediawiki.language' );
+		return array( 'mediawiki.language.init' );
 	}
 }

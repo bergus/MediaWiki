@@ -68,9 +68,11 @@ class UploadStash {
 
 	/**
 	 * Represents a temporary filestore, with metadata in the database.
-	 * Designed to be compatible with the session stashing code in UploadBase (should replace it eventually)
+	 * Designed to be compatible with the session stashing code in UploadBase
+	 * (should replace it eventually).
 	 *
 	 * @param $repo FileRepo
+	 * @param $user User (default null)
 	 */
 	public function __construct( FileRepo $repo, $user = null ) {
 		// this might change based on wiki's configuration.
@@ -237,9 +239,13 @@ class UploadStash {
 				}
 			}
 			// at this point, $error should contain the single "most important" error, plus any parameters.
-			throw new UploadStashFileException( "Error storing file in '$path': " . wfMessage( $error )->text() );
+			$errorMsg = array_shift( $error );
+			throw new UploadStashFileException( "Error storing file in '$path': " . wfMessage( $errorMsg, $error )->text() );
 		}
 		$stashPath = $storeStatus->value;
+
+		// we have renamed the file so we have to cleanup once done
+		unlink($path);
 
 		// fetch the current user ID
 		if ( !$this->isLoggedIn ) {
@@ -442,6 +448,7 @@ class UploadStash {
 	 * Helper function: do the actual database query to fetch file metadata.
 	 *
 	 * @param $key String: key
+	 * @param $readFromDB: constant (default: DB_SLAVE)
 	 * @return boolean
 	 */
 	protected function fetchFileMetadata( $key, $readFromDB = DB_SLAVE ) {
@@ -474,7 +481,6 @@ class UploadStash {
 	/**
 	 * Helper function: Initialize the UploadStashFile for a given file.
 	 *
-	 * @param $path String: path to file
 	 * @param $key String: key under which to store the object
 	 * @throws UploadStashZeroLengthFileException
 	 * @return bool
@@ -566,16 +572,17 @@ class UploadStashFile extends UnregisteredLocalFile {
 	 * ugly file name.
 	 *
 	 * @param $params Array: handler-specific parameters
+	 * @param $flags integer Bitfield that supports THUMB_* constants
 	 * @return String: base name for URL, like '120px-12345.jpg', or null if there is no handler
 	 */
-	function thumbName( $params ) {
+	function thumbName( $params, $flags = 0 ) {
 		return $this->generateThumbName( $this->getUrlName(), $params );
 	}
 
 	/**
 	 * Helper function -- given a 'subpage', return the local URL e.g. /wiki/Special:UploadStash/subpage
-	 * @param {String} $subPage
-	 * @return {String} local URL for this subpage in the Special:UploadStash space.
+	 * @param $subPage String
+	 * @return String: local URL for this subpage in the Special:UploadStash space.
 	 */
 	private function getSpecialUrl( $subPage ) {
 		return SpecialPage::getTitleFor( 'UploadStash', $subPage )->getLocalURL();

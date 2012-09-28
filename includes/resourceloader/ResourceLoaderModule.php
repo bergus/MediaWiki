@@ -237,8 +237,8 @@ abstract class ResourceLoaderModule {
 
 	/**
 	 * Where on the HTML page should this module's JS be loaded?
-	 * 'top': in the <head>
-	 * 'bottom': at the bottom of the <body>
+	 *  - 'top': in the "<head>"
+	 *  - 'bottom': at the bottom of the "<body>"
 	 *
 	 * @return string
 	 */
@@ -332,8 +332,9 @@ abstract class ResourceLoaderModule {
 	 */
 	public function getMsgBlobMtime( $lang ) {
 		if ( !isset( $this->msgBlobMtime[$lang] ) ) {
-			if ( !count( $this->getMessages() ) )
+			if ( !count( $this->getMessages() ) ) {
 				return 0;
+			}
 
 			$dbr = wfGetDB( DB_SLAVE );
 			$msgBlobMtime = $dbr->selectField( 'msg_resource', 'mr_timestamp', array(

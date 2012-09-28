@@ -35,15 +35,20 @@ class UnwatchedpagesPage extends QueryPage {
 		parent::__construct( $name, 'unwatchedpages' );
 	}
 
-	function isExpensive() { return true; }
-	function isSyndicated() { return false; }
+	function isExpensive() {
+		return true;
+	}
+
+	function isSyndicated() {
+		return false;
+	}
 
 	function getQueryInfo() {
 		return array (
 			'tables' => array ( 'page', 'watchlist' ),
-			'fields' => array ( 'page_namespace AS namespace',
-					'page_title AS title',
-					'page_namespace AS value' ),
+			'fields' => array ( 'namespace' => 'page_namespace',
+					'title' => 'page_title',
+					'value' => 'page_namespace' ),
 			'conds' => array ( 'wl_title IS NULL',
 					'page_is_redirect' => 0,
 					"page_namespace != '" . NS_MEDIAWIKI .
@@ -54,7 +59,9 @@ class UnwatchedpagesPage extends QueryPage {
 		);
 	}
 
-	function sortDescending() { return false; }
+	function sortDescending() {
+		return false;
+	}
 
 	function getOrderFields() {
 		return array( 'page_namespace', 'page_title' );

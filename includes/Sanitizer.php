@@ -692,6 +692,18 @@ class Sanitizer {
 				}
 			}
 
+			// Table align is special, it's about block alignment instead of
+			// content align (see also bug 40306)
+			if ( $attribute === 'align' && in_array( $element, $table ) ) {
+				if ( $value === 'center' ) {
+					$style .= ' margin-left: auto;';
+					$property = 'margin-right';
+					$value = 'auto';
+				} else {
+					$property = 'float';
+				}
+			}
+
 			$style .= " $property: $value;";
 
 			unset( $attribs[$attribute] );
@@ -900,7 +912,7 @@ class Sanitizer {
 		// Reject problematic keywords and control characters
 		if ( preg_match( '/[\000-\010\016-\037\177]/', $value ) ) {
 			return '/* invalid control char */';
-		} elseif ( preg_match( '! expression | filter\s*: | accelerator\s*: | url\s*\( !ix', $value ) ) {
+		} elseif ( preg_match( '! expression | filter\s*: | accelerator\s*: | url\s*\( | image\s*\( !ix', $value ) ) {
 			return '/* insecure input */';
 		}
 		return $value;
@@ -1016,7 +1028,7 @@ class Sanitizer {
 
 		# Stupid hack
 		$encValue = preg_replace_callback(
-			'/(' . wfUrlProtocols() . ')/',
+			'/((?i)' . wfUrlProtocols() . ')/',
 			array( 'Sanitizer', 'armorLinksCallback' ),
 			$encValue );
 		return $encValue;
@@ -1243,7 +1255,7 @@ class Sanitizer {
 	 * a. named char refs can only be &lt; &gt; &amp; &quot;, others are
 	 *   numericized (this way we're well-formed even without a DTD)
 	 * b. any numeric char refs must be legal chars, not invalid or forbidden
-	 * c. use &#x, not &#X
+	 * c. use lower cased "&#x", not "&#X"
 	 * d. fix or reject non-valid attributes
 	 *
 	 * @param $text String
@@ -1411,7 +1423,7 @@ class Sanitizer {
 	/**
 	 * If the named entity is defined in the HTML 4.0/XHTML 1.0 DTD,
 	 * return the UTF-8 encoding of that character. Otherwise, returns
-	 * pseudo-entity source (eg &foo;)
+	 * pseudo-entity source (eg "&foo;")
 	 *
 	 * @param $name String
 	 * @return String

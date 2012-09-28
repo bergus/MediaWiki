@@ -1,5 +1,5 @@
 <?php
-/** Tatar (Cyrillic script) (Татарча)
+/** Tatar (Cyrillic script) (татарча)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -172,38 +172,38 @@ $specialPageAliases = array(
 );
 
 $magicWords = array(
-	'redirect'                => array( '0', '#ЮНӘЛТҮ', '#перенаправление', '#перенапр', '#REDIRECT' ),
-	'notoc'                   => array( '0', '__БАШЛЫКЮК__', '__БЕЗ_ОГЛАВЛЕНИЯ__', '__БЕЗ_ОГЛ__', '__NOTOC__' ),
-	'forcetoc'                => array( '0', '__ETTIQ__', '__ОБЯЗ_ОГЛ__', '__ОБЯЗАТЕЛЬНОЕ_ОГЛАВЛЕНИЕ__', '__FORCETOC__' ),
-	'toc'                     => array( '0', '__ЭЧТЕЛЕК__', '__ОГЛАВЛЕНИЕ__', '__ОГЛ__', '__TOC__' ),
-	'noeditsection'           => array( '0', '__БҮЛЕКҮЗГӘРТҮЮК__', '__БЕЗ_РЕДАКТИРОВАНИЯ_РАЗДЕЛА__', '__NOEDITSECTION__' ),
-	'currentmonth'            => array( '1', 'АГЫМДАГЫ_АЙ', 'АГЫМДАГЫ_АЙ2', 'ТЕКУЩИЙ_МЕСЯЦ', 'ТЕКУЩИЙ_МЕСЯЦ_2', 'CURRENTMONTH', 'CURRENTMONTH2' ),
-	'currentmonthname'        => array( '1', 'АГЫМДАГЫ_АЙ_ИСЕМЕ', 'НАЗВАНИЕ_ТЕКУЩЕГО_МЕСЯЦА', 'CURRENTMONTHNAME' ),
-	'currentmonthnamegen'     => array( '1', 'АГЫМДАГЫ_АЙ_ИСЕМЕ_GEN', 'НАЗВАНИЕ_ТЕКУЩЕГО_МЕСЯЦА_РОД', 'CURRENTMONTHNAMEGEN' ),
-	'currentday'              => array( '1', 'АГЫМДАГЫ_КӨН', 'ТЕКУЩИЙ_ДЕНЬ', 'CURRENTDAY' ),
-	'currentday2'             => array( '1', 'АГЫМДАГЫ_КӨН2', 'ТЕКУЩИЙ_ДЕНЬ_2', 'CURRENTDAY2' ),
-	'currentdayname'          => array( '1', 'АГЫМДАГЫ_КӨН_ИСЕМЕ', 'НАЗВАНИЕ_ТЕКУЩЕГО_ДНЯ', 'CURRENTDAYNAME' ),
-	'currentyear'             => array( '1', 'АГЫМДАГЫ_ЕЛ', 'ТЕКУЩИЙ_ГОД', 'CURRENTYEAR' ),
-	'currenttime'             => array( '1', 'АГЫМДАГЫ_ВАКЫТ', 'ТЕКУЩЕЕ_ВРЕМЯ', 'CURRENTTIME' ),
-	'numberofarticles'        => array( '1', 'МӘКАЛӘ_САНЫ', 'КОЛИЧЕСТВО_СТАТЕЙ', 'NUMBEROFARTICLES' ),
-	'pagename'                => array( '1', 'БИТ_ИСЕМЕ', 'НАЗВАНИЕ_СТРАНИЦЫ', 'PAGENAME' ),
-	'namespace'               => array( '1', 'ИСЕМНӘР_МӘЙДАНЫ', 'ПРОСТРАНСТВО_ИМЁН', 'NAMESPACE' ),
-	'msg'                     => array( '0', 'ХӘБӘР', 'СООБЩЕНИЕ:', 'СООБЩ:', 'MSG:' ),
-	'subst'                   => array( '0', 'TÖPÇEK:', 'ПОДСТ:', 'ПОДСТАНОВКА:', 'SUBST:' ),
-	'img_right'               => array( '1', 'уңда', 'справа', 'right' ),
-	'img_left'                => array( '1', 'сулда', 'слева', 'left' ),
-	'img_none'                => array( '1', 'юк', 'без', 'none' ),
-	'img_width'               => array( '1', '$1пкс', '$1px' ),
-	'img_center'              => array( '1', 'үзәк', 'центр', 'center', 'centre' ),
-	'int'                     => array( '0', 'ЭЧКЕ:', 'ВНУТР:', 'INT:' ),
-	'sitename'                => array( '1', 'СӘХИФӘ_ИСЕМЕ', 'НАЗВАНИЕ_САЙТА', 'SITENAME' ),
-	'ns'                      => array( '0', 'İA:', 'ПИ:', 'NS:' ),
-	'localurl'                => array( '0', 'URINLIURL:', 'ЛОКАЛЬНЫЙ_АДРЕС:', 'LOCALURL:' ),
-	'localurle'               => array( '0', 'URINLIURLE:', 'ЛОКАЛЬНЫЙ_АДРЕС_2:', 'LOCALURLE:' ),
-	'language'                => array( '0', '#ТЕЛ:', '#ЯЗЫК:', '#LANGUAGE:' ),
-	'special'                 => array( '0', 'махсус', 'служебная', 'special' ),
-	'tag'                     => array( '0', 'тамга', 'метка', 'тег', 'тэг', 'tag' ),
-	'noindex'                 => array( '1', '__ИНДЕКССЫЗ__', '__БЕЗ_ИНДЕКСА__', '__NOINDEX__' ),
+	'redirect'                  => array( '0', '#ЮНӘЛТҮ', '#перенаправление', '#перенапр', '#REDIRECT' ),
+	'notoc'                     => array( '0', '__БАШЛЫКЮК__', '__БЕЗ_ОГЛАВЛЕНИЯ__', '__БЕЗ_ОГЛ__', '__NOTOC__' ),
+	'forcetoc'                  => array( '0', '__ETTIQ__', '__ОБЯЗ_ОГЛ__', '__ОБЯЗАТЕЛЬНОЕ_ОГЛАВЛЕНИЕ__', '__FORCETOC__' ),
+	'toc'                       => array( '0', '__ЭЧТЕЛЕК__', '__ОГЛАВЛЕНИЕ__', '__ОГЛ__', '__TOC__' ),
+	'noeditsection'             => array( '0', '__БҮЛЕКҮЗГӘРТҮЮК__', '__БЕЗ_РЕДАКТИРОВАНИЯ_РАЗДЕЛА__', '__NOEDITSECTION__' ),
+	'currentmonth'              => array( '1', 'АГЫМДАГЫ_АЙ', 'АГЫМДАГЫ_АЙ2', 'ТЕКУЩИЙ_МЕСЯЦ', 'ТЕКУЩИЙ_МЕСЯЦ_2', 'CURRENTMONTH', 'CURRENTMONTH2' ),
+	'currentmonthname'          => array( '1', 'АГЫМДАГЫ_АЙ_ИСЕМЕ', 'НАЗВАНИЕ_ТЕКУЩЕГО_МЕСЯЦА', 'CURRENTMONTHNAME' ),
+	'currentmonthnamegen'       => array( '1', 'АГЫМДАГЫ_АЙ_ИСЕМЕ_GEN', 'НАЗВАНИЕ_ТЕКУЩЕГО_МЕСЯЦА_РОД', 'CURRENTMONTHNAMEGEN' ),
+	'currentday'                => array( '1', 'АГЫМДАГЫ_КӨН', 'ТЕКУЩИЙ_ДЕНЬ', 'CURRENTDAY' ),
+	'currentday2'               => array( '1', 'АГЫМДАГЫ_КӨН2', 'ТЕКУЩИЙ_ДЕНЬ_2', 'CURRENTDAY2' ),
+	'currentdayname'            => array( '1', 'АГЫМДАГЫ_КӨН_ИСЕМЕ', 'НАЗВАНИЕ_ТЕКУЩЕГО_ДНЯ', 'CURRENTDAYNAME' ),
+	'currentyear'               => array( '1', 'АГЫМДАГЫ_ЕЛ', 'ТЕКУЩИЙ_ГОД', 'CURRENTYEAR' ),
+	'currenttime'               => array( '1', 'АГЫМДАГЫ_ВАКЫТ', 'ТЕКУЩЕЕ_ВРЕМЯ', 'CURRENTTIME' ),
+	'numberofarticles'          => array( '1', 'МӘКАЛӘ_САНЫ', 'КОЛИЧЕСТВО_СТАТЕЙ', 'NUMBEROFARTICLES' ),
+	'pagename'                  => array( '1', 'БИТ_ИСЕМЕ', 'НАЗВАНИЕ_СТРАНИЦЫ', 'PAGENAME' ),
+	'namespace'                 => array( '1', 'ИСЕМНӘР_МӘЙДАНЫ', 'ПРОСТРАНСТВО_ИМЁН', 'NAMESPACE' ),
+	'msg'                       => array( '0', 'ХӘБӘР', 'СООБЩЕНИЕ:', 'СООБЩ:', 'MSG:' ),
+	'subst'                     => array( '0', 'TÖPÇEK:', 'ПОДСТ:', 'ПОДСТАНОВКА:', 'SUBST:' ),
+	'img_right'                 => array( '1', 'уңда', 'справа', 'right' ),
+	'img_left'                  => array( '1', 'сулда', 'слева', 'left' ),
+	'img_none'                  => array( '1', 'юк', 'без', 'none' ),
+	'img_width'                 => array( '1', '$1пкс', '$1px' ),
+	'img_center'                => array( '1', 'үзәк', 'центр', 'center', 'centre' ),
+	'int'                       => array( '0', 'ЭЧКЕ:', 'ВНУТР:', 'INT:' ),
+	'sitename'                  => array( '1', 'СӘХИФӘ_ИСЕМЕ', 'НАЗВАНИЕ_САЙТА', 'SITENAME' ),
+	'ns'                        => array( '0', 'İA:', 'ПИ:', 'NS:' ),
+	'localurl'                  => array( '0', 'URINLIURL:', 'ЛОКАЛЬНЫЙ_АДРЕС:', 'LOCALURL:' ),
+	'localurle'                 => array( '0', 'URINLIURLE:', 'ЛОКАЛЬНЫЙ_АДРЕС_2:', 'LOCALURLE:' ),
+	'language'                  => array( '0', '#ТЕЛ:', '#ЯЗЫК:', '#LANGUAGE:' ),
+	'special'                   => array( '0', 'махсус', 'служебная', 'special' ),
+	'tag'                       => array( '0', 'тамга', 'метка', 'тег', 'тэг', 'tag' ),
+	'noindex'                   => array( '1', '__ИНДЕКССЫЗ__', '__БЕЗ_ИНДЕКСА__', '__NOINDEX__' ),
 );
 
 $linkTrail = '/^([a-zабвгдеёжзийклмнопрстуфхцчшщъыьэюяӘәӨөҮүҖҗҢңҺһ]+)(.*)$/sDu';
@@ -250,7 +250,6 @@ $messages = array(
 'tog-watchlisthideliu' => 'Авторизацияне узган кулланучыларның үзгәртүләре күзәтү исемлегеннән яшерелсен',
 'tog-watchlisthideanons' => 'Аноним кулланучыларның үзгәртүләре күзәтү исемлегеннән яшерелсен',
 'tog-watchlisthidepatrolled' => 'Тикшерелгән үзгәртүләр күзәтү исемлегеннән яшерелсен',
-'tog-nolangconversion' => 'Язу системаларының үзгәртүен сүндерү',
 'tog-ccmeonemails' => 'Башка кулланучыларга җибәргән хатларымның копияләре миңа да җибәрелсен',
 'tog-diffonly' => 'Юрама чагыштыру астында бит эчтәлеге күрсәтелмәсен',
 'tog-showhiddencats' => 'Яшерен төркемнәр күрсәтелсен',
@@ -329,14 +328,14 @@ $messages = array(
 'hidden-category-category' => 'Яшерен төркемнәр',
 'category-subcat-count' => '{{PLURAL:$2|Бу төркемдә түбәндәге төркемчә генә бар.|$2 төркемчәдән {{PLURAL:$1|$1 төркемчә күрсәтелгән}}.}}',
 'category-subcat-count-limited' => 'Бу төркемдә {{PLURAL:$1|$1 төркемчә}} бар.',
-'category-article-count' => '{{PLURAL:$2|Бу төркемдә бер генә бит бар.|Төркемдәге $2 битнең {{PLURAL:$1|$1 бите күрсәтелгән}}.}}',
+'category-article-count' => '{{PLURAL:$2|Бу төркемдә бер генә бит бар.|Төркемдәге $2 биттән {{PLURAL:$1|$1 күрсәтелде}}.}}',
 'category-article-count-limited' => 'Бу төркемдә {{PLURAL:$1|$1 бит}} бар.',
-'category-file-count' => '{{PLURAL:$2|Бу төркемдә бер генә файл бар.|Төркемдәге $2 файлның {{PLURAL:$1|$1 файлы күрсәтелгән}}.}}',
+'category-file-count' => '{{PLURAL:$2|Бу төркемдә бер генә файл бар.|Төркемдәге $2 файлдан {{PLURAL:$1|$1 күрсәтелде}}.}}',
 'category-file-count-limited' => 'Бу төркемдә {{PLURAL:$1|$1 файл}} бар.',
 'listingcontinuesabbrev' => 'дәвамы',
 'index-category' => 'Индексланган битләр',
 'noindex-category' => 'Индексланмаган битләр',
-'broken-file-category' => 'Эшләми торган файл сылтамаларлы битләр',
+'broken-file-category' => 'Файлларга эшләми торган сылтамалар булган битләр',
 
 'linkprefix' => '/^(.*?)([a-zA-Z\\x80-\\xff]+)$/sD',
 
@@ -970,6 +969,9 @@ $2
 'parser-template-loop-warning' => 'Үрнәкләрдә йомык сылтама табылды: [[$1]]',
 'parser-template-recursion-depth-warning' => '($1) үрнәген рекурсия итеп куллану чиге рөхсәт ителгәннән артып киткән',
 'language-converter-depth-warning' => 'Телләрне үзгәртүләре артык югарыга киткән ($1)',
+'node-count-exceeded-warning' => 'Биттә бәйләү өлешләре артып киткән',
+'expansion-depth-exceeded-category' => 'Ачыклык тирәнлеге зур булган битләр',
+'expansion-depth-exceeded-warning' => 'Биттә кертем чиге артып киткән',
 
 # "Undo" feature
 'undo-success' => 'Үзгәртүдән баш тартып була.
@@ -1108,6 +1110,7 @@ $1",
 'compareselectedversions' => 'Сайланган юрамаларны чагыштыру',
 'showhideselectedversions' => 'Сайланган юрамаларны күрсәтү/яшерү',
 'editundo' => 'үткәрмәү',
+'diff-multi' => '({{PLURAL:$2|бер кулланучының|$2 кулланучының}} {{PLURAL:$1|арадагы $1 версиясе күрсәтелмәгән}})',
 
 # Search results
 'searchresults' => 'Эзләү нәтиҗәләре',
@@ -1119,6 +1122,8 @@ $1",
 'notextmatches' => 'Тиңдәш текстлы битләр юк',
 'prevn' => 'алдагы {{PLURAL:$1|$1}}',
 'nextn' => 'чираттагы {{PLURAL:$1|$1}}',
+'prevn-title' => 'Алдагы $1  {{PLURAL:$1|язма}}',
+'nextn-title' => 'Киләсе $1  {{PLURAL:$1|язма}}',
 'shown-title' => 'Сәхифәдә $1 {{PLURAL:$1|язма|язма}} күрсәтелсен',
 'viewprevnext' => 'Күрсәтелүе: ($1 {{int:pipe-separator}} $2) ($3)',
 'searchmenu-legend' => 'Эзләү көйләнмәләре',
@@ -1137,6 +1142,7 @@ $1",
 'searchprofile-everything-tooltip' => 'Барлык битләрдә дә эзләү',
 'searchprofile-advanced-tooltip' => 'Бирелгән исемнәр мәйданында эзләү',
 'search-result-size' => '$1 ({{PLURAL:$2|$2 сүз}})',
+'search-result-category-size' => '{{PLURAL:$1|1 әгъза|$1 әгъза}} ({{PLURAL:$2|1 асттөркем|$2 асттөркем}}, {{PLURAL:$3|1 файл|$3 файл}})',
 'search-result-score' => 'Релевантлыгы: $1 %',
 'search-redirect' => '(юнәлтү $1)',
 'search-section' => '($1 бүлеге)',
@@ -1415,9 +1421,9 @@ $1",
 'uploadtext' => "Бу форманы кулланып серверга файллар йөкли аласыз. Элегрәк йөкләнелгән файлларны карау өчен [[Special:FileList|йөкләнелгән файллар исемлегенә]] мәрәҗәгать итегез. Шулай ук ул [[Special:Log/upload|йөкләнмәләр исемлегенә]] һәм [[Special:Log/delete|бетерелгән файллар]] исемлегенә дә языла.
 
 Файлны мәкаләгә йөкләү өчен Сез менә бу үрнәкләрне куллана аласыз:
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Рәсем.jpg]]</nowiki></tt>''' файлның тулы юрамасын кую өчен;
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Räsem.png|200px|thumb|left|тасвирламасы]]</nowiki></tt>'''  200 пиксельга кадәр киңлектәге  һәм текстның сул ягында, тасвирламасы белән;
-* '''<tt><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></tt>'''биттә файлны сүрәтләмичә, бары тик сылтамасын гына кую.",
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Рәсем.jpg]]</nowiki></code>''' файлның тулы юрамасын кую өчен;
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:Räsem.png|200px|thumb|left|тасвирламасы]]</nowiki></code>'''  200 пиксельга кадәр киңлектәге  һәм текстның сул ягында, тасвирламасы белән;
+* '''<code><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></code>'''биттә файлны сүрәтләмичә, бары тик сылтамасын гына кую.",
 'upload-permitted' => 'Рөхсәт ителгән файл төрләре:$1',
 'upload-preferred' => 'Мөмкин булган файл төрләре:$1',
 'upload-prohibited' => 'Тыелган файл төрләре:$1',
@@ -1632,6 +1638,7 @@ PICT # төрле
 'protectedpages' => 'Якланган битләр',
 'protectedtitles' => 'Тыелган исемнәр',
 'listusers' => 'Кулланучылар исемлеге',
+'usercreated' => '$3 $1 көнне $2 вакытта {{GENDER:$3|теркәлде}}',
 'newpages' => 'Яңа битләр',
 'newpages-username' => 'Кулланучы:',
 'ancientpages' => 'Иң иске битләр',
@@ -1739,6 +1746,7 @@ PICT # төрле
 # Watchlist
 'watchlist' => 'Күзәтү исемлегем',
 'mywatchlist' => 'Күзәтү исемлегем',
+'watchlistfor2' => '$1 $2 өчен',
 'nowatchlist' => 'Күзәтү исемлегегездә битләр юк.',
 'watchnologin' => 'Кермәдегез',
 'watchnologintext' => 'Күзәтү исемлегегезне үзгәртү өчен сез [[Special:UserLogin|керергә]] тиешсез.',
@@ -1923,6 +1931,7 @@ $1',
 'sp-contributions-talk' => 'бәхәс',
 'sp-contributions-search' => 'Кертемне эзләү',
 'sp-contributions-username' => 'Кулланучының IP адресы яки исеме:',
+'sp-contributions-toponly' => 'Соңгы версия булган үзгәртүләрне генә күрсәтергә',
 'sp-contributions-submit' => 'Эзләү',
 
 # What links here
@@ -2426,6 +2435,9 @@ $1',
 'hijri-calendar-m7' => 'Раҗәб',
 'hijri-calendar-m9' => 'Рамазан',
 
+# Core parser functions
+'duplicate-defaultsort' => 'Игътибар. Уйланма куелган "$2" бүлгәләү ачкычы элеккеге уйланма куелган "$1" бүлгәләү ачкычын үзгәртә.',
+
 # Special:Version
 'version' => 'Юрама',
 'version-extensions' => 'Куелган киңәйтүләр',
@@ -2468,6 +2480,16 @@ $1',
 # Special:BlankPage
 'blankpage' => 'Буш бит',
 'intentionallyblankpage' => 'Бу бит махсус буш калдырылган',
+
+# External image whitelist
+'external_image_whitelist' => '#Бу юлны ничек бар, шулаө калдырыгыз<pre>
+#Монда даими фразаларның фрагментларын куегыз (// арасында торган өлешен)
+#алар тышкы сурәтләрнең URL белән бәйләнерләр.
+#Туры килгәннәре сурәт буларак, туры килмәгәннәре сурәткә сылтама буларак күрсәтеләчәкләр.
+# # билгесе белән башланучы юллар шәрехнамә дип саналалар.
+#Юллар регистрга игътибар бирмиләр.
+
+#Даими фразаларның фрагментларын бу кыр өстендә куегыз. Бу кырны ничек бар, шулай калдырыгыз.</pre>',
 
 # Special:Tags
 'tags' => 'Гамәлдә булучы үзгәртүләр билгеләре',

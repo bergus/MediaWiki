@@ -134,6 +134,7 @@ class SpecialPageFactory {
 		// High use pages
 		'Mostlinkedcategories'      => 'MostlinkedCategoriesPage',
 		'Mostimages'                => 'MostimagesPage',
+		'Mostinterwikis'            => 'MostinterwikisPage',
 		'Mostlinked'                => 'MostlinkedPage',
 		'Mostlinkedtemplates'       => 'MostlinkedTemplatesPage',
 		'Mostcategories'            => 'MostcategoriesPage',
@@ -490,7 +491,7 @@ class SpecialPageFactory {
 		// Execute special page
 		$profName = 'Special:' . $page->getName();
 		wfProfileIn( $profName );
-		$page->execute( $par );
+		$page->run( $par );
 		wfProfileOut( $profName );
 		wfProfileOut( __METHOD__ );
 		return true;

@@ -88,7 +88,9 @@ class WebRequest {
 			if ( !preg_match( '!^https?://!', $url ) ) {
 				$url = 'http://unused' . $url;
 			}
+			wfSuppressWarnings();
 			$a = parse_url( $url );
+			wfRestoreWarnings();
 			if( $a ) {
 				$path = isset( $a['path'] ) ? $a['path'] : '';
 
@@ -496,17 +498,16 @@ class WebRequest {
 	public function getCheck( $name ) {
 		# Checkboxes and buttons are only present when clicked
 		# Presence connotes truth, abscense false
-		$val = $this->getVal( $name, null );
-		return isset( $val );
+		return $this->getVal( $name, null ) !== null;
 	}
 
 	/**
 	 * Fetch a text string from the given array or return $default if it's not
 	 * set. Carriage returns are stripped from the text, and with some language
 	 * modules there is an input transliteration applied. This should generally
-	 * be used for form <textarea> and <input> fields. Used for user-supplied
-	 * freeform text input (for which input transformations may be required - e.g.
-	 * Esperanto x-coding).
+	 * be used for form "<textarea>" and "<input>" fields. Used for
+	 * user-supplied freeform text input (for which input transformations may
+	 * be required - e.g.  Esperanto x-coding).
 	 *
 	 * @param $name String
 	 * @param $default String: optional
@@ -563,6 +564,15 @@ class WebRequest {
 	 }
 
 	/**
+	 * Get the HTTP method used for this request.
+	 *
+	 * @return String
+	 */
+	public function getMethod() {
+		return isset( $_SERVER['REQUEST_METHOD'] ) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+	}
+
+	/**
 	 * Returns true if the present request was reached by a POST operation,
 	 * false otherwise (GET, HEAD, or command-line).
 	 *
@@ -572,7 +582,7 @@ class WebRequest {
 	 * @return Boolean
 	 */
 	public function wasPosted() {
-		return isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] == 'POST';
+		return $this->getMethod() == 'POST';
 	}
 
 	/**
@@ -1274,6 +1284,10 @@ class FauxRequest extends WebRequest {
 		} else {
 			return $this->data;
 		}
+	}
+
+	public function getMethod() {
+		return $this->wasPosted ? 'POST' : 'GET';
 	}
 
 	/**

@@ -47,7 +47,7 @@ class SpecialTags extends SpecialPage {
 				Xml::tags( 'th', null, $this->msg( 'tags-hitcount-header' )->parse() )
 			);
 		$dbr = wfGetDB( DB_SLAVE );
-		$res = $dbr->select( 'change_tag', array( 'ct_tag', 'count(*) AS hitcount' ),
+		$res = $dbr->select( 'change_tag', array( 'ct_tag', 'hitcount' => 'count(*)' ),
 			array(), __METHOD__, array( 'GROUP BY' => 'ct_tag', 'ORDER BY' => 'hitcount DESC' ) );
 
 		foreach ( $res as $row ) {
@@ -69,7 +69,7 @@ class SpecialTags extends SpecialPage {
 		}
 
 		$newRow = '';
-		$newRow .= Xml::tags( 'td', null, Xml::element( 'tt', null, $tag ) );
+		$newRow .= Xml::tags( 'td', null, Xml::element( 'code', null, $tag ) );
 
 		$disp = ChangeTags::tagDescription( $tag );
 		$disp .= ' ';

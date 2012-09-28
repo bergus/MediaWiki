@@ -3,6 +3,21 @@
  * Vector - Modern version of MonoBook with fresh look and many usability
  * improvements.
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ * http://www.gnu.org/copyleft/gpl.html
+ *
  * @todo document
  * @file
  * @ingroup Skins
@@ -88,7 +103,7 @@ class VectorTemplate extends BaseTemplate {
 		$nav = $this->data['content_navigation'];
 
 		if ( $wgVectorUseIconWatch ) {
-			$mode = $this->getSkin()->getRelevantTitle()->userIsWatching() ? 'unwatch' : 'watch';
+			$mode = $this->getSkin()->getUser()->isWatched( $this->getSkin()->getRelevantTitle() ) ? 'unwatch' : 'watch';
 			if ( isset( $nav['actions'][$mode] ) ) {
 				$nav['views'][$mode] = $nav['actions'][$mode];
 				$nav['views'][$mode]['class'] = rtrim( 'icon ' . $nav['views'][$mode]['class'], ' ' );
@@ -175,7 +190,8 @@ class VectorTemplate extends BaseTemplate {
 				<?php if ( $this->data['showjumplinks'] ): ?>
 				<!-- jumpto -->
 				<div id="jump-to-nav" class="mw-jump">
-					<?php $this->msg( 'jumpto' ) ?> <a href="#mw-head"><?php $this->msg( 'jumptonavigation' ) ?></a>,
+					<?php $this->msg( 'jumpto' ) ?>
+					<a href="#mw-head"><?php $this->msg( 'jumptonavigation' ) ?></a><?php $this->msg( 'comma-separator' ) ?>
 					<a href="#p-search"><?php $this->msg( 'jumptosearch' ) ?></a>
 				</div>
 				<!-- /jumpto -->

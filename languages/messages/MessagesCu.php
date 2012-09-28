@@ -1,5 +1,5 @@
 <?php
-/** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+/** Church Slavic (словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -61,8 +61,8 @@ $namespaceAliases = array(
 );
 
 $magicWords = array(
-	'redirect'                => array( '0', '#ПРѢНАПРАВЛЄНИѤ', '#REDIRECT' ),
-	'language'                => array( '0', '#ѨꙀꙐКЪ:', '#LANGUAGE:' ),
+	'redirect'                  => array( '0', '#ПРѢНАПРАВЛЄНИѤ', '#REDIRECT' ),
+	'language'                  => array( '0', '#ѨꙀꙐКЪ:', '#LANGUAGE:' ),
 );
 
 $defaultDateFormat = 'mdy';
@@ -201,7 +201,7 @@ $messages = array(
 'protect' => 'ꙁабранѥниѥ',
 'protect_change' => 'иꙁмѣнѥниѥ',
 'protectthispage' => 'си страницѧ ꙁабранєниѥ',
-'unprotect' => 'поущєниѥ',
+'unprotect' => 'ꙁабранѥниꙗ обраꙁа иꙁмѣнѥниѥ',
 'newpage' => 'нова страница',
 'talkpage' => 'си страницѧ бєсѣда',
 'talkpagelinktext' => 'бєсѣда',
@@ -455,7 +455,7 @@ $messages = array(
 'nchanges' => '$1 {{PLURAL:$1|мѣна|мѣнꙑ|мѣнъ}}',
 'recentchanges' => 'послѣдьнѩ мѣнꙑ',
 'recentchanges-legend' => 'послѣдьн҄ь мѣнъ строи',
-'recentchangestext' => 'с҄ьдє послѣдьнѩ мѣнꙑ сѥѩ викиопꙑтьствованиꙗ видѣти можєши',
+'recentchanges-summary' => 'с҄ьдє послѣдьнѩ мѣнꙑ сѥѩ викиопꙑтьствованиꙗ видѣти можєши',
 'recentchanges-label-newpage' => 'по сѥи мѣнꙑ нова страница сътворѥна ѥстъ',
 'recentchanges-label-minor' => 'малаꙗ мѣна',
 'recentchanges-label-bot' => 'сѭ мѣноу аѵтоматъ сътворихъ',
@@ -544,6 +544,7 @@ $messages = array(
 'statistics-articles' => 'истиньнꙑ члѣни',
 'statistics-pages' => 'страницѧ',
 'statistics-files' => 'положєнꙑ дѣла',
+'statistics-users-active' => 'дѣꙗтєльнꙑ польꙃєватєлє',
 
 'disambiguations' => 'страницѧ ижє съвѧꙁи съ мъногосъмꙑслиꙗ имѫтъ',
 'disambiguationspage' => 'Template:мъногосъмꙑслиѥ',
@@ -732,11 +733,6 @@ $messages = array(
 'tooltip-t-print' => 'сѥѩ страницѧ пєчатьнъ обраꙁъ',
 'tooltip-ca-nstab-special' => 'си нарочьна страница ѥстъ · ѥѩжє иꙁмѣнꙗти нє можєши',
 'tooltip-watch' => 'си страницѧ блюдєниѥ',
-
-# Info page
-'pageinfo-header-watchlist' => 'блюдєниꙗ',
-'pageinfo-subjectpage' => 'страница',
-'pageinfo-talkpage' => 'бєсѣда',
 
 # Media information
 'file-info-size' => '$1 × $2 п҃ѯ · дѣла мѣра : $3 · MIME тѷпъ : $4',

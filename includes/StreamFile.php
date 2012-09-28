@@ -31,7 +31,7 @@ class StreamFile {
 	 * Stream a file to the browser, adding all the headings and fun stuff.
 	 * Headers sent include: Content-type, Content-Length, Last-Modified,
 	 * and Content-Disposition.
-	 * 
+	 *
 	 * @param $fname string Full name and path of the file to stream
 	 * @param $headers array Any additional headers to send
 	 * @param $sendErrors bool Send error messages if errors occur (like 404)
@@ -39,6 +39,10 @@ class StreamFile {
 	 */
 	public static function stream( $fname, $headers = array(), $sendErrors = true ) {
 		wfProfileIn( __METHOD__ );
+
+		if ( FileBackend::isStoragePath( $fname ) ) { // sanity
+			throw new MWException( __FUNCTION__ . " given storage path '$fname'." );
+		}
 
 		wfSuppressWarnings();
 		$stat = stat( $fname );
@@ -75,8 +79,6 @@ class StreamFile {
 	public static function prepareForStream(
 		$path, $info, $headers = array(), $sendErrors = true
 	) {
-		global $wgLanguageCode;
-
 		if ( !is_array( $info ) ) {
 			if ( $sendErrors ) {
 				header( 'HTTP/1.0 404 Not Found' );
@@ -117,9 +119,6 @@ class StreamFile {
 			return false;
 		}
 
-		header( "Content-Disposition: inline;filename*=utf-8'$wgLanguageCode'" .
-			urlencode( basename( $path ) ) );
-
 		// Send additional headers
 		foreach ( $headers as $header ) {
 			header( $header );
@@ -142,7 +141,7 @@ class StreamFile {
 
 	/**
 	 * Determine the file type of a file based on the path
-	 * 
+	 *
 	 * @param $filename string Storage path or file system path
 	 * @param $safe bool Whether to do retroactive upload blacklist checks
 	 * @return null|string

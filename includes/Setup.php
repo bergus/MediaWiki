@@ -77,9 +77,6 @@ if ( $wgLogo === false ) $wgLogo = "$wgStylePath/common/images/wiki.png";
 
 if ( $wgUploadPath === false ) $wgUploadPath = "$wgScriptPath/images";
 if ( $wgUploadDirectory === false ) $wgUploadDirectory = "$IP/images";
-
-if ( $wgTmpDirectory === false ) $wgTmpDirectory = "{$wgUploadDirectory}/tmp";
-
 if ( $wgReadOnlyFile === false ) $wgReadOnlyFile = "{$wgUploadDirectory}/lock_yBgMBwiR";
 if ( $wgFileCacheDirectory === false ) $wgFileCacheDirectory = "{$wgUploadDirectory}/cache";
 if ( $wgDeletedDirectory === false ) $wgDeletedDirectory = "{$wgUploadDirectory}/deleted";
@@ -335,9 +332,6 @@ if ( !$wgEnotifMinorEdits ) {
 foreach( $wgDisabledActions as $action ){
 	$wgActions[$action] = false;
 }
-if( !$wgAllowPageInfo ){
-	$wgActions['info'] = false;
-}
 
 if ( !$wgHtml5Version && $wgHtml5 && $wgAllowRdfaAttributes ) {
 	# see http://www.w3.org/TR/rdfa-in-html/#document-conformance
@@ -368,12 +362,14 @@ if ( $wgNewUserLog ) {
 	$wgLogTypes[]                        = 'newusers';
 	$wgLogNames['newusers']              = 'newuserlogpage';
 	$wgLogHeaders['newusers']            = 'newuserlogpagetext';
-	# newusers, create, create2, autocreate
-	$wgLogActionsHandlers['newusers/*']  = 'NewUsersLogFormatter';
+	$wgLogActionsHandlers['newusers/newusers'] = 'NewUsersLogFormatter';
+	$wgLogActionsHandlers['newusers/create'] = 'NewUsersLogFormatter';
+	$wgLogActionsHandlers['newusers/create2'] = 'NewUsersLogFormatter';
+	$wgLogActionsHandlers['newusers/autocreate'] = 'NewUsersLogFormatter';
 }
 
 if ( $wgCookieSecure === 'detect' ) {
-	$wgCookieSecure = ( substr( $wgServer, 0, 6 ) === 'https:' );
+	$wgCookieSecure = ( WebRequest::detectProtocol() === 'https' );
 }
 
 // Disable MWDebug for command line mode, this prevents MWDebug from eating up
@@ -400,7 +396,12 @@ if ( !defined( 'MW_COMPILED' ) ) {
 	wfProfileOut( $fname . '-includes' );
 }
 
-# Now that GlobalFunctions is loaded, set the default for $wgCanonicalServer
+# Now that GlobalFunctions is loaded, set defaults that depend
+# on it.
+if ( $wgTmpDirectory === false ) {
+	$wgTmpDirectory = wfTempDir();
+}
+
 if ( $wgCanonicalServer === false ) {
 	$wgCanonicalServer = wfExpandUrl( $wgServer, PROTO_HTTP );
 }
@@ -445,7 +446,7 @@ if ( $wgCommandLineMode ) {
 	# Can't stub this one, it sets up $_GET and $_REQUEST in its constructor
 	$wgRequest = new WebRequest;
 
-	$debug = "\n\nStart request {$_SERVER['REQUEST_METHOD']} {$wgRequest->getRequestURL()}\n";
+	$debug = "\n\nStart request {$wgRequest->getMethod()} {$wgRequest->getRequestURL()}\n";
 
 	if ( $wgDebugPrintHttpHeaders ) {
 		$debug .= "HTTP HEADERS:\n";

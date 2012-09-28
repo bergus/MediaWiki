@@ -238,7 +238,7 @@ class SpecialPasswordReset extends FormSpecialPage {
 			$user->setNewpassword( $password );
 			$user->saveSettings();
 			$passwords[] = $this->msg( 'passwordreset-emailelement', $user->getName(), $password
-				)->inLanguage( $userLanguage )->plain(); // We'll escape the whole thing later
+				)->inLanguage( $userLanguage )->text(); // We'll escape the whole thing later
 		}
 		$passwordBlock = implode( "\n\n", $passwords );
 
@@ -247,7 +247,7 @@ class SpecialPasswordReset extends FormSpecialPage {
 			$username,
 			$passwordBlock,
 			count( $passwords ),
-			Title::newMainPage()->getCanonicalUrl(),
+			'<' . Title::newMainPage()->getCanonicalUrl() . '>',
 			round( $wgNewPasswordExpiry / 86400 )
 		);
 

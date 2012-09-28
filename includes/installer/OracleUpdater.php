@@ -55,20 +55,21 @@ class OracleUpdater extends DatabaseUpdater {
 
 			//1.19
 			array( 'addIndex', 'logging',       'i05',      'patch-logging_type_action_index.sql'),
-			array( 'addTable', 'globaltemplatelinks', 'patch-globaltemplatelinks.sql' ),
-			array( 'addTable', 'globalnamespaces', 'patch-globalnamespaces.sql' ),
-			array( 'addTable', 'globalinterwiki', 'patch-globalinterwiki.sql' ),
 			array( 'addField', 'revision', 'rev_sha1', 'patch-rev_sha1_field.sql' ),
 			array( 'addField', 'archive', 'ar_sha1', 'patch-ar_sha1_field.sql' ),
 			array( 'doRemoveNotNullEmptyDefaults2' ),
 			array( 'addIndex', 'page', 'i03', 'patch-page_redirect_namespace_len.sql' ),
-			array( 'modifyField', 'user', 'ug_group', 'patch-ug_group-length-increase.sql' ),
+			array( 'modifyField', 'user_groups', 'ug_group', 'patch-ug_group-length-increase.sql' ),
 			array( 'addField', 'uploadstash', 'us_chunk_inx', 'patch-us_chunk_inx_field.sql' ),
 			array( 'addField', 'job', 'job_timestamp', 'patch-job_timestamp_field.sql' ),
 			array( 'addIndex', 'job', 'i02', 'patch-job_timestamp_index.sql' ),
+			array( 'doPageRestrictionsPKUKFix' ),
+			array( 'modifyField', 'user_former_groups', 'ufg_group', 'patch-ufg_group-length-increase.sql' ),
 
 			//1.20
 			array( 'addTable', 'config', 'patch-config.sql' ),
+			array( 'addIndex', 'ipblocks', 'i05', 'patch-ipblocks_i05_index.sql' ),
+			array( 'addIndex', 'revision', 'i05', 'patch-revision_i05_index.sql' ),
 
 			// KEEP THIS AT THE BOTTOM!!
 			array( 'doRebuildDuplicateFunction' ),
@@ -82,40 +83,32 @@ class OracleUpdater extends DatabaseUpdater {
 	 * Oracle inserts NULL, so namespace fields should have a default value
 	 */
 	protected function doNamespaceDefaults() {
-		$this->output( "Altering namespace fields with default value ... " );
 		$meta = $this->db->fieldInfo( 'page', 'page_namespace' );
 		if ( $meta->defaultValue() != null ) {
-			$this->output( "defaults seem to present on namespace fields\n" );
 			return;
 		}
 
-		$this->applyPatch( 'patch_namespace_defaults.sql', false );
-		$this->output( "ok\n" );
+		$this->applyPatch( 'patch_namespace_defaults.sql', false, "Altering namespace fields with default value" );
 	}
 
 	/**
 	 * Uniform FK names + deferrable state
 	 */
 	protected function doFKRenameDeferr() {
-		$this->output( "Altering foreign keys ... " );
 		$meta = $this->db->query( 'SELECT COUNT(*) cnt FROM user_constraints WHERE constraint_type = \'R\' AND deferrable = \'DEFERRABLE\'' );
 		$row = $meta->fetchRow();
 		if ( $row && $row['cnt'] > 0 ) {
-			$this->output( "at least one FK is deferrable, considering up to date\n" );
 			return;
 		}
 
-		$this->applyPatch( 'patch_fk_rename_deferred.sql', false );
-		$this->output( "ok\n" );
+		$this->applyPatch( 'patch_fk_rename_deferred.sql', false, "Altering foreign keys ... " );
 	}
 
 	/**
 	 * Recreate functions to 17 schema layout
 	 */
 	protected function doFunctions17() {
-		$this->output( "Recreating functions ... " );
-		$this->applyPatch( 'patch_create_17_functions.sql', false );
-		$this->output( "ok\n" );
+		$this->applyPatch( 'patch_create_17_functions.sql', false, "Recreating functions" );
 	}
 
 	/**
@@ -123,14 +116,11 @@ class OracleUpdater extends DatabaseUpdater {
 	 * there are no incremental patches prior to this
 	 */
 	protected function doSchemaUpgrade17() {
-		$this->output( "Updating schema to 17 ... " );
 		// check if iwlinks table exists which was added in 1.17
 		if ( $this->db->tableExists( 'iwlinks' ) ) {
-			$this->output( "schema seem to be up to date.\n" );
 			return;
 		}
-		$this->applyPatch( 'patch_16_17_schema_changes.sql', false );
-		$this->output( "ok\n" );
+		$this->applyPatch( 'patch_16_17_schema_changes.sql', false, "Updating schema to 17" );
 	}
 
 	/**
@@ -159,24 +149,19 @@ class OracleUpdater extends DatabaseUpdater {
 	 * converted to NULL in Oracle
 	 */
 	protected function doRemoveNotNullEmptyDefaults() {
-		$this->output( "Removing not null empty constraints ... " );
 		$meta = $this->db->fieldInfo( 'categorylinks' , 'cl_sortkey_prefix' );
 		if ( $meta->isNullable() ) {
-			$this->output( "constraints seem to be removed\n" );
 			return;
 		}
-		$this->applyPatch( 'patch_remove_not_null_empty_defs.sql', false );
-		$this->output( "ok\n" );
+		$this->applyPatch( 'patch_remove_not_null_empty_defs.sql', false, "Removing not null empty constraints" );
 	}
+
 	protected function doRemoveNotNullEmptyDefaults2() {
-		$this->output( "Removing not null empty constraints ... " );
 		$meta = $this->db->fieldInfo( 'ipblocks' , 'ipb_by_text' );
 		if ( $meta->isNullable() ) {
-			$this->output( "constraints seem to be removed\n" );
 			return;
 		}
-		$this->applyPatch( 'patch_remove_not_null_empty_defs2.sql', false );
-		$this->output( "ok\n" );
+		$this->applyPatch( 'patch_remove_not_null_empty_defs2.sql', false, "Removing not null empty constraints" );
 	}
 
 	/**
@@ -184,16 +169,29 @@ class OracleUpdater extends DatabaseUpdater {
 	 * cascading taken in account in the deleting function
 	 */
 	protected function doRecentchangesFK2Cascade() {
-		$this->output( "Altering RECENTCHANGES_FK2 ... " );
-
 		$meta = $this->db->query( 'SELECT 1 FROM all_constraints WHERE owner = \''.strtoupper($this->db->getDBname()).'\' AND constraint_name = \''.$this->db->tablePrefix().'RECENTCHANGES_FK2\' AND delete_rule = \'CASCADE\'' );
 		$row = $meta->fetchRow();
 		if ( $row ) {
-			$this->output( "FK up to date\n" );
 			return;
 		}
 
-		$this->applyPatch( 'patch_recentchanges_fk2_cascade.sql', false );
+		$this->applyPatch( 'patch_recentchanges_fk2_cascade.sql', false, "Altering RECENTCHANGES_FK2" );
+	}
+
+	/**
+	 * Fixed wrong PK, UK definition
+	 */
+	protected function doPageRestrictionsPKUKFix() {
+		$this->output( "Altering PAGE_RESTRICTIONS keys ... " );
+
+		$meta = $this->db->query( 'SELECT column_name FROM all_cons_columns WHERE owner = \''.strtoupper($this->db->getDBname()).'\' AND constraint_name = \'MW_PAGE_RESTRICTIONS_PK\' AND rownum = 1' );
+		$row = $meta->fetchRow();
+		if ( $row['column_name'] == 'PR_ID' ) {
+			$this->output( "seems to be up to date.\n" );
+			return;
+		}
+
+		$this->applyPatch( 'patch-page_restrictions_pkuk_fix.sql', false );
 		$this->output( "ok\n" );
 	}
 
@@ -201,9 +199,7 @@ class OracleUpdater extends DatabaseUpdater {
 	 * rebuilding of the function that duplicates tables for tests
 	 */
 	protected function doRebuildDuplicateFunction() {
-		$this->output( "Rebuilding duplicate function ... " );
-		$this->applyPatch( 'patch_rebuild_dupfunc.sql', false );
-		$this->output( "ok\n" );
+		$this->applyPatch( 'patch_rebuild_dupfunc.sql', false, "Rebuilding duplicate function" );
 	}
 
 	/**

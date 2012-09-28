@@ -20,7 +20,7 @@
  * @file
  */
 
-require_once dirname( __FILE__ ) . '/Services_JSON.php';
+require_once __DIR__ . '/Services_JSON.php';
 
 /**
  * JSON formatter wrapper class
@@ -41,14 +41,11 @@ class FormatJson {
 	 * @return string
 	 */
 	public static function encode( $value, $isHtml = false ) {
-		// Some versions of PHP have a broken json_encode, see PHP bug
-		// 46944. Test encoding an affected character (U+20000) to
-		// avoid this.
-		if ( !function_exists( 'json_encode' ) || $isHtml || strtolower( json_encode( "\xf0\xa0\x80\x80" ) ) != '"\ud840\udc00"' ) {
+		if ( !function_exists( 'json_encode' ) || ( $isHtml && version_compare( PHP_VERSION, '5.4.0', '<' ) ) ) {
 			$json = new Services_JSON();
 			return $json->encode( $value, $isHtml );
 		} else {
-			return json_encode( $value );
+			return json_encode( $value, $isHtml ? JSON_PRETTY_PRINT : 0 );
 		}
 	}
 
@@ -60,7 +57,7 @@ class FormatJson {
 	 *
 	 * @return Mixed: the value encoded in json in appropriate PHP type.
 	 * Values true, false and null (case-insensitive) are returned as true, false
-	 * and &null; respectively. &null; is returned if the json cannot be
+	 * and "&null;" respectively. "&null;" is returned if the json cannot be
 	 * decoded or if the encoded data is deeper than the recursion limit.
 	 */
 	public static function decode( $value, $assoc = false ) {

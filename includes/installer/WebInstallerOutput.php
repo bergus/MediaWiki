@@ -108,7 +108,7 @@ class WebInstallerOutput {
 	 * @return String
 	 */
 	public function getCSS( $dir ) {
-		$skinDir = dirname( dirname( dirname( __FILE__ ) ) ) . '/skins';
+		$skinDir = dirname( dirname( __DIR__ ) ) . '/skins';
 
 		// All these files will be concatenated in sequence and loaded
 		// as one file.
@@ -118,6 +118,7 @@ class WebInstallerOutput {
 		$cssFileNames = array(
 
 			// Basically the "skins.vector" ResourceLoader module styles
+			'common/shared.css',
 			'common/commonElements.css',
 			'common/commonContent.css',
 			'common/commonInterface.css',
@@ -153,7 +154,7 @@ class WebInstallerOutput {
 	}
 
 	/**
-	 * <link> to index.php?css=foobar for the <head>
+	 * "<link>" to index.php?css=foobar for the "<head>"
 	 * @return String
 	 */
 	private function getCssUrl( ) {
@@ -273,7 +274,7 @@ class WebInstallerOutput {
 	</div>
 	<div class="portal"><div class="body">
 <?php
-	echo $this->parent->parse( wfMsgNoTrans( 'config-sidebar' ), true );
+	echo $this->parent->parse( wfMessage( 'config-sidebar' )->plain(), true );
 ?>
 	</div></div>
 </div>
@@ -301,7 +302,7 @@ class WebInstallerOutput {
 
 	public function outputTitle() {
 		global $wgVersion;
-		echo htmlspecialchars( wfMsg( 'config-title', $wgVersion ) );
+		echo wfMessage( 'config-title', $wgVersion )->escaped();
 	}
 
 	public function getJQuery() {

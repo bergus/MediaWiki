@@ -1,5 +1,5 @@
 <?php
-/** Eastern Mari (Олык Марий)
+/** Eastern Mari (олык марий)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -72,14 +72,14 @@ $specialPageAliases = array(
 );
 
 $magicWords = array(
-	'img_right'               => array( '1', 'пурла', 'справа', 'right' ),
-	'img_left'                => array( '1', 'шола', 'слева', 'left' ),
-	'img_border'              => array( '1', 'чек', 'граница', 'border' ),
-	'img_sub'                 => array( '1', 'йымалне', 'под', 'sub' ),
-	'img_super'               => array( '1', 'ӱмбалне', 'над', 'super', 'sup' ),
-	'img_top'                 => array( '1', 'кӱшычын', 'сверху', 'top' ),
-	'img_middle'              => array( '1', 'покшелне', 'посередине', 'middle' ),
-	'img_bottom'              => array( '1', 'ӱлычын', 'снизу', 'bottom' ),
+	'img_right'                 => array( '1', 'пурла', 'справа', 'right' ),
+	'img_left'                  => array( '1', 'шола', 'слева', 'left' ),
+	'img_border'                => array( '1', 'чек', 'граница', 'border' ),
+	'img_sub'                   => array( '1', 'йымалне', 'под', 'sub' ),
+	'img_super'                 => array( '1', 'ӱмбалне', 'над', 'super', 'sup' ),
+	'img_top'                   => array( '1', 'кӱшычын', 'сверху', 'top' ),
+	'img_middle'                => array( '1', 'покшелне', 'посередине', 'middle' ),
+	'img_bottom'                => array( '1', 'ӱлычын', 'снизу', 'bottom' ),
 );
 
 $messages = array(
@@ -258,6 +258,7 @@ $messages = array(
 'jumpto' => 'Куснаш:',
 'jumptonavigation' => 'навигацийыш',
 'jumptosearch' => 'кычалмашшке',
+'pool-errorunknown' => 'Палыдыме йоҥылыш',
 
 # All link text and link target definitions of links into project namespace that get used by other message strings, with the exception of user group pages (see grouppage) and the disambiguation template definition (see disambiguations).
 'aboutsite' => '{{SITENAME}} нерген',
@@ -328,6 +329,7 @@ $messages = array(
 'filecopyerror' => '«$1» гыч «$2» файлыш копийым ышташ лийдыме.',
 'fileexistserror' => '«$1» файлыш возыкым ышташ лийдыме: файл уло.',
 'unexpected' => 'Келшыдыме кугыт: «$1»=«$2».',
+'cannotdelete-title' => '"$1" лаштыкым шӧраш ок лий',
 'badtitle' => 'Сай огыл лӱм',
 'badtitletext' => 'Йодмо лаштыкын лӱмжӧ йоҥылыш, але яра, але йылме кокла але интер-вики лӱмжӧ йоҥылыш. Ала лӱмыштӧ кӱлдымӧ тамга улыт.',
 'viewsource' => 'Тӱҥалтыш текст',

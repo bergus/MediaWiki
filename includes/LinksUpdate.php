@@ -51,7 +51,7 @@ class LinksUpdate extends SqlDataUpdate {
 	 * @param $recursive Boolean: queue jobs for recursive updates?
 	 */
 	function __construct( $title, $parserOutput, $recursive = true ) {
-		parent::__construct( );
+		parent::__construct( false ); // no implicit transaction
 
 		if ( !( $title instanceof Title ) ) {
 			throw new MWException( "The calling convention to LinksUpdate::LinksUpdate() has changed. " .
@@ -65,6 +65,10 @@ class LinksUpdate extends SqlDataUpdate {
 
 		$this->mTitle = $title;
 		$this->mId = $title->getArticleID();
+
+		if ( !$this->mId ) {
+			throw new MWException( "The Title object did not provide an article ID. Perhaps the page doesn't exist?" );
+		}
 
 		$this->mParserOutput = $parserOutput;
 		$this->mLinks = $parserOutput->getLinks();
@@ -818,12 +822,10 @@ class LinksDeletionUpdate extends SqlDataUpdate {
 	/**
 	 * Constructor
 	 *
-	 * @param $title Title of the page we're updating
-	 * @param $parserOutput ParserOutput: output from a full parse of this page
-	 * @param $recursive Boolean: queue jobs for recursive updates?
+	 * @param $page WikiPage Page we are updating
 	 */
 	function __construct( WikiPage $page ) {
-		parent::__construct( );
+		parent::__construct( false ); // no implicit transaction
 
 		$this->mPage = $page;
 	}

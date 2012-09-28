@@ -4,7 +4,7 @@
  *
  * Created on August 16, 2007
  *
- * Copyright © 2007 Iker Labarga <Firstname><Lastname>@gmail.com
+ * Copyright © 2007 Iker Labarga "<Firstname><Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,7 +60,11 @@ class ApiEditPage extends ApiBase {
 			if ( $titleObj->isRedirect() ) {
 				$oldTitle = $titleObj;
 
-				$titles = Title::newFromRedirectArray( Revision::newFromTitle( $oldTitle )->getText( Revision::FOR_THIS_USER ) );
+				$titles = Title::newFromRedirectArray(
+					Revision::newFromTitle(
+						$oldTitle, false, Revision::READ_LATEST
+					)->getText( Revision::FOR_THIS_USER )
+				);
 				// array_shift( $titles );
 
 				$redirValues = array();
@@ -162,7 +166,7 @@ class ApiEditPage extends ApiBase {
 			// If no summary was given and we only undid one rev,
 			// use an autosummary
 			if ( is_null( $params['summary'] ) && $titleObj->getNextRevisionID( $undoafterRev->getID() ) == $params['undo'] ) {
-				$params['summary'] = wfMsgForContent( 'undo-summary', $params['undo'], $undoRev->getUserText() );
+				$params['summary'] = wfMessage( 'undo-summary', $params['undo'], $undoRev->getUserText() )->inContentLanguage()->text();
 			}
 		}
 
@@ -182,7 +186,7 @@ class ApiEditPage extends ApiBase {
 		if ( !is_null( $params['summary'] ) ) {
 			$requestArray['wpSummary'] = $params['summary'];
 		}
-		
+
 		if ( !is_null( $params['sectiontitle'] ) ) {
 			$requestArray['wpSectionTitle'] = $params['sectiontitle'];
 		}
@@ -413,7 +417,10 @@ class ApiEditPage extends ApiBase {
 				ApiBase::PARAM_REQUIRED => false,
 			),
 			'text' => null,
-			'token' => null,
+			'token' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true
+			),
 			'summary' => null,
 			'minor' => false,
 			'notminor' => false,
@@ -491,6 +498,41 @@ class ApiEditPage extends ApiBase {
 			'undo' => "Undo this revision. Overrides {$p}text, {$p}prependtext and {$p}appendtext",
 			'undoafter' => 'Undo all revisions from undo to this one. If not set, just undo one revision',
 			'redirect' => 'Automatically resolve redirects',
+		);
+	}
+
+	public function getResultProperties() {
+		return array(
+			'' => array(
+				'new' => 'boolean',
+				'result' => array(
+					ApiBase::PROP_TYPE => array(
+						'Success',
+						'Failure'
+					),
+				),
+				'pageid' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'title' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'nochange' => 'boolean',
+				'oldrevid' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'newrevid' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'newtimestamp' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				)
+			)
 		);
 	}
 

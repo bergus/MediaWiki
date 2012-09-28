@@ -18,6 +18,44 @@
 
 $fallback = 'tr';
 
+$namespaceNames = array(
+	NS_MEDIA            => 'Medya',
+	NS_SPECIAL          => 'Doxmeli',
+	NS_TALK             => 'Ğarğala',
+	NS_USER             => 'Maxmare',
+	NS_USER_TALK        => 'Maxmare_mesaji',
+	NS_PROJECT_TALK     => '$1_ğarğala',
+	NS_FILE             => 'Dosya',
+	NS_FILE_TALK        => 'Dosya_ğarğala',
+	NS_MEDIAWIKI        => 'MediaWiki',
+	NS_MEDIAWIKI_TALK   => 'MediaWiki_ğarğala',
+	NS_TEMPLATE         => 'Şabloni',
+	NS_TEMPLATE_TALK    => 'Şabloni_ğarğala',
+	NS_HELP             => 'Meşvela',
+	NS_HELP_TALK        => 'Meşvela_ğarğala',
+	NS_CATEGORY         => 'Kʼatʼegori',
+	NS_CATEGORY_TALK    => 'Kʼatʼegori_ğarğala',
+);
+
+$namespaceAliases = array(
+	// Turkish namespace names.
+	'Medya'              => NS_MEDIA,
+	'Özel'               => NS_SPECIAL,
+	'Tartışma'           => NS_TALK,
+	'Kullanıcı'          => NS_USER,
+	'Kullanıcı_mesaj'    => NS_USER_TALK,
+	'$1_tartışma'        => NS_PROJECT_TALK,
+	'Dosya'              => NS_FILE,
+	'Dosya_tartışma'     => NS_FILE_TALK,
+	'MediaWiki_tartışma' => NS_MEDIAWIKI_TALK,
+	'Şablon'             => NS_TEMPLATE,
+	'Şablon_tartışma'    => NS_TEMPLATE_TALK,
+	'Yardım'             => NS_HELP,
+	'Yardım_tartışma'    => NS_HELP_TALK,
+	'Kategori'           => NS_CATEGORY,
+	'Kategori_tartışma'  => NS_CATEGORY_TALK,
+);
+
 $messages = array(
 # User preference toggles
 'tog-underline' => "Link'iş tude kogu3’uxaçki:",
@@ -223,6 +261,7 @@ Dudicoxopes oxmaruşi yasaği na ren ar, varna daha dido kʼarakʼtʼeri uğun.'
 'userlogout' => 'Siteşen Kogamaxti',
 'nologin' => "Hesabi va giğuni? '''$1'''",
 'nologinlink' => 'Hesabi dokʼidi.',
+'gotaccountlink' => 'Sitʼeşa amaxti',
 'mailmypassword' => 'Ağne pʼarola-çkimi moncğoni',
 
 # Change password dialog
@@ -306,7 +345,7 @@ Oxo3ʼonapape: (a3ʼineri) = a3ʼineri versiyoni kʼala na ren farkʼi,
 'revertmerge' => 'Artikʼartişen okʼo3ʼkʼi',
 
 # Diffs
-'history-title' => '"$1" butʼkʼaşi tarixi',
+'history-title' => 'Butʼkʼaşi tarixi "$1"',
 'lineno' => '$1. satʼiri:',
 'compareselectedversions' => 'Na goşiğen versiyonepe okʼo3ʼiri',
 'editundo' => 'ukʼuni',
@@ -581,7 +620,7 @@ Am butʼkʼaşi oçvuşi sinori gaktirinen; ama am oktiroba, kʼademoni oçvalu�
 # Block/unblock
 'blockip' => 'Maxmares bloği qʼvi',
 'ipboptions' => '2 saatʼi:2 hours,1 ndğa:1 day,3 ndğa:3 days,1 doloni:1 week,2 doloni:2 weeks,1 tuta:1 month,3 tuta:3 months,6 tuta:6 months,1 3ʼana:1 year,pʼanda:infinite',
-'ipblocklist' => 'Bloği xveneri na renan IP adresepe do maxmareş coxope',
+'ipblocklist' => 'Bloği do maxmareş',
 'blocklink' => 'bloği qʼvi',
 'unblocklink' => 'bloği kezdi',
 'change-blocklink' => 'bloği doktiri',

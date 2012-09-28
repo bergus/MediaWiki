@@ -1,11 +1,9 @@
 <?php
-global $IP;
-require_once( "$IP/maintenance/backup.inc" );
 
 /**
  * Base TestCase for dumps
  */
-abstract class DumpTestCase extends MediaWikiTestCase {
+abstract class DumpTestCase extends MediaWikiLangTestCase {
 
 	/**
 	 * exception to be rethrown once in sound PHPUnit surrounding
@@ -47,7 +45,7 @@ abstract class DumpTestCase extends MediaWikiTestCase {
 				return array( $revision_id, $text_id );
 			}
 		}
-		throw new MWException( "Could not determine revision id (" . $status->getXML() . ")" );
+		throw new MWException( "Could not determine revision id (" . $status->getWikiText() . ")" );
 	}
 
 
@@ -74,7 +72,7 @@ abstract class DumpTestCase extends MediaWikiTestCase {
 	 *
 	 * Clears $wgUser, and reports errors from addDBData to PHPUnit
 	 */
-	protected function setUp() {
+	public function setUp() {
 		global $wgUser;
 
 		parent::setUp();
@@ -297,13 +295,17 @@ abstract class DumpTestCase extends MediaWikiTestCase {
 	 * @param $text_sha1 string: the base36 SHA-1 of the revision's text
 	 * @param $text string|false: (optional) The revision's string, or false to check for a
 	 *            revision stub
+	 * @param $parentid int|false: (optional) id of the parent revision
 	 */
-	protected function assertRevision( $id, $summary, $text_id, $text_bytes, $text_sha1, $text = false ) {
+	protected function assertRevision( $id, $summary, $text_id, $text_bytes, $text_sha1, $text = false, $parentid = false ) {
 
 		$this->assertNodeStart( "revision" );
 		$this->skipWhitespace();
 
 		$this->assertTextNode( "id", $id );
+		if ( $parentid !== false ) {
+			$this->assertTextNode( "parentid", $parentid );
+		}
 		$this->assertTextNode( "timestamp", false );
 
 		$this->assertNodeStart( "contributor" );
@@ -314,12 +316,13 @@ abstract class DumpTestCase extends MediaWikiTestCase {
 
 		$this->assertTextNode( "comment", $summary );
 
+		$this->assertTextNode( "sha1", $text_sha1 );
+
 		$this->assertNodeStart( "text", false );
 		if ( $text_bytes !== false ) {
 			$this->assertEquals( $this->xml->getAttribute( "bytes" ), $text_bytes,
 				"Attribute 'bytes' of revision " . $id );
 		}
-
 
 		if ( $text === false ) {
 			// Testing for a stub
@@ -341,8 +344,6 @@ abstract class DumpTestCase extends MediaWikiTestCase {
 			$this->assertNodeEnd( "text" );
 			$this->skipWhitespace();
 		}
-
-		$this->assertTextNode( "sha1", $text_sha1 );
 
 		$this->assertNodeEnd( "revision" );
 		$this->skipWhitespace();

@@ -36,11 +36,12 @@ class UploadFromUrl extends UploadBase {
 
 	/**
 	 * Checks if the user is allowed to use the upload-by-URL feature. If the
-	 * user is allowed, pass on permissions checking to the parent.
+	 * user is not allowed, return the name of the user right as a string. If
+	 * the user is allowed, have the parent do further permissions checking.
 	 *
 	 * @param $user User
 	 *
-	 * @return bool
+	 * @return bool|string
 	 */
 	public static function isAllowed( $user ) {
 		if ( !$user->isAllowed( 'upload_by_url' ) ) {
@@ -91,6 +92,7 @@ class UploadFromUrl extends UploadBase {
 	 * @param $async mixed Whether the download should be performed
 	 * asynchronous. False for synchronous, async or async-leavemessage for
 	 * asynchronous download.
+	 * @throws MWException
 	 */
 	public function initialize( $name, $url, $async = false ) {
 		global $wgAllowAsyncCopyUploads;
@@ -205,9 +207,14 @@ class UploadFromUrl extends UploadBase {
 		$this->mRemoveTempFile = true;
 		$this->mFileSize = 0;
 
-		$req = MWHttpRequest::factory( $this->mUrl, array(
+		$options = array(
 			'followRedirects' => true
-		) );
+		);
+		global $wgCopyUploadProxy;
+		if ( $wgCopyUploadProxy !== false ) {
+			$options['proxy'] = $wgCopyUploadProxy;
+		}
+		$req = MWHttpRequest::factory( $this->mUrl, $options );
 		$req->setCallback( array( $this, 'saveTempFileChunk' ) );
 		$status = $req->execute();
 
@@ -255,6 +262,7 @@ class UploadFromUrl extends UploadBase {
 	/**
 	 * Wrapper around the parent function in order to defer checking protection
 	 * until we are sure that the file can actually be uploaded
+	 * @param $user User
 	 * @return bool|mixed
 	 */
 	public function verifyTitlePermissions( $user ) {
@@ -267,6 +275,10 @@ class UploadFromUrl extends UploadBase {
 	/**
 	 * Wrapper around the parent function in order to defer uploading to the
 	 * job queue for asynchronous uploads
+	 * @param $comment string
+	 * @param $pageText string
+	 * @param $watch bool
+	 * @param $user User
 	 * @return Status
 	 */
 	public function performUpload( $comment, $pageText, $watch, $user ) {
@@ -280,11 +292,11 @@ class UploadFromUrl extends UploadBase {
 	}
 
 	/**
-	 * @param  $comment
-	 * @param  $pageText
-	 * @param  $watch
-	 * @param  $user User
-	 * @return
+	 * @param $comment
+	 * @param $pageText
+	 * @param $watch
+	 * @param $user User
+	 * @return String
 	 */
 	protected function insertJob( $comment, $pageText, $watch, $user ) {
 		$sessionKey = $this->stashSession();

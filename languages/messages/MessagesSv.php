@@ -1,5 +1,5 @@
 <?php
-/** Swedish (Svenska)
+/** Swedish (svenska)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -12,6 +12,7 @@
  * @author Dafer45
  * @author Diupwijk
  * @author EPO
+ * @author Fader
  * @author Fluff
  * @author GameOn
  * @author Greggegorius
@@ -36,6 +37,7 @@
  * @author Petter Strandmark
  * @author Poxnar
  * @author Purodha
+ * @author Rotsee
  * @author S.Örvarr.S
  * @author Sannab
  * @author Sertion
@@ -47,6 +49,7 @@
  * @author Thurs
  * @author Tobulos1
  * @author VickyC
+ * @author Warrakkk
  * @author Where next Columbus
  * @author Where next Columbus?
  * @author WikiPhoenix
@@ -171,127 +174,127 @@ $specialPageAliases = array(
 );
 
 $magicWords = array(
-	'redirect'                => array( '0', '#OMDIRIGERING', '#REDIRECT' ),
-	'notoc'                   => array( '0', '__INGENINNEHÅLLSFÖRTECKNING__', '__NOTOC__' ),
-	'nogallery'               => array( '0', '__INGETGALLERI__', '__NOGALLERY__' ),
-	'forcetoc'                => array( '0', '__ALLTIDINNEHÅLLSFÖRTECKNING__', '__FORCETOC__' ),
-	'toc'                     => array( '0', '__INNEHÅLLSFÖRTECKNING__', '__TOC__' ),
-	'noeditsection'           => array( '0', '__INTEREDIGERASEKTION__', '__NOEDITSECTION__' ),
-	'noheader'                => array( '0', '__INGENRUBRIK__', '__NOHEADER__' ),
-	'currentmonth'            => array( '1', 'NUVARANDEMÅNAD', 'NUMÅNAD', 'CURRENTMONTH', 'CURRENTMONTH2' ),
-	'currentmonth1'           => array( '1', 'NUVARANDEMÅNAD1', 'CURRENTMONTH1' ),
-	'currentmonthname'        => array( '1', 'NUVARANDEMÅNADSNAMN', 'NUMÅNADSNAMN', 'CURRENTMONTHNAME' ),
-	'currentmonthabbrev'      => array( '1', 'NUVARANDEMÅNADKORT', 'NUMÅNADKORT', 'CURRENTMONTHABBREV' ),
-	'currentday'              => array( '1', 'NUVARANDEDAG', 'NUDAG', 'CURRENTDAY' ),
-	'currentday2'             => array( '1', 'NUVARANDEDAG2', 'NUDAG2', 'CURRENTDAY2' ),
-	'currentdayname'          => array( '1', 'NUVARANDEDAGSNAMN', 'NUDAGSNAMN', 'CURRENTDAYNAME' ),
-	'currentyear'             => array( '1', 'NUVARANDEÅR', 'NUÅR', 'CURRENTYEAR' ),
-	'currenttime'             => array( '1', 'NUVARANDETID', 'NUTID', 'CURRENTTIME' ),
-	'currenthour'             => array( '1', 'NUVARANDETIMME', 'NUTIMME', 'CURRENTHOUR' ),
-	'localmonth'              => array( '1', 'LOKALMÅNAD', 'LOCALMONTH', 'LOCALMONTH2' ),
-	'localmonth1'             => array( '1', 'LOKALMÅNAD1', 'LOCALMONTH1' ),
-	'localmonthname'          => array( '1', 'LOKALMÅNADSNAMN', 'LOCALMONTHNAME' ),
-	'localmonthabbrev'        => array( '1', 'LOKALMÅNADKORT', 'LOCALMONTHABBREV' ),
-	'localday'                => array( '1', 'LOKALDAG', 'LOCALDAY' ),
-	'localday2'               => array( '1', 'LOKALDAG2', 'LOCALDAY2' ),
-	'localdayname'            => array( '1', 'LOKALDAGSNAMN', 'LOCALDAYNAME' ),
-	'localyear'               => array( '1', 'LOKALTÅR', 'LOCALYEAR' ),
-	'localtime'               => array( '1', 'LOKALTID', 'LOCALTIME' ),
-	'localhour'               => array( '1', 'LOKALTIMME', 'LOCALHOUR' ),
-	'numberofpages'           => array( '1', 'ANTALSIDOR', 'NUMBEROFPAGES' ),
-	'numberofarticles'        => array( '1', 'ANTALARTIKLAR', 'NUMBEROFARTICLES' ),
-	'numberoffiles'           => array( '1', 'ANTALFILER', 'NUMBEROFFILES' ),
-	'numberofusers'           => array( '1', 'ANTALANVÄNDARE', 'NUMBEROFUSERS' ),
-	'numberofactiveusers'     => array( '1', 'ANTALAKTIVAANVÄNDARE', 'NUMBEROFACTIVEUSERS' ),
-	'numberofedits'           => array( '1', 'ANTALREDIGERINGAR', 'NUMBEROFEDITS' ),
-	'numberofviews'           => array( '1', 'ANTALVISNINGAR', 'NUMBEROFVIEWS' ),
-	'pagename'                => array( '1', 'SIDNAMN', 'PAGENAME' ),
-	'pagenamee'               => array( '1', 'SIDNAMNE', 'PAGENAMEE' ),
-	'namespace'               => array( '1', 'NAMNRYMD', 'NAMESPACE' ),
-	'namespacee'              => array( '1', 'NAMNRYMDE', 'NAMESPACEE' ),
-	'talkspace'               => array( '1', 'DISKUSSIONSRYMD', 'TALKSPACE' ),
-	'talkspacee'              => array( '1', 'DISKUSSIONSRYMDE', 'TALKSPACEE' ),
-	'subjectspace'            => array( '1', 'ARTIKELRYMD', 'SUBJECTSPACE', 'ARTICLESPACE' ),
-	'subjectspacee'           => array( '1', 'ARTIKELRYMDE', 'SUBJECTSPACEE', 'ARTICLESPACEE' ),
-	'fullpagename'            => array( '1', 'HELASIDNAMNET', 'FULLPAGENAME' ),
-	'fullpagenamee'           => array( '1', 'HELASIDNAMNETE', 'FULLPAGENAMEE' ),
-	'subpagename'             => array( '1', 'UNDERSIDNAMN', 'SUBPAGENAME' ),
-	'subpagenamee'            => array( '1', 'UNDERSIDNAMNE', 'SUBPAGENAMEE' ),
-	'basepagename'            => array( '1', 'GRUNDSIDNAMN', 'BASEPAGENAME' ),
-	'basepagenamee'           => array( '1', 'GRUNDSIDNAMNE', 'BASEPAGENAMEE' ),
-	'talkpagename'            => array( '1', 'DISKUSSIONSSIDNAMN', 'TALKPAGENAME' ),
-	'talkpagenamee'           => array( '1', 'DISKUSSIONSSIDNAMNE', 'TALKPAGENAMEE' ),
-	'msg'                     => array( '0', 'MED:', 'MSG:' ),
-	'subst'                   => array( '0', 'BYT:', 'SUBST:' ),
-	'msgnw'                   => array( '0', 'MEDNW:', 'MSGNW:' ),
-	'img_thumbnail'           => array( '1', 'miniatyr', 'mini', 'thumbnail', 'thumb' ),
-	'img_manualthumb'         => array( '1', 'miniatyr=$1', 'mini=$1', 'thumbnail=$1', 'thumb=$1' ),
-	'img_right'               => array( '1', 'höger', 'right' ),
-	'img_left'                => array( '1', 'vänster', 'left' ),
-	'img_none'                => array( '1', 'ingen', 'none' ),
-	'img_center'              => array( '1', 'centrerad', 'center', 'centre' ),
-	'img_framed'              => array( '1', 'inramad', 'ram', 'framed', 'enframed', 'frame' ),
-	'img_frameless'           => array( '1', 'ramlös', 'frameless' ),
-	'img_page'                => array( '1', 'sida=$1', 'sida $1', 'page=$1', 'page $1' ),
-	'img_upright'             => array( '1', 'stående', 'stående=$1', 'stående $1', 'upright', 'upright=$1', 'upright $1' ),
-	'img_border'              => array( '1', 'kantlinje', 'border' ),
-	'img_baseline'            => array( '1', 'baslinje', 'baseline' ),
-	'img_sub'                 => array( '1', 'ned', 'sub' ),
-	'img_super'               => array( '1', 'upp', 'super', 'sup' ),
-	'img_top'                 => array( '1', 'topp', 'top' ),
-	'img_text_top'            => array( '1', 'text-topp', 'text-top' ),
-	'img_middle'              => array( '1', 'mitten', 'middle' ),
-	'img_bottom'              => array( '1', 'botten', 'bottom' ),
-	'img_text_bottom'         => array( '1', 'text-botten', 'text-bottom' ),
-	'img_link'                => array( '1', 'länk=$1', 'link=$1' ),
-	'sitename'                => array( '1', 'SAJTNAMN', 'SITENAMN', 'SITENAME' ),
-	'ns'                      => array( '0', 'NR:', 'NS:' ),
-	'localurl'                => array( '0', 'LOKALURL:', 'LOCALURL:' ),
-	'localurle'               => array( '0', 'LOKALURLE:', 'LOCALURLE:' ),
-	'servername'              => array( '0', 'SERVERNAMN', 'SERVERNAME' ),
-	'scriptpath'              => array( '0', 'SKRIPTSÖKVÄG', 'SCRIPTPATH' ),
-	'grammar'                 => array( '0', 'GRAMMATIK:', 'GRAMMAR:' ),
-	'gender'                  => array( '0', 'KÖN:', 'GENDER:' ),
-	'currentweek'             => array( '1', 'NUVARANDEVECKA', 'NUVECKA', 'CURRENTWEEK' ),
-	'currentdow'              => array( '1', 'NUVARANDEVECKODAG', 'CURRENTDOW' ),
-	'localweek'               => array( '1', 'LOKALVECKA', 'LOCALWEEK' ),
-	'localdow'                => array( '1', 'LOKALVECKODAG', 'LOCALDOW' ),
-	'revisionid'              => array( '1', 'REVISIONSID', 'REVISIONID' ),
-	'revisionday'             => array( '1', 'REVISIONSDAG', 'REVISIONDAY' ),
-	'revisionday2'            => array( '1', 'REVISIONSDAG2', 'REVISIONDAY2' ),
-	'revisionmonth'           => array( '1', 'REVISIONSMÅNAD', 'REVISIONMONTH' ),
-	'revisionyear'            => array( '1', 'REVISIONSÅR', 'REVISIONYEAR' ),
-	'revisiontimestamp'       => array( '1', 'REVISIONSTIDSSTÄMPEL', 'REVISIONTIMESTAMP' ),
-	'revisionuser'            => array( '1', 'REVISIONSANVÄNDARE', 'REVISIONUSER' ),
-	'fullurl'                 => array( '0', 'FULLTURL:', 'FULLURL:' ),
-	'fullurle'                => array( '0', 'FULLTURLE:', 'FULLURLE:' ),
-	'lcfirst'                 => array( '0', 'LBFÖRST:', 'LCFIRST:' ),
-	'ucfirst'                 => array( '0', 'UCFIRST', 'SBFÖRST:', 'UCFIRST:' ),
-	'lc'                      => array( '0', 'LB:', 'LC:' ),
-	'uc'                      => array( '0', 'SB:', 'UC:' ),
-	'raw'                     => array( '0', 'RÅ:', 'RAW:' ),
-	'displaytitle'            => array( '1', 'VISATITEL', 'DISPLAYTITLE' ),
-	'newsectionlink'          => array( '1', '__NYTTAVSNITTLÄNK__', '__NEWSECTIONLINK__' ),
-	'currentversion'          => array( '1', 'NUVARANDEVERSION', 'NUVERSION', 'CURRENTVERSION' ),
-	'currenttimestamp'        => array( '1', 'NUTIDSTÄMPEL', 'CURRENTTIMESTAMP' ),
-	'localtimestamp'          => array( '1', 'LOKALTIDSTÄMPEL', 'LOCALTIMESTAMP' ),
-	'language'                => array( '0', '#SPRÅK:', '#LANGUAGE:' ),
-	'contentlanguage'         => array( '1', 'INNEHÅLLSSPRÅK', 'CONTENTLANGUAGE', 'CONTENTLANG' ),
-	'pagesinnamespace'        => array( '1', 'SIDORINAMNRYMD:', 'SIDORINR:', 'PAGESINNAMESPACE:', 'PAGESINNS:' ),
-	'numberofadmins'          => array( '1', 'ANTALADMINS', 'ANTALADMINISTRATÖRER', 'NUMBEROFADMINS' ),
-	'formatnum'               => array( '0', 'FORMATERANUM', 'FORMATERATAL', 'FORMATNUM' ),
-	'defaultsort'             => array( '1', 'STANDARDSORTERING:', 'DEFAULTSORT:', 'DEFAULTSORTKEY:', 'DEFAULTCATEGORYSORT:' ),
-	'filepath'                => array( '0', 'FILSÖKVÄG:', 'FILEPATH:' ),
-	'tag'                     => array( '0', 'tagg', 'tag' ),
-	'hiddencat'               => array( '1', '__DOLDKAT__', '__HIDDENCAT__' ),
-	'pagesincategory'         => array( '1', 'SIDORIKATEGORI', 'PAGESINCATEGORY', 'PAGESINCAT' ),
-	'pagesize'                => array( '1', 'SIDSTORLEK', 'PAGESIZE' ),
-	'index'                   => array( '1', '__INDEXERA__', '__INDEX__' ),
-	'noindex'                 => array( '1', '__INTEINDEXERA_', '__NOINDEX__' ),
-	'numberingroup'           => array( '1', 'ANTALIGRUPP', 'NUMBERINGROUP', 'NUMINGROUP' ),
-	'staticredirect'          => array( '1', '__STATISKOMDIRIGERING__', '__STATICREDIRECT__' ),
-	'protectionlevel'         => array( '1', 'SKYDDSNIVÅ', 'PROTECTIONLEVEL' ),
-	'formatdate'              => array( '0', 'formateradatum', 'datumformat', 'formatdate', 'dateformat' ),
+	'redirect'                  => array( '0', '#OMDIRIGERING', '#REDIRECT' ),
+	'notoc'                     => array( '0', '__INGENINNEHÅLLSFÖRTECKNING__', '__NOTOC__' ),
+	'nogallery'                 => array( '0', '__INGETGALLERI__', '__NOGALLERY__' ),
+	'forcetoc'                  => array( '0', '__ALLTIDINNEHÅLLSFÖRTECKNING__', '__FORCETOC__' ),
+	'toc'                       => array( '0', '__INNEHÅLLSFÖRTECKNING__', '__TOC__' ),
+	'noeditsection'             => array( '0', '__INTEREDIGERASEKTION__', '__NOEDITSECTION__' ),
+	'noheader'                  => array( '0', '__INGENRUBRIK__', '__NOHEADER__' ),
+	'currentmonth'              => array( '1', 'NUVARANDEMÅNAD', 'NUMÅNAD', 'CURRENTMONTH', 'CURRENTMONTH2' ),
+	'currentmonth1'             => array( '1', 'NUVARANDEMÅNAD1', 'CURRENTMONTH1' ),
+	'currentmonthname'          => array( '1', 'NUVARANDEMÅNADSNAMN', 'NUMÅNADSNAMN', 'CURRENTMONTHNAME' ),
+	'currentmonthabbrev'        => array( '1', 'NUVARANDEMÅNADKORT', 'NUMÅNADKORT', 'CURRENTMONTHABBREV' ),
+	'currentday'                => array( '1', 'NUVARANDEDAG', 'NUDAG', 'CURRENTDAY' ),
+	'currentday2'               => array( '1', 'NUVARANDEDAG2', 'NUDAG2', 'CURRENTDAY2' ),
+	'currentdayname'            => array( '1', 'NUVARANDEDAGSNAMN', 'NUDAGSNAMN', 'CURRENTDAYNAME' ),
+	'currentyear'               => array( '1', 'NUVARANDEÅR', 'NUÅR', 'CURRENTYEAR' ),
+	'currenttime'               => array( '1', 'NUVARANDETID', 'NUTID', 'CURRENTTIME' ),
+	'currenthour'               => array( '1', 'NUVARANDETIMME', 'NUTIMME', 'CURRENTHOUR' ),
+	'localmonth'                => array( '1', 'LOKALMÅNAD', 'LOCALMONTH', 'LOCALMONTH2' ),
+	'localmonth1'               => array( '1', 'LOKALMÅNAD1', 'LOCALMONTH1' ),
+	'localmonthname'            => array( '1', 'LOKALMÅNADSNAMN', 'LOCALMONTHNAME' ),
+	'localmonthabbrev'          => array( '1', 'LOKALMÅNADKORT', 'LOCALMONTHABBREV' ),
+	'localday'                  => array( '1', 'LOKALDAG', 'LOCALDAY' ),
+	'localday2'                 => array( '1', 'LOKALDAG2', 'LOCALDAY2' ),
+	'localdayname'              => array( '1', 'LOKALDAGSNAMN', 'LOCALDAYNAME' ),
+	'localyear'                 => array( '1', 'LOKALTÅR', 'LOCALYEAR' ),
+	'localtime'                 => array( '1', 'LOKALTID', 'LOCALTIME' ),
+	'localhour'                 => array( '1', 'LOKALTIMME', 'LOCALHOUR' ),
+	'numberofpages'             => array( '1', 'ANTALSIDOR', 'NUMBEROFPAGES' ),
+	'numberofarticles'          => array( '1', 'ANTALARTIKLAR', 'NUMBEROFARTICLES' ),
+	'numberoffiles'             => array( '1', 'ANTALFILER', 'NUMBEROFFILES' ),
+	'numberofusers'             => array( '1', 'ANTALANVÄNDARE', 'NUMBEROFUSERS' ),
+	'numberofactiveusers'       => array( '1', 'ANTALAKTIVAANVÄNDARE', 'NUMBEROFACTIVEUSERS' ),
+	'numberofedits'             => array( '1', 'ANTALREDIGERINGAR', 'NUMBEROFEDITS' ),
+	'numberofviews'             => array( '1', 'ANTALVISNINGAR', 'NUMBEROFVIEWS' ),
+	'pagename'                  => array( '1', 'SIDNAMN', 'PAGENAME' ),
+	'pagenamee'                 => array( '1', 'SIDNAMNE', 'PAGENAMEE' ),
+	'namespace'                 => array( '1', 'NAMNRYMD', 'NAMESPACE' ),
+	'namespacee'                => array( '1', 'NAMNRYMDE', 'NAMESPACEE' ),
+	'talkspace'                 => array( '1', 'DISKUSSIONSRYMD', 'TALKSPACE' ),
+	'talkspacee'                => array( '1', 'DISKUSSIONSRYMDE', 'TALKSPACEE' ),
+	'subjectspace'              => array( '1', 'ARTIKELRYMD', 'SUBJECTSPACE', 'ARTICLESPACE' ),
+	'subjectspacee'             => array( '1', 'ARTIKELRYMDE', 'SUBJECTSPACEE', 'ARTICLESPACEE' ),
+	'fullpagename'              => array( '1', 'HELASIDNAMNET', 'FULLPAGENAME' ),
+	'fullpagenamee'             => array( '1', 'HELASIDNAMNETE', 'FULLPAGENAMEE' ),
+	'subpagename'               => array( '1', 'UNDERSIDNAMN', 'SUBPAGENAME' ),
+	'subpagenamee'              => array( '1', 'UNDERSIDNAMNE', 'SUBPAGENAMEE' ),
+	'basepagename'              => array( '1', 'GRUNDSIDNAMN', 'BASEPAGENAME' ),
+	'basepagenamee'             => array( '1', 'GRUNDSIDNAMNE', 'BASEPAGENAMEE' ),
+	'talkpagename'              => array( '1', 'DISKUSSIONSSIDNAMN', 'TALKPAGENAME' ),
+	'talkpagenamee'             => array( '1', 'DISKUSSIONSSIDNAMNE', 'TALKPAGENAMEE' ),
+	'msg'                       => array( '0', 'MED:', 'MSG:' ),
+	'subst'                     => array( '0', 'BYT:', 'SUBST:' ),
+	'msgnw'                     => array( '0', 'MEDNW:', 'MSGNW:' ),
+	'img_thumbnail'             => array( '1', 'miniatyr', 'mini', 'thumbnail', 'thumb' ),
+	'img_manualthumb'           => array( '1', 'miniatyr=$1', 'mini=$1', 'thumbnail=$1', 'thumb=$1' ),
+	'img_right'                 => array( '1', 'höger', 'right' ),
+	'img_left'                  => array( '1', 'vänster', 'left' ),
+	'img_none'                  => array( '1', 'ingen', 'none' ),
+	'img_center'                => array( '1', 'centrerad', 'center', 'centre' ),
+	'img_framed'                => array( '1', 'inramad', 'ram', 'framed', 'enframed', 'frame' ),
+	'img_frameless'             => array( '1', 'ramlös', 'frameless' ),
+	'img_page'                  => array( '1', 'sida=$1', 'sida $1', 'page=$1', 'page $1' ),
+	'img_upright'               => array( '1', 'stående', 'stående=$1', 'stående $1', 'upright', 'upright=$1', 'upright $1' ),
+	'img_border'                => array( '1', 'kantlinje', 'border' ),
+	'img_baseline'              => array( '1', 'baslinje', 'baseline' ),
+	'img_sub'                   => array( '1', 'ned', 'sub' ),
+	'img_super'                 => array( '1', 'upp', 'super', 'sup' ),
+	'img_top'                   => array( '1', 'topp', 'top' ),
+	'img_text_top'              => array( '1', 'text-topp', 'text-top' ),
+	'img_middle'                => array( '1', 'mitten', 'middle' ),
+	'img_bottom'                => array( '1', 'botten', 'bottom' ),
+	'img_text_bottom'           => array( '1', 'text-botten', 'text-bottom' ),
+	'img_link'                  => array( '1', 'länk=$1', 'link=$1' ),
+	'sitename'                  => array( '1', 'SAJTNAMN', 'SITENAMN', 'SITENAME' ),
+	'ns'                        => array( '0', 'NR:', 'NS:' ),
+	'localurl'                  => array( '0', 'LOKALURL:', 'LOCALURL:' ),
+	'localurle'                 => array( '0', 'LOKALURLE:', 'LOCALURLE:' ),
+	'servername'                => array( '0', 'SERVERNAMN', 'SERVERNAME' ),
+	'scriptpath'                => array( '0', 'SKRIPTSÖKVÄG', 'SCRIPTPATH' ),
+	'grammar'                   => array( '0', 'GRAMMATIK:', 'GRAMMAR:' ),
+	'gender'                    => array( '0', 'KÖN:', 'GENDER:' ),
+	'currentweek'               => array( '1', 'NUVARANDEVECKA', 'NUVECKA', 'CURRENTWEEK' ),
+	'currentdow'                => array( '1', 'NUVARANDEVECKODAG', 'CURRENTDOW' ),
+	'localweek'                 => array( '1', 'LOKALVECKA', 'LOCALWEEK' ),
+	'localdow'                  => array( '1', 'LOKALVECKODAG', 'LOCALDOW' ),
+	'revisionid'                => array( '1', 'REVISIONSID', 'REVISIONID' ),
+	'revisionday'               => array( '1', 'REVISIONSDAG', 'REVISIONDAY' ),
+	'revisionday2'              => array( '1', 'REVISIONSDAG2', 'REVISIONDAY2' ),
+	'revisionmonth'             => array( '1', 'REVISIONSMÅNAD', 'REVISIONMONTH' ),
+	'revisionyear'              => array( '1', 'REVISIONSÅR', 'REVISIONYEAR' ),
+	'revisiontimestamp'         => array( '1', 'REVISIONSTIDSSTÄMPEL', 'REVISIONTIMESTAMP' ),
+	'revisionuser'              => array( '1', 'REVISIONSANVÄNDARE', 'REVISIONUSER' ),
+	'fullurl'                   => array( '0', 'FULLTURL:', 'FULLURL:' ),
+	'fullurle'                  => array( '0', 'FULLTURLE:', 'FULLURLE:' ),
+	'lcfirst'                   => array( '0', 'LBFÖRST:', 'LCFIRST:' ),
+	'ucfirst'                   => array( '0', 'UCFIRST', 'SBFÖRST:', 'UCFIRST:' ),
+	'lc'                        => array( '0', 'LB:', 'LC:' ),
+	'uc'                        => array( '0', 'SB:', 'UC:' ),
+	'raw'                       => array( '0', 'RÅ:', 'RAW:' ),
+	'displaytitle'              => array( '1', 'VISATITEL', 'DISPLAYTITLE' ),
+	'newsectionlink'            => array( '1', '__NYTTAVSNITTLÄNK__', '__NEWSECTIONLINK__' ),
+	'currentversion'            => array( '1', 'NUVARANDEVERSION', 'NUVERSION', 'CURRENTVERSION' ),
+	'currenttimestamp'          => array( '1', 'NUTIDSTÄMPEL', 'CURRENTTIMESTAMP' ),
+	'localtimestamp'            => array( '1', 'LOKALTIDSTÄMPEL', 'LOCALTIMESTAMP' ),
+	'language'                  => array( '0', '#SPRÅK:', '#LANGUAGE:' ),
+	'contentlanguage'           => array( '1', 'INNEHÅLLSSPRÅK', 'CONTENTLANGUAGE', 'CONTENTLANG' ),
+	'pagesinnamespace'          => array( '1', 'SIDORINAMNRYMD:', 'SIDORINR:', 'PAGESINNAMESPACE:', 'PAGESINNS:' ),
+	'numberofadmins'            => array( '1', 'ANTALADMINS', 'ANTALADMINISTRATÖRER', 'NUMBEROFADMINS' ),
+	'formatnum'                 => array( '0', 'FORMATERANUM', 'FORMATERATAL', 'FORMATNUM' ),
+	'defaultsort'               => array( '1', 'STANDARDSORTERING:', 'DEFAULTSORT:', 'DEFAULTSORTKEY:', 'DEFAULTCATEGORYSORT:' ),
+	'filepath'                  => array( '0', 'FILSÖKVÄG:', 'FILEPATH:' ),
+	'tag'                       => array( '0', 'tagg', 'tag' ),
+	'hiddencat'                 => array( '1', '__DOLDKAT__', '__HIDDENCAT__' ),
+	'pagesincategory'           => array( '1', 'SIDORIKATEGORI', 'PAGESINCATEGORY', 'PAGESINCAT' ),
+	'pagesize'                  => array( '1', 'SIDSTORLEK', 'PAGESIZE' ),
+	'index'                     => array( '1', '__INDEXERA__', '__INDEX__' ),
+	'noindex'                   => array( '1', '__INTEINDEXERA_', '__NOINDEX__' ),
+	'numberingroup'             => array( '1', 'ANTALIGRUPP', 'NUMBERINGROUP', 'NUMINGROUP' ),
+	'staticredirect'            => array( '1', '__STATISKOMDIRIGERING__', '__STATICREDIRECT__' ),
+	'protectionlevel'           => array( '1', 'SKYDDSNIVÅ', 'PROTECTIONLEVEL' ),
+	'formatdate'                => array( '0', 'formateradatum', 'datumformat', 'formatdate', 'dateformat' ),
 );
 
 $linkTrail = '/^([a-zåäöéÅÄÖÉ]+)(.*)$/sDu';
@@ -340,7 +343,7 @@ $messages = array(
 'tog-nocache' => 'Stäng av cachelagring för sidor',
 'tog-enotifwatchlistpages' => 'Skicka e-post till mig när en sida på min bevakningslista ändras',
 'tog-enotifusertalkpages' => 'Skicka e-post till mig när något händer på min diskussionssida',
-'tog-enotifminoredits' => 'Skicka mig e-post även för mindre ändringar',
+'tog-enotifminoredits' => 'Skicka mig e-post även för mindre ändringar av sidor och filer',
 'tog-enotifrevealaddr' => 'Visa min e-postadress i e-postmeddelanden om ändringar som skickas till andra',
 'tog-shownumberswatching' => 'Visa antalet användare som bevakar',
 'tog-oldsig' => 'Nuvarande signatur:',
@@ -357,7 +360,6 @@ $messages = array(
 'tog-watchlisthideliu' => 'Visa inte redigeringar av inloggade användare i bevakningslistan',
 'tog-watchlisthideanons' => 'Visa inte redigeringar av anonyma användare i bevakningslistan',
 'tog-watchlisthidepatrolled' => 'Göm patrullerade redigeringar från bevakningslistan',
-'tog-nolangconversion' => 'Konvertera inte mellan språkvarianter',
 'tog-ccmeonemails' => 'Skicka kopior till mig av e-post jag skickar till andra användare',
 'tog-diffonly' => 'Visa inte sidinnehåll under diffar',
 'tog-showhiddencats' => 'Visa dolda kategorier',
@@ -581,6 +583,10 @@ $1',
 'youhavenewmessages' => 'Du har $1 ($2).',
 'newmessageslink' => 'nya meddelanden',
 'newmessagesdifflink' => 'senaste ändringen',
+'youhavenewmessagesfromusers' => 'Du har $1 från {{PLURAL:$3|en annan användare|$3 användare}} ($2).',
+'youhavenewmessagesmanyusers' => 'Du har $1 från många användare ($2).',
+'newmessageslinkplural' => '{{PLURAL:$1|ett nytt meddelande|nya meddelanden}}',
+'newmessagesdifflinkplural' => 'senaste {{PLURAL:$1|ändring|ändringar}}',
 'youhavenewmessagesmulti' => 'Du har nya meddelanden på $1',
 'editsection' => 'redigera',
 'editold' => 'redigera',
@@ -633,7 +639,7 @@ I [[Special:SpecialPages|listan över specialsidor]] kan du se vilka specialsido
 'error' => 'Fel',
 'databaseerror' => 'Databasfel',
 'dberrortext' => 'Ett syntaxfel i databasfrågan har uppstått.
-Detta kan indikera en bug i mjukvaran.
+Detta kan indikera en bugg i mjukvaran.
 Den senaste databasfrågan att köras var:
 <blockquote><tt>$1</tt></blockquote>
 från funktionen "<tt>$2</tt>".
@@ -674,6 +680,8 @@ Rapportera gärna problemet till någon [[Special:ListUsers/sysop|administratör
 'cannotdelete' => 'Sidan eller filen "$1" kunde inte raderas.
 Den kanske redan har raderats av någon annan.',
 'cannotdelete-title' => 'Sidan "$1" kan inte raderas',
+'delete-hook-aborted' => 'Borttagning avbruten av hook.
+Den gav ingen förklaring.',
 'badtitle' => 'Felaktig titel',
 'badtitletext' => 'Den begärda sidtiteln är antingen ogiltig eller tom, eller så är titeln felaktigt länkad från en annan wiki.
 Den kan innehålla ett eller flera tecken som inte får användas i sidtitlar.',
@@ -705,6 +713,8 @@ Den uppgivna anledningen är "\'\'$2\'\'".',
 Den administratören som låste den gav denna anledning: "\'\'$3\'\'".',
 'invalidtitle-knownnamespace' => 'Ogiltig titel med namnrymden "$2" och texten "$3"',
 'invalidtitle-unknownnamespace' => 'Ogiltig titel med okänt namnrymdsnummer $1 och texten "$2"',
+'exception-nologin' => 'Inte inloggad',
+'exception-nologin-text' => 'Denna sida eller åtgärd kräver att du måste vara inloggad på denna wiki.',
 
 # Virus scanner
 'virus-badscanner' => "Dålig konfigurering: okänd virusskanner: ''$1''",
@@ -725,6 +735,7 @@ Glöm inte att justera dina [[Special:Preferences|{{SITENAME}}-inställningar]].
 'remembermypassword' => 'Spara min inloggning på den här datorn (i max $1 {{PLURAL:$1|dygn|dygn}})',
 'securelogin-stick-https' => 'Fortsätt vara ansluten till HTTPS efter inloggning',
 'yourdomainname' => 'Din domän',
+'password-change-forbidden' => 'Du kan inte ändra lösenord på denna wiki.',
 'externaldberror' => 'Antingen inträffade autentiseringsproblem med en extern databas, eller så får du inte uppdatera ditt externa konto.',
 'login' => 'Logga in',
 'nav-login-createaccount' => 'Logga in / skapa konto',
@@ -763,7 +774,7 @@ Kontrollera din stavning, eller [[Special:UserLogin/signup|skapa ett nytt konto]
 'nosuchusershort' => 'Det finns ingen användare som heter "$1". Kontrollera att du stavat rätt.',
 'nouserspecified' => 'Du måste ange ett användarnamn.',
 'login-userblocked' => 'Denna användare är blockerad. Login inte tillåtet.',
-'wrongpassword' => 'Lösenordet du angav är felaktigt. Försök igen',
+'wrongpassword' => 'Lösenordet du angav är felaktigt. Försök igen.',
 'wrongpasswordempty' => 'Lösenordet som angavs var blankt. Var god försök igen.',
 'passwordtooshort' => 'Lösenord måste innehålla minst {{PLURAL:$1|$1 tecken}}.',
 'password-name-match' => 'Ditt lösenord måste vara olikt ditt användarnamn.',
@@ -963,15 +974,18 @@ Du kan [[Special:Search/{{PAGENAME}}|söka efter denna sidtitel]] på andra sido
 'noarticletext-nopermission' => 'Det finns för tillfället ingen text på denna sida.
 Du kan [[Special:Search/{{PAGENAME}}|söka efter denna sidas titel]] i andra sidor,
 eller <span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} söka i relevanta loggar]</span>.',
+'missing-revision' => 'Revisionen #$1 av sidan med namnet "{{PAGENAME}}" finns inte.
+
+Detta orsakas vanligen av efter en gammal historiklänk till en sida som har raderats.
+Detaljer kan hittas i [{{fullurl:{{#Special:Log}}/delete|page={{FULLPAGENAMEE}}}} raderingsloggen].',
 'userpage-userdoesnotexist' => '"<nowiki>$1</nowiki>" är inte ett registrerat användarkonto. Tänk efter om du vill skapa/redigera den här sidan.',
 'userpage-userdoesnotexist-view' => 'Kontot "$1" är inte registrerat.',
 'blocked-notice-logextract' => 'Användaren är blockerad.
 Orsaken till senaste blockeringen kan ses nedan:',
-'clearyourcache' => "'''OBS:''' Sedan du sparat sidan kan du behöva tömma din webbläsares cache för att se ändringarna.
+'clearyourcache' => "'''OBS:''' Efter du sparat sidan kan du behöva tömma din webbläsares cache för att se ändringarna.
 *'''Firefox / Safari:''' Håll ned ''Skift'' och klicka på ''Uppdatera sidan'' eller tryck antingen ''Ctrl-F5'' eller ''Ctrl-R'' (''⌘-R'' på Mac)
 *'''Google Chrome:''' Tryck ''Ctrl-Skift-R''  (''⌘-Shift-R'' på Mac)
 *'''Internet Explorer:'''  Håll ned ''Ctrl'' och klicka på ''Uppdatera'' eller tryck ''Ctrl-F5''
-*'''Konqueror:''' Klicka på ''Reload'' eller tryck på ''F5''
 *'''Opera:''' Rensa cachen i ''Verktyg → Inställningar''",
 'usercssyoucanpreview' => "'''Tips:''' Använd \"{{int:showpreview}}\"-knappen för att testa din nya css innan du sparar.",
 'userjsyoucanpreview' => "'''Tips:''' Använd \"{{int:showpreview}}\"-knappen för att testa din nya JavaScript innan du sparar.",
@@ -1088,6 +1102,9 @@ Dessa parametrar har uteslutits.',
 'node-count-exceeded-warning' => 'Sidan har överskridit antalet nodar',
 'expansion-depth-exceeded-category' => 'Sidor där expansionsdjupet överskrids',
 'expansion-depth-exceeded-warning' => 'Sidan överskrider expansionsdjupet',
+'parser-unstrip-loop-warning' => 'Tagavskalningsloop upptäcktes',
+'parser-unstrip-recursion-limit' => 'Tagavskalningsloop överskred rekursionsgränsen ($1)',
+'converter-manual-rule-error' => 'Fel upptäcktes i manuell språkkonverteringsregel',
 
 # "Undo" feature
 'undo-success' => 'Redigeringen kan göras ogjord.
@@ -1224,7 +1241,8 @@ Vänligen kontrollera loggarna.',
 'revdelete-only-restricted' => 'Fel vid döljning av objekt daterat $2, $1: du kan inte undanhålla objekt från att visas för administratörer utan att också välja en av de övriga visningsalternativen.',
 'revdelete-reason-dropdown' => '*Vanliga orsaker till radering
 ** Brott mot copyright
-** Opassande personupplysningar
+** Opassande kommentar eller personupplysningar
+** Opassande användarnamn
 ** Möjligt ärekränkande uppgifter',
 'revdelete-otherreason' => 'Annan/ytterligare anledning:',
 'revdelete-reasonotherlist' => 'Annan anledning',
@@ -1276,6 +1294,10 @@ Se till att sidhistorikens kontinuitet behålls när du sammanfogar historik.',
 'editundo' => 'gör ogjord',
 'diff-multi' => '({{PLURAL:$1|En mellanliggande version|$1 mellanliggande versioner}} av {{PLURAL:$2|en användare|$2 användare}} visas inte)',
 'diff-multi-manyusers' => '({{PLURAL:$1|En mellanliggande version|$1 mellanliggande versioner}} av mer än $2 användare visas inte)',
+'difference-missing-revision' => '{{PLURAL:$2|En revision|$2 revisioner}} av denna skillnad ($1) kunde inte hittas.
+
+Detta orsakas vanligtvis av att följa en utgången difflänk till en sida som har raderats.
+Detaljer kan hittas i [{{fullurl:{{#Special:Log}}/delete|page={{FULLPAGENAMEE}}}} raderingsloggen].',
 
 # Search results
 'searchresults' => 'Sökresultat',
@@ -1401,7 +1423,7 @@ Här är ett slumpmässigt genererat värde som du kan använda: $1',
 'savedprefs' => 'Dina inställningar har sparats',
 'timezonelegend' => 'Tidszon:',
 'localtime' => 'Lokal tid:',
-'timezoneuseserverdefault' => 'Använd wiki standard ($1)',
+'timezoneuseserverdefault' => 'Använd wikins standard ($1)',
 'timezoneuseoffset' => 'Annan (specificera skillnad)',
 'timezoneoffset' => 'Skillnad¹:',
 'servertime' => 'Serverns tid:',
@@ -1417,7 +1439,7 @@ Här är ett slumpmässigt genererat värde som du kan använda: $1',
 'timezoneregion-indian' => 'Indiska oceanen',
 'timezoneregion-pacific' => 'Stilla havet',
 'allowemail' => 'Tillåt e-post från andra användare',
-'prefs-searchoptions' => 'Sökalternativ',
+'prefs-searchoptions' => 'Sök',
 'prefs-namespaces' => 'Namnrymder',
 'defaultns' => 'Sök annars i dessa namnrymder:',
 'default' => 'ursprungsinställning',
@@ -1544,6 +1566,7 @@ Om du väljer att ange ditt riktiga namn, kommer det att användas för att till
 'right-writeapi' => 'Använda skriv-API:t',
 'right-delete' => 'Radera sidor',
 'right-bigdelete' => 'Radera sidor med stor historik',
+'right-deletelogentry' => 'Radera och återställ specifika loggposter',
 'right-deleterevision' => 'Radera och återställa enskilda sidversioner',
 'right-deletedhistory' => 'Se raderad historik utan tillhörande sidtext',
 'right-deletedtext' => 'Visa raderad text och ändringar mellan raderade versioner',
@@ -1688,9 +1711,9 @@ Raderings- och sidflyttningsloggen för denna sida återges här:",
 För att titta på eller leta efter filer som redan har laddats upp, se [[Special:FileList|listan över uppladdade filer]]. Uppladdningar loggförs även i [[Special:Log/upload|uppladdningsloggen]], och raderingar i [[Special:Log/delete|raderingsloggen]].
 
 Använd en länk på något av följande format för att infoga en fil på en sida:
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.jpg]]</nowiki></tt>''' för att visa filen i dess hela storlek
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.png|200px|thumb|left|alternativ text]]</nowiki></tt>''' för att visa en rendering med bredden 200 pixel i en ruta till vänster med bildtexten 'alternativ text'
-* '''<tt><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></tt>''' för att länka direkt till filen utan att visa den",
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.jpg]]</nowiki></code>''' för att visa filen i dess hela storlek
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.png|200px|thumb|left|alternativ text]]</nowiki></code>''' för att visa en rendering med bredden 200 pixel i en ruta till vänster med bildtexten 'alternativ text'
+* '''<code><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></code>''' för att länka direkt till filen utan att visa den",
 'upload-permitted' => 'Tillåtna filtyper: $1.',
 'upload-preferred' => 'Föredragna filtyper: $1.',
 'upload-prohibited' => 'Förbjudna filtyper: $1.',
@@ -1735,21 +1758,21 @@ denna fil är $2.',
 'largefileserver' => 'Denna fil är större än vad servern ställts in att tillåta.',
 'emptyfile' => 'Filen du laddade upp verkar vara tom; felet kan bero på ett stavfel i filnamnet. Kontrollera om du verkligen vill ladda upp denna fil.',
 'windows-nonascii-filename' => 'Denna wiki stödjer inte filnamn med specialtecken.',
-'fileexists' => "Det finns redan en fil med detta namn.
-Titta på '''<tt>[[:$1]]</tt>''', såvida du inte är säker på att du vill ändra den.
-[[$1|thumb]]",
-'filepageexists' => "Beskrivningssidan för denna fil har redan skapats på '''<tt>[[:$1]]</tt>''', men just nu finns ingen fil med detta namn.
+'fileexists' => 'Det finns redan en fil med detta namn.
+Titta på <strong>[[:$1]]</strong>, såvida du inte är säker på att du vill ändra den.
+[[$1|thumb]]',
+'filepageexists' => 'Beskrivningssidan för denna fil har redan skapats på <strong>[[:$1]]</strong>, men just nu finns ingen fil med detta namn.
 Den sammanfattning du skriver här kommer inte visas på beskrivningssidan.
 För att din sammanfattning ska visas där, så måste du redigera beskrivningssidan manuellt.
-[[$1|thumb]]",
-'fileexists-extension' => "En fil med ett liknande namn finns redan: [[$2|thumb]]
-* Namn på den fil du försöker ladda upp: '''<tt>[[:$1]]</tt>'''
-* Namn på filen som redan finns: '''<tt>[[:$2]]</tt>'''
-Var vänlig välj ett annat namn.",
+[[$1|thumb]]',
+'fileexists-extension' => 'En fil med ett liknande namn finns redan: [[$2|thumb]]
+* Namn på den fil du försöker ladda upp: <strong>[[:$1]]</strong>
+* Namn på filen som redan finns: <strong>[[:$2]]</strong>
+Var vänlig välj ett annat namn.',
 'fileexists-thumbnail-yes' => "Filen verkar vara en bild med förminskad storlek ''(miniatyrbild)''. [[$1|thumb]]
-Var vänlig kontrollera filen '''<tt>[[:$1]]</tt>'''.
+Var vänlig kontrollera filen <strong>[[:$1]]</strong>.
 Om det är samma fil i originalstorlek så är det inte nödvändigt att ladda upp en extra miniatyrbild.",
-'file-thumbnail-no' => "Filnamnet börjar med '''<tt>$1</tt>'''.
+'file-thumbnail-no' => "Filnamnet börjar med <strong>$1</strong>.
 Det verkar vara en bild med förminskad storlek ''(miniatyrbild)''.
 Om du har denna bild i full storlek, ladda då hellre upp den, annars var vänlig och ändra filens namn.",
 'fileexists-forbidden' => 'En fil med detta namn existerar redan, och kan inte överskrivas.
@@ -1835,13 +1858,14 @@ Om problemet kvarstår, kontakta en [[Special:ListUsers/sysop|administratör]].'
 'backend-fail-closetemp' => 'Kunde inte stänga temporär fil.',
 'backend-fail-read' => 'Kunde inte läsa filen $1.',
 'backend-fail-create' => 'Kunde inte skapa filen $1.',
-'backend-fail-maxsize' => 'Kunde inte skapa filen $1, eftersom den är större än {{PLURAL:$2|$2|$2}} byte.',
+'backend-fail-maxsize' => 'Kunde inte skapa filen $1 eftersom den är större än {{PLURAL:$2|en byte|$2 bytes}}.',
 'backend-fail-readonly' => 'Lagringssystemet "$1" är för närvarande skrivskyddad. Den angivna anledningen är: "$2"',
 'backend-fail-synced' => 'Filen "$1" är i ett inkonsekvent tillstånd inom de interna lagringssystemen',
 'backend-fail-connect' => 'Kunde inte ansluta till lagringssystemet "$1".',
 'backend-fail-internal' => 'Ett okänt fel uppstod i lagringssystemet "$1".',
 'backend-fail-contenttype' => 'Kunde inte bestämma innehållstypen för filen att spara på "$1".',
 'backend-fail-batchsize' => 'Lagringssystemet gav en batch på $1 fil{{PLURAL:$1|operation|operationer}}; gränsen är $2 {{PLURAL:$2|operation|operationer}}.',
+'backend-fail-usable' => 'Kunde inte skriva filen $1 beroende på otillräckliga behörigheter eller saknade kataloger/containrar.',
 
 # File journal errors
 'filejournal-fail-dbconnect' => 'Kunde inte ansluta till journaldatabasen för lagringssystemet "$1".',
@@ -1856,6 +1880,7 @@ Om problemet kvarstår, kontakta en [[Special:ListUsers/sysop|administratör]].'
 'lockmanager-fail-releaselock' => 'Kunde inte att frigöra låset för "$1".',
 'lockmanager-fail-db-bucket' => 'Kunde inte kontakta tillräckligt många låsdatabaser i hinken $1.',
 'lockmanager-fail-db-release' => 'Kunde inte frigöra låsen på databasen $1 .',
+'lockmanager-fail-svr-acquire' => 'Kunde inte erhålla lås på servern $1 .',
 'lockmanager-fail-svr-release' => 'Kunde inte frigöra låsen på servern $1.',
 
 # ZipDirectoryReader
@@ -1973,6 +1998,7 @@ Kanske vill du redigera beskrivningen på dess [$2 filbeskrivningssida] där.',
 'shared-repo-from' => 'från $1',
 'shared-repo' => 'en gemensam filförvaring',
 'filepage.css' => '/* CSS som skrivs här inkluderas på filbeskrivningssidan, även på utländska klientwikis */',
+'upload-disallowed-here' => 'Du kan inte skriva över denna bild.',
 
 # File reversion
 'filerevert' => 'Återställ $1',
@@ -2006,7 +2032,7 @@ Kanske vill du redigera beskrivningen på dess [$2 filbeskrivningssida] där.',
 
 # MIME search
 'mimesearch' => 'MIME-sökning',
-'mimesearch-summary' => 'På den här sidan kan du söka efter filer via dess MIME-typ. Input: contenttype/subtype, t.ex. <tt>image/jpeg</tt>.',
+'mimesearch-summary' => 'På den här sidan kan du söka efter filer via dess MIME-typ. Input: contenttype/subtype, t.ex. <code>image/jpeg</code>.',
 'mimetype' => 'MIME-typ:',
 'download' => 'ladda ner',
 
@@ -2053,8 +2079,8 @@ Innan mallarna raderas, kontrollera att det inte finns andra länkar till dem.',
 
 'disambiguations' => 'Sidor som länkar till förgreningssidor',
 'disambiguationspage' => 'Template:Förgrening',
-'disambiguations-text' => "Följande sidor länkar till ''förgreningssidor''.
-Länkarna bör troligtvis ändras så att de länkar till en artikel istället.<br />
+'disambiguations-text' => "Följande sidorna innehåller minst en länk till en '''förgreningssida'''.
+De bör troligtvis ändras så att de länkar till en mer passande sida istället.<br />
 En sida anses vara en förgreningssida om den inkluderar en mall som länkas till från [[MediaWiki:Disambiguationspage]].",
 
 'doubleredirects' => 'Dubbla omdirigeringar',
@@ -2079,6 +2105,7 @@ En sida anses vara en förgreningssida om den inkluderar en mall som länkas til
 # Miscellaneous special pages
 'nbytes' => '$1 {{PLURAL:$1|byte|byte}}',
 'ncategories' => '$1 {{PLURAL:$1|kategori|kategorier}}',
+'ninterwikis' => '$1 {{PLURAL:$1|interwiki|interwikis}}',
 'nlinks' => '$1 {{PLURAL:$1|länk|länkar}}',
 'nmembers' => '$1 {{PLURAL:$1|medlem|medlemmar}}',
 'nrevisions' => '$1 {{PLURAL:$1|version|versioner}}',
@@ -2107,6 +2134,7 @@ En sida anses vara en förgreningssida om den inkluderar en mall som länkas til
 'mostlinkedtemplates' => 'Mest använda mallar',
 'mostcategories' => 'Sidor med flest kategorier',
 'mostimages' => 'Filer med flest länkar till sig',
+'mostinterwikis' => 'Sidor med flest interwikis',
 'mostrevisions' => 'Sidor med flest ändringar',
 'prefixindex' => 'Alla sidor med prefix',
 'prefixindex-namespace' => 'Alla sidor med prefix ($1 namnrymder)',
@@ -2160,6 +2188,7 @@ Lägg märke till att andra webbplatser kan länka till en fil med en direkt URL
 Du kan avgränsa sökningen och få färre träffar genom att ange typ av logg, användarnamn (skiftlägeskänsligt), eller berörd sida (också skiftlägeskänsligt).',
 'logempty' => 'Inga matchande träffar i loggen.',
 'log-title-wildcard' => 'Sök efter sidtitlar som börjar med texten',
+'showhideselectedlogentries' => 'Visa/Dölj markerade loggposter',
 
 # Special:AllPages
 'allpages' => 'Alla sidor',
@@ -2205,7 +2234,7 @@ Se även [[Special:WantedCategories|önskade kategorier]].',
 'linksearch-ok' => 'Sök',
 'linksearch-text' => 'Jokertecken (wildcards) som t.ex. "*.wikipedia.org" kan användas.
 Det krävs åtminstone en toppnivå-domän, t.ex. "*.org".<br />
-Protokoll som stöds: <tt>$1</tt> (lägg inte till något av dessa i din sökning).',
+Protokoll som stöds: <code>$1</code> (lägg inte till något av dessa i din sökning).',
 'linksearch-line' => '$1 länkas från $2',
 'linksearch-error' => 'Jokertecken kan bara användas i början av domännamnet.',
 
@@ -2251,6 +2280,8 @@ Det kan finnas [[{{MediaWiki:Listgrouprights-helppage}}|ytterligare information]
 'mailnologin' => 'Ingen adress att skicka till',
 'mailnologintext' => 'För att kunna skicka e-post till andra användare, måste du vara [[Special:UserLogin|inloggad]] och ha angivit en korrekt e-postadress i dina [[Special:Preferences|användarinställningar]].',
 'emailuser' => 'Skicka e-post till den här användaren',
+'emailuser-title-target' => 'Skicka e-post till denna {{GENDER:$1|användare}}',
+'emailuser-title-notarget' => 'E-postanvändare',
 'emailpage' => 'Skicka e-post till användare',
 'emailpagetext' => 'Du kan använda det här formuläret för att skicka e-post till den här användaren.
 Den e-postadress du har angivit i [[Special:Preferences|dina användarinställningar]] kommer att visas som "Från"-adress i meddelandet, så att mottagaren har möjlighet att svara direkt till dig.',
@@ -2393,6 +2424,8 @@ Se $2 för noteringar om de senaste raderingarna.',
 'rollback' => 'Rulla tillbaka ändringar',
 'rollback_short' => 'Återställning',
 'rollbacklink' => 'rulla tillbaka',
+'rollbacklinkcount' => 'rulla tillbaka $1 {{PLURAL:$1|redigering|redigeringar}}',
+'rollbacklinkcount-morethan' => 'rulla tillbaka mer än $1 {{PLURAL:$1|redigering|redigeringar}}',
 'rollbackfailed' => 'Tillbakarullning misslyckades',
 'cantrollback' => 'Det gick inte att rulla tillbaka, då sidan endast redigerats av en användare.',
 'alreadyrolled' => 'Det gick inte att rulla tillbaka den senaste redigeringen av [[User:$2|$2]] ([[User talk:$2|diskussion]]{{int:pipe-separator}}[[Special:Contributions/$2|{{int:contribslink}}]]) på sidan [[:$1|$1]]. Någon annan har redan rullat tillbaka eller redigerat sidan.
@@ -2885,6 +2918,7 @@ All överföring mellan wikier (transwiki) listas i  [[Special:Log/import|import
 'import-interwiki-templates' => 'Inkludera alla mallar',
 'import-interwiki-submit' => 'Importera',
 'import-interwiki-namespace' => 'Målnamnrymd:',
+'import-interwiki-rootpage' => 'Destinationens grundsida (valfri):',
 'import-upload-filename' => 'Filnamn:',
 'import-comment' => 'Kommentar:',
 'importtext' => 'Var god exportera filen från ursprungs-wikin med hjälp av [[Special:Export|exporteringsverktyget]].
@@ -2917,6 +2951,9 @@ Spara den på din dator och ladda upp den här.',
 'import-error-interwiki' => 'Sidan "$1" är inte importerad eftersom dess namn är reserverat för externa länkar (interwiki).',
 'import-error-special' => 'Sidan "$1" är inte importerad eftersom den tillhör en särskild namnrymd som inte tillåter sidor.',
 'import-error-invalid' => 'Sidan "$1" är inte importerad eftersom dess namn är ogiltigt.',
+'import-options-wrong' => 'Fel {{PLURAL:$2|alternativ|alternativ}}: <nowiki>$1</nowiki>',
+'import-rootpage-invalid' => 'Angiven grundsida är en ogiltig titel.',
+'import-rootpage-nosubpage' => 'Namnrymden "$1" till grundsidan tillåter inte undersidor.',
 
 # Import log
 'importlogpage' => 'Importlogg',
@@ -3066,19 +3103,37 @@ Detta orsakades troligen av en länk till en svartlistad webbplats.',
 'spambot_username' => 'MediaWikis spampatrull',
 'spam_reverting' => 'Återställer till den senaste versionen som inte innehåller länkar till $1',
 'spam_blanking' => 'Alla versioner innehöll en länk till $1, blankar',
+'spam_deleting' => 'Alla ändringar innehöll länkar till $1, raderar',
 
 # Info page
 'pageinfo-title' => 'Information om "$1"',
-'pageinfo-header-edits' => 'Redigeringar',
-'pageinfo-header-watchlist' => 'Bevakningslista',
-'pageinfo-header-views' => 'Visningar',
-'pageinfo-subjectpage' => 'Sida',
-'pageinfo-talkpage' => 'Diskussionssida',
-'pageinfo-watchers' => 'Antal användare som bevakar sidan',
-'pageinfo-edits' => 'Antal redigeringar',
-'pageinfo-authors' => 'Antal olika författare',
+'pageinfo-header-basic' => 'Grundläggande information',
+'pageinfo-header-edits' => 'Redigeringshistorik',
+'pageinfo-header-restrictions' => 'Sidskydd',
+'pageinfo-header-properties' => 'Sidegenskaper',
+'pageinfo-display-title' => 'Visningstitel',
+'pageinfo-default-sort' => 'Standardsorteringsnyckel',
+'pageinfo-length' => 'Sidlängd (i byte)',
+'pageinfo-article-id' => 'Sid-ID',
+'pageinfo-robot-policy' => 'Sökmotorns status',
+'pageinfo-robot-index' => 'Indexerbar',
+'pageinfo-robot-noindex' => 'Inte indexerbar',
 'pageinfo-views' => 'Antal visningar',
-'pageinfo-viewsperedit' => 'Sidvisningar per redigering',
+'pageinfo-watchers' => 'Antal användare som bevakar sidan',
+'pageinfo-redirects-name' => 'Omdirigeringar till denna sida',
+'pageinfo-subpages-name' => 'Undersidor till denna sida',
+'pageinfo-subpages-value' => '$1 ($2 {{PLURAL:$2|omdirigering|omdirigeringar}}; $3 {{PLURAL:$3|icke-omdirigering|icke-omdirigeringar}})',
+'pageinfo-firstuser' => 'Sidskapare',
+'pageinfo-firsttime' => 'Datum när sidan skapades',
+'pageinfo-lastuser' => 'Senaste redigeraren',
+'pageinfo-lasttime' => 'Datum för senaste redigeringen',
+'pageinfo-edits' => 'Totalt antal redigeringar',
+'pageinfo-authors' => 'Totalt antal olika författare',
+'pageinfo-recent-edits' => 'Antal nyliga redigeringar (inom de senaste $1)',
+'pageinfo-recent-authors' => 'Antal nyliga olika författare',
+'pageinfo-restriction' => 'Sidskydd ({{lcfirst:$1}})',
+'pageinfo-magic-words' => '{{PLURAL:$1|Magiskt|Magiska}} ord ($1)',
+'pageinfo-hidden-categories' => '{{PLURAL:$1|Dold kategori|Dolda kategorier}} ($1)',
 
 # Skin names
 'skinname-standard' => 'Standard',
@@ -3133,6 +3188,7 @@ Om du kör den kan din dator skadas.",
 'file-info-size-pages' => '$1 × $2 pixlar, filstorlek: $3, MIME-typ: $4, $5 {{PLURAL:$5|sida|sidor}}',
 'file-nohires' => 'Det finns ingen version med högre upplösning.',
 'svg-long-desc' => 'SVG-fil, grundstorlek: $1 × $2 pixlar, filstorlek: $3',
+'svg-long-desc-animated' => 'animerad SVG-fil, nominellt $1 × $2 pixlar, filstorlek: $3',
 'show-big-image' => 'Högupplöst version',
 'show-big-image-preview' => 'Storlek på förhandsvisningen: $1.',
 'show-big-image-other' => '{{PLURAL:$2|Annan upplösning|Andra upplösningar}}: $1.',
@@ -3142,6 +3198,8 @@ Om du kör den kan din dator skadas.",
 'file-info-png-looped' => 'upprepad',
 'file-info-png-repeat' => 'spelad $1 {{PLURAL:$1|gång|gånger}}',
 'file-info-png-frames' => '$1 {{PLURAL:$1|bild|bilder}}',
+'file-no-thumb-animation' => "'''OBS: På grund av tekniska begränsningar kommer inte miniatyrer av denna fil animeras.'''",
+'file-no-thumb-animation-gif' => "'''OBS: På grund av tekniska begränsningar kommer inte miniatyrer av GIF-bilder med hög upplösning som denna animeras.'''",
 
 # Special:NewFiles
 'newimages' => 'Galleri över nya filer',
@@ -3810,7 +3868,7 @@ Bilder visas i full upplösning, andra filtyper öppnas direkt i de program som 
 * <span class="mw-specialpagecached">Cachade specialsidor (kan vara föråldrade).</span>',
 'specialpages-group-maintenance' => 'Underhållsrapporter',
 'specialpages-group-other' => 'Övriga specialsidor',
-'specialpages-group-login' => 'Inloggning/registrering',
+'specialpages-group-login' => 'Logga in / skapa konto',
 'specialpages-group-changes' => 'Senaste ändringar och loggar',
 'specialpages-group-media' => 'Filer och uppladdning',
 'specialpages-group-users' => 'Användare och behörigheter',
@@ -3944,9 +4002,12 @@ Annars kan du använda det enkla formuläret nedan. Din kommentar kommer att lä
 'api-error-empty-file' => 'Filen du skickade var tom.',
 'api-error-emptypage' => 'Det är inte tillåtet att skapa nya, tomma sidor.',
 'api-error-fetchfileerror' => 'Internt fel: något gick fel vid hämtningen av filen.',
+'api-error-fileexists-forbidden' => 'En fil med namnet "$1" finns redan och kan inte skrivas över.',
+'api-error-fileexists-shared-forbidden' => 'En fil med namnet "$1" finns redan i det delade filarkivet och kan inte skrivas över.',
 'api-error-file-too-large' => 'Filen du skickade var för stor.',
 'api-error-filename-tooshort' => 'Filnamnet är för kort.',
 'api-error-filetype-banned' => 'Denna typ av fil är förbjuden.',
+'api-error-filetype-banned-type' => '$1 är inte {{PLURAL:$4|en tillåten filtyp|tillåtna filtyper}}. {{PLURAL:$3|Tillåten filtyp|Tillåtna filtyper}} är $2.',
 'api-error-filetype-missing' => 'Filen saknar en filändelse.',
 'api-error-hookaborted' => 'Ändringen du försökte göra avbröts av en extension hook.',
 'api-error-http' => 'Internt fel: Det gick inte att ansluta till servern.',

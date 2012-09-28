@@ -145,21 +145,21 @@ class IBM_DB2Result{
 	 */
 	public function __construct( $db, $result, $num_rows, $sql, $columns ){
 		$this->db = $db;
-		
+
 		if( $result instanceof ResultWrapper ){
 			$this->result = $result->result;
 		}
 		else{
 			$this->result = $result;
 		}
-		
+
 		$this->num_rows = $num_rows;
 		$this->current_pos = 0;
 		if ( $this->num_rows > 0 ) {
 			// Make a lower-case list of the column names
 			// By default, DB2 column names are capitalized
 			//  while MySQL column names are lowercase
-			
+
 			// Is there a reasonable maximum value for $i?
 			// Setting to 2048 to prevent an infinite loop
 			for( $i = 0; $i < 2048; $i++ ) {
@@ -170,11 +170,11 @@ class IBM_DB2Result{
 				else {
 					return false;
 				}
-				
+
 				$this->columns[$i] = strtolower( $name );
 			}
 		}
-		
+
 		$this->sql = $sql;
 	}
 
@@ -202,14 +202,14 @@ class IBM_DB2Result{
 	 * @return mixed Object on success, false on failure.
 	 */
 	public function fetchObject() {
-		if ( $this->result 
-				&& $this->num_rows > 0 
-				&& $this->current_pos >= 0 
-				&& $this->current_pos < $this->num_rows ) 
+		if ( $this->result
+				&& $this->num_rows > 0
+				&& $this->current_pos >= 0
+				&& $this->current_pos < $this->num_rows )
 		{
 			$row = $this->fetchRow();
 			$ret = new stdClass();
-			
+
 			foreach ( $row as $k => $v ) {
 				$lc = $this->columns[$k];
 				$ret->$lc = $v;
@@ -225,9 +225,9 @@ class IBM_DB2Result{
 	 * @throws DBUnexpectedError
 	 */
 	public function fetchRow(){
-		if ( $this->result 
-				&& $this->num_rows > 0 
-				&& $this->current_pos >= 0 
+		if ( $this->result
+				&& $this->num_rows > 0
+				&& $this->current_pos >= 0
 				&& $this->current_pos < $this->num_rows )
 		{
 			if ( $this->loadedLines <= $this->current_pos ) {
@@ -242,7 +242,7 @@ class IBM_DB2Result{
 			if ( $this->loadedLines > $this->current_pos ){
 				return $this->resultSet[$this->current_pos++];
 			}
-			
+
 		}
 		return false;
 	}
@@ -416,7 +416,7 @@ class DatabaseIbm_db2 extends DatabaseBase {
 		return 'ibm_db2';
 	}
 
-	/** 
+	/**
 	 * Returns the database connection object
 	 * @return Object
 	 */
@@ -807,7 +807,7 @@ class DatabaseIbm_db2 extends DatabaseBase {
 	/**
 	 * Start a transaction (mandatory)
 	 */
-	public function begin( $fname = 'DatabaseIbm_db2::begin' ) {
+	protected function doBegin( $fname = 'DatabaseIbm_db2::begin' ) {
 		// BEGIN is implicit for DB2
 		// However, it requires that AutoCommit be off.
 
@@ -823,7 +823,7 @@ class DatabaseIbm_db2 extends DatabaseBase {
 	 * End a transaction
 	 * Must have a preceding begin()
 	 */
-	public function commit( $fname = 'DatabaseIbm_db2::commit' ) {
+	protected function doCommit( $fname = 'DatabaseIbm_db2::commit' ) {
 		db2_commit( $this->mConn );
 
 		// Some MediaWiki code is still transaction-less (?).
@@ -837,7 +837,7 @@ class DatabaseIbm_db2 extends DatabaseBase {
 	/**
 	 * Cancel a transaction
 	 */
-	public function rollback( $fname = 'DatabaseIbm_db2::rollback' ) {
+	protected function doRollback( $fname = 'DatabaseIbm_db2::rollback' ) {
 		db2_rollback( $this->mConn );
 		// turn auto-commit back on
 		// not sure if this is appropriate
@@ -1341,10 +1341,10 @@ class DatabaseIbm_db2 extends DatabaseBase {
 
 		$res2 = parent::select( $table, $vars2, $conds, $fname, $options2,
 			$join_conds );
-		
+
 		$obj = $this->fetchObject( $res2 );
 		$this->mNumRows = $obj->num_rows;
-		
+
 		return new ResultWrapper( $this, new IBM_DB2Result( $this, $res, $obj->num_rows, $vars, $sql ) );
 	}
 
@@ -1433,7 +1433,7 @@ class DatabaseIbm_db2 extends DatabaseBase {
 		// db2_ping() doesn't exist
 		// Emulate
 		$this->close();
-		$this->mConn = $this->openUncataloged( $this->mDBName, $this->mUser,
+		$this->openUncataloged( $this->mDBName, $this->mUser,
 			$this->mPassword, $this->mServer, $this->mPort );
 
 		return false;
@@ -1441,14 +1441,6 @@ class DatabaseIbm_db2 extends DatabaseBase {
 	######################################
 	# Unimplemented and not applicable
 	######################################
-	/**
-	 * Not implemented
-	 * @return string $sql
-	 */
-	public function limitResultForUpdate( $sql, $num ) {
-		$this->installPrint( 'Not implemented for DB2: limitResultForUpdate()' );
-		return $sql;
-	}
 
 	/**
 	 * Only useful with fake prepare like in base Database class
@@ -1654,26 +1646,6 @@ SQL;
 			$this->installPrint( db2_stmt_errormsg() );
 		}
 		return $res;
-	}
-
-	/**
-	 * Prepare & execute an SQL statement, quoting and inserting arguments
-	 * in the appropriate places.
-	 * @param $query String
-	 * @param $args ...
-	 * @return Resource
-	 */
-	public function safeQuery( $query, $args = null ) {
-		// copied verbatim from Database.php
-		$prepared = $this->prepare( $query, 'DB2::safeQuery' );
-		if( !is_array( $args ) ) {
-			# Pull the var args
-			$args = func_get_args();
-			array_shift( $args );
-		}
-		$retval = $this->execute( $prepared, $args );
-		$this->freePrepared( $prepared );
-		return $retval;
 	}
 
 	/**

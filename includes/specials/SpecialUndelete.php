@@ -92,7 +92,7 @@ class PageArchive {
 				array(
 					'ar_namespace',
 					'ar_title',
-					'COUNT(*) AS count'
+					'count' => 'COUNT(*)'
 				),
 				$condition,
 				__METHOD__,
@@ -120,7 +120,7 @@ class PageArchive {
 			),
 			array( 'ar_namespace' => $this->title->getNamespace(),
 				   'ar_title' => $this->title->getDBkey() ),
-			'PageArchive::listRevisions',
+			__METHOD__,
 			array( 'ORDER BY' => 'ar_timestamp DESC' ) );
 		$ret = $dbr->resultObject( $res );
 		return $ret;
@@ -308,7 +308,9 @@ class PageArchive {
 		$dbr = wfGetDB( DB_SLAVE );
 		$n = $dbr->selectField( 'archive', 'COUNT(ar_title)',
 			array( 'ar_namespace' => $this->title->getNamespace(),
-				   'ar_title' => $this->title->getDBkey() ) );
+				   'ar_title' => $this->title->getDBkey() ),
+			__METHOD__
+		);
 		return ( $n > 0 );
 	}
 
@@ -321,11 +323,14 @@ class PageArchive {
 	 * @param $comment String
 	 * @param $fileVersions Array
 	 * @param $unsuppress Boolean
+	 * @param $user User doing the action, or null to use $wgUser
 	 *
 	 * @return array(number of file revisions restored, number of image revisions restored, log message)
 	 * on success, false on failure
 	 */
-	function undelete( $timestamps, $comment = '', $fileVersions = array(), $unsuppress = false ) {
+	function undelete( $timestamps, $comment = '', $fileVersions = array(), $unsuppress = false, User $user = null ) {
+		global $wgUser;
+
 		// If both the set of text revisions and file revisions are empty,
 		// restore everything. Otherwise, just restore the requested items.
 		$restoreAll = empty( $timestamps ) && empty( $fileVersions );
@@ -354,28 +359,35 @@ class PageArchive {
 		}
 
 		// Touch the log!
-		global $wgContLang;
-		$log = new LogPage( 'delete' );
 
 		if( $textRestored && $filesRestored ) {
-			$reason = wfMsgExt( 'undeletedrevisions-files', array( 'content', 'parsemag' ),
-				$wgContLang->formatNum( $textRestored ),
-				$wgContLang->formatNum( $filesRestored ) );
+			$reason = wfMessage( 'undeletedrevisions-files' )
+				->numParams( $textRestored, $filesRestored )->inContentLanguage()->text();
 		} elseif( $textRestored ) {
-			$reason = wfMsgExt( 'undeletedrevisions', array( 'content', 'parsemag' ),
-				$wgContLang->formatNum( $textRestored ) );
+			$reason = wfMessage( 'undeletedrevisions' )->numParams( $textRestored )
+				->inContentLanguage()->text();
 		} elseif( $filesRestored ) {
-			$reason = wfMsgExt( 'undeletedfiles', array( 'content', 'parsemag' ),
-				$wgContLang->formatNum( $filesRestored ) );
+			$reason = wfMessage( 'undeletedfiles' )->numParams( $filesRestored )
+				->inContentLanguage()->text();
 		} else {
 			wfDebug( "Undelete: nothing undeleted...\n" );
 			return false;
 		}
 
 		if( trim( $comment ) != '' ) {
-			$reason .= wfMsgForContent( 'colon-separator' ) . $comment;
+			$reason .= wfMessage( 'colon-separator' )->inContentLanguage()->text() . $comment;
 		}
-		$log->addEntry( 'restore', $this->title, $reason );
+
+		if ( $user === null ) {
+			$user = $wgUser;
+		}
+
+		$logEntry = new ManualLogEntry( 'delete', 'restore' );
+		$logEntry->setPerformer( $user );
+		$logEntry->setTarget( $this->title );
+		$logEntry->setComment( $reason );
+		$logid = $logEntry->insert();
+		$logEntry->publish( $logid );
 
 		return array( $textRestored, $filesRestored, $reason );
 	}
@@ -754,8 +766,8 @@ class SpecialUndelete extends SpecialPage {
 				);
 			} else {
 				// The title is no longer valid, show as text
-				$title = Title::makeTitle( $row->ar_namespace, $row->ar_title );
-				$item = htmlspecialchars( $title->getPrefixedText() );
+				$item = Html::element( 'span', array( 'class' => 'mw-invalidtitle' ),
+					Linker::getInvalidTitleDescription( $this->getContext(), $row->ar_namespace, $row->ar_title ) );
 			}
 			$revs = $this->msg( 'undeleterevisions' )->numParams( $row->count )->parse();
 			$out->addHTML( "<li>{$item} ({$revs})</li>\n" );
@@ -896,21 +908,22 @@ class SpecialUndelete extends SpecialPage {
 		$diffEngine->showDiffStyle();
 		$this->getOutput()->addHTML(
 			"<div>" .
-			"<table border='0' width='98%' cellpadding='0' cellspacing='4' class='diff'>" .
+			"<table style='width: 98%;' cellpadding='0' cellspacing='4' class='diff'>" .
 			"<col class='diff-marker' />" .
 			"<col class='diff-content' />" .
 			"<col class='diff-marker' />" .
 			"<col class='diff-content' />" .
 			"<tr>" .
-				"<td colspan='2' width='50%' align='center' class='diff-otitle'>" .
+				"<td colspan='2' style='width: 50%; text-align: center' class='diff-otitle'>" .
 				$this->diffHeader( $previousRev, 'o' ) .
 				"</td>\n" .
-				"<td colspan='2' width='50%' align='center' class='diff-ntitle'>" .
+				"<td colspan='2' style='width: 50%;  text-align: center' class='diff-ntitle'>" .
 				$this->diffHeader( $currentRev, 'n' ) .
 				"</td>\n" .
 			"</tr>" .
 			$diffEngine->generateDiffBody(
-				$previousRev->getText(), $currentRev->getText() ) .
+				$previousRev->getText( Revision::FOR_THIS_USER, $this->getUser() ),
+				$currentRev->getText( Revision::FOR_THIS_USER, $this->getUser() ) ) .
 			"</table>" .
 			"</div>\n"
 		);
@@ -1071,11 +1084,13 @@ class SpecialUndelete extends SpecialPage {
 		}
 
 		# Show relevant lines from the deletion log:
-		$out->addHTML( Xml::element( 'h2', null, LogPage::logName( 'delete' ) ) . "\n" );
+		$deleteLogPage = new LogPage( 'delete' );
+		$out->addHTML( Xml::element( 'h2', null, $deleteLogPage->getName()->text() ) . "\n" );
 		LogEventsList::showLogExtract( $out, 'delete', $this->mTargetObj );
 		# Show relevant lines from the suppression log:
+		$suppressLogPage = new LogPage( 'suppress' );
 		if( $this->getUser()->isAllowed( 'suppressionlog' ) ) {
-			$out->addHTML( Xml::element( 'h2', null, LogPage::logName( 'suppress' ) ) . "\n" );
+			$out->addHTML( Xml::element( 'h2', null, $suppressLogPage->getName()->text() ) . "\n" );
 			LogEventsList::showLogExtract( $out, 'suppress', $this->mTargetObj );
 		}
 
@@ -1166,7 +1181,7 @@ class SpecialUndelete extends SpecialPage {
 	private function formatRevisionRow( $row, $earliestLiveTime, $remaining ) {
 		$rev = Revision::newFromArchiveRow( $row,
 			array( 'page' => $this->mTargetObj->getArticleID() ) );
-		$stxt = '';
+		$revTextSize = '';
 		$ts = wfTimestamp( TS_MW, $row->ar_timestamp );
 		// Build checkboxen...
 		if( $this->mAllowed ) {
@@ -1215,13 +1230,15 @@ class SpecialUndelete extends SpecialPage {
 		// Revision text size
 		$size = $row->ar_len;
 		if( !is_null( $size ) ) {
-			$stxt = Linker::formatRevisionSize( $size );
+			$revTextSize = Linker::formatRevisionSize( $size );
 		}
 		// Edit summary
 		$comment = Linker::revComment( $rev );
 		// Revision delete links
 		$revdlink = Linker::getRevDeleteLink( $user, $rev, $this->mTargetObj );
-		return "<li>$checkBox $revdlink ($last) $pageLink . . $userLink $stxt $comment</li>";
+
+		$revisionRow = $this->msg( 'undelete-revisionrow' )->rawParams( $checkBox, $revdlink, $last, $pageLink , $userLink, $revTextSize, $comment )->escaped();
+		return "<li>$revisionRow</li>";
 	}
 
 	private function formatFileRow( $row ) {
@@ -1385,7 +1402,9 @@ class SpecialUndelete extends SpecialPage {
 			$this->mTargetTimestamp,
 			$this->mComment,
 			$this->mFileVersions,
-			$this->mUnsuppress );
+			$this->mUnsuppress,
+			$this->getUser()
+		);
 
 		if( is_array( $ok ) ) {
 			if ( $ok[1] ) { // Undeleted file count

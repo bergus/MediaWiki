@@ -245,7 +245,7 @@ abstract class RevisionItemBase {
 	abstract public function canViewContent();
 
 	/**
-	 * Get the HTML of the list item. Should be include <li></li> tags.
+	 * Get the HTML of the list item. Should be include "<li></li>" tags.
 	 * This is used to show the list in HTML form, by the special page.
 	 */
 	abstract public function getHTML();
@@ -350,12 +350,12 @@ class RevisionItem extends RevisionItemBase {
 	 */
 	protected function getDiffLink() {
 		if ( $this->isDeleted() && !$this->canViewContent() ) {
-			return wfMsgHtml('diff');
+			return $this->context->msg( 'diff' )->escaped();
 		} else {
 			return
 				Linker::link(
 					$this->list->title,
-					wfMsgHtml('diff'),
+					$this->context->msg( 'diff' )->escaped(),
 					array(),
 					array(
 						'diff' => $this->revision->getId(),
@@ -371,13 +371,14 @@ class RevisionItem extends RevisionItemBase {
 	}
 
 	public function getHTML() {
-		$difflink = $this->getDiffLink();
+		$difflink = $this->context->msg( 'parentheses' )
+			->rawParams( $this->getDiffLink() )->escaped();
 		$revlink = $this->getRevisionLink();
 		$userlink = Linker::revUserLink( $this->revision );
 		$comment = Linker::revComment( $this->revision );
 		if ( $this->isDeleted() ) {
 			$revlink = "<span class=\"history-deleted\">$revlink</span>";
 		}
-		return "<li>($difflink) $revlink $userlink $comment</li>";
+		return "<li>$difflink $revlink $userlink $comment</li>";
 	}
 }

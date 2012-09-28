@@ -166,7 +166,7 @@ class Xml {
 		if( is_null( $selected ) )
 			$selected = '';
 		if( !is_null( $allmonths ) )
-			$options[] = self::option( wfMsg( 'monthsall' ), $allmonths, $selected === $allmonths );
+			$options[] = self::option( wfMessage( 'monthsall' )->text(), $allmonths, $selected === $allmonths );
 		for( $i = 1; $i < 13; $i++ )
 			$options[] = self::option( $wgLang->getMonthName( $i ), $i, $selected === $i );
 		return self::openElement( 'select', array( 'id' => $id, 'name' => 'month', 'class' => 'mw-month-selector' ) )
@@ -198,10 +198,11 @@ class Xml {
 		} else {
 			$encYear = '';
 		}
-		return Xml::label( wfMsg( 'year' ), 'year' ) . ' '.
-			Xml::input( 'year', 4, $encYear, array('id' => 'year', 'maxlength' => 4) ) . ' '.
-			Xml::label( wfMsg( 'month' ), 'month' ) . ' '.
-			Xml::monthSelector( $encMonth, -1 );
+		$inputAttribs = array( 'id' => 'year', 'maxlength' => 4, 'size' => 7 );
+		return self::label( wfMessage( 'year' )->text(), 'year' ) . ' '.
+			Html::input( 'year', $encYear, 'number', $inputAttribs ) . ' '.
+			self::label( wfMessage( 'month' )->text(), 'month' ) . ' '.
+			self::monthSelector( $encMonth, -1 );
 	}
 
 	/**
@@ -210,15 +211,18 @@ class Xml {
 	 * @param string $selected The language code of the selected language
 	 * @param boolean $customisedOnly If true only languages which have some content are listed
 	 * @param string $inLanguage The ISO code of the language to display the select list in (optional)
+	 * @param array $overrideAttrs Override the attributes of the select tag (since 1.20)
+	 * @param Message|null $msg Label message key (since 1.20)
 	 * @return array containing 2 items: label HTML and select list HTML
 	 */
-	public static function languageSelector( $selected, $customisedOnly = true, $inLanguage = null ) {
+	public static function languageSelector( $selected, $customisedOnly = true, $inLanguage = null, $overrideAttrs = array(), Message $msg = null ) {
 		global $wgLanguageCode;
 
-		$languages = Language::fetchLanguageNames( $inLanguage, $customisedOnly ? 'mwfile' : 'mw' );
+		$include = $customisedOnly ? 'mwfile' : 'mw';
+		$languages = Language::fetchLanguageNames( $inLanguage, $include );
 
-		// Make sure the site language is in the list; a custom language code might not have a
-		// defined name...
+		// Make sure the site language is in the list;
+		// a custom language code might not have a defined name...
 		if( !array_key_exists( $wgLanguageCode, $languages ) ) {
 			$languages[$wgLanguageCode] = $wgLanguageCode;
 		}
@@ -228,7 +232,7 @@ class Xml {
 		/**
 		 * If a bogus value is set, default to the content language.
 		 * Otherwise, no default is selected and the user ends up
-		 * with an Afrikaans interface since it's first in the list.
+		 * with Afrikaans since it's first in the list.
 		 */
 		$selected = isset( $languages[$selected] ) ? $selected : $wgLanguageCode;
 		$options = "\n";
@@ -236,12 +240,15 @@ class Xml {
 			$options .= Xml::option( "$code - $name", $code, ($code == $selected) ) . "\n";
 		}
 
+		$attrs = array( 'id' => 'wpUserLanguage', 'name' => 'wpUserLanguage' );
+		$attrs = array_merge( $attrs, $overrideAttrs );
+
+		if( $msg === null ) {
+			$msg = wfMessage( 'yourlanguage' );
+		}
 		return array(
-			Xml::label( wfMsg('yourlanguage'), 'wpUserLanguage' ),
-			Xml::tags( 'select',
-				array( 'id' => 'wpUserLanguage', 'name' => 'wpUserLanguage' ),
-				$options
-			)
+			Xml::label( $msg->text(), $attrs['id'] ),
+			Xml::tags( 'select', $attrs, $options )
 		);
 
 	}
@@ -766,7 +773,7 @@ class Xml {
 		foreach( $fields as $labelmsg => $input ) {
 			$id = "mw-$labelmsg";
 			$form .= Xml::openElement( 'tr', array( 'id' => $id ) );
-			$form .= Xml::tags( 'td', array('class' => 'mw-label'), wfMsgExt( $labelmsg, array('parseinline') ) );
+			$form .= Xml::tags( 'td', array('class' => 'mw-label'), wfMessage( $labelmsg )->parse() );
 			$form .= Xml::openElement( 'td', array( 'class' => 'mw-input' ) ) . $input . Xml::closeElement( 'td' );
 			$form .= Xml::closeElement( 'tr' );
 		}
@@ -774,7 +781,7 @@ class Xml {
 		if( $submitLabel ) {
 			$form .= Xml::openElement( 'tr' );
 			$form .= Xml::tags( 'td', array(), '' );
-			$form .= Xml::openElement( 'td', array( 'class' => 'mw-submit' ) ) . Xml::submitButton( wfMsg( $submitLabel ) ) . Xml::closeElement( 'td' );
+			$form .= Xml::openElement( 'td', array( 'class' => 'mw-submit' ) ) . Xml::submitButton( wfMessage( $submitLabel )->text() ) . Xml::closeElement( 'td' );
 			$form .= Xml::closeElement( 'tr' );
 		}
 

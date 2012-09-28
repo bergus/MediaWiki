@@ -396,14 +396,15 @@ class SpecialRecentChanges extends IncludableSpecialPage {
 			$fields[] = 'page_latest';
 			$join_conds['page'] = array('LEFT JOIN', 'rc_cur_id=page_id');
 		}
-		if ( !$this->including() ) {
-			// Tag stuff.
-			// Doesn't work when transcluding. See bug 23293
-			ChangeTags::modifyDisplayQuery(
-				$tables, $fields, $conds, $join_conds, $query_options,
-				$opts['tagfilter']
-			);
-		}
+		// Tag stuff.
+		ChangeTags::modifyDisplayQuery(
+			$tables,
+			$fields,
+			$conds,
+			$join_conds,
+			$query_options,
+			$opts['tagfilter']
+		);
 
 		if ( !wfRunHooks( 'SpecialRecentChangesQuery',
 			array( &$conds, &$tables, &$join_conds, $opts, &$query_options, &$fields ) ) )
@@ -772,6 +773,16 @@ class SpecialRecentChanges extends IncludableSpecialPage {
 	 */
 	function makeOptionsLink( $title, $override, $options, $active = false ) {
 		$params = $override + $options;
+
+		// Bug 36524: false values have be converted to "0" otherwise
+		// wfArrayToCgi() will omit it them.
+		foreach ( $params as &$value ) {
+			if ( $value === false ) {
+				$value = '0';
+			}
+		}
+		unset( $value );
+
 		$text = htmlspecialchars( $title );
 		if ( $active ) {
 			$text = '<strong>' . $text . '</strong>';

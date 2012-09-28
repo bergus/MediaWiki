@@ -4,7 +4,7 @@
  *
  * Created on July 30, 2007
  *
- * Copyright © 2007 Yuri Astrakhan <Firstname><Lastname>@gmail.com
+ * Copyright © 2007 Yuri Astrakhan "<Firstname><Lastname>@gmail.com"
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,14 +76,12 @@ class ApiQueryUserInfo extends ApiQueryBase {
 		}
 
 		if ( isset( $this->prop['groups'] ) ) {
-			$autolist = ApiQueryUsers::getAutoGroups( $user );
-
-			$vals['groups'] = array_merge( $autolist, $user->getGroups() );
+			$vals['groups'] = $user->getEffectiveGroups();
 			$result->setIndexedTagName( $vals['groups'], 'g' );	// even if empty
 		}
 
 		if ( isset( $this->prop['implicitgroups'] ) ) {
-			$vals['implicitgroups'] = ApiQueryUsers::getAutoGroups( $user );
+			$vals['implicitgroups'] = $user->getAutomaticGroups();
 			$result->setIndexedTagName( $vals['implicitgroups'], 'g' );	// even if empty
 		}
 
@@ -230,6 +228,63 @@ class ApiQueryUserInfo extends ApiQueryBase {
 				'  email            - Adds the user\'s email address and email authentication date',
 				'  acceptlang       - Echoes the Accept-Language header sent by the client in a structured format',
 				'  registrationdate - Adds the user\'s registration date',
+			)
+		);
+	}
+
+	public function getResultProperties() {
+		return array(
+			ApiBase::PROP_LIST => false,
+			'' => array(
+				'id' => 'integer',
+				'name' => 'string',
+				'anon' => 'boolean'
+			),
+			'blockinfo' => array(
+				'blockid' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'blockedby' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'blockedbyid' => array(
+					ApiBase::PROP_TYPE => 'integer',
+					ApiBase::PROP_NULLABLE => true
+				),
+				'blockedreason' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				)
+			),
+			'hasmsg' => array(
+				'messages' => 'boolean'
+			),
+			'preferencestoken' => array(
+				'preferencestoken' => 'string'
+			),
+			'editcount' => array(
+				'editcount' => 'integer'
+			),
+			'realname' => array(
+				'realname' => array(
+					ApiBase::PROP_TYPE => 'string',
+					ApiBase::PROP_NULLABLE => true
+				)
+			),
+			'email' => array(
+				'email' => 'string',
+				'emailauthenticated' => array(
+					ApiBase::PROP_TYPE => 'timestamp',
+					ApiBase::PROP_NULLABLE => true
+				)
+			),
+			'registrationdate' => array(
+				'registrationdate' => array(
+					ApiBase::PROP_TYPE => 'timestamp',
+					ApiBase::PROP_NULLABLE => true
+				)
 			)
 		);
 	}

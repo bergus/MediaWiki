@@ -35,6 +35,7 @@ define( 'MW_API', true );
 
 // Bail if PHP is too low
 if ( !function_exists( 'version_compare' ) || version_compare( phpversion(), '5.3.2' ) < 0 ) {
+	// We need to use dirname( __FILE__ ) here cause __DIR__ is PHP5.3+
 	require( dirname( __FILE__ ) . '/includes/PHPVersionError.php' );
 	wfPHPVersionError( 'api.php' );
 }
@@ -43,7 +44,7 @@ if ( !function_exists( 'version_compare' ) || version_compare( phpversion(), '5.
 if ( isset( $_SERVER['MW_COMPILED'] ) ) {
 	require ( 'core/includes/WebStart.php' );
 } else {
-	require ( dirname( __FILE__ ) . '/includes/WebStart.php' );
+	require ( __DIR__ . '/includes/WebStart.php' );
 }
 
 wfProfileIn( 'api.php' );
@@ -62,43 +63,6 @@ if ( !$wgEnableAPI ) {
 	die(1);
 }
 
-// Selectively allow cross-site AJAX
-
-/**
- * Helper function to convert wildcard string into a regex
- * '*' => '.*?'
- * '?' => '.'
- *
- * @param $search string
- * @return string
- */
-function convertWildcard( $search ) {
-	$search = preg_quote( $search, '/' );
-	$search = str_replace(
-		array( '\*', '\?' ),
-		array( '.*?', '.' ),
-		$search
-	);
-	return "/$search/";
-}
-
-if ( $wgCrossSiteAJAXdomains && isset( $_SERVER['HTTP_ORIGIN'] ) ) {
-	$exceptions = array_map( 'convertWildcard', $wgCrossSiteAJAXdomainExceptions );
-	$regexes = array_map( 'convertWildcard', $wgCrossSiteAJAXdomains );
-	foreach ( $regexes as $regex ) {
-		if ( preg_match( $regex, $_SERVER['HTTP_ORIGIN'] ) ) {
-			foreach ( $exceptions as $exc ) { // Check against exceptions
-				if ( preg_match( $exc, $_SERVER['HTTP_ORIGIN'] ) ) {
-					break 2;
-				}
-			}
-			header( "Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}" );
-			header( 'Access-Control-Allow-Credentials: true' );
-			break;
-		}
-	}
-}
-
 // Set a dummy $wgTitle, because $wgTitle == null breaks various things
 // In a perfect world this wouldn't be necessary
 $wgTitle = Title::makeTitle( NS_MAIN, 'API' );
@@ -107,7 +71,7 @@ $wgTitle = Title::makeTitle( NS_MAIN, 'API' );
  * is some form of an ApiMain, possibly even one that produces an error message,
  * but we don't care here, as that is handled by the ctor.
  */
-$processor = new ApiMain( $wgRequest, $wgEnableWriteAPI );
+$processor = new ApiMain( RequestContext::getMain(), $wgEnableWriteAPI );
 
 // Process data & print results
 $processor->execute();

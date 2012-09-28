@@ -59,6 +59,14 @@ class WikiExporter {
 	var $sink;
 
 	/**
+	 * Returns the export schema version.
+	 * @return string
+	 */
+	public static function schemaVersion() {
+		return "0.7";
+	}
+
+	/**
 	 * If using WikiExporter::STREAM to stream a large amount of data,
 	 * provide a database connection which is not managed by
 	 * LoadBalancer to read from: some history blob types will
@@ -75,9 +83,9 @@ class WikiExporter {
 	 * @param $buffer Int: one of WikiExporter::BUFFER or WikiExporter::STREAM
 	 * @param $text Int: one of WikiExporter::TEXT or WikiExporter::STUB
 	 */
-	function __construct( &$db, $history = WikiExporter::CURRENT,
+	function __construct( $db, $history = WikiExporter::CURRENT,
 			$buffer = WikiExporter::BUFFER, $text = WikiExporter::TEXT ) {
-		$this->db =& $db;
+		$this->db = $db;
 		$this->history = $history;
 		$this->buffer  = $buffer;
 		$this->writer  = new XmlDumpWriter();
@@ -465,14 +473,16 @@ class WikiExporter {
 class XmlDumpWriter {
 	/**
 	 * Returns the export schema version.
+	 * @deprecated in 1.20; use WikiExporter::schemaVersion() instead
 	 * @return string
 	 */
 	function schemaVersion() {
-		return "0.6";
+		wfDeprecated( __METHOD__, '1.20' );
+		return WikiExporter::schemaVersion();
 	}
 
 	/**
-	 * Opens the XML output stream's root <mediawiki> element.
+	 * Opens the XML output stream's root "<mediawiki>" element.
 	 * This does not include an xml directive, so is safe to include
 	 * as a subelement in a larger XML stream. Namespace and XML Schema
 	 * references are included.
@@ -483,7 +493,7 @@ class XmlDumpWriter {
 	 */
 	function openStream() {
 		global $wgLanguageCode;
-		$ver = $this->schemaVersion();
+		$ver = WikiExporter::schemaVersion();
 		return Xml::element( 'mediawiki', array(
 			'xmlns'              => "http://www.mediawiki.org/xml/export-$ver/",
 			'xmlns:xsi'          => "http://www.w3.org/2001/XMLSchema-instance",
@@ -572,7 +582,7 @@ class XmlDumpWriter {
 	}
 
 	/**
-	 * Opens a <page> section on the output stream, with data
+	 * Opens a "<page>" section on the output stream, with data
 	 * from the given database row.
 	 *
 	 * @param $row object
@@ -604,7 +614,7 @@ class XmlDumpWriter {
 	}
 
 	/**
-	 * Closes a <page> section on the output stream.
+	 * Closes a "<page>" section on the output stream.
 	 *
 	 * @access private
 	 * @return string
@@ -614,7 +624,7 @@ class XmlDumpWriter {
 	}
 
 	/**
-	 * Dumps a <revision> section on the output stream, with
+	 * Dumps a "<revision>" section on the output stream, with
 	 * data filled in from the given database row.
 	 *
 	 * @param $row object
@@ -626,6 +636,9 @@ class XmlDumpWriter {
 
 		$out  = "    <revision>\n";
 		$out .= "      " . Xml::element( 'id', null, strval( $row->rev_id ) ) . "\n";
+		if( $row->rev_parent_id ) {
+			$out .= "      " . Xml::element( 'parentid', null, strval( $row->rev_parent_id ) ) . "\n";
+		}
 
 		$out .= $this->writeTimestamp( $row->rev_timestamp );
 
@@ -644,6 +657,12 @@ class XmlDumpWriter {
 			$out .= "      " . Xml::elementClean( 'comment', array(), strval( $row->rev_comment ) ) . "\n";
 		}
 
+		if ( $row->rev_sha1 && !( $row->rev_deleted & Revision::DELETED_TEXT ) ) {
+			$out .= "      " . Xml::element('sha1', null, strval( $row->rev_sha1 ) ) . "\n";
+		} else {
+			$out .= "      <sha1/>\n";
+		}
+
 		$text = '';
 		if ( $row->rev_deleted & Revision::DELETED_TEXT ) {
 			$out .= "      " . Xml::element( 'text', array( 'deleted' => 'deleted' ) ) . "\n";
@@ -660,12 +679,6 @@ class XmlDumpWriter {
 				"" ) . "\n";
 		}
 
-		if ( $row->rev_sha1 && !( $row->rev_deleted & Revision::DELETED_TEXT ) ) {
-			$out .= "      " . Xml::element('sha1', null, strval( $row->rev_sha1 ) ) . "\n";
-		} else {
-			$out .= "      <sha1/>\n";
-		}
-
 		wfRunHooks( 'XmlDumpWriterWriteRevision', array( &$this, &$out, $row, $text ) );
 
 		$out .= "    </revision>\n";
@@ -675,7 +688,7 @@ class XmlDumpWriter {
 	}
 
 	/**
-	 * Dumps a <logitem> section on the output stream, with
+	 * Dumps a "<logitem>" section on the output stream, with
 	 * data filled in from the given database row.
 	 *
 	 * @param $row object
@@ -685,37 +698,37 @@ class XmlDumpWriter {
 	function writeLogItem( $row ) {
 		wfProfileIn( __METHOD__ );
 
-		$out  = "    <logitem>\n";
-		$out .= "      " . Xml::element( 'id', null, strval( $row->log_id ) ) . "\n";
+		$out  = "  <logitem>\n";
+		$out .= "    " . Xml::element( 'id', null, strval( $row->log_id ) ) . "\n";
 
-		$out .= $this->writeTimestamp( $row->log_timestamp );
+		$out .= $this->writeTimestamp( $row->log_timestamp, "    " );
 
 		if ( $row->log_deleted & LogPage::DELETED_USER ) {
-			$out .= "      " . Xml::element( 'contributor', array( 'deleted' => 'deleted' ) ) . "\n";
+			$out .= "    " . Xml::element( 'contributor', array( 'deleted' => 'deleted' ) ) . "\n";
 		} else {
-			$out .= $this->writeContributor( $row->log_user, $row->user_name );
+			$out .= $this->writeContributor( $row->log_user, $row->user_name, "    " );
 		}
 
 		if ( $row->log_deleted & LogPage::DELETED_COMMENT ) {
-			$out .= "      " . Xml::element( 'comment', array( 'deleted' => 'deleted' ) ) . "\n";
+			$out .= "    " . Xml::element( 'comment', array( 'deleted' => 'deleted' ) ) . "\n";
 		} elseif ( $row->log_comment != '' ) {
-			$out .= "      " . Xml::elementClean( 'comment', null, strval( $row->log_comment ) ) . "\n";
+			$out .= "    " . Xml::elementClean( 'comment', null, strval( $row->log_comment ) ) . "\n";
 		}
 
-		$out .= "      " . Xml::element( 'type', null, strval( $row->log_type ) ) . "\n";
-		$out .= "      " . Xml::element( 'action', null, strval( $row->log_action ) ) . "\n";
+		$out .= "    " . Xml::element( 'type', null, strval( $row->log_type ) ) . "\n";
+		$out .= "    " . Xml::element( 'action', null, strval( $row->log_action ) ) . "\n";
 
 		if ( $row->log_deleted & LogPage::DELETED_ACTION ) {
-			$out .= "      " . Xml::element( 'text', array( 'deleted' => 'deleted' ) ) . "\n";
+			$out .= "    " . Xml::element( 'text', array( 'deleted' => 'deleted' ) ) . "\n";
 		} else {
 			$title = Title::makeTitle( $row->log_namespace, $row->log_title );
-			$out .= "      " . Xml::elementClean( 'logtitle', null, self::canonicalTitle( $title ) ) . "\n";
-			$out .= "      " . Xml::elementClean( 'params',
+			$out .= "    " . Xml::elementClean( 'logtitle', null, self::canonicalTitle( $title ) ) . "\n";
+			$out .= "    " . Xml::elementClean( 'params',
 				array( 'xml:space' => 'preserve' ),
 				strval( $row->log_params ) ) . "\n";
 		}
 
-		$out .= "    </logitem>\n";
+		$out .= "  </logitem>\n";
 
 		wfProfileOut( __METHOD__ );
 		return $out;
@@ -723,27 +736,29 @@ class XmlDumpWriter {
 
 	/**
 	 * @param $timestamp string
+	 * @param $indent string Default to six spaces
 	 * @return string
 	 */
-	function writeTimestamp( $timestamp ) {
+	function writeTimestamp( $timestamp, $indent = "      " ) {
 		$ts = wfTimestamp( TS_ISO_8601, $timestamp );
-		return "      " . Xml::element( 'timestamp', null, $ts ) . "\n";
+		return $indent . Xml::element( 'timestamp', null, $ts ) . "\n";
 	}
 
 	/**
 	 * @param $id
 	 * @param $text string
+	 * @param $indent string Default to six spaces
 	 * @return string
 	 */
-	function writeContributor( $id, $text ) {
-		$out = "      <contributor>\n";
+	function writeContributor( $id, $text, $indent = "      " ) {
+		$out = $indent . "<contributor>\n";
 		if ( $id || !IP::isValid( $text ) ) {
-			$out .= "        " . Xml::elementClean( 'username', null, strval( $text ) ) . "\n";
-			$out .= "        " . Xml::element( 'id', null, strval( $id ) ) . "\n";
+			$out .= $indent . "  " . Xml::elementClean( 'username', null, strval( $text ) ) . "\n";
+			$out .= $indent . "  " . Xml::element( 'id', null, strval( $id ) ) . "\n";
 		} else {
-			$out .= "        " . Xml::elementClean( 'ip', null, strval( $text ) ) . "\n";
+			$out .= $indent . "  " . Xml::elementClean( 'ip', null, strval( $text ) ) . "\n";
 		}
-		$out .= "      </contributor>\n";
+		$out .= $indent . "</contributor>\n";
 		return $out;
 	}
 
@@ -754,7 +769,7 @@ class XmlDumpWriter {
 	 * @return string
 	 */
 	function writeUploads( $row, $dumpContents = false ) {
-		if ( $row->page_namespace == NS_IMAGE ) {
+		if ( $row->page_namespace == NS_FILE ) {
 			$img = wfLocalFile( $row->page_title );
 			if ( $img && $img->exists() ) {
 				$out = '';
@@ -789,10 +804,15 @@ class XmlDumpWriter {
 		} else {
 			$contents = '';
 		}
+		if ( $file->isDeleted( File::DELETED_COMMENT ) ) {
+			$comment = Xml::element( 'comment', array( 'deleted' => 'deleted' ) );
+		} else {
+			$comment = Xml::elementClean( 'comment', null, $file->getDescription() );
+		}
 		return "    <upload>\n" .
 			$this->writeTimestamp( $file->getTimestamp() ) .
 			$this->writeContributor( $file->getUser( 'id' ), $file->getUser( 'text' ) ) .
-			"      " . Xml::elementClean( 'comment', null, $file->getDescription() ) . "\n" .
+			"      " . $comment . "\n" .
 			"      " . Xml::element( 'filename', null, $file->getName() ) . "\n" .
 			$archiveName .
 			"      " . Xml::element( 'src', null, $file->getCanonicalUrl() ) . "\n" .
@@ -807,7 +827,7 @@ class XmlDumpWriter {
 	 * Return prefixed text form of title, but using the content language's
 	 * canonical namespace. This skips any special-casing such as gendered
 	 * user namespaces -- which while useful, are not yet listed in the
-	 * XML <siteinfo> data so are unsafe in export.
+	 * XML "<siteinfo>" data so are unsafe in export.
 	 *
 	 * @param Title $title
 	 * @return string

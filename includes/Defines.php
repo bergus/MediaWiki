@@ -25,7 +25,7 @@
  */
 
 /**
- * @defgroup Constants
+ * @defgroup Constants MediaWiki constants
  */
 
 /**
@@ -44,6 +44,8 @@ define( 'DBO_DEFAULT', 16 );
 define( 'DBO_PERSISTENT', 32 );
 define( 'DBO_SYSDBA', 64 ); //for oracle maintenance
 define( 'DBO_DDLMODE', 128 ); // when using schema files: mostly for Oracle
+define( 'DBO_SSL', 256 );
+define( 'DBO_COMPRESS', 512 );
 /**@}*/
 
 /**@{
@@ -144,8 +146,8 @@ define( 'AV_SCAN_FAILED', false );  #scan failed (scanner not found or error in 
  * Anti-lock flags
  * See DefaultSettings.php for a description
  */
-define( 'ALF_PRELOAD_LINKS', 1 );
-define( 'ALF_PRELOAD_EXISTENCE', 2 );
+define( 'ALF_PRELOAD_LINKS', 1 ); // unused
+define( 'ALF_PRELOAD_EXISTENCE', 2 ); // unused
 define( 'ALF_NO_LINK_LOCK', 4 );
 define( 'ALF_NO_BLOCK_LOCK', 8 );
 /**@}*/
@@ -203,7 +205,7 @@ define( 'LIST_SET_PREPARED', 8);  // List of (?, ?, ?) for DatabaseIbm_db2
 /**
  * Unicode and normalisation related
  */
-require_once dirname(__FILE__).'/normal/UtfNormalDefines.php';
+require_once __DIR__.'/normal/UtfNormalDefines.php';
 
 /**@{
  * Hook support constants

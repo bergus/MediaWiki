@@ -1,5 +1,5 @@
 <?php
-/** Vèneto (Vèneto)
+/** vèneto (vèneto)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -23,7 +23,7 @@
  */
 
 $magicWords = array(
-	'redirect'                => array( '0', '#VARDA', '#RINVIA', '#RINVIO', '#RIMANDO', '#REDIRECT' ),
+	'redirect'                  => array( '0', '#VARDA', '#RINVIA', '#RINVIO', '#RIMANDO', '#REDIRECT' ),
 );
 
 $fallback = 'it';
@@ -1506,9 +1506,9 @@ Qua ghe xe el registro de le scancelassion e dei spostamenti:",
 Par védar o sercar i file zà caricà, consulta la [[Special:FileList|lista dei file caricà]]. I caricamenti de file te pol védarli nel [[Special:Log/upload|registro dei caricamenti]], le scancelasion nel [[Special:Log/delete|registro de le scancelasion]].
 
 Par métar un file drento de na pagina, te ghè da inserir un colegamento fato come uno de sti qua:
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.jpg]]</nowiki></tt>''' par doparar la version conpleta de sto file
-* '''<tt><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.png|200px|thumb|left|testo alternativo]]</nowiki></tt>'''par inserir sto file co na larghessa de 200 pixel in te un riquadro a sinistra con 'testo alternativo' come descrission
-* '''<tt><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></tt>''' par inserir diretamente un colegamento al file sensa che el se véda in te la pagina",
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.jpg]]</nowiki></code>''' par doparar la version conpleta de sto file
+* '''<code><nowiki>[[</nowiki>{{ns:file}}<nowiki>:File.png|200px|thumb|left|testo alternativo]]</nowiki></code>'''par inserir sto file co na larghessa de 200 pixel in te un riquadro a sinistra con 'testo alternativo' come descrission
+* '''<code><nowiki>[[</nowiki>{{ns:media}}<nowiki>:File.ogg]]</nowiki></code>''' par inserir diretamente un colegamento al file sensa che el se véda in te la pagina",
 'upload-permitted' => 'Tipi de file consentìi: $1.',
 'upload-preferred' => 'Tipi de file consiglià: $1.',
 'upload-prohibited' => 'Tipi de file mìa consentìi: $1.',
@@ -1550,19 +1550,19 @@ Varda la [[Special:NewFiles|galerìa dei file nóvi]] par na vision de insieme.'
 'largefileserver' => 'El file el supera le dimension consentìe da la configurazion del server.',
 'emptyfile' => 'El file che te ghè caricà el xè aparentemente vodo. Podarìa èssar par un eror nel nome del file. Par piaser controla se te vol dal bon caricar sto file.',
 'windows-nonascii-filename' => 'Sta wiki no suporta nomi de file co carateri speciałi.',
-'fileexists' => "Un file co sto nome el esiste de xà, par piaser controła '''<tt>[[:$1]]</tt>''' se no te sì sicuro de volerlo sovrascrìvar.
-[[$1|thumb]]",
-'filepageexists' => "La pagina de descrizion de sto file la xe zà stà creà a '''<tt>[[:$1]]</tt>''', anca se no ghe xe gnancora un file co sto nome.
+'fileexists' => 'Un file co sto nome el esiste de xà, par piaser controła <strong>[[:$1]]</strong> se no te sì sicuro de volerlo sovrascrìvar.
+[[$1|thumb]]',
+'filepageexists' => "La pagina de descrizion de sto file la xe zà stà creà a <strong>[[:$1]]</strong>, anca se no ghe xe gnancora un file co sto nome.
 La descrizion de l'ogeto inserìa in fase de caricamento no la vegnarà mìa fora su la pagina de discussion.
 Par far sì che l'ogeto el conpaja su la pagina de discussion, sarà necessario modificarla a man. [[$1|thumb]]",
-'fileexists-extension' => "Ghe xe zà un file co un nome che ghe someja a quel lì: [[$2|thumb]]
-* Nome del file cargà: '''<tt>[[:$1]]</tt>'''
-* Nome del file esistente: '''<tt>[[:$2]]</tt>'''
-Par piaser siegli un nome difarente.",
+'fileexists-extension' => 'Ghe xe zà un file co un nome che ghe someja a quel lì: [[$2|thumb]]
+* Nome del file cargà: <strong>[[:$1]]</strong>
+* Nome del file esistente: <strong>[[:$2]]</strong>
+Par piaser siegli un nome difarente.',
 'fileexists-thumbnail-yes' => "El file el pararìa èssar el risultato de n'anteprima ''(thumbnail)''. [[$1|thumb]]
-Verifica, par confronto, el file '''<tt>[[:$1]]</tt>'''.
+Verifica, par confronto, el file <strong>[[:$1]]</strong>.
 Se se trata de la stessa imagine, ne le dimension originali, no xe necessario caricarghene altre anteprime.",
-'file-thumbnail-no' => "El nome del file el scuminsia con '''<tt>$1</tt>'''.
+'file-thumbnail-no' => "El nome del file el scuminsia con <strong>$1</strong>.
 Pararìà quindi che el fusse el risultato de n'anteprima ''(thumbnail)''.
 Se se dispone de l'imagine ne la risoluzion originale, se prega di cargarla. In caso contrario, se prega de canbiar el nome del file.",
 'fileexists-forbidden' => 'Un file con sto nome el esiste xà, e no se pode scrìvarghe insima.
@@ -1765,7 +1765,7 @@ Qua soto vien mostrà la descrission presente in te la [$2 pàxena de descrissio
 
 # MIME search
 'mimesearch' => 'Serca in base al tipo MIME',
-'mimesearch-summary' => 'Sta pagina la consente de filtrare i file in base al tipo MIME. Inserissi la stringa de riserca ne la forma tipo/sototipo, ad es. <tt>image/jpeg</tt>.',
+'mimesearch-summary' => 'Sta pagina la consente de filtrare i file in base al tipo MIME. Inserissi la stringa de riserca ne la forma tipo/sototipo, ad es. <code>image/jpeg</code>.',
 'mimetype' => 'Tipo MIME:',
 'download' => 'descarga',
 
@@ -1952,7 +1952,7 @@ Varda anca le [[Special:WantedCategories|categorie domandà]].',
 'linksearch-ok' => 'Serca',
 'linksearch-text' => 'Xe posibiłe doparare metacarateri, come "*.wikipedia.org".<br />
 Xe necesario almanco un dominio de primo liveło, tipo "*.org".<br />
-Protocołi suportadi: <tt>$1</tt> (no sta xontare nesuno de sti cuà inte ła to riçerca).',
+Protocołi suportadi: <code>$1</code> (no sta xontare nesuno de sti cuà inte ła to riçerca).',
 'linksearch-line' => '$1 presente ne la pagina $2',
 'linksearch-error' => "I metacaràteri i pode vegner doparài solo a l'inizio del nome de l'host.",
 
@@ -3347,28 +3347,28 @@ Le imagini le vien mostrà a la risoluzion pi granda che se pol, par i altri tip
 'sqlite-no-fts' => '$1 sensa la possibilità de riserca completa nel testo',
 
 # New logging system
-'logentry-delete-delete' => '$1 ga scanselà la pajina $3',
+'logentry-delete-delete' => '$1 ga scansełà ła pajina $3',
 'logentry-delete-restore' => '$1 ga ripristinà "$3"',
-'logentry-delete-event' => '$1 ga canbià la vixibilità de {{PLURAL:$5|n\'asion del registro|$5 asion del registro}} de "$3": $4',
-'logentry-delete-revision' => '$1 ga canbià la vixibilità de {{PLURAL:$5|na revixion|$5 revixion}} de la pajina"$3": $4',
-'logentry-delete-event-legacy' => '$1 ga canbià la vixibilità de calche asion del registro de "$3"',
-'logentry-delete-revision-legacy' => '$1 ga canbià la vixibilità par le revixion de la pajina $3',
+'logentry-delete-event' => '$1 ga canbià ła vixibiłità de {{PLURAL:$5|n\'asion del registro|$5 asion del registro}} de "$3": $4',
+'logentry-delete-revision' => '$1 ga canbià ła vixibiłità de {{PLURAL:$5|na revixion|$5 revixion}} de ła pajina"$3": $4',
+'logentry-delete-event-legacy' => '$1 ga canbià ła vixibiłità de calche asion del registro de "$3"',
+'logentry-delete-revision-legacy' => '$1 ga canbià ła vixibiłità par łe revixion de ła pajina $3',
 'logentry-suppress-delete' => '$1 ga sconto la pajina "$3"',
 'logentry-suppress-event' => '$1 ga canbià de scondón la vixibilità de {{PLURAL:$5|n\'asion del registro|$5 asion del registro}} de "$3": $4',
 'logentry-suppress-revision' => '$1 ga canbià de scondón la vixibilità de {{PLURAL:$5|na revixion|$5 revixion}} de "$3": $4',
 'logentry-suppress-event-legacy' => '$1 ga canbià de scondón la vixibilità de calche asion del registro de "$3"',
 'logentry-suppress-revision-legacy' => '$1 ga canbià de scondón la vixibilità de calche revixion de $3',
 'revdelete-content-hid' => 'contegnùo sconto',
-'revdelete-summary-hid' => 'ogeto de la modifega sconto',
+'revdelete-summary-hid' => 'ogeto de ła modifega sconto',
 'revdelete-uname-hid' => 'nome utente sconto',
 'revdelete-content-unhid' => 'contegnùo ripristinà',
 'revdelete-summary-unhid' => 'ogeto ripristinà',
 'revdelete-uname-unhid' => 'nome utente ripristinà',
 'revdelete-restricted' => 'aplicà restrizioni ai aministradori',
 'revdelete-unrestricted' => 'gà cavà le limitazion par i aministradori',
-'logentry-move-move' => '$1 ga spostà la pajina $3 a $4',
-'logentry-move-move-noredirect' => '$1 ga spostà la pajina $3 a $4 sensa metare un rimando',
-'logentry-move-move_redir' => '$1 ga spostà la pajina $3 a $4 metendo un rimando',
+'logentry-move-move' => '$1 ga spostà ła pajina $3 a $4',
+'logentry-move-move-noredirect' => '$1 ga spostà ła pajina $3 a $4 sensa metare un rimando',
+'logentry-move-move_redir' => '$1 ga spostà ła pajina $3 a $4 lasiando un rimando',
 'logentry-move-move_redir-noredirect' => '$1 ga spostà la pajina $3 a $4 al posto de un rimando sensa metare un rimando',
 'logentry-patrol-patrol' => '$1 ga segnà la revixion $4 de la pajina $3 come verifegà',
 'logentry-patrol-patrol-auto' => '$1 ga segnà automategamente la revixion $4 de la pajina $3 come verifegà',

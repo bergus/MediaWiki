@@ -20,22 +20,23 @@
  * @defgroup Maintenance Maintenance
  */
 
+// Make sure we're on PHP5.3.2 or better
+if ( !function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '5.3.2' ) < 0 ) {
+	// We need to use dirname( __FILE__ ) here cause __DIR__ is PHP5.3+
+	require_once( dirname( __FILE__ ) . '/../includes/PHPVersionError.php' );
+	wfPHPVersionError( 'cli' );
+}
+
 /**
  * @defgroup MaintenanceArchive Maintenance archives
  * @ingroup Maintenance
  */
 
 // Define this so scripts can easily find doMaintenance.php
-define( 'RUN_MAINTENANCE_IF_MAIN', dirname( __FILE__ ) . '/doMaintenance.php' );
+define( 'RUN_MAINTENANCE_IF_MAIN', __DIR__ . '/doMaintenance.php' );
 define( 'DO_MAINTENANCE', RUN_MAINTENANCE_IF_MAIN ); // original name, harmless
 
 $maintClass = false;
-
-// Make sure we're on PHP5 or better
-if ( !function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '5.3.2' ) < 0 ) {
-	require_once( dirname( __FILE__ ) . '/../includes/PHPVersionError.php' );
-	wfPHPVersionError( 'cli' );
-}
 
 /**
  * Abstract maintenance class for quickly writing and churning out
@@ -123,7 +124,7 @@ abstract class Maintenance {
 		global $IP;
 		$IP = strval( getenv( 'MW_INSTALL_PATH' ) ) !== ''
 			? getenv( 'MW_INSTALL_PATH' )
-			: realpath( dirname( __FILE__ ) . '/..' );
+			: realpath( __DIR__ . '/..' );
 
 		$this->addDefaultParams();
 		register_shutdown_function( array( $this, 'outputChanneled' ), false );
@@ -481,19 +482,11 @@ abstract class Maintenance {
 			$this->error( 'Cannot get command line arguments, register_argc_argv is set to false', true );
 		}
 
-		if ( version_compare( phpversion(), '5.2.4' ) >= 0 ) {
-			// Send PHP warnings and errors to stderr instead of stdout.
-			// This aids in diagnosing problems, while keeping messages
-			// out of redirected output.
-			if ( ini_get( 'display_errors' ) ) {
-				ini_set( 'display_errors', 'stderr' );
-			}
-
-			// Don't touch the setting on earlier versions of PHP,
-			// as setting it would disable output if you'd wanted it.
-
-			// Note that exceptions are also sent to stderr when
-			// command-line mode is on, regardless of PHP version.
+		// Send PHP warnings and errors to stderr instead of stdout.
+		// This aids in diagnosing problems, while keeping messages
+		// out of redirected output.
+		if ( ini_get( 'display_errors' ) ) {
+			ini_set( 'display_errors', 'stderr' );
 		}
 
 		$this->loadParamsAndArgs();
@@ -988,7 +981,7 @@ abstract class Maintenance {
 	 * @return string
 	 */
 	protected function getDir() {
-		return dirname( __FILE__ );
+		return __DIR__;
 	}
 
 	/**
@@ -1009,9 +1002,9 @@ abstract class Maintenance {
 	protected static function getCoreScripts() {
 		if ( !self::$mCoreScripts ) {
 			$paths = array(
-				dirname( __FILE__ ),
-				dirname( __FILE__ ) . '/language',
-				dirname( __FILE__ ) . '/storage',
+				__DIR__,
+				__DIR__ . '/language',
+				__DIR__ . '/storage',
 			);
 			self::$mCoreScripts = array();
 			foreach ( $paths as $p ) {
@@ -1067,7 +1060,7 @@ abstract class Maintenance {
 	 */
 	private function lockSearchindex( &$db ) {
 		$write = array( 'searchindex' );
-		$read = array( 'page', 'revision', 'text', 'interwiki', 'l10n_cache' );
+		$read = array( 'page', 'revision', 'text', 'interwiki', 'l10n_cache', 'user' );
 		$db->lockTables( $read, $write, __CLASS__ . '::' . __METHOD__ );
 	}
 

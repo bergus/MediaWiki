@@ -315,7 +315,7 @@ class SearchEngine {
 			return $parsed;
 		}
 
-		$allkeyword = wfMsgForContent( 'searchall' ) . ":";
+		$allkeyword = wfMessage( 'searchall' )->inContentLanguage()->text() . ":";
 		if ( strncmp( $query, $allkeyword, strlen( $allkeyword ) ) == 0 ) {
 			$this->namespaces = null;
 			$parsed = substr( $query, strlen( $allkeyword ) );
@@ -417,7 +417,7 @@ class SearchEngine {
 		$formatted = array_map( array( $wgContLang, 'getFormattedNsText' ), $namespaces );
 		foreach ( $formatted as $key => $ns ) {
 			if ( empty( $ns ) )
-				$formatted[$key] = wfMsg( 'blanknamespace' );
+				$formatted[$key] = wfMessage( 'blanknamespace' )->text();
 		}
 		return $formatted;
 	}
@@ -756,7 +756,10 @@ class SearchResult {
 	protected function initFromTitle( $title ) {
 		$this->mTitle = $title;
 		if ( !is_null( $this->mTitle ) ) {
-			$this->mRevision = Revision::newFromTitle( $this->mTitle );
+			$id = false;
+			wfRunHooks( 'SearchResultInitFromTitle', array( $title, &$id ) );
+			$this->mRevision = Revision::newFromTitle(
+				$this->mTitle, $id, Revision::READ_NORMAL );
 			if ( $this->mTitle->getNamespace() === NS_FILE )
 				$this->mImage = wfFindFile( $this->mTitle );
 		}
