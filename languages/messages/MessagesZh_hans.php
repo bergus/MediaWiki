@@ -1,5 +1,5 @@
 <?php
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -596,9 +596,12 @@ $1',
 # General errors
 'error' => '错误',
 'databaseerror' => '数据库错误',
-'dberrortext' => '发生了数据库查询语法错误，可能是由于软件自身的错误所引起。最后一次数据库查询指令是：
-<blockquote><tt>$1</tt></blockquote>
-来自函数“<tt>$2</tt>”内。数据库返回错误“<tt>$3: $4</tt>”。',
+'dberrortext' => '发生资料库查询语法错误。
+可能是由于软体自身的错误所引起。
+最后一次资料库查询指令是:
+<blockquote><code>$1</code></blockquote>
+来自于函数 "<code>$2</code>"。
+数据库返回错误 "<samp>$3: $4</samp>"。',
 'dberrortextcl' => '发生了数据库查询语法错误。最后一次数据库查询指令是：
 “$1”
 来自函数“$2”内。数据库返回错误“$3: $4”。',
@@ -630,7 +633,7 @@ $1',
 'unexpected' => '非正常值：“$1”=“$2”。',
 'formerror' => '错误：无法提交表单',
 'badarticleerror' => '无法在此页进行该操作。',
-'cannotdelete' => '无法删除页面或图像 "$1"。
+'cannotdelete' => '无法删除页面或图像“$1”。
 它可能已被其他人删除了。',
 'cannotdelete-title' => '无法删除“$1”',
 'delete-hook-aborted' => '删除被扩展钩子取消。钩子并没有给出解释。',
@@ -649,8 +652,11 @@ $1',
 'protectedpagetext' => '该页面已被保护以防止编辑。',
 'viewsourcetext' => '您可以查看并复制此页面的源代码：',
 'viewyourtext' => "您可以查看并复制'''您对此页面作出编辑后'''的源代码：",
-'protectedinterface' => '该页提供了软件的界面文本，它已被保护以防止随意的修改。',
-'editinginterface' => "'''警告：''' 您正在编辑的页面是用于提供软件的界面文本。改变此页将影响其他用户的界面外观。如要翻译，请考虑使用[//translatewiki.net/wiki/Main_Page?setlang=zh-hans translatewiki.net]，一个用来为MediaWiki软件本地化的计划。",
+'protectedinterface' => '该页提供此wiki软件的界面文字，它已被保护以防止恶意修改。
+如欲修改所有wiki的翻译，请到[//translatewiki.net/ translatewiki.net]上的MediaWiki本地化计划。',
+'editinginterface' => "'''警告：'''您正在编辑的页面是用于提供软件的界面文字。
+改变此页将影响其他在此wiki上的用户界面外观。
+如欲修改所有wiki的翻译，请到[//translatewiki.net/ translatewiki.net]上的MediaWiki本地化计划。",
 'sqlhidden' => '（SQL查询已隐藏）',
 'cascadeprotected' => '此页面已被保护，因为这个页面被以下已标注“联锁保护”的{{PLURAL:$1|一个|多个}}被保护页面包含：
 $2',
@@ -893,8 +899,8 @@ $2
 如果您误入此页，请点击浏览器中的“返回”按钮。',
 'anontalkpagetext' => "---- ''这是一个还未建立账户的匿名用户的讨论页, 因此我们只能用IP地址来与他或她联络。该IP地址可能由几名用户共享。如果您是一名匿名用户并认为此页上的评语与您无关，请[[Special:UserLogin/signup|创建新账户]]或[[Special:UserLogin|登录]]以避免在未来与其他匿名用户混淆。''",
 'noarticletext' => '本页面目前没有内容。你可以在其他页面中[[Special:Search/{{PAGENAME}}|搜索该页标题]]、<span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} 搜索相关日志]或[{{fullurl:{{FULLPAGENAME}}|action=edit}} 编辑本页面]。</span>',
-'noarticletext-nopermission' => '此页目前没有内容，您可以在其它页[[Special:Search/{{PAGENAME}}|搜索此页标题]]，
-或<span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} 搜索有关日志]</span>。',
+'noarticletext-nopermission' => '此页目前没有内容。
+您可以在其它页[[Special:Search/{{PAGENAME}}|搜寻此页标题]]，或<span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} 搜寻有关日志]</span>，但您没有权限建立此页。',
 'missing-revision' => '“{{PAGENAME}}”的修订#$1不存在。
 
 这通常是因为进入了一个已被删除的页面的历史链接。
@@ -907,7 +913,6 @@ $2
 * '''火狐（Firefox）/Safari：'''按住“Shift”，同时单击“刷新”，或按“Ctrl-F5”或“Ctrl-R”（Mac为“⌘-R”）
 * '''谷歌浏览器（Google Chrome）：'''按“Ctrl-Shift-R”（Mac为“⌘-Shift-R”）
 * '''Internet Explorer：'''按住“Ctrl”，同时单击“刷新”，或按“Ctrl-F5”
-* '''Konqueror：'''点击“刷新”或按“F5”
 * '''Opera：'''在“工具→首选项”中清除缓存",
 'usercssyoucanpreview' => "'''提示：''' 在保存前请用“{{int:showpreview}}”按钮来测试您新的 CSS 。",
 'userjsyoucanpreview' => "'''提示：''' 在保存前请用“{{int:showpreview}}”按钮来测试您新的 JavaScript 。",
@@ -1137,7 +1142,8 @@ $1",
 'revdelete-only-restricted' => '在隐藏$1 $2的项目时发生错误：您不能在选择了另一可见性选项后废止管理员查看该项目。',
 'revdelete-reason-dropdown' => '*常用删除理由
 ** 侵犯版权
-** 不合适的个人资料',
+** 不合适的个人资料
+** 潜在毁谤性信息',
 'revdelete-otherreason' => '其他/附加原因：',
 'revdelete-reasonotherlist' => '其他原因',
 'revdelete-edit-reasonlist' => '编辑删除埋由',
@@ -1729,7 +1735,7 @@ $1',
 'backend-fail-internal' => '存储后端“$1”发生了一个未知错误。',
 'backend-fail-contenttype' => '无法判断文件的内容类型来储存于“$1”。',
 'backend-fail-batchsize' => '存储后端被给予了一批$1个文件{{PLURAL:$1|操作|操作}}；限值为$2个{{PLURAL:$2|操作|操作}}。',
-'backend-fail-usable' => '权限不足或缺少目录/贮存器，无法写入文件$1。',
+'backend-fail-usable' => '权限不足或缺少目录/贮存器，无法读取或写入文件“$1”。',
 
 # File journal errors
 'filejournal-fail-dbconnect' => '无法连接到后端存储的日志数据库“$1”。',
@@ -1962,6 +1968,7 @@ $1',
 # Miscellaneous special pages
 'nbytes' => '$1字节',
 'ncategories' => '$1个分类',
+'ninterwikis' => '$1个跨语言链接',
 'nlinks' => '$1个链接',
 'nmembers' => '$1个成员',
 'nrevisions' => '$1个版本',
@@ -1990,6 +1997,7 @@ $1',
 'mostlinkedtemplates' => '最多链接模板',
 'mostcategories' => '最多分类页面',
 'mostimages' => '最多链接文件',
+'mostinterwikis' => '跨语言链接最多的页面',
 'mostrevisions' => '最多版本页面',
 'prefixindex' => '所有有前缀的页面',
 'prefixindex-namespace' => '所有有前缀的页面（$1名字空间）',
@@ -2134,6 +2142,8 @@ $1',
 'mailnologin' => '无电邮地址',
 'mailnologintext' => '你必须[[Special:UserLogin|登录]]并在你的[[Special:Preferences|系统设置]]中拥有有效的电子邮件地址才能向其他用户发送电子邮件。',
 'emailuser' => '电邮联系',
+'emailuser-title-target' => '电邮联系该{{GENDER:$1|用户}}',
+'emailuser-title-notarget' => '电邮联系',
 'emailpage' => '电邮联系',
 'emailpagetext' => '你可以使用下面的表格向该用户发送电子邮件信息。你在[[Special:Preferences|你的系统设置]]中输入的电子邮件地址将显示为邮件的“发件人”地址，所以该用户将可以直接回复你。',
 'usermailererror' => 'Mail 对象返回错误：',
@@ -2783,6 +2793,8 @@ $1被封禁的理由是：“$2”',
 'import-error-special' => '页面“$1”未导入，因为它需要使用一个不能创建页面的特殊名字空间。',
 'import-error-invalid' => '页面“$1”未能导入，因为它的名字无效。',
 'import-options-wrong' => '{{PLURAL:$2|选项}}出错：<nowiki>$1</nowiki>',
+'import-rootpage-invalid' => '根页面的标题无效。',
+'import-rootpage-nosubpage' => '名字空间为“$1”的根页面不允许子页面。',
 
 # Import log
 'importlogpage' => '导入日志',
@@ -2930,11 +2942,34 @@ $1被封禁的理由是：“$2”',
 
 # Info page
 'pageinfo-title' => '"$1" 的信息',
-'pageinfo-header-edits' => '编辑',
+'pageinfo-header-basic' => '基本信息',
+'pageinfo-header-edits' => '编辑历史',
+'pageinfo-header-restrictions' => '页面保护',
+'pageinfo-header-properties' => '页面属性',
+'pageinfo-display-title' => '显示的标题',
+'pageinfo-default-sort' => '默认排序键',
+'pageinfo-length' => '页面长度（字节）',
+'pageinfo-article-id' => '页面ID',
+'pageinfo-robot-policy' => '搜索引擎状态',
+'pageinfo-robot-index' => '可索引',
+'pageinfo-robot-noindex' => '不可索引',
 'pageinfo-views' => '视图的数量',
-'pageinfo-watchers' => '监视者数目',
-'pageinfo-edits' => '编辑数量',
-'pageinfo-authors' => '作者数量',
+'pageinfo-watchers' => '页面监视者人数',
+'pageinfo-redirects-name' => '重定向到本页',
+'pageinfo-subpages-name' => '本页的子页面',
+'pageinfo-subpages-value' => '$1 （$2个重定向；$3个非重定向）',
+'pageinfo-firstuser' => '页面创建者',
+'pageinfo-firsttime' => '页面创建日期',
+'pageinfo-lastuser' => '最近的编者',
+'pageinfo-lasttime' => '最后编辑的日期',
+'pageinfo-edits' => '总编辑次数',
+'pageinfo-authors' => '不同编者总计',
+'pageinfo-recent-edits' => '最近的编辑数 ($1天内)',
+'pageinfo-recent-authors' => '最近的不同编者数',
+'pageinfo-restriction' => '页面保护 ({{lcfirst:$1}})',
+'pageinfo-magic-words' => '魔术字 ($1)',
+'pageinfo-hidden-categories' => '隐藏分类 ($1)',
+'pageinfo-templates' => '使用的模板 ($1)',
 
 # Skin names
 'skinname-standard' => '标准',
@@ -2977,7 +3012,7 @@ $1',
 # Media information
 'mediawarning' => "'''警告'''：该文件类型可能包含恶意代码。
 运行它可能对您的系统带来危险。",
-'imagemaxsize' => "图像大小限制：<br />''（文件说明页面）''",
+'imagemaxsize' => '图像大小限制：<br /><u>（文件描述页）</u>',
 'thumbsize' => '缩略图大小：',
 'widthheightpage' => '$1×$2，$3页',
 'file-info' => '文件大小：$1，MIME类型：$2',
@@ -2985,6 +3020,7 @@ $1',
 'file-info-size-pages' => '$1×$2像素，文件大小：$3，MIME类型：$4，$5页',
 'file-nohires' => '没有更高的分辨率。',
 'svg-long-desc' => 'SVG文件，图像大小：$1 × $2像素，文件大小：$3',
+'svg-long-desc-animated' => '动画SVG文件，图像大小为$1 × $2像素，文件大小：$3',
 'show-big-image' => '完全分辨率',
 'show-big-image-preview' => '本预览的大小：$1。',
 'show-big-image-other' => '其他{{PLURAL:$2|分辨率}}：$1。',
@@ -2994,6 +3030,8 @@ $1',
 'file-info-png-looped' => '循环',
 'file-info-png-repeat' => '已播放$1遍',
 'file-info-png-frames' => '$1帧',
+'file-no-thumb-animation' => "'''注意：由于技术限制，该文件的缩略图无法进行动画处理。'''",
+'file-no-thumb-animation-gif' => "'''注意：由于技术限制，高分辨率GIF图像的缩略图无法进行动画处理。'''",
 
 # Special:NewFiles
 'newimages' => '新文件库',

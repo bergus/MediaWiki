@@ -18,6 +18,7 @@
  * @author Gapo
  * @author Gjue
  * @author Ha98574
+ * @author Hoo
  * @author IRTC1015
  * @author ITurtle
  * @author Idh0854
@@ -611,7 +612,7 @@ $1',
 'youhavenewmessagesfromusers' => '{{PLURAL:$3|다른 사용자가|사용자 $3명이}} $1란에 글을 남겼습니다. ($2)',
 'youhavenewmessagesmanyusers' => '여러 사용자가 $1란에 글을 남겼습니다. ($2)',
 'newmessageslinkplural' => '{{PLURAL:$1|사용자 토론}}',
-'newmessagesdifflinkplural' => '최근 {{PLURAL:$1|바뀜}}',
+'newmessagesdifflinkplural' => '마지막 {{PLURAL:$1|바뀐 내용}}',
 'youhavenewmessagesmulti' => '다른 사용자가 $1란에 글을 남겼습니다.',
 'editsection' => '편집',
 'editold' => '편집',
@@ -653,7 +654,7 @@ $1',
 # Main script and global functions
 'nosuchaction' => '해당하는 동작이 없습니다.',
 'nosuchactiontext' => 'URL로 요청한 동작이 잘못되었습니다.
-당신은 URL을 잘못 입력하였거나, 잘못된 링크를 따라갔을 수 있습니다.
+URL을 잘못 입력하였거나, 잘못된 링크를 따라갔을 수 있습니다.
 이것은 {{SITENAME}}의 버그일 수도 있습니다.',
 'nosuchspecialpage' => '해당하는 특수 문서가 없습니다.',
 'nospecialpagetext' => '<strong>요청한 특수 문서가 존재하지 않습니다.</strong>
@@ -723,17 +724,18 @@ $1',
 제한을 넘었으니 몇 분 뒤에 새로 시도하세요.',
 'protectedpagetext' => '이 문서는 편집할 수 없도록 보호되어 있습니다.',
 'viewsourcetext' => '문서의 원본을 보거나 복사할 수 있습니다:',
-'viewyourtext' => "당신은 이 문서에 남긴 '''당신의 편집''' 내용을 보거나 복사할 수 있습니다:",
-'protectedinterface' => '이 문서는 소프트웨어 인터페이스에 쓰이는 문서로, 잠겨 있습니다.',
-'editinginterface' => "'''경고''': 소프트웨어에서 사용하는 메시지 문서를 고치고 있습니다.
-이는 모든 사용자에게 영향을 끼칩니다.
-번역되지 않은 메시지를 번역하려는 경우에는 [//translatewiki.net/wiki/Main_Page?setlang=ko translatewiki.net]에 참여하면 메시지 번역을 미디어위키에 직접 반영할 수 있습니다.",
+'viewyourtext' => "이 문서에 남긴 '''내 편집''' 내용을 보거나 복사할 수 있습니다:",
+'protectedinterface' => '이 문서는 이 위키의 소프트웨어 인터페이스에 쓰이는 문서로, 부정 행위를 막기 위해 보호되어 있습니다.
+모든 위키에 대한 번역을 추가하거나 바꾸려면 미디어위키 지역화 프로젝트인 [//translatewiki.net/wiki/Main_Page?setlang=ko translatewiki.net]에 참여하시기 바랍니다.',
+'editinginterface' => "'''경고''': 소프트웨어 인터페이스에 쓰이는 문서를 고치고 있습니다.
+이 문서에 있는 내용을 바꾸면 이 위키에 있는 모든 사용자에게 영향을 끼칩니다.
+모든 위키에 대한 번역을 추가하거나 바꾸려면 미디어위키 지역화 프로젝트인 [//translatewiki.net/wiki/Main_Page?setlang=ko translatewiki.net]에 참여하시기 바랍니다.",
 'sqlhidden' => '(SQL 쿼리 숨겨짐)',
 'cascadeprotected' => '이 문서는 연쇄 보호가 걸린 {{PLURAL:$1|문서}}에 포함되어 있어 함께 보호됩니다. 연쇄 보호된 문서:
 $2',
 'namespaceprotected' => "'''$1''' 이름공간을 편집할 수 있는 권한이 없습니다.",
-'customcssprotected' => '여기에는 다른 사용자의 개인 설정이 포함되어 있기 때문에 당신은 이 CSS 문서를 편집할 수 없습니다.',
-'customjsprotected' => '여기에는 다른 사용자의 개인 설정이 포함되어 있기 때문에 당신은 이 자바스크립트 문서를 편집할 수 없습니다.',
+'customcssprotected' => '여기에는 다른 사용자의 개인 설정이 포함되어 있기 때문에 이 CSS 문서를 편집할 수 없습니다.',
+'customjsprotected' => '여기에는 다른 사용자의 개인 설정이 포함되어 있기 때문에 이 자바스크립트 문서를 편집할 수 없습니다.',
 'ns-specialprotected' => '특수 문서는 편집할 수 없습니다.',
 'titleprotected' => '[[User:$1|$1]] 사용자가 문서 만들기를 금지했습니다.
 이유는 다음과 같습니다. "$2"',
@@ -792,10 +794,10 @@ $2',
 지금 사용하는 웹 브라우저는 쿠키를 사용하지 않도록 설정되어 있습니다.
 로그인하기 전에 웹 브라우저에서 쿠키를 사용하도록 설정해주세요.',
 'nocookieslogin' => '{{SITENAME}}에서는 로그인을 위해 쿠키를 사용합니다.
-당신의 웹 브라우저에서 쿠키가 비활성되어 있습니다.
-쿠키 사용을 활성화한 다음 로그인해 주세요.',
+쿠키가 비활성되어 있습니다.
+쿠키 사용을 활성화한 다음 다시 시도하세요.',
 'nocookiesfornew' => '요청의 출처를 확인할 수 없기 때문에 사용자 계정이 만들어지지 않았습니다.
-쿠키를 허용한 것을 확인한 후에 다시 시도해 보십시오.',
+쿠키를 허용한 것을 확인한 후에 이 문서를 새로 고치고 나서 다시 시도하세요.',
 'noname' => '사용자 이름이 올바르지 않습니다.',
 'loginsuccesstitle' => '로그인 성공',
 'loginsuccess' => "'''{{SITENAME}}에 \"\$1\" 계정으로 로그인했습니다.'''",
@@ -1015,13 +1017,12 @@ $1 또는 [[{{MediaWiki:Grouppage-sysop}}|다른 관리자]]에게 차단에 대
 익명 사용자를 구별하기 위해서는 숫자로 된 IP 주소를 사용해야만 합니다.
 IP 주소는 여러 사용자가 공유할 수 있습니다.
 자신과 관계없는 의견이 자신에게 남겨져 있어 불쾌하다고 생각하는 익명 사용자는 [[Special:UserLogin/signup|계정을 만들고]] [[Special:UserLogin|로그인 하여]] 나중에 다른 익명 사용자에게 줄 혼란을 줄일 수 있습니다.',
-'noarticletext' => '이 문서가 존재하지 않습니다.
+'noarticletext' => '이 문서가 현재 존재하지 않습니다.
 이 문서와 제목이 비슷한 문서가 있는지 [[Special:Search/{{PAGENAME}}|찾거나]],
 이 문서에 관련된 <span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} 기록]을 확인하거나,
 문서를 직접 [{{fullurl:{{FULLPAGENAME}}|action=edit}} 편집]</span>할 수 있습니다.',
-'noarticletext-nopermission' => '이 문서가 존재하지 않습니다.
-이 문서와 제목이 비슷한 문서가 있는지 [[Special:Search/{{PAGENAME}}|찾거나]],
-이 문서에 관련된 <span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} 기록]을 확인할 수 있습니다.</span>',
+'noarticletext-nopermission' => '이 문서가 현재 존재하지 않습니다.
+이 문서와 제목이 비슷한 문서가 있는지 [[Special:Search/{{PAGENAME}}|찾거나]], 이 문서에 관련된 <span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} 기록]을 확인할 수 있습니다.</span> 그러나 이 문서를 만들 수 있는 권한은 없습니다.',
 'missing-revision' => '"{{PAGENAME}}"이라는 문서의 #$1판이 존재하지 않습니다.
 
 이 문제는 주로 삭제된 문서를 가리키는 오래된 문서 역사 링크로 인해 발생합니다.
@@ -1493,7 +1494,7 @@ $1",
 'timezoneregion-indian' => '인도양',
 'timezoneregion-pacific' => '태평양',
 'allowemail' => '다른 사용자가 보낸 이메일을 받음',
-'prefs-searchoptions' => '찾기 설정',
+'prefs-searchoptions' => '찾기',
 'prefs-namespaces' => '이름공간',
 'defaultns' => '다음 이름공간에서 찾기:',
 'default' => '기본값',
@@ -1557,7 +1558,7 @@ HTML 태그를 확인하세요.',
 'userrights-lookup-user' => '사용자 권한 관리',
 'userrights-user-editname' => '사용자 이름 입력:',
 'editusergroup' => '사용자 그룹 편집',
-'editinguser' => "사용자 '''[[User:$1|$1]]''' $2의 권한 바꿈",
+'editinguser' => "'''[[User:$1|$1]]''' $2 사용자의 권한 바꾸기",
 'userrights-editusergroup' => '사용자 그룹 편집',
 'saveusergroups' => '사용자 권한 저장',
 'userrights-groupsmember' => '현재 권한:',
@@ -1821,8 +1822,8 @@ $2 형식만 사용할 수 있습니다.',
 'fileexists' => '같은 이름의 파일이 이미 있습니다. 파일을 바꾸고 싶지 않다면 <strong>[[:$1]]</strong> 파일을 확인해 주세요.
 [[$1|thumb]]',
 'filepageexists' => '이 파일의 설명 문서가 <strong>[[:$1]]</strong>에 존재하지만, 이 이름을 가진 파일이 존재하지 않습니다.
-당신이 입력한 설명은 설명 문서에 반영되지 않을 것입니다.
-당신의 설명을 반영시키려면, 직접 편집하셔야 합니다.
+입력한 설명은 설명 문서에 반영되지 않을 것입니다.
+설명을 반영시키려면, 직접 편집하셔야 합니다.
 [[$1|thumb]]',
 'fileexists-extension' => '비슷한 이름의 파일이 존재합니다: [[$2|thumb]]
 * 올리려는 파일 이름: <strong>[[:$1]]</strong>
@@ -1931,7 +1932,7 @@ URL이 올바르고 접근 가능한지를 확인하고 다시 시도해주세�
 'backend-fail-internal' => '"$1" 저장 백엔드에 알 수 없는 오류가 발생했습니다.',
 'backend-fail-contenttype' => '"$1"에 저장하기 위한 파일의 내용 유형을 판별하지 못했습니다.',
 'backend-fail-batchsize' => '저장 백엔드에서 파일 {{PLURAL:$1|작업}} $1개가 쌓여 있습니다. 한계는 $2개입니다.',
-'backend-fail-usable' => '파일 저장 권한이 없거나 저장 위치가 빠졌기 때문에 $1 파일을 저장할 수 없습니다.',
+'backend-fail-usable' => '파일 읽기/쓰기 권한이 없거나 저장 위치가 빠졌기 때문에 "$1" 파일을 읽거나 쓸 수 없습니다.',
 
 # File journal errors
 'filejournal-fail-dbconnect' => '저장소 백엔드 "$1"에 대한 저널 데이터베이스에 연결할 수 없습니다.',
@@ -2014,7 +2015,7 @@ URL이 맞고 해당 웹사이트가 작동하는지 확인해주세요.',
 
 # Special:ListFiles
 'listfiles-summary' => '이 위키에 올라와 있는 모든 파일이 나열되어 있습니다.
-사용자별로 필터링했을 경우에는 사용자가 올린 가장 최신 버전만이 표시됩니다.',
+사용자별로 필터링했을 경우에는 사용자가 올린 가장 최신 버전만이 보여집니다.',
 'listfiles_search_for' => '다음 이름을 가진 미디어 찾기:',
 'imgfile' => '파일',
 'listfiles' => '파일 목록',
@@ -2275,7 +2276,7 @@ URL이 맞고 해당 웹사이트가 작동하는지 확인해주세요.',
 'allnotinnamespace' => '$1 이름공간을 제외한 모든 문서',
 'allpagesprev' => '이전',
 'allpagesnext' => '다음',
-'allpagessubmit' => '표시',
+'allpagessubmit' => '보기',
 'allpagesprefix' => '다음으로 시작하는 문서 보기:',
 'allpagesbadtitle' => '문서 제목이 잘못되었거나 다른 사이트로 연결되는 인터위키를 가지고 있습니다.
 문서 제목에 사용할 수 없는 문자를 사용했을 수 있습니다.',
@@ -2409,7 +2410,7 @@ URL이 맞고 해당 웹사이트가 작동하는지 확인해주세요.',
 'watchnochange' => '주어진 기간 중에 바뀐 주시문서가 없습니다.',
 'watchlist-details' => '토론을 제외하고 문서 $1개를 주시하고 있습니다.',
 'wlheader-enotif' => '* 이메일 알림 기능이 활성화되었습니다.',
-'wlheader-showupdated' => "* 마지막으로 방문한 이후에 바뀐 문서는 '''굵은 글씨'''로 표시됩니다.",
+'wlheader-showupdated' => "* 마지막으로 방문한 이후에 바뀐 문서는 '''굵은 글씨'''로 보여집니다.",
 'watchmethod-recent' => '주시된 문서를 확인하고자 최근 편집을 확인',
 'watchmethod-list' => '최근 편집을 확인하고자 주시된 문서 확인',
 'watchlistcontains' => '문서 $1개를 주시하고 있습니다.',
@@ -2758,7 +2759,7 @@ $1',
 'blocklist-tempblocks' => '기한이 정해진 차단을 숨기기',
 'blocklist-addressblocks' => '단일 IP 차단을 숨기기',
 'blocklist-rangeblocks' => '광역 차단을 숨기기',
-'blocklist-timestamp' => '날짜·시각',
+'blocklist-timestamp' => '시간 기록',
 'blocklist-target' => '차단 대상',
 'blocklist-expiry' => '차단 기한',
 'blocklist-by' => '차단한 관리자',
@@ -2871,10 +2872,7 @@ $1 사용자가 차단된 이유는 다음과 같습니다: "$2"',
 [[Special:DoubleRedirects|이중 넘겨주기]]나 [[Special:BrokenRedirects|끊긴 넘겨주기]]가 있는지 확인해주세요.
 당신은 넘겨주기 링크가 제대로 향하고 있는지 확인하여야 합니다.
 
-참고로 새 제목을 가진 문서가 이미 있다면 다음 경우에 해당하지 않으면 이 문서는 옮겨지지 '''않을''' 것입니다.
-* 비어 있거나,
-* 넘겨주기 문서이며,
-* 과거에 편집 내력이 없는 경우
+참고로 새 제목을 가진 문서가 이미 있다면 비어 있거나 넘겨주기 문서이며, 과거에 편집 내역이 없으면 이 문서는 옮겨지지 '''않을''' 것입니다.
 이는 당신이 실수로 문서를 옮겼을 때 되돌릴 수 있으며 이미 있는 문서를 덮어쓸 수 없음을 의미합니다.
 
 '''경고!'''
@@ -3941,7 +3939,7 @@ $5
 'version-version' => '(버전 $1)',
 'version-license' => '라이선스',
 'version-poweredby-credits' => "이 위키는 '''[//www.mediawiki.org/ MediaWiki]'''를 기반으로 작동합니다. Copyright © 2001-$1 $2.",
-'version-poweredby-others' => '[{{SERVER}}{{SCRIPTPATH}}/CREDITS 그 외 다른 개발자]',
+'version-poweredby-others' => '그 외 다른 개발자',
 'version-license-info' => "미디어위키는 자유 소프트웨어입니다. 당신은 자유 소프트웨어 재단이 발표한 GNU 일반 공중 사용 허가서 버전 2나 그 이후 버전에 따라 이 파일을 재배포하거나 수정할 수 있습니다.
 
 미디어위키가 유용하게 사용될 수 있기를 바라지만 '''상용으로 사용'''되거나 '''특정 목적에 맞을 것'''이라는 것을 '''보증하지 않습니다'''. 자세한 내용은 GNU 일반 공중 사용 허가서 전문을 참고하십시오.
@@ -4011,7 +4009,7 @@ $5
 'tag-filter' => '[[Special:Tags|태그]] 필터:',
 'tag-filter-submit' => '필터',
 'tags-title' => '태그',
-'tags-intro' => '이 페이지는 소프트웨어에서 편집에 대해 표시하는 태그와 그 의미를 설명하는 목록입니다.',
+'tags-intro' => '이 문서는 소프트웨어에서 편집에 대해 표시하는 태그와 그 의미를 설명하는 목록입니다.',
 'tags-tag' => '태그 이름',
 'tags-display-header' => '바뀜 목록의 모양',
 'tags-description-header' => '태그에 대한 설명',

@@ -392,10 +392,14 @@ class EditPage {
 				wfProfileOut( __METHOD__ );
 				return;
 			}
-			if ( !$this->mTitle->getArticleID() )
+
+			if ( !$this->mTitle->getArticleID() ) {
 				wfRunHooks( 'EditFormPreloadText', array( &$this->textbox1, &$this->mTitle ) );
-			else
+			}
+			else {
 				wfRunHooks( 'EditFormInitialText', array( $this ) );
+			}
+
 		}
 
 		$this->showEditForm();
@@ -586,8 +590,10 @@ class EditPage {
 				// modified by subclasses
 				wfProfileIn( get_class( $this ) . "::importContentFormData" );
 				$textbox1 = $this->importContentFormData( $request );
-				if ( isset( $textbox1 ) )
+				if ( isset( $textbox1 ) ) {
 					$this->textbox1 = $textbox1;
+				}
+
 				wfProfileOut( get_class( $this ) . "::importContentFormData" );
 			}
 
@@ -1244,7 +1250,7 @@ class EditPage {
 			if ( $this->section == 'new' ) {
 				if ( $this->sectiontitle !== '' ) {
 					// Insert the section title above the content.
-					$text = wfMessage( 'newsectionheaderdefaultlevel', $this->sectiontitle )
+					$text = wfMessage( 'newsectionheaderdefaultlevel' )->rawParams( $this->sectiontitle )
 						->inContentLanguage()->text() . "\n\n" . $text;
 
 					// Jump to the new section
@@ -1255,12 +1261,12 @@ class EditPage {
 					// passed.
 					if ( $this->summary === '' ) {
 						$cleanSectionTitle = $wgParser->stripSectionName( $this->sectiontitle );
-						$this->summary = wfMessage( 'newsectionsummary', $cleanSectionTitle )
-							->inContentLanguage()->text();
+						$this->summary = wfMessage( 'newsectionsummary' )
+							->rawParams( $cleanSectionTitle )->inContentLanguage()->text();
 					}
 				} elseif ( $this->summary !== '' ) {
 					// Insert the section title above the content.
-					$text = wfMessage( 'newsectionheaderdefaultlevel', $this->summary )
+					$text = wfMessage( 'newsectionheaderdefaultlevel' )->rawParams( $this->summary )
 						->inContentLanguage()->text() . "\n\n" . $text;
 
 					// Jump to the new section
@@ -1268,8 +1274,8 @@ class EditPage {
 
 					// Create a link to the new section from the edit summary.
 					$cleanSummary = $wgParser->stripSectionName( $this->summary );
-					$this->summary = wfMessage( 'newsectionsummary', $cleanSummary )
-						->inContentLanguage()->text();
+					$this->summary = wfMessage( 'newsectionsummary' )
+						->rawParams( $cleanSummary )->inContentLanguage()->text();
 				}
 			}
 
@@ -1295,7 +1301,7 @@ class EditPage {
 						$this->isConflict = false;
 						wfDebug( __METHOD__ . ": conflict suppressed; new section\n" );
 					}
-				} elseif ( $this->section == '' && $this->userWasLastToEdit( $wgUser->getId(), $this->edittime ) ) {
+				} elseif ( $this->section == '' && Revision::userWasLastToEdit( DB_MASTER,  $this->mTitle->getArticleID(), $wgUser->getId(), $this->edittime ) ) {
 					# Suppress edit conflict with self, except for section edits where merging is required.
 					wfDebug( __METHOD__ . ": Suppressing edit conflict, same user.\n" );
 					$this->isConflict = false;
@@ -1399,16 +1405,16 @@ class EditPage {
 					// passed.
 					if ( $this->summary === '' ) {
 						$cleanSectionTitle = $wgParser->stripSectionName( $this->sectiontitle );
-						$this->summary = wfMessage( 'newsectionsummary', $cleanSectionTitle )
-							->inContentLanguage()->text();
+						$this->summary = wfMessage( 'newsectionsummary' )
+							->rawParams( $cleanSectionTitle )->inContentLanguage()->text();
 					}
 				} elseif ( $this->summary !== '' ) {
 					$sectionanchor = $wgParser->guessLegacySectionNameFromWikiText( $this->summary );
 					# This is a new section, so create a link to the new section
 					# in the revision summary.
 					$cleanSummary = $wgParser->stripSectionName( $this->summary );
-					$this->summary = wfMessage( 'newsectionsummary', $cleanSummary )
-						->inContentLanguage()->text();
+					$this->summary = wfMessage( 'newsectionsummary' )
+						->rawParams( $cleanSummary )->inContentLanguage()->text();
 				}
 			} elseif ( $this->section != '' ) {
 				# Try to get a section anchor from the section source, redirect to edited section if header found
@@ -1487,35 +1493,6 @@ class EditPage {
 			}
 			$dbw->commit( __METHOD__ );
 		}
-	}
-
-	/**
-	 * Check if no edits were made by other users since
-	 * the time a user started editing the page. Limit to
-	 * 50 revisions for the sake of performance.
-	 *
-	 * @param $id int
-	 * @param $edittime string
-	 *
-	 * @return bool
-	 */
-	protected function userWasLastToEdit( $id, $edittime ) {
-		if ( !$id ) return false;
-		$dbw = wfGetDB( DB_MASTER );
-		$res = $dbw->select( 'revision',
-			'rev_user',
-			array(
-				'rev_page' => $this->mTitle->getArticleID(),
-				'rev_timestamp > ' . $dbw->addQuotes( $dbw->timestamp( $edittime ) )
-			),
-			__METHOD__,
-			array( 'ORDER BY' => 'rev_timestamp ASC', 'LIMIT' => 50 ) );
-		foreach ( $res as $row ) {
-			if ( $row->rev_user != $id ) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	/**
@@ -1620,7 +1597,7 @@ class EditPage {
 		$wgOut->addModules( 'mediawiki.action.edit' );
 
 		if ( $wgUser->getOption( 'uselivepreview', false ) ) {
-			$wgOut->addModules( 'mediawiki.legacy.preview' );
+			$wgOut->addModules( 'mediawiki.action.edit.preview' );
 		}
 		// Bug #19334: textarea jumps when editing articles in IE8
 		$wgOut->addStyle( 'common/IE80Fixes.css', 'screen', 'IE 8' );
@@ -2043,10 +2020,13 @@ class EditPage {
 					$wgOut->wrapWikiMsg( "<div class='error' id='mw-userinvalidcssjstitle'>\n$1\n</div>", array( 'userinvalidcssjstitle', $this->mTitle->getSkinFromCssJsSubpage() ) );
 				}
 				if ( $this->formtype !== 'preview' ) {
-					if ( $this->isCssSubpage )
+					if ( $this->isCssSubpage ) {
 						$wgOut->wrapWikiMsg( "<div id='mw-usercssyoucanpreview'>\n$1\n</div>", array( 'usercssyoucanpreview' ) );
-					if ( $this->isJsSubpage )
+					}
+
+					if ( $this->isJsSubpage ) {
 						$wgOut->wrapWikiMsg( "<div id='mw-userjsyoucanpreview'>\n$1\n</div>", array( 'userjsyoucanpreview' ) );
+					}
 				}
 			}
 		}
@@ -2177,14 +2157,16 @@ class EditPage {
 	 * @return String
 	 */
 	protected function getSummaryPreview( $isSubjectPreview, $summary = "" ) {
-		if ( !$summary || ( !$this->preview && !$this->diff ) )
+		if ( !$summary || ( !$this->preview && !$this->diff ) ) {
 			return "";
+		}
 
 		global $wgParser;
 
-		if ( $isSubjectPreview )
+		if ( $isSubjectPreview ) {
 			$summary = wfMessage( 'newsectionsummary', $wgParser->stripSectionName( $summary ) )
 				->inContentLanguage()->text();
+		}
 
 		$message = $isSubjectPreview ? 'subject-preview' : 'summary-preview';
 
@@ -2203,8 +2185,9 @@ class EditPage {
 
 HTML
 		);
-		if ( !$this->checkUnicodeCompliantBrowser() )
+		if ( !$this->checkUnicodeCompliantBrowser() ) {
 			$wgOut->addHTML( Html::hidden( 'safemode', '1' ) );
+		}
 	}
 
 	protected function showFormAfterText() {
@@ -2314,13 +2297,15 @@ HTML
 	protected function displayPreviewArea( $previewOutput, $isOnTop = false ) {
 		global $wgOut;
 		$classes = array();
-		if ( $isOnTop )
+		if ( $isOnTop ) {
 			$classes[] = 'ontop';
+		}
 
 		$attribs = array( 'id' => 'wikiPreview', 'class' => implode( ' ', $classes ) );
 
-		if ( $this->formtype != 'preview' )
+		if ( $this->formtype != 'preview' ) {
 			$attribs['style'] = 'display: none;';
+		}
 
 		$wgOut->addHTML( Xml::openElement( 'div', $attribs ) );
 
@@ -2597,10 +2582,13 @@ HTML
 		);
 		// Quick paranoid permission checks...
 		if ( is_object( $data ) ) {
-			if ( $data->log_deleted & LogPage::DELETED_USER )
+			if ( $data->log_deleted & LogPage::DELETED_USER ) {
 				$data->user_name = wfMessage( 'rev-deleted-user' )->escaped();
-			if ( $data->log_deleted & LogPage::DELETED_COMMENT )
+			}
+
+			if ( $data->log_deleted & LogPage::DELETED_COMMENT ) {
 				$data->log_comment = wfMessage( 'rev-deleted-comment' )->escaped();
+			}
 		}
 		return $data;
 	}
@@ -2642,9 +2630,9 @@ HTML
 				' [[#' . self::EDITFORM_ID . '|' . $wgLang->getArrow() . ' ' . wfMessage( 'continue-editing' )->text() . ']]';
 		}
 
-		$parserOptions = ParserOptions::newFromUser( $wgUser );
+		$parserOptions = $this->mArticle->makeParserOptions( $this->mArticle->getContext() );
+
 		$parserOptions->setEditSection( false );
-		$parserOptions->setTidy( true );
 		$parserOptions->setIsPreview( true );
 		$parserOptions->setIsSectionPreview( !is_null( $this->section ) && $this->section !== '' );
 
@@ -2688,8 +2676,6 @@ HTML
 			}
 
 			wfRunHooks( 'EditPageGetPreviewText', array( $this, &$toparse ) );
-
-			$parserOptions->enableLimitReport();
 
 			$toparse = $wgParser->preSaveTransform( $toparse, $this->mTitle, $wgUser, $parserOptions );
 			$parserOutput = $wgParser->parse( $toparse, $this->mTitle, $parserOptions );

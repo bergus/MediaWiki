@@ -559,14 +559,16 @@ class WikiPage extends Page implements IDBAccessObject {
 	 *
 	 * @param $audience Integer: one of:
 	 *      Revision::FOR_PUBLIC       to be displayed to all users
-	 *      Revision::FOR_THIS_USER    to be displayed to $wgUser
+	 *      Revision::FOR_THIS_USER    to be displayed to the given user
 	 *      Revision::RAW              get the text regardless of permissions
+	 * @param $user User object to check for, only if FOR_THIS_USER is passed
+	 *              to the $audience parameter
 	 * @return String|bool The text of the current revision. False on failure
 	 */
-	public function getText( $audience = Revision::FOR_PUBLIC ) {
+	public function getText( $audience = Revision::FOR_PUBLIC, User $user = null ) {
 		$this->loadLastEdit();
 		if ( $this->mLastRevision ) {
-			return $this->mLastRevision->getText( $audience );
+			return $this->mLastRevision->getText( $audience, $user );
 		}
 		return false;
 	}
@@ -608,14 +610,16 @@ class WikiPage extends Page implements IDBAccessObject {
 	/**
 	 * @param $audience Integer: one of:
 	 *      Revision::FOR_PUBLIC       to be displayed to all users
-	 *      Revision::FOR_THIS_USER    to be displayed to $wgUser
+	 *      Revision::FOR_THIS_USER    to be displayed to the given user
 	 *      Revision::RAW              get the text regardless of permissions
+	 * @param $user User object to check for, only if FOR_THIS_USER is passed
+	 *              to the $audience parameter
 	 * @return int user ID for the user that made the last article revision
 	 */
-	public function getUser( $audience = Revision::FOR_PUBLIC ) {
+	public function getUser( $audience = Revision::FOR_PUBLIC, User $user = null ) {
 		$this->loadLastEdit();
 		if ( $this->mLastRevision ) {
-			return $this->mLastRevision->getUser( $audience );
+			return $this->mLastRevision->getUser( $audience, $user );
 		} else {
 			return -1;
 		}
@@ -625,14 +629,16 @@ class WikiPage extends Page implements IDBAccessObject {
 	 * Get the User object of the user who created the page
 	 * @param $audience Integer: one of:
 	 *      Revision::FOR_PUBLIC       to be displayed to all users
-	 *      Revision::FOR_THIS_USER    to be displayed to $wgUser
+	 *      Revision::FOR_THIS_USER    to be displayed to the given user
 	 *      Revision::RAW              get the text regardless of permissions
+	 * @param $user User object to check for, only if FOR_THIS_USER is passed
+	 *              to the $audience parameter
 	 * @return User|null
 	 */
-	public function getCreator( $audience = Revision::FOR_PUBLIC ) {
+	public function getCreator( $audience = Revision::FOR_PUBLIC, User $user = null ) {
 		$revision = $this->getOldestRevision();
 		if ( $revision ) {
-			$userName = $revision->getUserText( $audience );
+			$userName = $revision->getUserText( $audience, $user );
 			return User::newFromName( $userName, false );
 		} else {
 			return null;
@@ -642,14 +648,16 @@ class WikiPage extends Page implements IDBAccessObject {
 	/**
 	 * @param $audience Integer: one of:
 	 *      Revision::FOR_PUBLIC       to be displayed to all users
-	 *      Revision::FOR_THIS_USER    to be displayed to $wgUser
+	 *      Revision::FOR_THIS_USER    to be displayed to the given user
 	 *      Revision::RAW              get the text regardless of permissions
+	 * @param $user User object to check for, only if FOR_THIS_USER is passed
+	 *              to the $audience parameter
 	 * @return string username of the user that made the last article revision
 	 */
-	public function getUserText( $audience = Revision::FOR_PUBLIC ) {
+	public function getUserText( $audience = Revision::FOR_PUBLIC, User $user = null ) {
 		$this->loadLastEdit();
 		if ( $this->mLastRevision ) {
-			return $this->mLastRevision->getUserText( $audience );
+			return $this->mLastRevision->getUserText( $audience, $user );
 		} else {
 			return '';
 		}
@@ -658,14 +666,16 @@ class WikiPage extends Page implements IDBAccessObject {
 	/**
 	 * @param $audience Integer: one of:
 	 *      Revision::FOR_PUBLIC       to be displayed to all users
-	 *      Revision::FOR_THIS_USER    to be displayed to $wgUser
+	 *      Revision::FOR_THIS_USER    to be displayed to the given user
 	 *      Revision::RAW              get the text regardless of permissions
+	 * @param $user User object to check for, only if FOR_THIS_USER is passed
+	 *              to the $audience parameter
 	 * @return string Comment stored for the last article revision
 	 */
-	public function getComment( $audience = Revision::FOR_PUBLIC ) {
+	public function getComment( $audience = Revision::FOR_PUBLIC, User $user = null ) {
 		$this->loadLastEdit();
 		if ( $this->mLastRevision ) {
-			return $this->mLastRevision->getComment( $audience );
+			return $this->mLastRevision->getComment( $audience, $user );
 		} else {
 			return '';
 		}
@@ -1640,18 +1650,34 @@ class WikiPage extends Page implements IDBAccessObject {
 
 	/**
 	 * Get parser options suitable for rendering the primary article wikitext
-	 * @param User|string $user User object or 'canonical'
+	 *
+	 * @param IContextSource|User|string $context One of the following:
+	 *        - IContextSource: Use the User and the Language of the provided
+	 *          context
+	 *        - User: Use the provided User object and $wgLang for the language,
+	 *          so use an IContextSource object if possible.
+	 *        - 'canonical': Canonical options (anonymous user with default
+	 *          preferences and content language).
 	 * @return ParserOptions
 	 */
-	public function makeParserOptions( $user ) {
+	public function makeParserOptions( $context ) {
 		global $wgContLang;
-		if ( $user instanceof User ) { // settings per user (even anons)
-			$options = ParserOptions::newFromUser( $user );
+
+		if ( $context instanceof IContextSource ) {
+			$options = ParserOptions::newFromContext( $context );
+		} elseif ( $context instanceof User ) { // settings per user (even anons)
+			$options = ParserOptions::newFromUser( $context );
 		} else { // canonical settings
 			$options = ParserOptions::newFromUserAndLang( new User, $wgContLang );
 		}
+
+		if ( $this->getTitle()->isConversionTable() ) {
+			$options->disableContentConversion();
+		}
+
 		$options->enableLimitReport(); // show inclusion/loop reports
 		$options->setTidy( true ); // fix bad HTML
+
 		return $options;
 	}
 

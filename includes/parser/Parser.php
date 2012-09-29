@@ -163,7 +163,8 @@ class Parser {
 	var $mLinkHolders;
 
 	var $mLinkID;
-	var $mIncludeSizes, $mPPNodeCount, $mHighestExpansionDepth, $mDefaultSort;
+	var $mIncludeSizes, $mPPNodeCount, $mGeneratedPPNodeCount, $mHighestExpansionDepth;
+	var $mDefaultSort;
 	var $mTplExpandCache; # empty-frame expansion cache
 	var $mTplRedirCache, $mTplDomCache, $mHeadings, $mDoubleUnderscores;
 	var $mExpensiveFunctionCount; # number of expensive parser function calls
@@ -306,6 +307,7 @@ class Parser {
 			'arg' => 0,
 		);
 		$this->mPPNodeCount = 0;
+		$this->mGeneratedPPNodeCount = 0;
 		$this->mHighestExpansionDepth = 0;
 		$this->mDefaultSort = false;
 		$this->mHeadings = array();
@@ -339,7 +341,7 @@ class Parser {
 		 * to internalParse() which does all the real work.
 		 */
 
-		global $wgUseTidy, $wgAlwaysUseTidy, $wgDisableLangConversion, $wgDisableTitleConversion;
+		global $wgUseTidy, $wgAlwaysUseTidy;
 		$fname = __METHOD__.'-' . wfGetCaller();
 		wfProfileIn( __METHOD__ );
 		wfProfileIn( $fname );
@@ -392,9 +394,8 @@ class Parser {
 		 * c) It's a conversion table
 		 * d) it is an interface message (which is in the user language)
 		 */
-		if ( !( $wgDisableLangConversion
-				|| isset( $this->mDoubleUnderscores['nocontentconvert'] )
-				|| $this->mTitle->isConversionTable() ) )
+		if ( !( $options->getDisableContentConversion()
+				|| isset( $this->mDoubleUnderscores['nocontentconvert'] ) ) )
 		{
 			# Run convert unconditionally in 1.18-compatible mode
 			global $wgBug34832TransitionalRollback;
@@ -413,8 +414,7 @@ class Parser {
 		 * {{DISPLAYTITLE:...}} is present. DISPLAYTITLE takes precedence over
 		 * automatic link conversion.
 		 */
-		if ( !( $wgDisableLangConversion
-				|| $wgDisableTitleConversion
+		if ( !( $options->getDisableTitleConversion()
 				|| isset( $this->mDoubleUnderscores['nocontentconvert'] )
 				|| isset( $this->mDoubleUnderscores['notitleconvert'] )
 				|| $this->mOutput->getDisplayTitle() !== false ) )
@@ -482,13 +482,20 @@ class Parser {
 			$PFreport = "Expensive parser function count: {$this->mExpensiveFunctionCount}/{$this->mOptions->getExpensiveParserFunctionLimit()}\n";
 			$limitReport =
 				"NewPP limit report\n" .
-				"Preprocessor node count: {$this->mPPNodeCount}/{$this->mOptions->getMaxPPNodeCount()}\n" .
+				"Preprocessor visited node count: {$this->mPPNodeCount}/{$this->mOptions->getMaxPPNodeCount()}\n" .
+				"Preprocessor generated node count: " .
+					"{$this->mGeneratedPPNodeCount}/{$this->mOptions->getMaxGeneratedPPNodeCount()}\n" .
 				"Post-expand include size: {$this->mIncludeSizes['post-expand']}/$max bytes\n" .
 				"Template argument size: {$this->mIncludeSizes['arg']}/$max bytes\n".
 				"Highest expansion depth: {$this->mHighestExpansionDepth}/{$this->mOptions->getMaxPPExpandDepth()}\n".
 				$PFreport;
 			wfRunHooks( 'ParserLimitReport', array( $this, &$limitReport ) );
 			$text .= "\n<!-- \n$limitReport-->\n";
+
+			if ( $this->mGeneratedPPNodeCount > $this->mOptions->getMaxGeneratedPPNodeCount() / 10 ) {
+				wfDebugLog( 'generated-pp-node-count', $this->mGeneratedPPNodeCount . ' ' .
+					$this->mTitle->getPrefixedDBkey() );
+			}
 		}
 		$this->mOutput->setText( $text );
 
@@ -4137,10 +4144,16 @@ class Parser {
 			$safeHeadline = $this->mStripState->unstripBoth( $safeHeadline );
 
 			# Strip out HTML (first regex removes any tag not allowed)
-			# Allowed tags are <sup> and <sub> (bug 8393), <i> (bug 26375) and <b> (r105284)
-			# We strip any parameter from accepted tags (second regex)
+			# Allowed tags are:
+			# * <sup> and <sub> (bug 8393)
+			# * <i> (bug 26375)
+			# * <b> (r105284)
+			# * <span dir="rtl"> and <span dir="ltr"> (bug 35167)
+			#
+			# We strip any parameter from accepted tags (second regex), except dir="rtl|ltr" from <span>,
+			# to allow setting directionality in toc items.
 			$tocline = preg_replace(
-				array( '#<(?!/?(sup|sub|i|b)(?: [^>]*)?>).*?'.'>#', '#<(/?(sup|sub|i|b))(?: .*?)?'.'>#' ),
+				array( '#<(?!/?(span|sup|sub|i|b)(?: [^>]*)?>).*?'.'>#', '#<(/?(?:span(?: dir="(?:rtl|ltr)")?|sup|sub|i|b))(?: .*?)?'.'>#' ),
 				array( '',                          '<$1>' ),
 				$safeHeadline
 			);

@@ -81,7 +81,8 @@ class SwiftFileBackend extends FileBackendStore {
 	 *                             - levels : the number of hash levels (and digits)
 	 *                             - repeat : hash subdirectories are prefixed with all the
 	 *                                        parent hash directory names (e.g. "a/ab/abc")
-	 *   - cacheAuthInfo      : Whether to cache authentication tokens in APC/XCache.
+	 *   - cacheAuthInfo      : Whether to cache authentication tokens in APC, XCache, ect.
+	 *                          If those are not available, then the main cache will be used.
 	 *                          This is probably insecure in shared hosting environments.
 	 */
 	public function __construct( array $config ) {
@@ -121,9 +122,13 @@ class SwiftFileBackend extends FileBackendStore {
 		$this->connContainerCache = new ProcessCacheLRU( 300 );
 		// Cache auth token information to avoid RTTs
 		if ( !empty( $config['cacheAuthInfo'] ) ) {
-			try { // look for APC, XCache, WinCache, ect...
-				$this->srvCache = ObjectCache::newAccelerator( array() );
-			} catch ( Exception $e ) {}
+			if ( php_sapi_name() === 'cli' ) {
+				$this->srvCache = wfGetMainCache(); // preferrably memcached
+			} else {
+				try { // look for APC, XCache, WinCache, ect...
+					$this->srvCache = ObjectCache::newAccelerator( array() );
+				} catch ( Exception $e ) {}
+			}
 		}
 		$this->srvCache = $this->srvCache ? $this->srvCache : new EmptyBagOStuff();
 	}
@@ -784,8 +789,7 @@ class SwiftFileBackend extends FileBackendStore {
 		$status = Status::newGood();
 		$scopeLockS = $this->getScopedFileLocks( array( $path ), LockManager::LOCK_UW, $status );
 		if ( $status->isOK() ) {
-			# Do not stat the file in getLocalCopy() to avoid infinite loops
-			$tmpFile = $this->getLocalCopy( array( 'src' => $path, 'latest' => 1, 'nostat' => 1 ) );
+			$tmpFile = $this->getLocalCopy( array( 'src' => $path, 'latest' => 1 ) );
 			if ( $tmpFile ) {
 				$hash = $tmpFile->getSha1Base36();
 				if ( $hash !== false ) {
@@ -803,16 +807,12 @@ class SwiftFileBackend extends FileBackendStore {
 
 	/**
 	 * @see FileBackend::getFileContents()
-	 * @return bool|null|string
+	 * @return bool|string
 	 */
 	public function getFileContents( array $params ) {
 		list( $srcCont, $srcRel ) = $this->resolveStoragePathReal( $params['src'] );
 		if ( $srcRel === null ) {
 			return false; // invalid storage path
-		}
-
-		if ( !$this->fileExists( $params ) ) {
-			return null;
 		}
 
 		$data = false;
@@ -821,6 +821,7 @@ class SwiftFileBackend extends FileBackendStore {
 			$obj = new CF_Object( $sContObj, $srcRel, false, false ); // skip HEAD
 			$data = $obj->read( $this->headersFromParams( $params ) );
 		} catch ( NoSuchContainerException $e ) {
+		} catch ( NoSuchObjectException $e ) {
 		} catch ( CloudFilesException $e ) { // some other exception?
 			$this->handleException( $e, null, __METHOD__, $params );
 		}
@@ -1043,7 +1044,7 @@ class SwiftFileBackend extends FileBackendStore {
 		}
 
 		// Blindly create a tmp file and stream to it, catching any exception if the file does
-		// not exist. Also, doing a stat here will cause infinite loops when filling metadata.
+		// not exist. Also, doing a stat here will cause infinite loops in addMissingMetadata().
 		$tmpFile = null;
 		try {
 			$sContObj = $this->getContainer( $srcCont );

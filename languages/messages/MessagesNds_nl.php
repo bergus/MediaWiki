@@ -433,8 +433,8 @@ $messages = array(
 'category-file-count' => 'In disse kategorie {{PLURAL:$2|steet t volgende bestaand|staon de volgende $1 bestaanden, van in totaal $2}}.',
 'category-file-count-limited' => 'In disse kategorie {{PLURAL:$1|steet t volgende bestaand|staon de volgende $1 bestaanden}}.',
 'listingcontinuesabbrev' => '(vervolg)',
-'index-category' => 'Spul wat al indexeerd is',
-'noindex-category' => 'Spul wat nog niet indexeerd is',
+'index-category' => 'Te indexeren ziejen',
+'noindex-category' => 'Niet te indexeren ziejen',
 'broken-file-category' => 'Ziejen mit verkeerde bestaandsverwiezingen',
 
 'about' => 'Informasie',
@@ -686,8 +686,9 @@ Zeukopdrachte: $2',
 'protectedpagetext' => 'Disse zied is beveiligd um bewarkingen te veurkoemen.',
 'viewsourcetext' => 'Je kunnen de brontekste van disse zied bewarken en bekieken:',
 'viewyourtext' => "Je kunnen '''joew bewarkingen''' an de brontekste van disse zied bekieken en kopiëren:",
-'protectedinterface' => 'Op disse zied steet n tekste die gebruukt wörden veur systeemteksten van de wiki. Allinnig beheerders kunnen disse zied bewarken.',
-'editinginterface' => "'''Waorschuwing:''' je bewarken n zied die gebruukt wörden deur de programmatuur. Wa'j hier wiezigen, is van invleud op de hele wiki. Overweeg veur vertalingen um [//translatewiki.net/wiki/Main_Page?setlang=nds-nl translatewiki.net] te gebruken, t vertalingsprojekt veur MediaWiki.",
+'protectedinterface' => "Op disse zied steet tekste die gebruukt wörden veur systeemteksten van disse wiki. Allinnig beheerders kunnen disse zied bewarken.
+Um vertalingen veur alle wiki's derbie te zetten of te wiezigen, gebruuk [//translatewiki.net/ translatewiki.net], t vertaalprojekt veur MediaWiki.",
+'editinginterface' => "'''Waorschuwing:''' je bewarken n zied die gebruukt wörden deur de programmatuur. Wa'j hier wiezigen, is van invleud op de hele wiki. Um vertalingen derbie te zetten of te wiezigen veur alle wiki's, gebruuk [//translatewiki.net/wiki/Main_Page?setlang=nds-nl translatewiki.net], t vertalingsprojekt veur MediaWiki.",
 'sqlhidden' => '(SQL-zeukopdrachte verbörgen)',
 'cascadeprotected' => 'Disse zied is beveiligd umdat t veurkömp in de volgende {{PLURAL:$1|zied|ziejen}}, die beveiligd {{PLURAL:$1|is|bin}} mit de "kaskade"-opsie:
 $2',
@@ -969,7 +970,7 @@ Je kunnen [[Special:Search/{{PAGENAME}}|de titel opzeuken]] in aandere ziejen,
 of [{{fullurl:{{FULLPAGENAME}}|action=edit}} disse zied bewarken]</span>.',
 'noarticletext-nopermission' => 'Op disse zied steet gien tekste.
 Je kunnen [[Special:Search/{{PAGENAME}}|zeuken naor disse term]] in aandere ziejen of
-<span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} de logboeken deurzeuken]</span>.',
+<span class="plainlinks">[{{fullurl:{{#Special:Log}}|page={{FULLPAGENAMEE}}}} de logboeken deurzeuken]</span>, mer je hebben gien rechten um disse zied an te maken.',
 'missing-revision' => 'De versie #$1 van de zied "{{PAGENAME}} besteet niet.
 
 Dit kömp meestentieds deur t volgen van n verouwerde verwiezing naor n zied die vortedaon is.
@@ -1227,7 +1228,8 @@ Kiek de logboeken nao.',
 'revdelete-only-restricted' => 'Der is n fout op-etrejen bie t verbargen van t objekt van $1, $2: je kunnen gien objekten onderdrokken uut t zich van beheerders zonder oek n van de aandere zichtbaorheidsopsies te selekteren.',
 'revdelete-reason-dropdown' => '*Veulveurkoemde redens veur t vortdoon
 ** Schenden van de auteursrechten
-** Ongeschikte persoonlike informasie
+** Ongepast kommentaar of ongepaste persoonlike informasie
+** Ongepaste gebrukersnaam
 ** Meugelik lasterlike informasie',
 'revdelete-otherreason' => 'Aandere reden:',
 'revdelete-reasonotherlist' => 'Aandere reden',
@@ -1695,7 +1697,7 @@ Bestaanden en media die nao t vortdoon opniej op-estuurd wörden ku'j in de smie
 
 Um t bestaand in te voegen in n zied ku'j één van de volgende kodes gebruken:
 * '''<nowiki>[[</nowiki>{{ns:file}}<nowiki>:Bestaand.jpg]]</nowiki>'''
-* '''<nowiki>[[</nowiki>{{ns:file}}<nowiki>:Bestaand.png|alternetieve tekste]]</nowiki>'''
+* '''<nowiki>[[</nowiki>{{ns:file}}<nowiki>:Bestaand.png|alternatieve tekste]]</nowiki>'''
 * '''<nowiki>[[</nowiki>{{ns:media}}<nowiki>:Bestaand.ogg]]</nowiki>''' drekte verwiezing naor n bestaand.",
 'upload-permitted' => 'Toe-estaone bestaandstypes: $1.',
 'upload-preferred' => 'An-ewezen bestaandstypes: $1.',
@@ -1835,7 +1837,7 @@ As t probleem zo blif, neem dan kontakt op mit één van de [[Special:ListUsers/
 'backend-fail-internal' => 'Der is n onbekende fout op-etreden in t opslagbackend "$1".',
 'backend-fail-contenttype' => 'Kon t inhoudstype van t bestaand um op "$1" op te slaon niet bepaolen.',
 'backend-fail-batchsize' => 'Reeks van $1 bestaands{{PLURAL:$1|operasie|operasies}} in de opslagbackend; de limiet is $2 {{PLURAL:$2|operasie|operasies}}.',
-'backend-fail-usable' => 'Kon t bestaand $1 niet schrieven vanwegen te min rechten of niet-anwezige mappen of houwers.',
+'backend-fail-usable' => 'Kon t bestaand "$1" niet lezen of schrieven umda\'j niet genog rechten hebben of vanwegen niet-anwezige mappen of houwers.',
 
 # File journal errors
 'filejournal-fail-dbconnect' => 'Kon gien verbiending maken mit de journaaldatabanke veur t opslagbackend "$1".',

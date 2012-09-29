@@ -48,7 +48,7 @@ class FakeConverter {
 	/**
 	 * @var Language
 	 */
-	var $mLang;
+	public $mLang;
 	function __construct( $langobj ) { $this->mLang = $langobj; }
 	function autoConvertToAllVariants( $text ) { return array( $this->mLang->getCode() => $text ); }
 	function convert( $t ) { return $t; }
@@ -77,21 +77,21 @@ class Language {
 	/**
 	 * @var LanguageConverter
 	 */
-	var $mConverter;
+	public $mConverter;
 
-	var $mVariants, $mCode, $mLoaded = false;
-	var $mMagicExtensions = array(), $mMagicHookDone = false;
+	public $mVariants, $mCode, $mLoaded = false;
+	public $mMagicExtensions = array(), $mMagicHookDone = false;
 	private $mHtmlCode = null;
 
-	var $dateFormatStrings = array();
-	var $mExtendedSpecialPageAliases;
+	public $dateFormatStrings = array();
+	public $mExtendedSpecialPageAliases;
 
 	protected $namespaceNames, $mNamespaceIds, $namespaceAliases;
 
 	/**
 	 * ReplacementArray object caches
 	 */
-	var $transformData = array();
+	public $transformData = array();
 
 	/**
 	 * @var LocalisationCache
@@ -3005,7 +3005,7 @@ class Language {
 	function listToText( array $l ) {
 		$s = '';
 		$m = count( $l ) - 1;
-		
+
 		if ( $m === 0 ) {
 			return $l[0];
 		} elseif ( $m === 1 ) {
@@ -4187,7 +4187,17 @@ class Language {
 	 * @return array Associative array with plural form, and plural rule as key-value pairs
 	 */
 	public function getCompiledPluralRules() {
-		return self::$dataCache->getItem( strtolower( $this->mCode ), 'compiledPluralRules' );
+		$pluralRules = self::$dataCache->getItem( strtolower( $this->mCode ), 'compiledPluralRules' );
+		$fallbacks = Language::getFallbacksFor( $this->mCode );
+		if ( !$pluralRules ) {
+			foreach ( $fallbacks as $fallbackCode ) {
+				$pluralRules = self::$dataCache->getItem( strtolower( $fallbackCode ), 'compiledPluralRules' );
+				if ( $pluralRules ) {
+					break;
+				}
+			}
+		}
+		return $pluralRules;
 	}
 
 	/**
@@ -4196,7 +4206,17 @@ class Language {
 	 * @return array Associative array with plural form, and plural rule as key-value pairs
 	 */
 	public function getPluralRules() {
-		return self::$dataCache->getItem( strtolower( $this->mCode ), 'pluralRules' );
+		$pluralRules = self::$dataCache->getItem( strtolower( $this->mCode ), 'pluralRules' );
+		$fallbacks = Language::getFallbacksFor( $this->mCode );
+		if ( !$pluralRules ) {
+			foreach ( $fallbacks as $fallbackCode ) {
+				$pluralRules = self::$dataCache->getItem( strtolower( $fallbackCode ), 'pluralRules' );
+				if ( $pluralRules ) {
+					break;
+				}
+			}
+		}
+		return $pluralRules;
 	}
 
 	/**

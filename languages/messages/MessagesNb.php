@@ -1,5 +1,5 @@
 <?php
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  *
  * See MessagesQqq.php for message documentation incl. usage of parameters
  * To improve a translation please visit http://translatewiki.net
@@ -23,6 +23,7 @@
  * @author Haakon K
  * @author Harald Khan
  * @author Jeblad
+ * @author Jsoby
  * @author Jóna Þórunn
  * @author Kph
  * @author Kph-no
@@ -1439,7 +1440,7 @@ Her er et tilfeldig tall du kan bruke: $1',
 'timezoneregion-indian' => 'Indiahavet',
 'timezoneregion-pacific' => 'Stillehavet',
 'allowemail' => 'Tillat andre å sende meg e-post',
-'prefs-searchoptions' => 'Søkealternativ',
+'prefs-searchoptions' => 'Søk',
 'prefs-namespaces' => 'Navnerom',
 'defaultns' => 'Søk ellers i disse navnerommene:',
 'default' => 'standard',
@@ -1862,7 +1863,7 @@ Om problemet fortsetter, kontakt en [[Special:ListUsers/sysop|administrator]].',
 'backend-fail-internal' => 'En ukjent feil oppsto i filbackend «$1».',
 'backend-fail-contenttype' => 'Kunne ikke avgjøre innholdstypen til filen som skal lagres på «$1».',
 'backend-fail-batchsize' => 'Bakgrunnsprosesseringen belastet med {{PLURAL:$1|en filoperasjon|en samling av $1 filoperasjoner}}; grensen er $2.',
-'backend-fail-usable' => 'Kunne ikke skrive fila $1 på grunn av utilstrekkelige tillatelser eller manglende mapper/beholdere.',
+'backend-fail-usable' => 'Kunne ikke lese eller skrive fila «$1» på grunn av utilstrekkelige tillatelser eller manglende mapper/beholdere.',
 
 # File journal errors
 'filejournal-fail-dbconnect' => 'Kunne ikke koble til journaldatabasen for lagringssystemet «$1».',
@@ -2282,7 +2283,7 @@ Mer informasjon om de enkelte rettighetstypene kan finnes [[{{MediaWiki:Listgrou
 'emailpagetext' => 'Du kan bruke skjemaet nedenfor for å sende en e-post til denne brukeren.
 Den e-postadressen du har satt i [[Special:Preferences|innstillingene dine]] vil dukke opp i «fra»-feltet på denne e-posten, så mottakeren er i stand til å svare.',
 'usermailererror' => 'E-postobjekt returnerte feilen:',
-'defemailsubject' => '{{SITENAME}}-type e-post fra bruker "$1"',
+'defemailsubject' => 'E-post fra {{SITENAME}}-brukeren «$1»',
 'usermaildisabled' => 'Brukerepost deaktivert',
 'usermaildisabledtext' => 'Du kan ikke sende epost til andre brukere på denne wikien',
 'noemailtitle' => 'Ingen e-postadresse',

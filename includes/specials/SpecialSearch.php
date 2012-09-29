@@ -300,7 +300,7 @@ class SpecialSearch extends SpecialPage {
 			)
 		);
 		$out->addHtml(
-			Xml::openElement( 'table', array( 'id'=>'mw-search-top-table', 'border'=>0, 'cellpadding'=>0, 'cellspacing'=>0 ) ) .
+			Xml::openElement( 'table', array( 'id' => 'mw-search-top-table', 'cellpadding' => 0, 'cellspacing' => 0 ) ) .
 			Xml::openElement( 'tr' ) .
 			Xml::openElement( 'td' ) . "\n" .
 			$this->shortDialog( $term ) .
@@ -667,7 +667,7 @@ class SpecialSearch extends SpecialPage {
 					return "<li>" .
 						'<table class="searchResultImage">' .
 						'<tr>' .
-						'<td width="120" style="text-align: center; vertical-align: top;">' .
+						'<td style="width: 120px; text-align: center; vertical-align: top;">' .
 						$thumb->toHtml( array( 'desc-link' => true ) ) .
 						'</td>' .
 						'<td style="vertical-align: top;">' .
@@ -868,7 +868,7 @@ class SpecialSearch extends SpecialPage {
 		for( $i = 0; $i < $numRows; $i += 4 ) {
 			$namespaceTables .= Xml::openElement(
 				'table',
-				array( 'cellpadding' => 0, 'cellspacing' => 0, 'border' => 0 )
+				array( 'cellpadding' => 0, 'cellspacing' => 0 )
 			);
 			for( $j = $i; $j < $i + 4 && $j < $numRows; $j++ ) {
 				$namespaceTables .= Xml::tags( 'tr', null, $rows[$j] );

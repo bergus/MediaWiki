@@ -687,7 +687,7 @@ Lekérdezés: $2',
 'viewsourcetext' => 'Megtekintheted és másolhatod a lap forrását:',
 'viewyourtext' => "Megtekintheted és kimásolhatod a '''saját szerkesztéseidet''' az alábbi lapra:",
 'protectedinterface' => 'Ez a lap a szoftver felületéhez szolgáltat szöveget, és a visszaélések elkerülése miatt le van zárva.',
-'editinginterface' => "'''Vigyázat:''' egy olyan lapot szerkesztesz, ami a MediaWiki szoftver felületéhez tartozik. A lap megváltoztatása hatással lesz más szerkesztők számára is. Fordításra inkább használd a MediaWiki fordítására indított kezdeményezést, a [//translatewiki.net/wiki/Main_Page?setlang=hu translatewiki.net-et].",
+'editinginterface' => "'''Vigyázat:''' egy olyan lapot szerkesztesz, ami a MediaWiki szoftver felületéhez tartozik. A lap megváltoztatása hatással lesz a kinézetre, ahogy más szerkesztők látják a lapot. Fordításra inkább használd a MediaWiki fordítására indított kezdeményezést, a [//translatewiki.net/wiki/Main_Page?setlang=hu translatewiki.net-et].",
 'sqlhidden' => '(rejtett SQL lekérdezés)',
 'cascadeprotected' => 'Ez a lap szerkesztés elleni védelemmel lett ellátva, mert a következő {{PLURAL:$1|lapon|lapokon}} be van kapcsolva a „kaszkádolt” védelem:
 $2',
@@ -1218,7 +1218,8 @@ Ellenőrizd a naplókat.',
 'revdelete-only-restricted' => 'Hiba a(z) $1 $2 időbélyegű elem elrejtésekor: nem rejthetsz el az adminisztrátorok elől elemeket anélkül, hogy ne választanál ki egy másik elrejtési beállítást.',
 'revdelete-reason-dropdown' => '*Általános törlési okok
 ** Jogsértő tartalom
-** Kényes személyes információk',
+** Kényes személyes információk
+** Potenciális becsületsértő információk',
 'revdelete-otherreason' => 'Más/további ok:',
 'revdelete-reasonotherlist' => 'Más ok',
 'revdelete-edit-reasonlist' => 'Törlési okok szerkesztése',

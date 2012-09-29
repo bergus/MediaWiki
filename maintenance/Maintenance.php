@@ -482,19 +482,11 @@ abstract class Maintenance {
 			$this->error( 'Cannot get command line arguments, register_argc_argv is set to false', true );
 		}
 
-		if ( version_compare( phpversion(), '5.2.4' ) >= 0 ) {
-			// Send PHP warnings and errors to stderr instead of stdout.
-			// This aids in diagnosing problems, while keeping messages
-			// out of redirected output.
-			if ( ini_get( 'display_errors' ) ) {
-				ini_set( 'display_errors', 'stderr' );
-			}
-
-			// Don't touch the setting on earlier versions of PHP,
-			// as setting it would disable output if you'd wanted it.
-
-			// Note that exceptions are also sent to stderr when
-			// command-line mode is on, regardless of PHP version.
+		// Send PHP warnings and errors to stderr instead of stdout.
+		// This aids in diagnosing problems, while keeping messages
+		// out of redirected output.
+		if ( ini_get( 'display_errors' ) ) {
+			ini_set( 'display_errors', 'stderr' );
 		}
 
 		$this->loadParamsAndArgs();
@@ -1068,7 +1060,7 @@ abstract class Maintenance {
 	 */
 	private function lockSearchindex( &$db ) {
 		$write = array( 'searchindex' );
-		$read = array( 'page', 'revision', 'text', 'interwiki', 'l10n_cache' );
+		$read = array( 'page', 'revision', 'text', 'interwiki', 'l10n_cache', 'user' );
 		$db->lockTables( $read, $write, __CLASS__ . '::' . __METHOD__ );
 	}
 

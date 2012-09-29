@@ -416,7 +416,8 @@ Pe piacere prueve cchiù tarde.",
 'protectedpagetext' => 'Sta pàgene ha state prutette pe no fa fà cangiaminde a uecchje.',
 'viewsourcetext' => "Tu puè vedè e cupià 'a sorgente de sta pàgene:",
 'viewyourtext' => "Tu puè vedè e copià 'a sorgende de '''le cangiaminde tune''' a sta pàgene:",
-'protectedinterface' => "Sta pàgene te dè l'inderfacce de teste pìu software e jè blocchete pe prevenì l'abbuse.",
+'protectedinterface' => "Sta pàgene dèje 'nu teste de l'inderfacce pu software de sta uicchi, e jè prutette pe prevenìe l'abbuse.
+Pe aggiungere o cangià le traduziune pe tutte le uicchi, pe piacere ause [//translatewiki.net/ translatewiki.net], 'u proggette de localizzazzione de MediaUicchi.",
 'editinginterface' => "'''Fà attenziò:'''  Tu ste cange 'na pàgene ca jè ausete pe dà 'n'inderfacce de teste p'u software.
 Le cangiaminde de sta pàgene vonne a mettene mane sus a l'inderfacce utende pe l'otre utinde.
 Pe traduziune, pe piacere vide ce ause [//translatewiki.net/wiki/Main_Page?setlang=roa-tara translatewiki.net], 'u pruggette de localizzazione de MediaUicchi.",
@@ -1188,7 +1189,7 @@ Aqquà ste 'nu valore generate a uecchije ca tu puè ausà: $1",
 'timezoneregion-indian' => 'Oceano Indiane',
 'timezoneregion-pacific' => 'Oceano Pacifiche',
 'allowemail' => "Abbilite l'e-mail da l'otre utinde",
-'prefs-searchoptions' => 'Opzione de ricerche',
+'prefs-searchoptions' => 'Cirche',
 'prefs-namespaces' => 'Namespaces',
 'defaultns' => "Cirche jndr'à chiste namespace:",
 'default' => 'defolt',
@@ -1627,7 +1628,7 @@ Ce 'u probbleme angore jè presende, condatte 'n'[[Special:ListUsers/sysop|ammin
 'backend-fail-internal' => "'N'errore scanusciute s'à verificate jndr'à l'archivije de rrete \"\$1\".",
 'backend-fail-contenttype' => 'Non ge pozze capìe \'u tipe de condenute d\'u file da reggistrà sus a "$1".',
 'backend-fail-batchsize' => "L'archivije de rrete ha date 'nu processe de $1 {{PLURAL:$1|operazione|operaziune}} sus a le file; 'u limite jè $2 {{PLURAL:$2|operazione|operaziune}}.",
-'backend-fail-usable' => 'Non ge pozze scrivere \'u file "$1" purcé mangane le permesse sufficiende o non g\'esiste \'a cartelle/contenitore.',
+'backend-fail-usable' => 'Non ge pozze leggere o scrivere \'u file "$1" purcé mangane le permesse sufficiende o non g\'esiste \'a cartelle/condenitore.',
 
 # File journal errors
 'filejournal-fail-dbconnect' => 'Non ge pozze collegà a l\'archivije d\'u database pe memorizzà \'u rrete "$1".',
@@ -2714,6 +2715,7 @@ Tutte le aziune de 'mbortaziune 'mbrà le Uicchi sonde reggistrate jndr'à l'[[S
 'import-interwiki-templates' => 'Inglude tutte le template',
 'import-interwiki-submit' => "'Mborte",
 'import-interwiki-namespace' => 'Namespace de destinazione:',
+'import-interwiki-rootpage' => 'Pàgena prengepàale de destinazione (opzionale):',
 'import-upload-filename' => "Nome d'u file:",
 'import-comment' => 'Commende:',
 'importtext' => "Pe piacere esporte 'u file da 'a Uicchi sorgende ausanne l'[[Special:Export|utilità de esportazione]].
@@ -2751,6 +2753,7 @@ Reggistrele sus a 'u combiuter tune e carechele aqquà.",
 'import-error-invalid' => "'A pàgene \"\$1\" non g'ha state 'mbortate purcé 'u nome jè invalide.",
 'import-options-wrong' => '{{PLURAL:$2|opzione|opziune}} sbagliate: <nowiki>$1</nowiki>',
 'import-rootpage-invalid' => "'A pàgene radice date tène 'nu titole invalide.",
+'import-rootpage-nosubpage' => 'Namespace "$1" d\'a pàgene prengepàle non ge permette le sottopàggene.',
 
 # Import log
 'importlogpage' => "Archivie de le 'mbortaziune",
@@ -2920,6 +2923,7 @@ Stu fatte ha state causate da 'nu collegamende a 'nu site esterne ca appartene a
 'pageinfo-redirects-name' => 'Redirezionaminde a sta pàgene',
 'pageinfo-redirects-value' => '$1',
 'pageinfo-subpages-name' => 'Sottopàggene de sta pàgene',
+'pageinfo-subpages-value' => '$1 ($2 {{PLURAL:$2|ridirezionate|ridirezionate}}; $3 {{PLURAL:$3|none ridirezionate|none ridirezionate}})',
 'pageinfo-firstuser' => "Ccrejatore d'a pàgene",
 'pageinfo-firsttime' => "Date d'a ccrejazione d'a pàgene",
 'pageinfo-lastuser' => 'Urteme cangiatore',
@@ -2928,7 +2932,10 @@ Stu fatte ha state causate da 'nu collegamende a 'nu site esterne ca appartene a
 'pageinfo-authors' => 'Numere Totale de autore diverse',
 'pageinfo-recent-edits' => "Numere de le urteme cangiaminde ('mbonde a $1)",
 'pageinfo-recent-authors' => 'Numere de le urteme autore diverse',
+'pageinfo-restriction' => "Protezione d'a pàgene ({{lcfirst:$1}})",
 'pageinfo-magic-words' => '{{PLURAL:$1|Parole|Parole}} maggiche ($1)',
+'pageinfo-hidden-categories' => '{{PLURAL:$1|Categorije|Categorije}} scunnute ($1)',
+'pageinfo-templates' => 'Esclude {{PLURAL:$1|template|template}} ($1)',
 
 # Skin names
 'skinname-standard' => 'Classeche',
@@ -2994,6 +3001,8 @@ Ce l'esegue sus a 'u sisteme tue pò essere ca se combromette.",
 'file-info-png-looped' => 'infinite',
 'file-info-png-repeat' => 'eseguite $1 {{PLURAL:$1|vote|vote}}',
 'file-info-png-frames' => '$1 {{PLURAL:$1|frame|frame}}',
+'file-no-thumb-animation' => "'''Vide bbuène: Pe limitaziune tecniche, miniature de ste file non ge ponne essere animate.'''",
+'file-no-thumb-animation-gif' => "'''Vide bbuène: Pe limitaziune tecniche, miniature de resoluzione ierte de immaggine GIF cumme a queste non ge ponne essere animate.'''",
 
 # Special:NewFiles
 'newimages' => 'Gallerie de le fail nuève',

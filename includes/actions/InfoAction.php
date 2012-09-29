@@ -157,16 +157,18 @@ class InfoAction extends FormlessAction {
 				->numParams( count( $title->getRedirectsHere() ) )->escaped()
 		);
 
-		// Subpages of this page
-		$prefixIndex = SpecialPage::getTitleFor( 'Prefixindex', $title->getPrefixedText() . '/' );
-		$table = $this->addRow( $table,
-			Linker::link( $prefixIndex, $this->msg( 'pageinfo-subpages-name' )->escaped() ),
-			$this->msg( 'pageinfo-subpages-value' )
-				->numParams(
-					$pageInfo['subpages']['total'],
-					$pageInfo['subpages']['redirects'],
-					$pageInfo['subpages']['nonredirects'] )->escaped()
-		);
+		// Subpages of this page, if subpages are enabled for the current NS
+		if ( MWNamespace::hasSubpages( $title->getNamespace() ) ) {
+			$prefixIndex = SpecialPage::getTitleFor( 'Prefixindex', $title->getPrefixedText() . '/' );
+			$table = $this->addRow( $table,
+				Linker::link( $prefixIndex, $this->msg( 'pageinfo-subpages-name' )->escaped() ),
+				$this->msg( 'pageinfo-subpages-value' )
+					->numParams(
+						$pageInfo['subpages']['total'],
+						$pageInfo['subpages']['redirects'],
+						$pageInfo['subpages']['nonredirects'] )->escaped()
+			);
+		}
 
 		// Page protection
 		$content = $this->addTable( $content, $table );
@@ -202,24 +204,40 @@ class InfoAction extends FormlessAction {
 		$content = $this->addHeader( $content, $this->msg( 'pageinfo-header-edits' )->text() );
 		$table = '';
 
+		$firstRev = $this->page->getOldestRevision();
+
 		// Page creator
 		$table = $this->addRow( $table,
-			$this->msg( 'pageinfo-firstuser' )->escaped(), $pageInfo['firstuser']
+			$this->msg( 'pageinfo-firstuser' )->escaped(),
+			$firstRev->getUserText( Revision::FOR_THIS_USER, $user )
 		);
 
 		// Date of page creation
 		$table = $this->addRow( $table,
-			$this->msg( 'pageinfo-firsttime' )->escaped(), $lang->userTimeAndDate( $pageInfo['firsttime'], $user )
+			$this->msg( 'pageinfo-firsttime' )->escaped(),
+			Linker::linkKnown(
+				$title,
+				$lang->userTimeAndDate( $firstRev->getTimestamp(), $user ),
+				array(),
+				array( 'oldid' => $firstRev->getId() )
+			)
 		);
 
 		// Latest editor
 		$table = $this->addRow( $table,
-			$this->msg( 'pageinfo-lastuser' )->escaped(), $pageInfo['lastuser']
+			$this->msg( 'pageinfo-lastuser' )->escaped(),
+			$this->page->getUserText( Revision::FOR_THIS_USER, $user )
 		);
 
 		// Date of latest edit
 		$table = $this->addRow( $table,
-			$this->msg( 'pageinfo-lasttime' )->escaped(), $lang->userTimeAndDate( $pageInfo['lasttime'], $user )
+			$this->msg( 'pageinfo-lasttime' )->escaped(),
+			Linker::linkKnown(
+				$title,
+				$lang->userTimeAndDate( $this->page->getTimestamp(), $user ),
+				array(),
+				array( 'oldid' => $this->page->getLatest() )
+			)
 		);
 
 		// Total number of edits
@@ -404,54 +422,32 @@ class InfoAction extends FormlessAction {
 		);
 		$result['recent_authors'] = $authors;
 
-		$conds = array( 'page_namespace' => $title->getNamespace(), 'page_is_redirect' => 1 );
-		$conds[] = 'page_title ' . $dbr->buildLike( $title->getDBkey() . '/', $dbr->anyString() );
+		// Subpages (if enabled)
+		if ( MWNamespace::hasSubpages( $title->getNamespace() ) ) {
+			$conds = array( 'page_namespace' => $title->getNamespace() );
+			$conds[] = 'page_title ' . $dbr->buildLike( $title->getDBkey() . '/', $dbr->anyString() );
 
-		// Subpages of this page (redirects)
-		$result['subpages']['redirects'] = (int) $dbr->selectField(
-			'page',
-			'COUNT(page_id)',
-			$conds,
-			__METHOD__ );
+			// Subpages of this page (redirects)
+			$conds['page_is_redirect'] = 1;
+			$result['subpages']['redirects'] = (int) $dbr->selectField(
+				'page',
+				'COUNT(page_id)',
+				$conds,
+				__METHOD__ );
 
-		// Subpages of this page (non-redirects)
-		$conds['page_is_redirect'] = 0;
-		$result['subpages']['nonredirects'] = (int) $dbr->selectField(
-			'page',
-			'COUNT(page_id)',
-			$conds,
-			__METHOD__
-		);
+			// Subpages of this page (non-redirects)
+			$conds['page_is_redirect'] = 0;
+			$result['subpages']['nonredirects'] = (int) $dbr->selectField(
+				'page',
+				'COUNT(page_id)',
+				$conds,
+				__METHOD__
+			);
 
-		// Subpages of this page (total)
-		$result['subpages']['total'] = $result['subpages']['redirects']
-			+ $result['subpages']['nonredirects'];
-
-		// Latest editor + date of latest edit
-		$options = array( 'ORDER BY' => 'rev_timestamp ASC', 'LIMIT' => 1 );
-		$row = $dbr->fetchRow( $dbr->select(
-			'revision',
-			array( 'rev_user_text', 'rev_timestamp' ),
-			array( 'rev_page' => $id ),
-			__METHOD__,
-			$options
-		) );
-
-		$result['firstuser'] = $row['rev_user_text'];
-		$result['firsttime'] = $row['rev_timestamp'];
-
-		// Latest editor + date of latest edit
-		$options['ORDER BY'] = 'rev_timestamp DESC';
-		$row = $dbr->fetchRow( $dbr->select(
-			'revision',
-			array( 'rev_user_text', 'rev_timestamp' ),
-			array( 'rev_page' => $id ),
-			__METHOD__,
-			$options
-		) );
-
-		$result['lastuser'] = $row['rev_user_text'];
-		$result['lasttime'] = $row['rev_timestamp'];
+			// Subpages of this page (total)
+			$result['subpages']['total'] = $result['subpages']['redirects']
+				+ $result['subpages']['nonredirects'];
+		}
 
 		wfProfileOut( __METHOD__ );
 		return $result;

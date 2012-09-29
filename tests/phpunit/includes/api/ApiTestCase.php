@@ -1,10 +1,6 @@
 <?php 
 
 abstract class ApiTestCase extends MediaWikiLangTestCase {
-	/**
-	 * @var Array of ApiTestUser
-	 */
-	public static $users;
 	protected static $apiUrl;
 
 	/**
@@ -22,14 +18,16 @@ abstract class ApiTestCase extends MediaWikiLangTestCase {
 		$wgAuth = new StubObject( 'wgAuth', 'AuthPlugin' );
 		$wgRequest = new FauxRequest( array() );
 
+		ApiQueryInfo::resetTokenCache(); // tokens are invalid because we cleared the session
+
 		self::$users = array(
-			'sysop' => new ApiTestUser(
+			'sysop' => new TestUser(
 				'Apitestsysop',
 				'Api Test Sysop',
 				'api_test_sysop@example.com',
 				array( 'sysop' )
 			),
-			'uploader' => new ApiTestUser(
+			'uploader' => new TestUser(
 				'Apitestuser',
 				'Api Test User',
 				'api_test_user@example.com',
